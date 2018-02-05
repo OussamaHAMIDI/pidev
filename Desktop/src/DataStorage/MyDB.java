@@ -8,7 +8,6 @@ package DataStorage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pkg3a12_workshop01.Main;
@@ -19,9 +18,9 @@ import pkg3a12_workshop01.Main;
  */
 public class MyDB {
      Connection connexion;
-    final  String url = "jdbc:mysql://localhost/3a12";
+    final  String url = "jdbc:mysql://localhost/3306";
     final  String user = "root";
-    final  String password = "AhmedBHK";
+    final  String password = "";
     private static MyDB instance=null;
     
     private MyDB() {
@@ -43,9 +42,4 @@ public class MyDB {
     public Connection getConnexion() {
         return connexion;
     }
-
-    
-    
-    
-    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg3a12_workshop01;
+package main;
 
 import DataStorage.MyDB;
 import Services.ProduitService;
