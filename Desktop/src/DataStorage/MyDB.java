@@ -14,12 +14,12 @@ import main.Main;
 
 /**
  *
- * @author hamdi
+ * @author Hamdi
  */
 public class MyDB {
 
     Connection connexion;
-    final String url = "jdbc:mysql://localhost/DB_Name"; // !************ change db name **************** 
+    final String url = "jdbc:mysql://localhost:3306/DB_Name"; // !************ change db name **************** 
     final String user = "root";
     final String password = "";
     private static MyDB instance = null;

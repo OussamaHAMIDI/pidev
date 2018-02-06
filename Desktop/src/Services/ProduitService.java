@@ -7,7 +7,7 @@ package Services;
 
 import DataStorage.MyDB;
 import IServices.IProduit;
-import entities.Produit;
+import Entities.Produit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author hamdi
+ * @author Hamdi
  */
 public class ProduitService implements IProduit {
 
@@ -56,21 +56,16 @@ public class ProduitService implements IProduit {
     }
 
     @Override
-    public Produit chercherProduitParLibelle(String libelle) {
-        Produit produit = new Produit();
+    public Produit chercherProduitParID(int ID) {
+        Produit produit = null;
         try {
-            String sql = "SELECT * FROM produit WHERE libelle=?";
-            PreparedStatement ps = connexion.prepareStatement(sql);
-            ps.setString(1, libelle);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                produit.setId(rs.getInt("id"));
-                produit.setLibelle(rs.getString("libelle"));
-                produit.setNombre(rs.getInt("nombre"));
+            ResultSet result = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM produit WHERE id = " + ID);
+            if (result.first()) {
+                produit = new Produit(result.getInt("id"), result.getString("libelle"), result.getInt("nombre"));
             }
         } catch (SQLException e) {
-            System.out.println("Echec Produit par libelle");
+            System.out.println("erreur" + e.getMessage());
         }
         return produit;
     }

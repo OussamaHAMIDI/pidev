@@ -6,11 +6,11 @@
 package main;
 
 import Services.ProduitService;
-import entities.Produit;
+import Entities.Produit;
 
 /**
  *
- * @author hamdi
+ * @author Hamdi
  */
 public class Main {
 
