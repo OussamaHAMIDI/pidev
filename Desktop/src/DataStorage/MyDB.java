@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pkg3a12_workshop01.Main;
+import main.Main;
 
 /**
  *
