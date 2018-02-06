@@ -7,7 +7,7 @@ package entities;
 
 /**
  *
- * @author bhk
+ * @author hamdi
  */
 public class Produit {
 
@@ -15,13 +15,13 @@ public class Produit {
     String libelle;
     int nombre;
 
+    public Produit() {
+    }
+
     public Produit(int id, String libelle, int nombre) {
         this.id = id;
         this.libelle = libelle;
         this.nombre = nombre;
-    }
-
-    public Produit() {
     }
 
     public Produit(String libelle, int nombre) {
