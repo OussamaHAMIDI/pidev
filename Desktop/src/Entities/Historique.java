@@ -14,24 +14,24 @@ import java.util.List;
  */
 public class Historique {
     
-    private List<Panier> listPanier;
+    private List<Commande> listCommande;
     private String id;
     private String userId;
     
     public Historique(){
-        listPanier = new ArrayList<Panier>();
+        listCommande = new ArrayList<Commande>();
     }
     
-    public Historique(ArrayList<Panier> listPanier){
-        this.listPanier=listPanier;
+    public Historique(ArrayList<Commande> listCommande){
+        this.listCommande=listCommande;
     }
 
-    public List<Panier> getListPanier() {
-        return listPanier;
+    public List<Commande> getListPanier() {
+        return listCommande;
     }
 
-    public void setListPanier(List<Panier> listPanier) {
-        this.listPanier = listPanier;
+    public void setListPanier(List<Commande> listCommande) {
+        this.listCommande = listCommande;
     }
     
     public String getId() {
@@ -49,6 +49,4 @@ public class Historique {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
-    
 }
