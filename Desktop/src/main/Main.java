@@ -5,27 +5,20 @@
  */
 package main;
 
-import DataStorage.MyDB;
 import Services.ProduitService;
-import entities.Produit;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Entities.Produit;
 
 /**
  *
- * @author bhk
+ * @author Hamdi
  */
 public class Main {
 
-    static Connection connexion;
-    static Statement state;
-    final static String url = "jdbc:mysql://localhost/3a12";
-    final static String user = "root";
-    final static String password = "AhmedBHK";
+//    static Connection connexion;
+//    static Statement state;
+//    final static String url = "jdbc:mysql://localhost/DB_Name"; // !************ change db name **************** 
+//    final static String user = "root";
+//    final static String password = "";
 
     /**
      * @param args the command line arguments
@@ -38,6 +31,7 @@ public class Main {
         Produit p4 = new Produit("Pain", 100);
 
         ProduitService ps= new ProduitService();
+        
         ps.ajouterProduit(p);
         ps.ajouterProduit(p2);
         ps.ajouterProduit(p3);

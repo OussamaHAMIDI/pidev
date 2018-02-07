@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entities;
+package Entities;
 
 /**
  *
- * @author bhk
+ * @author Hamdi
  */
 public class Produit {
 
@@ -15,13 +15,13 @@ public class Produit {
     String libelle;
     int nombre;
 
+    public Produit() {
+    }
+
     public Produit(int id, String libelle, int nombre) {
         this.id = id;
         this.libelle = libelle;
         this.nombre = nombre;
-    }
-
-    public Produit() {
     }
 
     public Produit(String libelle, int nombre) {

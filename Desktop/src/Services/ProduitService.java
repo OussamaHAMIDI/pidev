@@ -7,20 +7,23 @@ package Services;
 
 import DataStorage.MyDB;
 import IServices.IProduit;
-import entities.Produit;
+import Entities.Produit;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author bhk
+ * @author Hamdi
  */
-public class ProduitService implements IProduit{
+public class ProduitService implements IProduit {
+
     Connection connexion;
+
     public ProduitService() {
         connexion = MyDB.getinstance().getConnexion();
     }
@@ -28,9 +31,8 @@ public class ProduitService implements IProduit{
     @Override
     public void ajouterProduit(Produit p) {
         try {
-            String query = "INSERT INTO produit (libelle, nombre) "
-                    + "values ( '"+p.getLibelle()+"',"+p.getNombre()+" )";
-            Statement stm= connexion.createStatement();
+            String query = "INSERT INTO produit (libelle, nombre) values ( '" + p.getLibelle() + "'," + p.getNombre() + " )";
+            Statement stm = connexion.createStatement();
             stm.executeUpdate(query);
             System.out.println("Ajout effectué");
         } catch (SQLException ex) {
@@ -40,17 +42,82 @@ public class ProduitService implements IProduit{
 
     @Override
     public void supprimerProduit(Produit p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
+            PreparedStatement ps = connexion.prepareStatement(sql);
+            ps.setString(1, p.getLibelle());
+            ps.setInt(2, p.getNombre());
+            ps.setInt(3, p.getId());
+            ps.executeUpdate();
+            System.out.println("Supression effectuée");
+        } catch (SQLException ex) {
+            System.out.println("Echec de supression");
+        }
     }
 
     @Override
-    public Produit chercherProduitParNom(String nom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Produit chercherProduitParID(int ID) {
+        Produit produit = null;
+        try {
+            ResultSet result = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM produit WHERE id = " + ID);
+            if (result.first()) {
+                produit = new Produit(result.getInt("id"), result.getString("libelle"), result.getInt("nombre"));
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur" + e.getMessage());
+        }
+        return produit;
     }
 
     @Override
     public List<Produit> lireProduits() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List produits = new ArrayList();
+        try {
+            String sql = "SELECT * FROM produit";
+            PreparedStatement ps = connexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            Produit p = new Produit();
+            while (rs.next()) {
+                p.setId(rs.getInt("id"));
+                p.setLibelle(rs.getString("libelle"));
+                p.setNombre(rs.getInt("nombre"));
+                produits.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec");
+        }
+        return produits;
     }
-    
+
+    @Override
+    public void modifierProduit(Produit p) {
+        try {
+            String sql = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
+            PreparedStatement ps = connexion.prepareStatement(sql);
+            ps.setString(1, p.getLibelle());
+            ps.setInt(2, p.getNombre());
+            ps.setInt(3, p.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Echec de modification ");
+        }
+    }
+
+    @Override
+    public String getNextId() {
+        String nextid = "";
+        try {
+            String sql = "SHOW TABLE STATUS LIKE 'produit'";
+            PreparedStatement ps = connexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nextid = rs.getString("Auto_increment");
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec get Next ID ");
+        }
+        return nextid;
+    }
+
 }

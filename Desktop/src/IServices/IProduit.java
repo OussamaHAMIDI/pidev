@@ -5,22 +5,26 @@
  */
 package IServices;
 
-import entities.Produit;
+import Entities.Produit;
 import java.util.List;
 import javafx.scene.control.ListCellBuilder;
 
 /**
  *
- * @author bhk
+ * @author Hamdi
  */
 public interface IProduit {
 
     public void ajouterProduit(Produit p);
 
     public void supprimerProduit(Produit p);
+    
+    public void modifierProduit(Produit p);
 
-    public Produit chercherProduitParNom(String nom);
+    public Produit chercherProduitParID(int ID);
 
     public List<Produit> lireProduits();
+    
+    public String  getNextId();
     
 }
