@@ -19,11 +19,18 @@ public class Historique {
     private String userId;
     
     public Historique(){
+
         listCommande = new ArrayList<Commande>();
+
+        listPanier = new ArrayList();
     }
     
+
     public Historique(ArrayList<Commande> listCommande){
         this.listCommande=listCommande;
+
+    public Historique(List listPanier){
+        this.listPanier=listPanier;
     }
 
     public List<Commande> getListPanier() {
