@@ -5,6 +5,7 @@
  */
 package IServices;
 
+import Entities.Produit;
 import entities.*;
 import java.util.List;
 
