@@ -19,10 +19,10 @@ public class Historique {
     private String userId;
     
     public Historique(){
-        listPanier = new ArrayList<Panier>();
+        listPanier = new ArrayList();
     }
     
-    public Historique(ArrayList<Panier> listPanier){
+    public Historique(List listPanier){
         this.listPanier=listPanier;
     }
 

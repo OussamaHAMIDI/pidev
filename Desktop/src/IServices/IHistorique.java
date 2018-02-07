@@ -5,9 +5,8 @@
  */
 package IServices;
 
-import Entities.Historique;
-import entities.Panier;
-import java.util.List;
+import Entities.*;
+
 
 /**
  *
