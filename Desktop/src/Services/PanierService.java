@@ -7,13 +7,16 @@ package Services;
 import DataStorage.MyDB;
 import Entities.Panier;
 import Entities.Produit;
+import Entities.ProduitPanier;
 import IServices.IPanier;
 import Utils.Enumerations;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,29 +34,33 @@ public class PanierService implements IPanier{
         connexion = MyDB.getinstance().getConnexion();
     }
     
-    @Override
-    public int ajouterProduitPanier(Produit prod, Panier pan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
+
+  
 
     @Override
-    public int supprimerProduitPanier(Produit prod, Panier pan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Panier> rechercherPaniersUtilisateur(String userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Panier> rechercherPaniersUtilisateur(String userId, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Panier rechercherPanierById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Panier rechercherPanierById(int id) {
+        Panier panier = null;
+        try {
+            ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM panier WHERE id = '" + id + "'");
+            if (rs.first()) {
+                panier = new Panier(rs.getInt("id"),
+                        rs.getInt("userid"),
+                        rs.getObject("datecreation", LocalDateTime.class),
+                        rs.getObject("datelivraison", LocalDateTime.class),
+                        rs.getDouble("totalttc"),
+                        rs.getDouble("fraislivraison"),
+                        rs.getString("status"),
+                        rs.getString("modepaiement"),
+                        rs.getBoolean("estlivre"),
+                        rs.getBoolean("estpaye"),
+                        rechercherProduitsPanier(rs.getInt("id")));
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur" + e.getMessage());
+        }
+        return panier;
     }
 
     @Override
@@ -90,7 +97,7 @@ return 1;
         try {
             ps = connexion.prepareStatement(req);
             
-            ps.setString(1, panier.getUserId());
+            ps.setInt(1, panier.getUserId());
             ps.setObject(2, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(3, panier.getDateLivraison());
             ps.setDouble(4, panier.getTotalTTC());
@@ -99,7 +106,7 @@ return 1;
             ps.setString(7, panier.getModePaiement());
             ps.setBoolean(8, panier.isEstLivre());
             ps.setBoolean(9, panier.isEstPaye());
-            ps.setString(10, panier.getId());
+            ps.setInt(10, panier.getId());
             ps.executeUpdate(req);
 return 1;
         } catch (SQLException ex) {
@@ -114,7 +121,7 @@ return 1;
         String req = "Delete from panier where id=? ";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, panier.getId());
+            ps.setInt(1, panier.getId());
             ps.executeUpdate(req);
             return 1;
         } catch (SQLException ex) {
@@ -124,21 +131,58 @@ return 1;
         }
     }
 
+ 
+
     @Override
-    public int ajouterProduitPanier(Produit produit, String idPanier) {
+    public List<Produit> rechercherProduitsPanier(int panierId) {
+        List<Produit> produits = null;
+        
+        try {
+            ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM produitpanier WHERE id_panier = '" + panierId + "'");
+            while (rs.next()) {
+                produits.add(new ProduitPanier(rs.getInt("idproduit"),
+                        rs.getString("reference"),
+                        rs.getString("libelle"),
+                        rs.getString("description"),
+                        rs.getFloat("idproduit"),
+                        rs.getString("taille"),
+                        rs.getString("couleur"),
+                        rs.getString("texture"),
+                        rs.getFloat("poids"),
+                        rs.getFloat("quantitevendu"),
+                        rs.getFloat("poidsvendu"),
+                        rs.getFloat("prixvente")));
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur" + e.getMessage());
+        }
+        return produits;
+    }
+
+    @Override
+    public int ajouterProduitPanier(ProduitPanier produit, int idPanier) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int supprimerProduitPanier(Produit produit, String idPanier) {
+    public int modifierProduitPanier(ProduitPanier produit, int idPanier) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int modifierProduitPanier(Produit produit, String idPanier) {
+    public int supprimerProduitPanier(int produitId, int idPanier) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+  @Override
+    public List<Panier> rechercherPaniersUtilisateur(int userId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public List<Panier> rechercherPaniersUtilisateur(int userId, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
