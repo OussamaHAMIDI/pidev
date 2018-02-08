@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Hamdi
+ * @author oussamahamidi
  */
 public class ProduitService implements IProduit {
 
@@ -38,7 +38,7 @@ public class ProduitService implements IProduit {
     @Override
     public boolean ajouterProduit(Produit p) {
         try {
-            String req = "INSERT INTO produit (libelle, nombre) values ( '" + p.getLibelle() + "'," + p.getNombre() + " )";
+            String req = "INSERT INTO produit (idProduit,reference,libelle,description,prix,taille,couleur,texture,poids,idBoutique) values ( " + p.getIdProduit() + ",'" + p.getReference()+ "','" + p.getLibelle() + "','" + p.getDescription()+ "'," + p.getPrix() + ",'" + p.getTaille() + "','" + p.getCouleur() + "','" + p.getTexture() + "'," + p.getPoids() + "," + p.getIdBoutique() + ")";                                              
             ps = connexion.prepareStatement(req);
             ps.executeUpdate(req);
             System.out.println("Ajout effectué");
@@ -51,20 +51,38 @@ public class ProduitService implements IProduit {
     }
 
     @Override
-    public boolean supprimerProduit(Produit p) {
+    public boolean modifierProduit(Produit p) {
         try {
-            String req = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
+            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , idBoutique=? WHERE idProduit=?";
             ps = connexion.prepareStatement(req);
-            ps.setString(1, p.getLibelle());
-            ps.setInt(2, p.getNombre());
-            ps.setString(3, p.getId());
+            ps.setString(1, p.getReference());
+            ps.setString(2, p.getLibelle());
+            ps.setString(3, p.getDescription());
+            ps.setFloat(4, p.getPrix());
+            ps.setString(5, p.getTaille());
+            ps.setString(6, p.getCouleur());
+            ps.setString(7, p.getTexture());
+            ps.setFloat(8, p.getPoids());
+            ps.setInt(9, p.getIdBoutique());
+            ps.setInt(10, p.getIdProduit());
             ps.executeUpdate();
-            System.out.println("Supression effectuée");
+            System.out.println("Modification effectuée");
             return true;
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Echec de supression");
+            System.out.println("Echec de modification");
             return false;
+        }
+    }
+    
+    public void supprimerProduit(int id) {
+        try {
+            String req = " DELETE FROM `produit` WHERE idProduit = " + idProduit + "";
+            ps = connexion.prepareStatement(req);
+            ps.executeUpdate();
+            System.out.println("La supression de la boutique est effectuée");
+        } catch (SQLException ex) {
+            System.out.println("Echec de supression");
         }
     }
 
@@ -73,9 +91,9 @@ public class ProduitService implements IProduit {
         Produit produit = null;
         try {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM produit WHERE id = " + ID);
+                    .executeQuery("SELECT * FROM produit WHERE idProduit = " + ID);
             if (result.first()) {
-                produit = new Produit(result.getString("id"), result.getString("libelle"), result.getInt("nombre"));
+                produit = new Produit(result.getInt("id"), result.getString("libelle"), result.getInt("nombre"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,23 +123,6 @@ public class ProduitService implements IProduit {
         return produits;
     }
 
-    @Override
-    public boolean modifierProduit(Produit p) {
-        try {
-            String req = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
-            ps = connexion.prepareStatement(req);
-            ps.setString(1, p.getLibelle());
-            ps.setInt(2, p.getNombre());
-            ps.setString(3, p.getId());
-            ps.executeUpdate();
-             System.out.println("Modification effectuée");
-            return true;
-        } catch (SQLException ex) {
-             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Echec de modification ");
-            return false;
-        }
-    }
 
     @Override
     public String getNextId() {

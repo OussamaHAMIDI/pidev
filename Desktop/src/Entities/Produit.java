@@ -12,7 +12,7 @@ package Entities;
  */
 public class Produit {
 
-    protected int id;
+    protected int idProduit;
     protected String reference;
     protected String libelle;
     protected String description;
@@ -26,8 +26,8 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
-        this.id = id;
+    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
+        this.idProduit = idProduit;
         this.reference = reference;
         this.libelle = libelle;
         this.description = description;
@@ -40,12 +40,12 @@ public class Produit {
 
     
 
-    public int getId() {
-        return id;
+    public int getIdProduit() {
+        return idProduit;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdProduit(int id) {
+        this.idProduit = idProduit;
     }
 
     public String getReference() {
@@ -122,7 +122,7 @@ public class Produit {
     
     @Override
     public String toString() {
-        return "Les informations du produit sont :" + " l'id est " + id + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
+        return "Les informations du produit sont :" + " l'id est " + idProduit + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
     }
 
 }
