@@ -5,8 +5,9 @@
  */
 package main;
 
-import Services.ProduitService;
-import Entities.Produit;
+import Services.*;
+import Entities.*;
+import Utils.Enumerations.*;
 
 /**
  *
@@ -36,6 +37,10 @@ public class Main {
         ps.ajouterProduit(p2);
         ps.ajouterProduit(p3);
         ps.ajouterProduit(p4);
+        
+        UserService us = new UserService();
+     
+        
 
     }
 

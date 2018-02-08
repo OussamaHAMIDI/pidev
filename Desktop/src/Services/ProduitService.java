@@ -12,9 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,49 +24,57 @@ import java.util.List;
 public class ProduitService implements IProduit {
 
     Connection connexion;
-
+    PreparedStatement ps;
+    
     public ProduitService() {
         connexion = MyDB.getinstance().getConnexion();
     }
 
     @Override
-    public void ajouterProduit(Produit p) {
+    public boolean ajouterProduit(Produit p) {
         try {
-            String query = "INSERT INTO produit (libelle, nombre) values ( '" + p.getLibelle() + "'," + p.getNombre() + " )";
-            Statement stm = connexion.createStatement();
-            stm.executeUpdate(query);
+            String req = "INSERT INTO produit (libelle, nombre) values ( '" + p.getLibelle() + "'," + p.getNombre() + " )";
+            ps = connexion.prepareStatement(req);
+            ps.executeUpdate(req);
             System.out.println("Ajout effectué");
+            return true;
         } catch (SQLException ex) {
+            Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec d'ajout");
+            return false;
         }
     }
 
     @Override
-    public void supprimerProduit(Produit p) {
+    public boolean supprimerProduit(Produit p) {
         try {
-            String sql = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
-            PreparedStatement ps = connexion.prepareStatement(sql);
+            String req = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
+            ps = connexion.prepareStatement(req);
             ps.setString(1, p.getLibelle());
             ps.setInt(2, p.getNombre());
-            ps.setInt(3, p.getId());
+            ps.setString(3, p.getId());
             ps.executeUpdate();
             System.out.println("Supression effectuée");
+            return true;
         } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec de supression");
+            return false;
         }
     }
 
     @Override
-    public Produit chercherProduitParID(int ID) {
+    public Produit chercherProduitParID(String ID) {
         Produit produit = null;
         try {
-            ResultSet result = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+            ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + ID);
             if (result.first()) {
-                produit = new Produit(result.getInt("id"), result.getString("libelle"), result.getInt("nombre"));
+                produit = new Produit(result.getString("id"), result.getString("libelle"), result.getInt("nombre"));
             }
-        } catch (SQLException e) {
-            System.out.println("erreur" + e.getMessage());
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur" + ex.getMessage());
         }
         return produit;
     }
@@ -74,33 +83,38 @@ public class ProduitService implements IProduit {
     public List<Produit> lireProduits() {
         List produits = new ArrayList();
         try {
-            String sql = "SELECT * FROM produit";
-            PreparedStatement ps = connexion.prepareStatement(sql);
+            String req = "SELECT * FROM produit";
+            ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getString("id"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setNombre(rs.getInt("nombre"));
                 produits.add(p);
             }
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec");
         }
         return produits;
     }
 
     @Override
-    public void modifierProduit(Produit p) {
+    public boolean modifierProduit(Produit p) {
         try {
-            String sql = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
-            PreparedStatement ps = connexion.prepareStatement(sql);
+            String req = "UPDATE produit SET libelle=?, nombre=? WHERE id=?";
+            ps = connexion.prepareStatement(req);
             ps.setString(1, p.getLibelle());
             ps.setInt(2, p.getNombre());
-            ps.setInt(3, p.getId());
+            ps.setString(3, p.getId());
             ps.executeUpdate();
-        } catch (SQLException e) {
+             System.out.println("Modification effectuée");
+            return true;
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec de modification ");
+            return false;
         }
     }
 
@@ -108,13 +122,14 @@ public class ProduitService implements IProduit {
     public String getNextId() {
         String nextid = "";
         try {
-            String sql = "SHOW TABLE STATUS LIKE 'produit'";
-            PreparedStatement ps = connexion.prepareStatement(sql);
+            String req = "SHOW TABLE STATUS LIKE 'produit'";
+            ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 nextid = rs.getString("Auto_increment");
             }
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec get Next ID ");
         }
         return nextid;

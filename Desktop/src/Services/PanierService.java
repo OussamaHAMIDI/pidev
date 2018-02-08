@@ -6,8 +6,7 @@
 package Services;
 
 import IServices.IPanier;
-import entities.Panier;
-import entities.Produit;
+import Entities.*;
 import java.util.List;
 
 /**

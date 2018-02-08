@@ -5,8 +5,12 @@
  */
 package IServices;
 
+<<<<<<< HEAD
 import Entities.Produit;
 import entities.*;
+=======
+import Entities.*;
+>>>>>>> b2db77aec68ea55f6430c7c8a0244d7c393c69f0
 import java.util.List;
 
 /**

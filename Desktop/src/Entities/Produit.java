@@ -5,20 +5,21 @@
  */
 package Entities;
 
+
 /**
  *
  * @author Hamdi
  */
 public class Produit {
 
-    int id;
-    String libelle;
-    int nombre;
+    private String id;
+    private String libelle;
+    private int nombre;
 
     public Produit() {
     }
 
-    public Produit(int id, String libelle, int nombre) {
+    public Produit(String id, String libelle, int nombre) {
         this.id = id;
         this.libelle = libelle;
         this.nombre = nombre;
@@ -29,11 +30,12 @@ public class Produit {
         this.nombre = nombre;
     }
 
-    public int getId() {
+    
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,6 +55,7 @@ public class Produit {
         this.nombre = nombre;
     }
 
+    
     @Override
     public String toString() {
         return "Produit{" + "id=" + id + ", libelle=" + libelle + ", nombre=" + nombre + '}';
