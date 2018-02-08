@@ -19,7 +19,7 @@ import main.Main;
 public class MyDB {
 
     Connection connexion;
-    final String url = "jdbc:mysql://localhost:3306/Souk"; // !************ change db name **************** 
+    final String url = "jdbc:mysql://localhost:3306/souk"; // !************ change db name **************** 
     final String user = "root";
     final String password = "";
     private static MyDB instance = null;
