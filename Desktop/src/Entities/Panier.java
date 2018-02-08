@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +15,7 @@ import java.util.Objects;
  * @author monta
  */
 public class Panier {
+
     private String id;
     private String userId;
     private Date dateCreation;
@@ -176,19 +177,9 @@ public class Panier {
         }
         return true;
     }
-    
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 6deb11795fc702b49fc733d6fb1a218c6b0df91c
-=======
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Entities;
+
+/*package Entities;
 
 import java.sql.Date;
 import java.util.List;
@@ -197,7 +188,7 @@ import java.util.Objects;
 /**
  *
  * @author monta
- */
+ 
 public class Panier {
     private String id;
     private String userId;
@@ -220,6 +211,7 @@ public class Panier {
     }
 
     public String getUserId() {
+    
         return userId;
     }
 
@@ -364,3 +356,5 @@ public class Panier {
     
 }
 >>>>>>> b7c2aad20ea0f68370c2d627cb53806c1867286f
+*/
+    

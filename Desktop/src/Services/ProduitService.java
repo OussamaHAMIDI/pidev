@@ -140,7 +140,6 @@ public class ProduitService implements IProduit {
         return nextid;
     }
 
-<<<<<<< HEAD
     @Override
     public Produit getProduit(String idProduit) {
         
@@ -163,9 +162,5 @@ public class ProduitService implements IProduit {
         }
         return p;
     }
-=======
-    
-
->>>>>>> b7c2aad20ea0f68370c2d627cb53806c1867286f
 }
     

@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,54 +5,36 @@
  */
 package Entities;
 
-import Utils.Enumerations.TypeReclamation;
+import Utils.Enumerations;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author benab
  */
-public class Reclamation {
+public class Evaluation {
     
     private String id;
     private String userId;
     private String produitOrBoutiqueId;
     private String description;
     private LocalDateTime dateCreation;
-    private TypeReclamation type;
+    private Enumerations.TypeReclamation type;
 
-    
-    /**
-     * 
-     * @param id
-     * @param userId
-     * @param produitOrBoutiqueId 
-     * @param description
-     * @param dateCreation 
-     */
-    
-    public Reclamation(String id, String userId, String produitOrBoutiqueId, String description, LocalDateTime dateCreation, TypeReclamation type) {
+    public Evaluation(String id, String userId, String produitOrBoutiqueId, String description, LocalDateTime dateCreation, Enumerations.TypeReclamation type) {
         this.id = id;
+        this.userId = userId;
         this.produitOrBoutiqueId = produitOrBoutiqueId;
         this.description = description;
         this.dateCreation = dateCreation;
-        this.userId = userId;
-        this.type=type;
+        this.type = type;
     }
-    
-    public Reclamation() {
+
+    public Evaluation() {
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setType(TypeReclamation type) {
-        this.type = type;
-    }
-
-    public TypeReclamation getType() {
-        return type;
     }
 
     public String getUserId() {
@@ -70,6 +51,10 @@ public class Reclamation {
 
     public LocalDateTime getDateCreation() {
         return dateCreation;
+    }
+
+    public Enumerations.TypeReclamation getType() {
+        return type;
     }
 
     public void setId(String id) {
@@ -91,6 +76,11 @@ public class Reclamation {
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
-    
 
+    public void setType(Enumerations.TypeReclamation type) {
+        this.type = type;
+    }
+    
+    
+    
 }
