@@ -15,13 +15,13 @@ import javafx.scene.control.ListCellBuilder;
  */
 public interface IProduit {
 
-    public void ajouterProduit(Produit p);
+    public boolean ajouterProduit(Produit p);
 
-    public void supprimerProduit(Produit p);
+    public boolean supprimerProduit(Produit p);
     
-    public void modifierProduit(Produit p);
+    public boolean modifierProduit(Produit p);
 
-    public Produit chercherProduitParID(int ID);
+    public Produit chercherProduitParID(String ID);
 
     public List<Produit> lireProduits();
     
