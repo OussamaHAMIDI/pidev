@@ -26,15 +26,11 @@ public class Main {
      */
     public static void main(String[] args) {
 
-<<<<<<< HEAD
-=======
-        Produit p = new Produit();
-        Produit p2 = new Produit("Yaourt", 3000);
-        Produit p3 = new Produit("Savon", 50000);
-        Produit p4 = new Produit("Pain", 100);
+
+
 
         ProduitService ps= new ProduitService();
->>>>>>> e1dabcdb0b010be2863fd5d54fc6a23f0351aa4b
+
         
         
         UserService us = new UserService();
