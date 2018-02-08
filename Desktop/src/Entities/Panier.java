@@ -15,8 +15,8 @@ import java.util.Objects;
  * @author monta
  */
 public class Panier {
-    private String id;
-    private String userId;
+    private int id;
+    private int userId;
     private Date dateCreation;
     private Date dateLivraison;
     private double totalTTC;
@@ -27,19 +27,19 @@ public class Panier {
     private boolean estPaye;
     private List<Produit> contenu;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
