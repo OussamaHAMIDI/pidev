@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
  */
 public class Reclamation {
     
-    private String id;
-    private String userId;
-    private String produitOrBoutiqueId;
+    private int id;
+    private int userId;
+    private int produitOrBoutiqueId;
     private String description;
     private LocalDateTime dateCreation;
     private TypeReclamation type;
@@ -32,7 +32,7 @@ public class Reclamation {
      * @param dateCreation 
      */
     
-    public Reclamation(String id, String userId, String produitOrBoutiqueId, String description, LocalDateTime dateCreation, TypeReclamation type) {
+    public Reclamation(int id, int userId, int produitOrBoutiqueId, String description, LocalDateTime dateCreation, TypeReclamation type) {
         this.id = id;
         this.produitOrBoutiqueId = produitOrBoutiqueId;
         this.description = description;
@@ -44,7 +44,7 @@ public class Reclamation {
     public Reclamation() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -56,11 +56,11 @@ public class Reclamation {
         return type;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public String getProduitOrBoutiqueId() {
+    public int getProduitOrBoutiqueId() {
         return produitOrBoutiqueId;
     }
 
@@ -72,15 +72,15 @@ public class Reclamation {
         return dateCreation;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public void setProduitOrBoutiqueId(String produitOrBoutiqueId) {
+    public void setProduitOrBoutiqueId(int produitOrBoutiqueId) {
         this.produitOrBoutiqueId = produitOrBoutiqueId;
     }
 

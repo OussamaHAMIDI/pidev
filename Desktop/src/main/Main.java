@@ -26,7 +26,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Produit p = new Produit("Lait", 250);
+        Produit p = new Produit();
         Produit p2 = new Produit("Yaourt", 3000);
         Produit p3 = new Produit("Savon", 50000);
         Produit p4 = new Produit("Pain", 100);

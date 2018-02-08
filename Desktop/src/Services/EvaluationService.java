@@ -41,9 +41,9 @@ public class EvaluationService implements IEvaluation{
         }
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, evaluation.getUserId());
-            ps.setString(2, evaluation.getProduitOrBoutiqueId());
-            ps.setString(3, evaluation.getDescription());
+            ps.setInt(1, evaluation.getUserId());
+            ps.setInt(2, evaluation.getProduitOrBoutiqueId());
+            ps.setInt(3, evaluation.getNote());
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(4, evaluation.getDateCreation());
             ps.executeUpdate(req);
@@ -62,7 +62,7 @@ public class EvaluationService implements IEvaluation{
         String req = "Delete from evaluation where id=? ";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, evaluation.getId());
+            ps.setInt(1, evaluation.getId());
             ps.executeUpdate(req);
             System.out.println("suppresssion evaluation effectué");
             return true;
@@ -74,11 +74,11 @@ public class EvaluationService implements IEvaluation{
     }
 
     @Override
-    public boolean supprimerEvaluation(String evaluationId) {
+    public boolean supprimerEvaluation(int evaluationId) {
         String req = "Delete from evaluation where id=? ";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, evaluationId);
+            ps.setInt(1, evaluationId);
             ps.executeUpdate(req);
             System.out.println("suppresssion evaluation effectué");
             return true;

@@ -17,7 +17,7 @@ public interface IReclamation {
     
     public boolean ajouterReclamation(Reclamation reclamation);
     
-    public boolean supprimerReclamation(String reclamationId);
+    public boolean supprimerReclamation(int reclamationId);
     
     public boolean supprimerReclamation(Reclamation reclamation);
 }

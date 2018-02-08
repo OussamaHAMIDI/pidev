@@ -14,39 +14,45 @@ import java.time.LocalDateTime;
  */
 public class Evaluation {
     
-    private String id;
-    private String userId;
-    private String produitOrBoutiqueId;
-    private String description;
+    private int id;
+    private int userId;
+    private int produitOrBoutiqueId;
     private LocalDateTime dateCreation;
     private Enumerations.TypeReclamation type;
+    private int note; //de 1 à 10
 
-    public Evaluation(String id, String userId, String produitOrBoutiqueId, String description, LocalDateTime dateCreation, Enumerations.TypeReclamation type) {
+    public Evaluation(int id, int userId, int produitOrBoutiqueId, String description, LocalDateTime dateCreation, Enumerations.TypeReclamation type, int note) {
         this.id = id;
         this.userId = userId;
         this.produitOrBoutiqueId = produitOrBoutiqueId;
-        this.description = description;
         this.dateCreation = dateCreation;
         this.type = type;
+        this.note = note;
     }
 
     public Evaluation() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public String getProduitOrBoutiqueId() {
+    public int getProduitOrBoutiqueId() {
         return produitOrBoutiqueId;
     }
 
-    public String getDescription() {
-        return description;
+    
+
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
     }
 
     public LocalDateTime getDateCreation() {
@@ -57,21 +63,18 @@ public class Evaluation {
         return type;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public void setProduitOrBoutiqueId(String produitOrBoutiqueId) {
+    public void setProduitOrBoutiqueId(int produitOrBoutiqueId) {
         this.produitOrBoutiqueId = produitOrBoutiqueId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;

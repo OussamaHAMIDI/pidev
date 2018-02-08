@@ -11,15 +11,15 @@ package Entities;
  */
 public class ProduitPanier extends Produit
 {
-    private int quantiteVendue;
+    private float quantiteVendue;
     private float poidsVendu;
     private float prixVente;
 
-    public int getQuantiteVendue() {
+    public float getQuantiteVendue() {
         return quantiteVendue;
     }
 
-    public void setQuantiteVendue(int quantiteVendue) {
+    public void setQuantiteVendue(float quantiteVendue) {
         this.quantiteVendue = quantiteVendue;
     }
 
@@ -42,7 +42,7 @@ public class ProduitPanier extends Produit
     public ProduitPanier() {
     }
 
-    public ProduitPanier(int quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
+    public ProduitPanier(float quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
         super(id, reference, libelle, description, prix, taille, couleur, texture, poids);
         this.quantiteVendue = quantiteVendue;
         this.poidsVendu = poidsVendu;
