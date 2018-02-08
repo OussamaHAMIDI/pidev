@@ -17,22 +17,22 @@ public interface IUser {
 
     public boolean ajouterUser(User u, InputStream file, int length);
 
-    public boolean supprimerUser(String idUser);
+    public boolean supprimerUser(int idUser);
 
-    public boolean modifierEtatUser(String idUser, EtatUser etat);
+    public boolean modifierEtatUser(int idUser, EtatUser etat);
 
-    public boolean ajouterPhotoUser(String idUser, InputStream file, int length);
+    public boolean ajouterPhotoUser(int idUser, InputStream file, int length);
 
     public boolean changerToken(String code, String email);
 
     public boolean verifMail(String email);
 
-    public boolean changerMdp(String new_mdp, String email);
+    public boolean changerMdp(int idUser, String new_mdp);
 
-    public String getIdUser(String userName, String email);
+   public int getIdUser(String userName, String email);
     
-    public User getUserById(String idUser);
+    public User getUserById(int idUser);
 
-    public String getNextId();
+    public int getNextId();
     
 }

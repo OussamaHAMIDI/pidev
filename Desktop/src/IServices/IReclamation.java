@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,8 +15,9 @@ import Utils.Enumerations;
  */
 public interface IReclamation {
     
-    public boolean ajouterReclamation(String userId, String produitOrBoutiqueId, String description, Enumerations.TypeReclamation type);
+    public boolean ajouterReclamation(Reclamation reclamation);
     
     public boolean supprimerReclamation(String reclamationId);
     
+    public boolean supprimerReclamation(Reclamation reclamation);
 }
