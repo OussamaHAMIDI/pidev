@@ -22,18 +22,36 @@ import java.util.List;
 public class Boutique {
 
     private int id;
+    private int userId;
     private String nom;
+    private String adresse;
     private List<Produit> listProduit;
     private LocalDateTime dateCreation;
 
     public Boutique() {
     }
 
-    public Boutique(int id, String nom, List<Produit> listProduit, LocalDateTime dateCreation) {
+    public Boutique(int id, String nom, List<Produit> listProduit, LocalDateTime dateCreation, String adresse) {
         this.id = id;
         this.nom = nom;
         this.listProduit = listProduit;
         this.dateCreation = dateCreation;
+        this.adresse = adresse;
+    }
+
+    public Boutique(String nom, List<Produit> listProduit, LocalDateTime dateCreation, String adresse) {
+        this.nom = nom;
+        this.listProduit = listProduit;
+        this.dateCreation = dateCreation;
+        this.adresse = adresse;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getId() {
@@ -50,6 +68,14 @@ public class Boutique {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public List<Produit> getListProduit() {
@@ -106,5 +132,4 @@ public class Boutique {
         listProduit.remove(produit);
     }
 
-    
 }

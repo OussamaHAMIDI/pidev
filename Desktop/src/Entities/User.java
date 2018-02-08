@@ -7,29 +7,28 @@ package Entities;
 
 import Utils.Enumerations.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author Hamdi
  */
 public class User {
-    
+
     private int id;
     private String userName; // pour la connexion ******** UNIQUE ******************
     private String mdp;
     private EtatUser etat;
     private TypeUser type;
-    
+
     private String nom;
     private String prenom;
-    private Date dateNaissance;
+    private LocalDateTime dateNaissance;
     private String Sexe;
     private String email;
     private String adresse;
     private String tel;
-    
-    
-    
+
     // FOS Bundle Table
     private String role;
     private String token;
@@ -37,7 +36,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, Date dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
         this.id = id;
         this.userName = userName;
         this.mdp = mdp;
@@ -54,7 +53,7 @@ public class User {
         this.token = token;
     }
 
-    public User(String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, Date dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
+    public User(String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
         this.userName = userName;
         this.mdp = mdp;
         this.etat = etat;
@@ -126,11 +125,11 @@ public class User {
         this.prenom = prenom;
     }
 
-    public Date getDateNaissance() {
+    public LocalDateTime getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
+    public void setDateNaissance(LocalDateTime dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -187,5 +186,4 @@ public class User {
         return "User{" + "id=" + id + ", userName=" + userName + ", mdp=" + mdp + ", etat=" + etat + ", type=" + type + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", Sexe=" + Sexe + ", email=" + email + ", adresse=" + adresse + ", tel=" + tel + ", role=" + role + ", token=" + token + '}';
     }
 
-    
 }

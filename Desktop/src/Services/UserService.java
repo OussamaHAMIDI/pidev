@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,10 +45,10 @@ public class UserService implements IUser {
         int id = getIdUser(u.getUserName(), u.getEmail());
         if (id > -1) { //if existed
             User user = getUserById(id);
-            if(user.getEtat() == EtatUser.Deleted || user.getEtat() == EtatUser.Inactive ){
+            if (user.getEtat() == EtatUser.Deleted || user.getEtat() == EtatUser.Inactive) {
                 modifierEtatUser(id, EtatUser.Active);
             }
-            if(user.getEtat() == EtatUser.Pending){
+            if (user.getEtat() == EtatUser.Pending) {
                 // pas encore activé (resend verification mail and notify user from GUI)
             }
         } else {
@@ -69,7 +71,7 @@ public class UserService implements IUser {
                 ps.setString(12, u.getTel());
                 ps.setString(13, u.getNom());
                 ps.setString(14, u.getPrenom());
-                ps.setDate(15, u.getDateNaissance());
+                ps.setObject(15, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 ps.setString(16, u.getSexe());
                 ps.setBinaryStream(17, file, length);
                 ps.executeUpdate();
@@ -189,8 +191,8 @@ public class UserService implements IUser {
      *
      * @param userName is a unique column in user table !
      * @param email
-     * @return -1 si les informations en parametres ne correspondent pas à
-     * aucun id dans la table user.
+     * @return -1 si les informations en parametres ne correspondent pas à aucun
+     * id dans la table user.
      */
     @Override
     public int getIdUser(String userName, String email) {
@@ -239,8 +241,8 @@ public class UserService implements IUser {
             ResultSet rs = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery(req);
             if (rs.first()) {
-                u = new User(idUser,rs.getString("username"), rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
-                        TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"), rs.getDate("date_naissance"),
+                u = new User(idUser, rs.getString("username"), rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
+                        TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),(LocalDateTime) rs.getObject("date_creation"),
                         rs.getString("sexe"), rs.getString("email"), rs.getString("adresse"), rs.getString("tel"), rs.getString("roles"),
                         rs.getString("confirmation_token"));
             }

@@ -14,15 +14,25 @@ import java.util.List;
  * @author Azza
  */
 public interface IBoutique {
-    
-    
+
     public void ajouterBoutique(Boutique boutique);
-    public void supprimerBoutique(Boutique boutique);   
-    public void modifierBoutique(Boutique boutique);
-    public void ajouterProduit(Produit produit,Boutique boutique);
-    public Boutique chercherBoutiqueParNom (String nom);
-    public Boutique chercherBoutiqueParID (int Id);
-    public Boutique chercherBoutiqueParProduit (Produit produit);
+
+    public void ajouterProduit(int idProduit, int idBoutique);
+
+    public void supprimerBoutique(int idBoutique);
+
+    public Boutique chercherBoutiqueParNom(String nom);
+
+    public Boutique chercherBoutiqueParID(int idBoutique);
+
     public List<Produit> lireProduitsParBoutique(int idBoutique);
-    public  List<Boutique> lireBoutiques();
+
+    public List<Produit> lireProduitsParBoutique(String nomBoutique);
+
+    public List<Boutique> lireBoutiques();
+    
+     public int getNextId();
+
+//     public Boutique chercherBoutiqueParProduit (Produit produit);
+//     public void modifierBoutique(Boutique boutique);
 }
