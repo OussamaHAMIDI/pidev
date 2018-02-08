@@ -5,8 +5,14 @@
  */
 package Entities;
 
-import java.sql.Date;
+import DataStorage.MyDB;
+import Services.ProduitService;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,16 +20,15 @@ import java.util.List;
  * @author Azza
  */
 public class Boutique {
-    
+
     private int id;
     private String nom;
     private List<Produit> listProduit;
     private LocalDateTime dateCreation;
-    
 
     public Boutique() {
     }
-    
+
     public Boutique(int id, String nom, List<Produit> listProduit, LocalDateTime dateCreation) {
         this.id = id;
         this.nom = nom;
@@ -92,9 +97,14 @@ public class Boutique {
     public String toString() {
         return "Les informations de la Boutique sont :" + " l'id est " + id + ", le nom est " + nom + ", le produit est " + listProduit + ", la date de Creation est " + dateCreation;
     }
-    
 
-    
-    
+    public void ajouterProduit(Produit produit) {
+        listProduit.add(produit);
+    }
+
+    public void supprimerProduit(Produit produit) {
+        listProduit.remove(produit);
+    }
+
     
 }

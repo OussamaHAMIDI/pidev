@@ -14,9 +14,8 @@ import Entities.Stock;
  */
 public interface IStock {
     
-    public void creerStock (Stock st);
-    public void supprimerStocks (Stock st);
-    public void ajouterProduit (Produit pr,Stock st);
-    public void dimunierProduit (Produit pr,Stock st);
+    public void getStock (int idBoutique);
+    public void ajouterProduit (Produit produit,int idBoutique);
+    public void dimunierProduit (Produit produit,int idBoutique);
     
 }

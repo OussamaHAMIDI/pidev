@@ -16,12 +16,13 @@ import java.util.List;
 public interface IBoutique {
     
     
-    public void ajouterBoutique(Boutique b);
-    public void supprimerBoutique(Boutique b);   
-    public void modifierBoutique(Boutique b);
-    public void ajouterProduit(Produit p,Boutique b);
+    public void ajouterBoutique(Boutique boutique);
+    public void supprimerBoutique(Boutique boutique);   
+    public void modifierBoutique(Boutique boutique);
+    public void ajouterProduit(Produit produit,Boutique boutique);
     public Boutique chercherBoutiqueParNom (String nom);
     public Boutique chercherBoutiqueParID (int Id);
-    public Boutique chercherBoutiqueParProduit (Produit p);
-    public List<Boutique> lireBoutique();
+    public Boutique chercherBoutiqueParProduit (Produit produit);
+    public List<Produit> lireProduitsParBoutique(int idBoutique);
+    public  List<Boutique> lireBoutiques();
 }

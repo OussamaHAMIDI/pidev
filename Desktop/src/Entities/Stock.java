@@ -13,73 +13,51 @@ import java.util.List;
  */
 public class Stock {
     
-    private int id;
-    private List<Produit> listProduit;
-    private int qteMax;
+    
+    private int idBoutique;
+    private List<Integer> listIdProduit;
+    private List<Integer> listQuantiteeProduit;
+
 
     public Stock() {
     }
 
-    public Stock(int id, List<Produit> listProduit, int qteMax) {
-        this.id = id;
-        this.listProduit = listProduit;
-        this.qteMax = qteMax;
+    public Stock(int idBoutique, List<Integer> listIdProduit, List<Integer> listQuantiteeProduit) {
+        this.idBoutique = idBoutique;
+        this.listIdProduit = listIdProduit;
+        this.listQuantiteeProduit = listQuantiteeProduit;
     }
 
-    public int getId() {
-        return id;
+    public int getIdBoutique() {
+        return idBoutique;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdBoutique(int idBoutique) {
+        this.idBoutique = idBoutique;
     }
 
-    public List<Produit> getListProduit() {
-        return listProduit;
+    public List<Integer> getListIdProduit() {
+        return listIdProduit;
     }
 
-    public void setListProduit(List<Produit> listProduit) {
-        this.listProduit = listProduit;
+    public void setListIdProduit(List<Integer> listIdProduit) {
+        this.listIdProduit = listIdProduit;
     }
 
-    public int getQteMax() {
-        return qteMax;
+    public List<Integer> getListQuantiteeProduit() {
+        return listQuantiteeProduit;
     }
 
-    public void setQteMax(int qteMax) {
-        this.qteMax = qteMax;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Stock other = (Stock) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+    public void setListQuantiteeProduit(List<Integer> listQuantiteeProduit) {
+        this.listQuantiteeProduit = listQuantiteeProduit;
     }
 
     @Override
     public String toString() {
-        return "L'id du stock est " + id + " de produit " + listProduit + " avec une quantitée maximum de " + qteMax + '}';
+        return "Le stock de la Boutique " + idBoutique + " du produit " + listIdProduit + " et de quantitée " + listQuantiteeProduit ;
     }
-    
+
+   
     
     
     
