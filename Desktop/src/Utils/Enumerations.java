@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -76,6 +77,13 @@ public class Enumerations {
         Temporelle,
         Valide;
     }
+      
+      public static enum TypeReclamation{
+      Boutique,
+      Produit;
+    }
+      
+      
       public static enum TypeProduit{
         patisserie,
         cosmetique,
