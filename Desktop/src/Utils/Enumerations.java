@@ -57,6 +57,12 @@ public class Enumerations {
      *  Enumeration pour l'état d'une boutique 
      */
     public static enum EtatBoutique{
-        Open,Colse;
+        Opened,Closed;
+    }
+    
+     public static enum ModePaiement{
+        Cheque,
+        Espece;
+        // for jappa !!!********************************** J A P P A ************************************
     }
 }
