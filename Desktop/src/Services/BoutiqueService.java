@@ -38,12 +38,12 @@ public class BoutiqueService implements IBoutique {
     @Override
     public void ajouterBoutique(Boutique boutique) {
         try {
-            String req = "INSERT INTO boutique (nom,id_user,date_creation , adresse) values ( ?,?,?,?,?)"; // manque adresse fel base 
+            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse) values ( ?,?,?,?,?)"; // manque adresse fel base 
             ps = connexion.prepareStatement(req);
-            ps.setString(1, boutique.getNom());
+            ps.setString(2, boutique.getNom());
             ps.setInt(1, boutique.getUserId());
-            ps.setObject(2, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-            ps.setString(1, boutique.getAdresse());
+            ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps.setString(4, boutique.getAdresse());
             ps.executeUpdate(req);
             System.out.println("L'ajout de la boutique est effectué");
         } catch (SQLException ex) {
