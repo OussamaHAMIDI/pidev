@@ -29,6 +29,25 @@ public class Panier {
     private boolean estPaye;
     private List<Produit> contenu;
 
+    public Panier(int id, int userId, Date dateCreation, Date dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
+        this.id = id;
+        this.userId = userId;
+        this.dateCreation = dateCreation;
+        this.dateLivraison = dateLivraison;
+        this.totalTTC = totalTTC;
+        this.fraisLivraison = fraisLivraison;
+        this.status = status;
+        this.modePaiement = modePaiement;
+        this.estLivre = estLivre;
+        this.estPaye = estPaye;
+        this.contenu = contenu;
+    }
+
+    public Panier(int userId, Date dateCreation) {
+        this.userId = userId;
+        this.dateCreation = dateCreation;
+    }
+
     public int getId() {
         return id;
     }
