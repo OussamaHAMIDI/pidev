@@ -15,5 +15,5 @@ public interface IEvaluation {
     
     public boolean ajouterEvaluation(Evaluation evaluation);
     public boolean supprimerEvaluation(Evaluation evaluation);
-    public boolean supprimerEvaluation(String evaluationId);
+    public boolean supprimerEvaluation(int evaluationId);
 }

@@ -43,8 +43,8 @@ public class ReclamationService implements IReclamation {
         }
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, reclamation.getUserId());
-            ps.setString(2, reclamation.getProduitOrBoutiqueId());
+            ps.setInt(1, reclamation.getUserId());
+            ps.setInt(2, reclamation.getProduitOrBoutiqueId());
             ps.setString(3, reclamation.getDescription());
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(4, reclamation.getDateCreation());
@@ -60,12 +60,12 @@ public class ReclamationService implements IReclamation {
     }
 
     @Override
-    public boolean supprimerReclamation(String reclamationId) {
+    public boolean supprimerReclamation(int reclamationId) {
        
         String req = "Delete from reclamation where id=? ";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, reclamationId);
+            ps.setInt(1, reclamationId);
             ps.executeUpdate(req);
             System.out.println("suppresssion reclamation effectué");
             return true;
@@ -82,7 +82,7 @@ public class ReclamationService implements IReclamation {
         String req = "Delete from reclamation where id=? ";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, reclamation.getId());
+            ps.setInt(1, reclamation.getId());
             ps.executeUpdate(req);
             System.out.println("suppresssion reclamation effectué");
             return true;

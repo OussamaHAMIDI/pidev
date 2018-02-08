@@ -17,14 +17,17 @@ import java.util.List;
  */
 public interface IPanier {
     
-    public int ajouterProduitPanier(Produit prod,Panier pan);
-    public int supprimerProduitPanier(Produit prod,Panier pan);
+    public int ajouterProduitPanier(Produit produit,Panier panier);
+    public int ajouterProduitPanier(Produit produit,String idPanier);
+    public int supprimerProduitPanier(Produit produit,Panier panier);
+    public int modifierProduitPanier(Produit produit,String idPanier);
+    public int supprimerProduitPanier(Produit produit,String idPanier);
     public List<Panier> rechercherPaniersUtilisateur(String userId);
     public List<Panier> rechercherPaniersUtilisateur(String userId,String status);
-    public Panier rechercherPanierId(String id);
-    public int ajouterPanier(Panier pan);
-    public int miseAJourPanier(Panier pan);
-    public int supprimerPanier(Panier pan);
+    public Panier rechercherPanierById(String id);
+    public int ajouterPanier(Panier produit);
+    public int miseAJourPanier(Panier produit);
+    public int supprimerPanier(Panier produit);
     
     
 }
