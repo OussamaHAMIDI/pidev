@@ -13,34 +13,49 @@ import java.util.List;
  * @author benab
  */
 public class Historique {
-    
+
     private List<Commande> listCommande;
+    private List<Panier> listPanier;
+
     private String id;
     private String userId;
-    
-    public Historique(){
 
-        listCommande = new ArrayList<Commande>();
+    public Historique() {
 
+        listCommande = new ArrayList();
         listPanier = new ArrayList();
     }
-    
 
-    public Historique(ArrayList<Commande> listCommande){
-        this.listCommande=listCommande;
+     public Historique(List list) {
+        if (list instanceof Commande) {
+            this.listCommande = list;
+        } else if (list instanceof Panier) {
+            this.listPanier = list;
+        }
 
-    public Historique(List listPanier){
-        this.listPanier=listPanier;
+        // LE CONSTRUCTEUR NE DIFFERENCIE PAS ENTRE LES TYPES DE LISTE !!!
+        /**
+         * ca marche pas comme ca :
+         * public Historique(List<Commande> listxxx) {
+         */
+    }
+     
+    public List<Commande> getListCommande() {
+        return listCommande;
     }
 
-    public List<Commande> getListPanier() {
-        return listCommande;
+    public void setListCommande(List<Commande> listCommande) {
+        this.listCommande = listCommande;
+    }
+
+    public List<Panier> getListPanier() {
+        return this.listPanier;
     }
 
     public void setListPanier(List<Commande> listCommande) {
         this.listCommande = listCommande;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -56,4 +71,7 @@ public class Historique {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+   
+
 }

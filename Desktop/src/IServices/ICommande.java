@@ -6,6 +6,7 @@
 package IServices;
 
 import Entities.Commande;
+import Entities.User;
 import java.util.List;
 
 /**

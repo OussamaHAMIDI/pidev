@@ -7,7 +7,9 @@ package Services;
 
 import DataStorage.MyDB;
 import Entities.Commande;
+import Entities.Panier;
 import Entities.Produit;
+import Entities.User;
 import IServices.ICommande;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,6 +101,7 @@ public class CommandeService implements ICommande{
             return null;
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());
+            return null;
         }
     }
 
@@ -109,7 +112,7 @@ public class CommandeService implements ICommande{
             String sql = "SELECT * FROM commande where user_id = "+ user.getId();
             PreparedStatement ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            List<Commande> commandes = new ArrayList<Commande>();
+            List<Commande> commandes = new ArrayList();
             while (rs.next()) {
                 Commande c = new Commande();
                 c.setId(rs.getString("id"));
