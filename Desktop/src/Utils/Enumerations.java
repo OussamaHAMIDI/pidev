@@ -62,7 +62,18 @@ public class Enumerations {
     
      public static enum ModePaiement{
         Cheque,
-        Espece;
-        // for jappa !!!********************************** J A P P A ************************************
+        Espece,
+        Internet;
+       
+    }
+     
+     public static enum ModeLivraison{
+        Domicile,
+        SurPlace,
+        Poste;
+    }
+      public static enum StatusPanier{
+        Temporelle,
+        Valide;
     }
 }
