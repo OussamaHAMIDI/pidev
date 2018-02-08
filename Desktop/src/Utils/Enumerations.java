@@ -76,4 +76,11 @@ public class Enumerations {
         Temporelle,
         Valide;
     }
+      public static enum TypeProduit{
+        patisserie,
+        cosmetique,
+        decoration,
+        habit,
+        bijoux;
+    }
 }

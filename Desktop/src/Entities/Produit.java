@@ -16,16 +16,29 @@ public class Produit {
     private String reference;
     private String libelle;
     private String description;
+    private float prix;
+    private String taille;
+    private String couleur;
+    private String texture;
+    private float poids;
+    
 
     public Produit() {
     }
 
-    public Produit(int id, String reference, String libelle, String description) {
+    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
         this.id = id;
-        this.reference=reference;
+        this.reference = reference;
         this.libelle = libelle;
         this.description = description;
+        this.prix = prix;
+        this.taille = taille;
+        this.couleur = couleur;
+        this.texture = texture;
+        this.poids = poids;
     }
+
+    
 
     public int getId() {
         return id;
@@ -57,6 +70,46 @@ public class Produit {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public float getPrix() {
+        return prix;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
+
+    public String getTaille() {
+        return taille;
+    }
+
+    public void setTaille(String taille) {
+        this.taille = taille;
+    }
+
+    public String getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(String couleur) {
+        this.couleur = couleur;
+    }
+
+    public String getTexture() {
+        return texture;
+    }
+
+    public void setTexture(String texture) {
+        this.texture = texture;
+    }
+
+    public float getPoids() {
+        return poids;
+    }
+
+    public void setPoids(float poids) {
+        this.poids = poids;
     }
 
     
