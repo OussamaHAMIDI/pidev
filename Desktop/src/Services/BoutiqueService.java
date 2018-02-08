@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class BoutiqueService implements IBoutique{
                    PreparedStatement ps = connexion.prepareStatement(sql);
                    ps.setString(1, b.getNom());
                    ps.setProduit(2, b.getListProduit());
-                   ps.setDate(3, b.getDateCreation());
+                   ps.setObject(3, b.getDateCreation());
                    ps.setInt(4, b.getId());
                    ps.executeUpdate();
                    System.out.println("La supression de la boutique est effectuée");
@@ -59,7 +60,7 @@ public class BoutiqueService implements IBoutique{
                     PreparedStatement ps = connexion.prepareStatement(sql);
                     ps.setString(1, b.getNom());
                     ps.setProduit(2, b.getListProduit());
-                    ps.setDate(3, b.getDateCreation());
+                    ps.setObject(3, b.getDateCreation());
                     ps.setInt(4, b.getId());
                     ps.executeUpdate();
                     System.out.println("La supression de la boutique est effectuée");
@@ -87,7 +88,7 @@ public class BoutiqueService implements IBoutique{
                     ResultSet result = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                             .executeQuery("SELECT * FROM boutique WHERE nom = " + nom);
                     if (result.first()) {
-                        boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getDate("date de création"));
+                        boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getObject("date de création"));
                     }
                 } catch (SQLException e) {
                     System.out.println("erreur" + e.getMessage());
@@ -102,7 +103,7 @@ public class BoutiqueService implements IBoutique{
                     ResultSet result = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                             .executeQuery("SELECT * FROM boutique WHERE id = " + Id);
                     if (result.first()) {
-                        boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getDate("date de création"));
+                        boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getObject("date de création"));
                     }
                 } catch (SQLException e) {
                     System.out.println("erreur" + e.getMessage());
@@ -117,7 +118,7 @@ public class BoutiqueService implements IBoutique{
                     ResultSet result = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                             .executeQuery("SELECT * FROM boutique WHERE produit = " + p);
                     if (result.first()) {
-                        boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getDate("date de création"));
+                        boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getObject("date de création"));
                     }
                 } catch (SQLException e) {
                     System.out.println("erreur" + e.getMessage());
@@ -137,7 +138,7 @@ public class BoutiqueService implements IBoutique{
                 b.setId(rs.getInt("id"));
                 b.setListProduit(rs.getProduit("produit"));
                 b.setNom(rs.getString("nom"));
-                b.setDateCreation(rs.getDate("date de création"));
+                b.setDateCreation((LocalDateTime) rs.getObject("date de création"));
                 boutiques.add(b);
             }
         } catch (SQLException e) {

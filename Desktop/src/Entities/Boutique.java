@@ -6,6 +6,7 @@
 package Entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,13 +18,13 @@ public class Boutique {
     private int id;
     private String nom;
     private List<Produit> listProduit;
-    private Date dateCreation;
+    private LocalDateTime dateCreation;
     
 
     public Boutique() {
     }
     
-    public Boutique(int id, String nom, List<Produit> listProduit, Date dateCreation) {
+    public Boutique(int id, String nom, List<Produit> listProduit, LocalDateTime dateCreation) {
         this.id = id;
         this.nom = nom;
         this.listProduit = listProduit;
@@ -54,11 +55,11 @@ public class Boutique {
         this.listProduit = listProduit;
     }
 
-    public Date getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
