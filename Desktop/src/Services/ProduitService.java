@@ -38,8 +38,17 @@ public class ProduitService implements IProduit {
     @Override
     public boolean ajouterProduit(Produit p) {
         try {
-            String req = "INSERT INTO produit (idProduit,reference,libelle,description,prix,taille,couleur,texture,poids,idBoutique) values ( " + p.getIdProduit() + ",'" + p.getReference()+ "','" + p.getLibelle() + "','" + p.getDescription()+ "'," + p.getPrix() + ",'" + p.getTaille() + "','" + p.getCouleur() + "','" + p.getTexture() + "'," + p.getPoids() + "," + p.getIdBoutique() + ")";                                              
+            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,idBoutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
             ps = connexion.prepareStatement(req);
+            ps.setString(1, p.getReference());
+            ps.setString(2, p.getLibelle());
+            ps.setString(3, p.getDescription());
+            ps.setFloat(4, p.getPrix());
+            ps.setString(5, p.getTaille());
+            ps.setString(6, p.getCouleur());
+            ps.setString(7, p.getTexture());
+            ps.setFloat(8, p.getPoids());
+            ps.setInt(9, p.getIdBoutique());
             ps.executeUpdate(req);
             System.out.println("Ajout effectué");
             return true;
@@ -74,10 +83,10 @@ public class ProduitService implements IProduit {
             return false;
         }
     }
-    
-    public void supprimerProduit(int id) {
+    @Override
+    public boolean supprimerProduit(int id) {
         try {
-            String req = " DELETE FROM `produit` WHERE idProduit = " + idProduit + "";
+            String req = " DELETE FROM `produit` WHERE idProduit = " + id + "";
             ps = connexion.prepareStatement(req);
             ps.executeUpdate();
             System.out.println("La supression de la boutique est effectuée");
@@ -163,4 +172,6 @@ public class ProduitService implements IProduit {
         }
         return p;
     }
+
+    
 }

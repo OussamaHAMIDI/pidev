@@ -17,7 +17,7 @@ public interface IProduit {
 
     public boolean ajouterProduit(Produit p);
 
-    public boolean supprimerProduit(Produit p);
+    public boolean supprimerProduit(int id);
     
     public boolean modifierProduit(Produit p);
 
