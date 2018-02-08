@@ -151,7 +151,8 @@ return 1;
                         rs.getString("taille"),
                         rs.getString("couleur"),
                         rs.getString("texture"),
-                        rs.getFloat("poids")
+                        rs.getFloat("poids"),
+                        rs.getInt("idboutique")
                         ));
             }
         } catch (SQLException e) {
