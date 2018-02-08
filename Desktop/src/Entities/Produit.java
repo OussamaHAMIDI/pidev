@@ -12,31 +12,48 @@ package Entities;
  */
 public class Produit {
 
-    private String id;
+    private int id;
+    private String reference;
     private String libelle;
-    private int nombre;
+    private String description;
+    private float prix;
+    private String taille;
+    private String couleur;
+    private String texture;
+    private float poids;
+    
 
     public Produit() {
     }
 
-    public Produit(String id, String libelle, int nombre) {
+    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
         this.id = id;
+        this.reference = reference;
         this.libelle = libelle;
-        this.nombre = nombre;
-    }
-
-    public Produit(String libelle, int nombre) {
-        this.libelle = libelle;
-        this.nombre = nombre;
+        this.description = description;
+        this.prix = prix;
+        this.taille = taille;
+        this.couleur = couleur;
+        this.texture = texture;
+        this.poids = poids;
     }
 
     
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getLibelle() {
@@ -47,18 +64,59 @@ public class Produit {
         this.libelle = libelle;
     }
 
-    public int getNombre() {
-        return nombre;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNombre(int nombre) {
-        this.nombre = nombre;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getPrix() {
+        return prix;
+    }
+
+    public void setPrix(float prix) {
+        this.prix = prix;
+    }
+
+    public String getTaille() {
+        return taille;
+    }
+
+    public void setTaille(String taille) {
+        this.taille = taille;
+    }
+
+    public String getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(String couleur) {
+        this.couleur = couleur;
+    }
+
+    public String getTexture() {
+        return texture;
+    }
+
+    public void setTexture(String texture) {
+        this.texture = texture;
+    }
+
+    public float getPoids() {
+        return poids;
+    }
+
+    public void setPoids(float poids) {
+        this.poids = poids;
     }
 
     
+    
     @Override
     public String toString() {
-        return "Produit{" + "id=" + id + ", libelle=" + libelle + ", nombre=" + nombre + '}';
+        return "Les informations du produit sont :" + " l'id est " + id + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
     }
 
 }
