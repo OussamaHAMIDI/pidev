@@ -26,17 +26,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        Produit p = new Produit("Lait", 250);
-        Produit p2 = new Produit("Yaourt", 3000);
-        Produit p3 = new Produit("Savon", 50000);
-        Produit p4 = new Produit("Pain", 100);
-
-        ProduitService ps= new ProduitService();
         
-        ps.ajouterProduit(p);
-        ps.ajouterProduit(p2);
-        ps.ajouterProduit(p3);
-        ps.ajouterProduit(p4);
         
         UserService us = new UserService();
      

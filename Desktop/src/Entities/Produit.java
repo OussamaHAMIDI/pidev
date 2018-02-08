@@ -8,7 +8,7 @@ package Entities;
 
 /**
  *
- * @author Hamdi
+ * @author oussamahamidi
  */
 public class Produit {
 
