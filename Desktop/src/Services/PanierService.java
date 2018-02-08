@@ -59,21 +59,20 @@ public class PanierService implements IPanier{
     @Override
     public int ajouterPanier(Panier panier) {
         
-                   String req = "INSERT INTO panier (id,userid,datecreation,datelivraison,totalttc,fraislivraison,status,modepaiement,estlivre,estpaye) values "
-                    + "(?,?,?,?,?,?,?,?,?,?)";
+                   String req = "INSERT INTO panier (userid,datecreation,datelivraison,totalttc,fraislivraison,status,modepaiement,estlivre,estpaye) values "
+                    + "(?,?,?,?,?,?,?,?,?)";
        
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, panier.getId());
-            ps.setString(2, panier.getUserId());
-            ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-            ps.setObject(4, panier.getDateLivraison());
-            ps.setDouble(5, panier.getTotalTTC());
-            ps.setDouble(6, panier.getFraisLivraison());
-            ps.setString(7, panier.getStatus());
-            ps.setString(8, panier.getModePaiement());
-            ps.setBoolean(9, panier.isEstLivre());
-            ps.setBoolean(10, panier.isEstPaye());
+            ps.setInt(1, panier.getUserId());
+            ps.setObject(2, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps.setObject(3, panier.getDateLivraison());
+            ps.setDouble(4, panier.getTotalTTC());
+            ps.setDouble(5, panier.getFraisLivraison());
+            ps.setString(6, panier.getStatus());
+            ps.setString(7, panier.getModePaiement());
+            ps.setBoolean(8, panier.isEstLivre());
+            ps.setBoolean(9, panier.isEstPaye());
             ps.executeUpdate(req);
 return 1;
         } catch (SQLException ex) {
