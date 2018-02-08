@@ -159,7 +159,11 @@ public class BoutiqueService implements IBoutique {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProduitService pService = new ProduitService();
+<<<<<<< HEAD
                 Produit p = pService.chercherProduitParID(rs.getInt("id_produit"));
+=======
+                Produit p = pService.chercherProduitParID(rs.getInt("idProduit"));
+>>>>>>> d36080997446b8f4b714aa2bb74053ebb879fa30
                 produits.add(p);
             }
         } catch (SQLException e) {
@@ -177,7 +181,11 @@ public class BoutiqueService implements IBoutique {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProduitService pService = new ProduitService();
+<<<<<<< HEAD
                 Produit p = pService.chercherProduitParID(rs.getInt("id_produit"));
+=======
+                Produit p = pService.chercherProduitParID(rs.getInt("idProduit"));
+>>>>>>> d36080997446b8f4b714aa2bb74053ebb879fa30
                 produits.add(p);
             }
         } catch (SQLException e) {
