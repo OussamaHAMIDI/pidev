@@ -145,7 +145,7 @@ public class ProduitService implements IProduit {
         
        Produit p = null;
         try {
-            String sql = "SELECT * FROM produit where id_produit = '" + idProduit + "'";
+            String sql = "SELECT *  FROM produit where id_produit = '" + idProduit + "'";
             PreparedStatement ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             p = new Produit();
