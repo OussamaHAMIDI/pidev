@@ -104,6 +104,7 @@ public class BoutiqueService implements IBoutique{
                             .executeQuery("SELECT * FROM boutique WHERE id = " + Id);
                     if (result.first()) {
                         boutique = new Boutique(result.getInt("id"), result.getString("nom"), result.getProduit("produit"), result.getObject("date de création"));
+                    
                     }
                 } catch (SQLException e) {
                     System.out.println("erreur" + e.getMessage());
@@ -111,6 +112,7 @@ public class BoutiqueService implements IBoutique{
                 return boutique;
     }
 
+  
     @Override
     public Boutique chercherBoutiqueParProduit(Produit p) {
         Boutique boutique = null;

@@ -113,6 +113,7 @@ public class Panier {
     public void setContenu(List<Produit> contenu) {
         this.contenu = contenu;
     }
+    
 
     @Override
     public String toString() {
