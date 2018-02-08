@@ -5,8 +5,14 @@
  */
 package Entities;
 
+import DataStorage.MyDB;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,8 +99,36 @@ public class Boutique {
         return "Les informations de la Boutique sont :" + " l'id est " + id + ", le nom est " + nom + ", le produit est " + listProduit + ", la date de Creation est " + dateCreation;
     }
     
+    public void ajouterProduit (Produit produit){
+        listProduit.add(produit);
+    }
+    public void supprimerProduit(Produit produit){
+        listProduit.remove(produit);
+    }
 
-    
+    static public List<Boutique> lireBoutique(){
+        
+        Connection connexion;
+        connexion =MyDB.getinstance().getConnexion();
+        List boutiques = new ArrayList();
+        try {
+            String sql = "SELECT * FROM boutique";
+            PreparedStatement ps = connexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            Boutique b = new Boutique();
+            while (rs.next()) {
+                b.setId(rs.getInt("id"));
+                b.setListProduit(rs.getProduit("produit"));
+                b.setNom(rs.getString("nom"));
+                b.setDateCreation((LocalDateTime) rs.getObject("date de création"));
+                boutiques.add(b);
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec");
+        }
+        return boutiques;
+        }
+
     
     
 }
