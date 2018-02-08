@@ -15,14 +15,10 @@ import java.util.Objects;
  * @author monta
  */
 public class Panier {
-<<<<<<< HEAD
     private int id;
     private int userId;
-=======
-
     private String id;
     private String userId;
->>>>>>> 558808b9a055456aa15f16ade0221ba3bc5d1662
     private Date dateCreation;
     private Date dateLivraison;
     private double totalTTC;
