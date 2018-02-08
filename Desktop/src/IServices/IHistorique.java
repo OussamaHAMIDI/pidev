@@ -14,10 +14,10 @@ import Entities.*;
  */
 public interface IHistorique {
     
-    public int ajouterHistorique(Panier panier);
-    public int supprimerHistorique(Panier pan);
-    public int ajouterPanierHistorique(Panier panier, Historique historique);
-    public int supprimerPanierHistorique(Panier panier, Historique historique);
+    public int ajouterCommandeHistorique(Commande commande);
+    public int supprimerCommandeHistorique(Commande commande);
+    /**public int ajouterPanierHistorique(Panier panier, Historique historique);
+    public int supprimerPanierHistorique(Panier panier, Historique historique);**/
     public Historique rechercherUserHistorique(String userId);
     public Historique rechercherHistorique(String id);
     
