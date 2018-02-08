@@ -25,10 +25,6 @@ import java.util.List;
  */
 public class CommandeService implements ICommande{
 
-    
-    
-    
-    
     Connection connexion;
 
     public CommandeService() {
