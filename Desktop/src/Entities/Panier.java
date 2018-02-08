@@ -176,4 +176,8 @@ public class Panier {
         return true;
     }
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6deb11795fc702b49fc733d6fb1a218c6b0df91c
