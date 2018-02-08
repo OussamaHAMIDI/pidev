@@ -40,8 +40,8 @@ public class UserService implements IUser {
     @Override
     public boolean ajouterUser(User u, InputStream file, int length) {
         // Verifier si l'utilisateur n'existe pas dans la table (etat = deleted or pending)
-        String id = getIdUser(u.getUserName(), u.getEmail());
-        if (id != null) { //if existed
+        int id = getIdUser(u.getUserName(), u.getEmail());
+        if (id > -1) { //if existed
             User user = getUserById(id);
             if(user.getEtat() == EtatUser.Deleted || user.getEtat() == EtatUser.Inactive ){
                 modifierEtatUser(id, EtatUser.Active);
@@ -85,7 +85,7 @@ public class UserService implements IUser {
     }
 
     @Override
-    public boolean supprimerUser(String idUser) {
+    public boolean supprimerUser(int idUser) {
         return modifierEtatUser(idUser, EtatUser.Deleted);
     }
 
@@ -96,7 +96,7 @@ public class UserService implements IUser {
      * @return
      */
     @Override
-    public boolean modifierEtatUser(String idUser, EtatUser etat) {
+    public boolean modifierEtatUser(int idUser, EtatUser etat) {
         try {
             String req = "UPDATE user SET etat = ? WHERE id = '" + idUser + "'";
             ps = connexion.prepareStatement(req);
@@ -119,11 +119,11 @@ public class UserService implements IUser {
      * @return
      */
     @Override
-    public boolean ajouterPhotoUser(String idUser, InputStream file, int length) {
+    public boolean ajouterPhotoUser(int idUser, InputStream file, int length) {
         try {
             String req = "UPDATE `user` SET `photo_profil` = ? WHERE id='" + idUser + "'";
             ps = connexion.prepareStatement(req);
-            ps.setString(1, idUser);
+            ps.setInt(1, idUser);
             ps.setBinaryStream(2, file, length);
             ps.executeUpdate();
             System.out.println("photo ajoutée avec succès");
@@ -170,9 +170,9 @@ public class UserService implements IUser {
     }
 
     @Override
-    public boolean changerMdp(String new_mdp, String email) {
+    public boolean changerMdp(int idUser, String new_mdp) {
         try {
-            String req = "UPDATE user  SET password = ?  WHERE email_canonical = '" + email + "'";
+            String req = "UPDATE user  SET password = ?  WHERE id = '" + idUser + "'";
             ps = connexion.prepareStatement(req);
             ps.setString(1, new_mdp);
             ps.executeUpdate();
@@ -189,16 +189,16 @@ public class UserService implements IUser {
      *
      * @param userName is a unique column in user table !
      * @param email
-     * @return null si les informations en parametres ne correspondent pas à
+     * @return -1 si les informations en parametres ne correspondent pas à
      * aucun id dans la table user.
      */
     @Override
-    public String getIdUser(String userName, String email) {
+    public int getIdUser(String userName, String email) {
         ResultSet rs;
         int nb = 0;
-        String id = null;
+        int id = -1;
         try {
-            String req = "SELECT id from user where email_canonical = ? AND email = ? AND username_canonical = ? AND username = ?";
+            String req = "SELECT id FROM user where email_canonical = ? AND email = ? AND username_canonical = ? AND username = ?";
             ps = connexion.prepareStatement(req);
             ps.setString(1, email);
             ps.setString(2, email);
@@ -207,7 +207,7 @@ public class UserService implements IUser {
             rs = ps.executeQuery(req);
             while (rs.next()) {
                 nb++;
-                id = rs.getString("id");
+                id = rs.getInt("id");
             }
             if (nb > 1) {
                 System.out.println("Il y'a plus qu'un user ayant ces informations !");
@@ -221,7 +221,7 @@ public class UserService implements IUser {
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echech de récuperaton de l'ID !");
-            return null;
+            return -1;
         }
     }
 
@@ -231,7 +231,7 @@ public class UserService implements IUser {
      * @return null si idUser n'existe pas
      */
     @Override
-    public User getUserById(String idUser) {
+    public User getUserById(int idUser) {
         User u = null;
         try {
             String req = "SELECT `username`,`email`, `password`, `confirmation_token`, `roles`,"
@@ -254,14 +254,14 @@ public class UserService implements IUser {
     }
 
     @Override
-    public String getNextId() {
-        String nextid = "";
+    public int getNextId() {
+        int nextid = - 1;
         try {
             String req = "SHOW TABLE STATUS LIKE 'user'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                nextid = rs.getString("Auto_increment");
+                nextid = rs.getInt("Auto_increment");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

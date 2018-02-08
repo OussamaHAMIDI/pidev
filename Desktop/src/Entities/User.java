@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 public class User {
     
-    private String id;
+    private int id;
     private String userName; // pour la connexion ******** UNIQUE ******************
     private String mdp;
     private EtatUser etat;
@@ -37,7 +37,7 @@ public class User {
     public User() {
     }
 
-    public User(String id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, Date dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, Date dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
         this.id = id;
         this.userName = userName;
         this.mdp = mdp;
@@ -70,11 +70,11 @@ public class User {
         this.token = token;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

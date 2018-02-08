@@ -4,24 +4,24 @@
  * and open the template in the editor.
  */
 package Services;
-
+import Entities.Panier;
+import Entities.Produit;
 import IServices.IPanier;
-import Entities.*;
 import java.util.List;
 
 /**
  *
- * @author monta
+ * @author Hamdi
  */
-public class PanierService implements IPanier {
+public class PanierService implements IPanier{
 
     @Override
-    public int ajouterProduitPanier(Produit produit, Panier panier) {
+    public int ajouterProduitPanier(Produit prod, Panier pan) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int supprimerProduitPanier(Produit produit, Panier panier) {
+    public int supprimerProduitPanier(Produit prod, Panier pan) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -41,19 +41,18 @@ public class PanierService implements IPanier {
     }
 
     @Override
-    public int ajouterPanier(Panier produit) {
+    public int ajouterPanier(Panier pan) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int miseAJourPanier(Panier produit) {
+    public int miseAJourPanier(Panier pan) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int supprimerPanier(Panier produit) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-//To change body of generated methods, choose Tools | Templates.
+    public int supprimerPanier(Panier pan) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

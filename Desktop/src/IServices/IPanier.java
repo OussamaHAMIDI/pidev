@@ -1,13 +1,14 @@
+package IServices;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package IServices;
 
 
-import Entities.*;
-
+import Entities.Panier;
+import Entities.Produit;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
  * @author monta
  */
 public interface IPanier {
+    
     public int ajouterProduitPanier(Produit prod,Panier pan);
     public int supprimerProduitPanier(Produit prod,Panier pan);
     public List<Panier> rechercherPaniersUtilisateur(String userId);
