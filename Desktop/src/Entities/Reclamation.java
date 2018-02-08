@@ -31,12 +31,13 @@ public class Reclamation {
      * @param dateCreation 
      */
     
-    public Reclamation(String id, String userId, String produitOrBoutiqueId, String description, LocalDateTime dateCreation) {
+    public Reclamation(String id, String userId, String produitOrBoutiqueId, String description, LocalDateTime dateCreation, TypeReclamation type) {
         this.id = id;
         this.produitOrBoutiqueId = produitOrBoutiqueId;
         this.description = description;
         this.dateCreation = dateCreation;
         this.userId = userId;
+        this.type=type;
     }
     
     public Reclamation() {
@@ -44,6 +45,14 @@ public class Reclamation {
 
     public String getId() {
         return id;
+    }
+
+    public void setType(TypeReclamation type) {
+        this.type = type;
+    }
+
+    public TypeReclamation getType() {
+        return type;
     }
 
     public String getUserId() {
