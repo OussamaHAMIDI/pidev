@@ -7,16 +7,11 @@ package Services;
 
 import DataStorage.MyDB;
 import IServices.IProduit;
-import Entities.Reclamation;
 import Entities.Produit;
-import IServices.IReclamation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -90,19 +85,21 @@ public class ProduitService implements IProduit {
             ps = connexion.prepareStatement(req);
             ps.executeUpdate();
             System.out.println("La supression de la boutique est effectuée");
+            return true;
         } catch (SQLException ex) {
             System.out.println("Echec de supression");
         }
+        return false;
     }
 
     @Override
-    public Produit chercherProduitParID(String ID) {
+    public Produit chercherProduitParID(int id) {
         Produit produit = null;
         try {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM produit WHERE idProduit = " + ID);
+                    .executeQuery("SELECT * FROM produit WHERE idProduit = " + id);
             if (result.first()) {
-                produit = new Produit(result.getInt("id"), result.getString("libelle"), result.getInt("nombre"));
+                return produit = new Produit(result.getInt("idProduit"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), result.getInt("idBoutique"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,17 +109,23 @@ public class ProduitService implements IProduit {
     }
 
     @Override
-    public List<Produit> lireProduits() {
+    public List<Produit> listerProduitsBoutique(int idB) {
         List produits = new ArrayList();
         try {
-            String req = "SELECT * FROM produit";
+            String req = "SELECT * FROM produit WHERE idBoutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setId(rs.getString("id"));
+                p.setIdProduit(rs.getInt("idProduit"));
+                p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
-                p.setNombre(rs.getInt("nombre"));
+                p.setDescription(rs.getString("description"));
+                p.setPrix(rs.getFloat("prix"));
+                p.setTaille(rs.getString("taille"));
+                p.setCouleur(rs.getString("couleur"));
+                p.setTexture(rs.getString("texture"));
+                p.setPoids(rs.getFloat("poids"));
                 produits.add(p);
             }
         } catch (SQLException ex) {
@@ -150,28 +153,6 @@ public class ProduitService implements IProduit {
         return nextid;
     }
 
-    @Override
-    public Produit getProduit(String idProduit) {
-        
-       Produit p = null;
-        try {
-            String sql = "SELECT *  FROM produit where id_produit = '" + idProduit + "'";
-            PreparedStatement ps = connexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            p = new Produit();
-            while (rs.next()) {
-                p.setId(rs.getInt("id"));
-                p.setCouleur(rs.getString("couleur"));
-                // a compelelte les autres colonnes
-                
-                
-               
-            }
-        } catch (SQLException e) {
-            System.out.println("Echec");
-        }
-        return p;
-    }
 
     
 }

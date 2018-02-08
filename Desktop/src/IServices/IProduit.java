@@ -11,7 +11,7 @@ import javafx.scene.control.ListCellBuilder;
 
 /**
  *
- * @author Hamdi
+ * @author oussamahamidi
  */
 public interface IProduit {
 
@@ -21,11 +21,9 @@ public interface IProduit {
     
     public boolean modifierProduit(Produit p);
 
-    public Produit chercherProduitParID(String ID);
-    
-    public Produit getProduit(String id);
+    public Produit chercherProduitParID(int id);
 
-    public List<Produit> lireProduits();
+    public List<Produit> listerProduitsBoutique(int idB);
     
     public String  getNextId();
     

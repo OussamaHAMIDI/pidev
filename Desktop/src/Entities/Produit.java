@@ -26,7 +26,7 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids) {
+    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, int idBoutique) {
         this.idProduit = idProduit;
         this.reference = reference;
         this.libelle = libelle;
@@ -36,7 +36,10 @@ public class Produit {
         this.couleur = couleur;
         this.texture = texture;
         this.poids = poids;
+        this.idBoutique = idBoutique;
     }
+
+    
 
     
 
