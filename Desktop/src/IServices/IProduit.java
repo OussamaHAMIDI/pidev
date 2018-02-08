@@ -22,6 +22,8 @@ public interface IProduit {
     public boolean modifierProduit(Produit p);
 
     public Produit chercherProduitParID(String ID);
+    
+    public Produit getProduit(String id);
 
     public List<Produit> lireProduits();
     

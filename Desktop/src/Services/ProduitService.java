@@ -135,4 +135,27 @@ public class ProduitService implements IProduit {
         return nextid;
     }
 
+    @Override
+    public Produit getProduit(String idProduit) {
+        
+       Produit p = null;
+        try {
+            String sql = "SELECT * FROM produit where id_produit = '" + idProduit + "'";
+            PreparedStatement ps = connexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            p = new Produit();
+            while (rs.next()) {
+                p.setId(rs.getInt("id"));
+                p.setCouleur(rs.getString("couleur"));
+                // a compelelte les autres colonnes
+                
+                
+               
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec");
+        }
+        return p;
+    }
 }
+    

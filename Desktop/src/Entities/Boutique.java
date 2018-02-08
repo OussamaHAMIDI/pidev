@@ -6,8 +6,8 @@
 package Entities;
 
 import DataStorage.MyDB;
+import Services.ProduitService;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,16 +20,15 @@ import java.util.List;
  * @author Azza
  */
 public class Boutique {
-    
+
     private int id;
     private String nom;
     private List<Produit> listProduit;
     private LocalDateTime dateCreation;
-    
 
     public Boutique() {
     }
-    
+
     public Boutique(int id, String nom, List<Produit> listProduit, LocalDateTime dateCreation) {
         this.id = id;
         this.nom = nom;
@@ -98,37 +97,14 @@ public class Boutique {
     public String toString() {
         return "Les informations de la Boutique sont :" + " l'id est " + id + ", le nom est " + nom + ", le produit est " + listProduit + ", la date de Creation est " + dateCreation;
     }
-    
-    public void ajouterProduit (Produit produit){
+
+    public void ajouterProduit(Produit produit) {
         listProduit.add(produit);
     }
-    public void supprimerProduit(Produit produit){
+
+    public void supprimerProduit(Produit produit) {
         listProduit.remove(produit);
     }
 
-    static public List<Boutique> lireBoutique(){
-        
-        Connection connexion;
-        connexion =MyDB.getinstance().getConnexion();
-        List boutiques = new ArrayList();
-        try {
-            String sql = "SELECT * FROM boutique";
-            PreparedStatement ps = connexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            Boutique b = new Boutique();
-            while (rs.next()) {
-                b.setId(rs.getInt("id"));
-                b.setListProduit(rs.getProduit("produit"));
-                b.setNom(rs.getString("nom"));
-                b.setDateCreation((LocalDateTime) rs.getObject("date de création"));
-                boutiques.add(b);
-            }
-        } catch (SQLException e) {
-            System.out.println("Echec");
-        }
-        return boutiques;
-        }
-
-    
     
 }

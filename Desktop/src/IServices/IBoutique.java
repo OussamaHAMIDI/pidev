@@ -23,4 +23,6 @@ public interface IBoutique {
     public Boutique chercherBoutiqueParNom (String nom);
     public Boutique chercherBoutiqueParID (int Id);
     public Boutique chercherBoutiqueParProduit (Produit produit);
+    public List<Produit> lireProduitsParBoutique(int idBoutique);
+    public  List<Boutique> lireBoutiques();
 }
