@@ -5,7 +5,12 @@
  */
 package IServices;
 
+
+import Entities.Produit;
+import entities.*;
+
 import Entities.*;
+
 import java.util.List;
 
 /**

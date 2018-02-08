@@ -5,53 +5,29 @@
  */
 package Entities;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
-import Utils.Enumerations.*;
 
 /**
  *
  * @author monta
  */
 public class Panier {
-    
     private String id;
     private String userId;
-    private LocalDateTime dateCreation;
-    private LocalDateTime dateLivraison;
+    private Date dateCreation;
+    private Date dateLivraison;
     private double totalTTC;
     private double fraisLivraison;
-    private StatusPanier status;
-    private ModePaiement modePaiement;
-    private ModeLivraison modeLivraison;
+    private String status;
+    private String modePaiement;
     private boolean estLivre;
     private boolean estPaye;
     private List<Produit> contenu;
 
     public String getId() {
         return id;
-    }
-
-    public Panier(String userId, LocalDateTime dateCreation, StatusPanier status) {
-        this.userId = userId;
-        this.dateCreation = dateCreation;
-        this.status = status;
-    }
-
-    public Panier(String id, String userId, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, StatusPanier status, ModePaiement modePaiement, ModeLivraison modeLivraison, boolean estLivre, boolean estPaye, List<Produit> contenu) {
-        this.id = id;
-        this.userId = userId;
-        this.dateCreation = dateCreation;
-        this.dateLivraison = dateLivraison;
-        this.totalTTC = totalTTC;
-        this.fraisLivraison = fraisLivraison;
-        this.status = status;
-        this.modePaiement = modePaiement;
-        this.modeLivraison = modeLivraison;
-        this.estLivre = estLivre;
-        this.estPaye = estPaye;
-        this.contenu = contenu;
     }
 
     public void setId(String id) {
@@ -66,19 +42,19 @@ public class Panier {
         this.userId = userId;
     }
 
-    public LocalDateTime getDateCreation() {
+    public Date getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDateTime dateCreation) {
+    public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public LocalDateTime getDateLivraison() {
+    public Date getDateLivraison() {
         return dateLivraison;
     }
 
-    public void setDateLivraison(LocalDateTime dateLivraison) {
+    public void setDateLivraison(Date dateLivraison) {
         this.dateLivraison = dateLivraison;
     }
 
@@ -98,6 +74,21 @@ public class Panier {
         this.fraisLivraison = fraisLivraison;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getModePaiement() {
+        return modePaiement;
+    }
+
+    public void setModePaiement(String modePaiement) {
+        this.modePaiement = modePaiement;
+    }
 
     public boolean isEstLivre() {
         return estLivre;
@@ -126,30 +117,6 @@ public class Panier {
     @Override
     public String toString() {
         return "Panier{" + "id=" + id + ", userId=" + userId + ", dateCreation=" + dateCreation + ", dateLivraison=" + dateLivraison + ", totalTTC=" + totalTTC + ", fraisLivraison=" + fraisLivraison + ", status=" + status + ", modePaiement=" + modePaiement + ", estLivre=" + estLivre + ", estPaye=" + estPaye + ", contenu=" + contenu + '}';
-    }
-
-    public StatusPanier getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusPanier status) {
-        this.status = status;
-    }
-
-    public ModePaiement getModePaiement() {
-        return modePaiement;
-    }
-
-    public void setModePaiement(ModePaiement modePaiement) {
-        this.modePaiement = modePaiement;
-    }
-
-    public ModeLivraison getModeLivraison() {
-        return modeLivraison;
-    }
-
-    public void setModeLivraison(ModeLivraison modeLivraison) {
-        this.modeLivraison = modeLivraison;
     }
 
     @Override
