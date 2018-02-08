@@ -42,13 +42,14 @@ public class ProduitPanier extends Produit
     public ProduitPanier() {
     }
 
-    public ProduitPanier(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids,float quantiteVendue, float poidsVendu, float prixVente) 
-    {
-        super(id, reference, libelle, description, prix, taille, couleur, texture, poids);
+    public ProduitPanier(float quantiteVendue, float poidsVendu, float prixVente, int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, int idBoutique) {
+        super(idProduit, reference, libelle, description, prix, taille, couleur, texture, poids, idBoutique);
         this.quantiteVendue = quantiteVendue;
         this.poidsVendu = poidsVendu;
         this.prixVente = prixVente;
     }
+
+    
 
     
     
