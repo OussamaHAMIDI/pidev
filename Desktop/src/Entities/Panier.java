@@ -7,6 +7,7 @@
 package Entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,8 +20,8 @@ public class Panier {
 
     private int id;
     private int userId;
-    private Date dateCreation;
-    private Date dateLivraison;
+    private LocalDateTime dateCreation;
+    private LocalDateTime dateLivraison;
     private double totalTTC;
     private double fraisLivraison;
     private String status;
@@ -29,7 +30,7 @@ public class Panier {
     private boolean estPaye;
     private List<Produit> contenu;
 
-    public Panier(int id, int userId, Date dateCreation, Date dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
+    public Panier(int id, int userId, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
         this.id = id;
         this.userId = userId;
         this.dateCreation = dateCreation;
@@ -43,7 +44,7 @@ public class Panier {
         this.contenu = contenu;
     }
 
-    public Panier(int userId, Date dateCreation) {
+    public Panier(int userId, LocalDateTime dateCreation) {
         this.userId = userId;
         this.dateCreation = dateCreation;
     }
@@ -64,19 +65,19 @@ public class Panier {
         this.userId = userId;
     }
 
-    public Date getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public Date getDateLivraison() {
+    public LocalDateTime getDateLivraison() {
         return dateLivraison;
     }
 
-    public void setDateLivraison(Date dateLivraison) {
+    public void setDateLivraison(LocalDateTime dateLivraison) {
         this.dateLivraison = dateLivraison;
     }
 
