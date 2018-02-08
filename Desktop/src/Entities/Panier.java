@@ -15,9 +15,16 @@ import java.util.Objects;
  * @author monta
  */
 public class Panier {
+<<<<<<< HEAD
 
     private int id;
     private int userId;
+=======
+    private int id;
+    private int userId;
+    private String id;
+    private String userId;
+>>>>>>> 5fea6d0d1608072f7cce4c731335ba9076caa3ca
     private Date dateCreation;
     private Date dateLivraison;
     private double totalTTC;
@@ -177,4 +184,8 @@ public class Panier {
         }
         return true;
     }
+<<<<<<< HEAD
 }
+=======
+} 
+>>>>>>> 5fea6d0d1608072f7cce4c731335ba9076caa3ca
