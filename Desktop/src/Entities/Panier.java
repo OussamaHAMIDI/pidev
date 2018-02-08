@@ -5,7 +5,6 @@
  */
 package Entities;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +15,7 @@ import Utils.Enumerations.*;
  * @author monta
  */
 public class Panier {
+    
     private String id;
     private String userId;
     private LocalDateTime dateCreation;
