@@ -12,16 +12,16 @@ package Entities;
  */
 public class Produit {
 
-    private int id;
-    private String reference;
-    private String libelle;
-    private String description;
-    private float prix;
-    private String taille;
-    private String couleur;
-    private String texture;
-    private float poids;
-    
+    protected int id;
+    protected String reference;
+    protected String libelle;
+    protected String description;
+    protected float prix;
+    protected String taille;
+    protected String couleur;
+    protected String texture;
+    protected float poids;
+    protected int idBoutique;
 
     public Produit() {
     }
@@ -111,7 +111,13 @@ public class Produit {
     public void setPoids(float poids) {
         this.poids = poids;
     }
+    public int getIdBoutique() {
+        return idBoutique;
+    }
 
+    public void setIdBoutique(int idBoutique) {
+        this.idBoutique = idBoutique;
+    }
     
     
     @Override
