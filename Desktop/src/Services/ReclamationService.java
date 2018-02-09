@@ -48,7 +48,7 @@ public class ReclamationService implements IReclamation {
             ps.setString(3, reclamation.getDescription());
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(4, reclamation.getDateCreation());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             System.out.println("Ajout reclamation effectué" + reclamation.getType().toString());
             return true;
         } catch (SQLException ex) {
@@ -66,7 +66,7 @@ public class ReclamationService implements IReclamation {
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, reclamationId);
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             System.out.println("suppresssion reclamation effectué");
             return true;
         } catch (SQLException ex) {
@@ -83,7 +83,7 @@ public class ReclamationService implements IReclamation {
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, reclamation.getId());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             System.out.println("suppresssion reclamation effectué");
             return true;
         } catch (SQLException ex) {

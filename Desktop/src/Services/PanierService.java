@@ -80,7 +80,7 @@ public class PanierService implements IPanier{
             ps.setString(7, panier.getModePaiement());
             ps.setBoolean(8, panier.isEstLivre());
             ps.setBoolean(9, panier.isEstPaye());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
 return 1;
         } catch (SQLException ex) {
             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,7 +107,7 @@ return 1;
             ps.setBoolean(8, panier.isEstLivre());
             ps.setBoolean(9, panier.isEstPaye());
             ps.setInt(10, panier.getId());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
 return 1;
         } catch (SQLException ex) {
             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,7 +122,7 @@ return 1;
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, panier.getId());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,7 +182,7 @@ return 1;
             ps.setFloat(12, produit.getQuantiteVendue());
             ps.setFloat(13, produit.getPoidsVendu());
             ps.setFloat(14, produit.getPrixVente());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,7 +211,7 @@ return 1;
             ps.setFloat(10, produit.getQuantiteVendue());
             ps.setFloat(11, produit.getPoidsVendu());
             ps.setFloat(12, produit.getPrixVente());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,7 +227,7 @@ return 1;
             ps = connexion.prepareStatement(req);
             ps.setInt(1, produitId);
             ps.setInt(2, idPanier);
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
             Logger.getLogger(PanierService.class.getName()).log(Level.SEVERE, null, ex);

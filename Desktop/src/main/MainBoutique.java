@@ -11,6 +11,7 @@ import Services.BoutiqueService;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,9 @@ public class MainBoutique {
         Produit p4 = new Produit();
       List produits = new ArrayList();
       
-     Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
+     Boutique boutique = new Boutique("hello",produits, LocalDateTime.now(), "36rue");
       BoutiqueService bs = new BoutiqueService();
+      boutique.setUserId(1);
       bs.ajouterBoutique(boutique);
  
 }

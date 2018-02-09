@@ -44,7 +44,7 @@ public class ProduitService implements IProduit {
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
             ps.setInt(9, p.getIdBoutique());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             System.out.println("Ajout effectué");
             return true;
         } catch (SQLException ex) {
