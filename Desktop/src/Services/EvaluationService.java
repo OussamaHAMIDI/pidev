@@ -50,8 +50,13 @@ public class EvaluationService implements IEvaluation{
             ps.setInt(2, evaluation.getProduitOrBoutiqueId());
             ps.setInt(3, evaluation.getNote());
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+<<<<<<< HEAD
+            ps.setObject(4, evaluation.getDateCreation());
+            ps.executeUpdate();
+=======
             ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.executeUpdate(req);
+>>>>>>> e5bdbfbc253aa46981c64d997573b05d7d1e4ee6
             System.out.println("Ajout evaluation effectué" + evaluation.getType().toString());
             return true;
         } catch (SQLException ex) {
@@ -68,7 +73,7 @@ public class EvaluationService implements IEvaluation{
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, evaluation.getId());
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             System.out.println("suppresssion evaluation effectué");
             return true;
         } catch (SQLException ex) {
@@ -84,7 +89,7 @@ public class EvaluationService implements IEvaluation{
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, evaluationId);
-            ps.executeUpdate(req);
+            ps.executeUpdate();
             System.out.println("suppresssion evaluation effectué");
             return true;
         } catch (SQLException ex) {

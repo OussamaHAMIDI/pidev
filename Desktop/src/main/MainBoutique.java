@@ -11,6 +11,7 @@ import Services.BoutiqueService;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,16 @@ public class MainBoutique {
         Produit p3 = new Produit();
         Produit p4 = new Produit();
       List produits = new ArrayList();
+<<<<<<< HEAD
+      
+     Boutique boutique = new Boutique("hello",produits, LocalDateTime.now(), "36rue");
+=======
       produits.add(p);
       produits.add(p2);
      Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
+>>>>>>> e5bdbfbc253aa46981c64d997573b05d7d1e4ee6
       BoutiqueService bs = new BoutiqueService();
+      boutique.setUserId(1);
       bs.ajouterBoutique(boutique);
  
 }

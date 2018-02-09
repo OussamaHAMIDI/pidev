@@ -15,6 +15,12 @@
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Entities/Produit.java</file>
         </group>
 <<<<<<< HEAD
+        <group>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/ProduitService.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/StockService.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Stock.java</file>
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
         <group>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
@@ -22,6 +28,7 @@
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
 >>>>>>> da9f78eee7357bc0b739bdd98cbd8eb02663b5b8
+>>>>>>> e5bdbfbc253aa46981c64d997573b05d7d1e4ee6
         </group>
 =======
         <group/>

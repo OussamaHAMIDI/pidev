@@ -38,16 +38,17 @@ public class BoutiqueService implements IBoutique {
     @Override
     public void ajouterBoutique(Boutique boutique) {
         try {
-            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse) values ( ?,?,?,?,?)"; // manque adresse fel base 
+            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse) values ( ? , ? , ? , ? )"; // manque adresse fel base 
             ps = connexion.prepareStatement(req);
-            ps.setString(2, boutique.getNom());
             ps.setInt(1, boutique.getUserId());
+            ps.setString(2, boutique.getNom());
             ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setString(4, boutique.getAdresse());
-            ps.executeUpdate(req);
+           
+            ps.executeUpdate();
             System.out.println("L'ajout de la boutique est effectué");
         } catch (SQLException ex) {
-            System.out.println("L'ajout de la boutique a échoué");
+            System.out.println("L'ajout de la boutique a échoué " + ex.getMessage());
         }
     }
 
@@ -88,10 +89,11 @@ public class BoutiqueService implements IBoutique {
             ps.setInt(1, idProduit);
             ps.setInt(2, idBoutique);
             ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            System.out.println(query);
             stm.executeUpdate(query);
             System.out.println("L'ajout du produit est effectué");
         } catch (SQLException ex) {
-            System.out.println("L'ajout du produit a échoué");
+            System.out.println("L'ajout du produit a échoué " + ex.getMessage());
         }
     }
 
