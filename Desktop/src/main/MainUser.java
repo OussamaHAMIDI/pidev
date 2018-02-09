@@ -8,6 +8,7 @@ package main;
 import Services.*;
 import Entities.*;
 import Utils.Enumerations.*;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -15,23 +16,13 @@ import Utils.Enumerations.*;
  */
 public class MainUser {
 
-
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        
-
-
-        ProduitService ps= new ProduitService();
-
-        
-        
         UserService us = new UserService();
-     
-        
+        us.ajouterUser(new User("HamdiMegdiche", "548797", TypeUser.Client, "Megdiche", "Hamdi", LocalDateTime.now(), "M", "ajhjldhlsahds", "sdasdgasdg", "1254879"));
 
     }
 

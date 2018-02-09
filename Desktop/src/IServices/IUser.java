@@ -14,6 +14,7 @@ import java.io.InputStream;
  * @author Hamdi
  */
 public interface IUser {
+    public boolean ajouterUser(User u);
 
     public boolean ajouterUser(User u, InputStream file, int length);
 

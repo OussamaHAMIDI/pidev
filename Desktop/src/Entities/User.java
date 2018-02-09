@@ -69,6 +69,19 @@ public class User {
         this.token = token;
     }
 
+    public User(String userName, String mdp, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel) {
+        this.userName = userName;
+        this.mdp = mdp;
+        this.type = type;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.Sexe = Sexe;
+        this.email = email;
+        this.adresse = adresse;
+        this.tel = tel;
+    }
+    
     public int getId() {
         return id;
     }

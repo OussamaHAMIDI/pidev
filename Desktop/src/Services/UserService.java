@@ -32,6 +32,60 @@ public class UserService implements IUser {
         connexion = MyDB.getinstance().getConnexion();
     }
 
+      /**
+     *
+     * @param u User
+     * 
+     * @return
+     */
+    @Override
+    public boolean ajouterUser(User u) {
+        // Verifier si l'utilisateur n'existe pas dans la table (etat = deleted or pending)
+        int id = getIdUser(u.getUserName(), u.getEmail());
+        if (id > -1) { //if existed
+            User user = getUserById(id);
+            if (user.getEtat() == EtatUser.Deleted || user.getEtat() == EtatUser.Inactive) {
+                modifierEtatUser(id, EtatUser.Active);
+            }
+            if (user.getEtat() == EtatUser.Pending) {
+                // pas encore activé (resend verification mail and notify user from GUI)
+            }
+        } else {
+            try {
+                String req = "INSERT INTO `user`(`username`, `username_canonical`, `email`, `email_canonical`, `enabled` , `password`, `confirmation_token`, `roles`,"
+                        + " `type` , `etat` , `adresse`, `tel`, `nom`, `prenom`, `date_naissance`, `sexe`) "
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                ps = connexion.prepareStatement(req);
+                ps.setString(1, u.getUserName());
+                ps.setString(2, u.getUserName());
+                ps.setString(3, u.getEmail());
+                ps.setString(4, u.getEmail());
+                ps.setInt(5, 1); // pas sur de la valeur !!*****************************
+                ps.setString(6, u.getMdp());
+                ps.setString(7, "587dsa8754487dsfa");//u.getToken());
+                ps.setString(8, "a:1:{i:0;s:11:\"ROLE_CLIENT\";}");
+                ps.setString(9, u.getType().toString());
+                ps.setString(10, "active");//u.getEtat().toString());
+                ps.setString(11, u.getAdresse());
+                ps.setString(12, u.getTel());
+                ps.setString(13, u.getNom());
+                ps.setString(14, u.getPrenom());
+                ps.setObject(15, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                ps.setString(16, u.getSexe());
+               
+                ps.executeUpdate();
+                System.out.println("Ajout User réussi");
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Ajout User echoué");
+                return false;
+            }
+        }
+        return false;
+    }
+
+    
     /**
      *
      * @param u User
