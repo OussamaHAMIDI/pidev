@@ -31,7 +31,8 @@ public class MainBoutique {
         Produit p3 = new Produit();
         Produit p4 = new Produit();
       List produits = new ArrayList();
-      
+      produits.add(p);
+      produits.add(p2);
      Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
       BoutiqueService bs = new BoutiqueService();
       bs.ajouterBoutique(boutique);

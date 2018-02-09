@@ -11,11 +11,15 @@
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/main/Main.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Entities/Produit.java</file>
         </group>
+<<<<<<< HEAD
         <group>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/IServices/IStock.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 0865d1f239a3fed47341741c5f1ee030481be02c
     </open-files>
 </project-private>
