@@ -47,6 +47,9 @@ public class Panier {
     public Panier(int userId, LocalDateTime dateCreation) {
         this.userId = userId;
         this.dateCreation = dateCreation;
+        this.estLivre=false;
+        this.estPaye=false;
+        this.contenu=null;
     }
 
     public Panier() {

@@ -9,6 +9,7 @@ import Entities.Panier;
 import Services.PanierService;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -23,7 +24,7 @@ public class MainPanier {
     final static String password = "";
     
     public static void main(String[] args) {
-    Panier p = new Panier();
+    Panier p = new Panier(1, LocalDateTime.now());
     
     
     PanierService ps = new PanierService();

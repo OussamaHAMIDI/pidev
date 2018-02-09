@@ -91,8 +91,8 @@ return 1;
 
     @Override
     public int miseAJourPanier(Panier panier) {
-        String req = "UPDATE panier SET userid ='?',datecreation ='?',datelivraison ='?',totalttc ='?',fraislivraison ='?',status ='?',modepaiement ='?',estlivre ='?',estpaye ='?'"
-                    + " WHERE id='?'";
+        String req = "UPDATE panier SET userid =?,datecreation =?,datelivraison =?,totalttc =?,fraislivraison =?,status =?,modepaiement =?,estlivre =?,estpaye =?"
+                    + " WHERE id=?";
        
         try {
             ps = connexion.prepareStatement(req);

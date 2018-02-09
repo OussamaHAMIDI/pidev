@@ -30,7 +30,7 @@ public class MyDB {
             System.out.println("*****************************\nConnexion établie");
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("\nOu Bien changer le nom de la BD :D ");
+            System.out.println("\n erreur connexion " + ex.getMessage());
         }
     }
 
