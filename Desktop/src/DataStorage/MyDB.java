@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Main;
+import main.MainUser;
 
 /**
  *
@@ -29,7 +29,7 @@ public class MyDB {
             connexion = DriverManager.getConnection(url, user, password);
             System.out.println("*****************************\nConnexion établie");
         } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainUser.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("\nOu Bien changer le nom de la BD :D ");
         }
     }

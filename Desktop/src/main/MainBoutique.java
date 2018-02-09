@@ -19,11 +19,7 @@ import java.util.List;
  * @author Azza
  */
 public class MainBoutique {
-     static Connection connexion;
-    static Statement state;
-    final static String url = "jdbc:mysql://localhost:3306/souk";
-    final static String user = "root";
-    final static String password = "";
+     
     
         public static void main(String[] args) {
     Produit p = new Produit();

@@ -13,20 +13,16 @@ import Utils.Enumerations.*;
  *
  * @author Hamdi
  */
-public class Main {
+public class MainUser {
 
-//    static Connection connexion;
-//    static Statement state;
-//    final static String url = "jdbc:mysql://localhost/DB_Name"; // !************ change db name **************** 
-//    final static String user = "root";
-//    final static String password = "";
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-
+        
 
 
         ProduitService ps= new ProduitService();
