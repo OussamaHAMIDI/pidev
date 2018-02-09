@@ -6,6 +6,7 @@
 package Entities;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,17 +16,18 @@ public class Stock {
     
     
     private int idBoutique;
-    private List<Integer> listIdProduit;
-    private List<Integer> listQuantiteeProduit;
-
+    private Map<Integer,Integer> listStock;
 
     public Stock() {
     }
 
-    public Stock(int idBoutique, List<Integer> listIdProduit, List<Integer> listQuantiteeProduit) {
+    public Stock(int idBoutique) {
         this.idBoutique = idBoutique;
-        this.listIdProduit = listIdProduit;
-        this.listQuantiteeProduit = listQuantiteeProduit;
+    }
+    
+    public Stock(int idBoutique, Map<Integer, Integer> listStock) {
+        this.idBoutique = idBoutique;
+        this.listStock = listStock;
     }
 
     public int getIdBoutique() {
@@ -36,27 +38,17 @@ public class Stock {
         this.idBoutique = idBoutique;
     }
 
-    public List<Integer> getListIdProduit() {
-        return listIdProduit;
+    public Map<Integer, Integer> getListStock() {
+        return listStock;
     }
 
-    public void setListIdProduit(List<Integer> listIdProduit) {
-        this.listIdProduit = listIdProduit;
+    public void setListStock(Map<Integer, Integer> listStock) {
+        this.listStock = listStock;
     }
-
-    public List<Integer> getListQuantiteeProduit() {
-        return listQuantiteeProduit;
-    }
-
-    public void setListQuantiteeProduit(List<Integer> listQuantiteeProduit) {
-        this.listQuantiteeProduit = listQuantiteeProduit;
-    }
-
-    @Override
-    public String toString() {
-        return "Le stock de la Boutique " + idBoutique + " du produit " + listIdProduit + " et de quantitée " + listQuantiteeProduit ;
-    }
-
+    
+    
+    
+    
    
     
     
