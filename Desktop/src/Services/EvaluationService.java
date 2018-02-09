@@ -7,11 +7,16 @@ package Services;
 
 import DataStorage.MyDB;
 import Entities.Evaluation;
+import Entities.Panier;
 import IServices.IEvaluation;
 import Utils.Enumerations;
+import Utils.Enumerations.TypeReclamation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,11 +38,11 @@ public class EvaluationService implements IEvaluation{
     public boolean ajouterEvaluation(Evaluation evaluation) {
         
         // si le type de la reclamation est boutique, on ajoute l'id de la boutique sinon on ajoute l'id du produit
-        String req = "INSERT INTO evaluation (user_id, produit_id, description, date_creation) values "
+        String req = "INSERT INTO evaluation (id_user, id_produit, note , date_creation) values "
                     + "(?,?,?,?)";
-        if (evaluation.getType().equals(Enumerations.TypeReclamation.Boutique)){
-        req = "INSERT INTO evaluation (user_id, boutique_id, description, date_creation) values "
-                    + "(?,?,?,?)";
+        if (evaluation.getType().equals(TypeReclamation.Boutique)){
+        req = "INSERT INTO evaluation (id_user, id_boutique, note, date_creation) values "
+                    + " ( ? , ? , ? , ? )";
         }
         try {
             ps = connexion.prepareStatement(req);
@@ -45,8 +50,13 @@ public class EvaluationService implements IEvaluation{
             ps.setInt(2, evaluation.getProduitOrBoutiqueId());
             ps.setInt(3, evaluation.getNote());
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+<<<<<<< HEAD
             ps.setObject(4, evaluation.getDateCreation());
             ps.executeUpdate();
+=======
+            ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps.executeUpdate(req);
+>>>>>>> e5bdbfbc253aa46981c64d997573b05d7d1e4ee6
             System.out.println("Ajout evaluation effectué" + evaluation.getType().toString());
             return true;
         } catch (SQLException ex) {
@@ -87,6 +97,28 @@ public class EvaluationService implements IEvaluation{
             System.out.println("Echec de suppression");
             return false;
         }
+    }
+
+    @Override
+    public Evaluation rechercherEvaluation(int evaluationId) {
+        
+        Evaluation evaluation = null;
+        try {
+            ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM evaluation WHERE id = '" + evaluationId + "'");
+            if (rs.first()) {
+                /*Evaluation = new Evaluation(rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getObject("date_création", LocalDateTime.class),
+                        rs.getInt("boutique_id"),
+                        rs.getInt("produit_id"),
+                        rs.getInt("note"),
+                        rechercherEvaluation(rs.getInt("id")));*/
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur" + e.getMessage());
+        }
+        return evaluation;
     }
     
     

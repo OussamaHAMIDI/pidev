@@ -49,6 +49,11 @@ public class Panier {
         this.dateCreation = dateCreation;
     }
 
+    public Panier() {
+    }
+    
+    
+
     public int getId() {
         return id;
     }
