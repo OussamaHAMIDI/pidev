@@ -5,7 +5,7 @@
  */
 package Entities;
 
-import Utils.Enumerations;
+import Utils.Enumerations.TypeReclamation;
 import java.time.LocalDateTime;
 
 /**
@@ -18,10 +18,10 @@ public class Evaluation {
     private int userId;
     private int produitOrBoutiqueId;
     private LocalDateTime dateCreation;
-    private Enumerations.TypeReclamation type;
+    private TypeReclamation type;
     private int note; //de 1 à 10
 
-    public Evaluation(int id, int userId, int produitOrBoutiqueId, String description, LocalDateTime dateCreation, Enumerations.TypeReclamation type, int note) {
+    public Evaluation(int id, int userId, int produitOrBoutiqueId, LocalDateTime dateCreation, TypeReclamation type, int note) {
         this.id = id;
         this.userId = userId;
         this.produitOrBoutiqueId = produitOrBoutiqueId;
@@ -59,7 +59,7 @@ public class Evaluation {
         return dateCreation;
     }
 
-    public Enumerations.TypeReclamation getType() {
+    public TypeReclamation getType() {
         return type;
     }
 
@@ -80,7 +80,7 @@ public class Evaluation {
         this.dateCreation = dateCreation;
     }
 
-    public void setType(Enumerations.TypeReclamation type) {
+    public void setType(TypeReclamation type) {
         this.type = type;
     }
     

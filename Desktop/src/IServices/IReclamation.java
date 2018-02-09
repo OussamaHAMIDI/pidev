@@ -20,4 +20,6 @@ public interface IReclamation {
     public boolean supprimerReclamation(int reclamationId);
     
     public boolean supprimerReclamation(Reclamation reclamation);
+    
+    public Reclamation rechercherReclamation(int reclamationId);
 }

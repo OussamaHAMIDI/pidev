@@ -9,6 +9,7 @@ import DataStorage.MyDB;
 import Entities.Evaluation;
 import IServices.IEvaluation;
 import Utils.Enumerations;
+import Utils.Enumerations.TypeReclamation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -33,11 +34,11 @@ public class EvaluationService implements IEvaluation{
     public boolean ajouterEvaluation(Evaluation evaluation) {
         
         // si le type de la reclamation est boutique, on ajoute l'id de la boutique sinon on ajoute l'id du produit
-        String req = "INSERT INTO evaluation (user_id, produit_id, description, date_creation) values "
+        String req = "INSERT INTO evaluation (id_user, id_produit, note , date_creation) values "
                     + "(?,?,?,?)";
-        if (evaluation.getType().equals(Enumerations.TypeReclamation.Boutique)){
-        req = "INSERT INTO evaluation (user_id, boutique_id, description, date_creation) values "
-                    + "(?,?,?,?)";
+        if (evaluation.getType().equals(TypeReclamation.Boutique)){
+        req = "INSERT INTO evaluation (id_user, id_boutique, note, date_creation) values "
+                    + " ( ? , ? , ? , ? )";
         }
         try {
             ps = connexion.prepareStatement(req);
@@ -87,6 +88,11 @@ public class EvaluationService implements IEvaluation{
             System.out.println("Echec de suppression");
             return false;
         }
+    }
+
+    @Override
+    public Evaluation rechercherEvaluation(int evaluationId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
