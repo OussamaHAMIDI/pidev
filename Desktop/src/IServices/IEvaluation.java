@@ -16,4 +16,5 @@ public interface IEvaluation {
     public boolean ajouterEvaluation(Evaluation evaluation);
     public boolean supprimerEvaluation(Evaluation evaluation);
     public boolean supprimerEvaluation(int evaluationId);
+    public Evaluation rechercherEvaluation(int evaluationId);
 }

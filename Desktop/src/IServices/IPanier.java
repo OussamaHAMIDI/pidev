@@ -9,6 +9,7 @@ package IServices;
 
 import Entities.Panier;
 import Entities.Produit;
+import Entities.ProduitPanier;
 import java.util.List;
 
 /**
@@ -17,14 +18,13 @@ import java.util.List;
  */
 public interface IPanier {
     
-    public int ajouterProduitPanier(Produit produit,Panier panier);
-    public int ajouterProduitPanier(Produit produit,String idPanier);
-    public int supprimerProduitPanier(Produit produit,Panier panier);
-    public int modifierProduitPanier(Produit produit,String idPanier);
-    public int supprimerProduitPanier(Produit produit,String idPanier);
-    public List<Panier> rechercherPaniersUtilisateur(String userId);
-    public List<Panier> rechercherPaniersUtilisateur(String userId,String status);
-    public Panier rechercherPanierById(String id);
+    public int ajouterProduitPanier(ProduitPanier produit,int idPanier);
+    public int modifierProduitPanier(ProduitPanier produit,int idPanier);
+    public int supprimerProduitPanier(int produitId,int idPanier);
+    public List<Panier> rechercherPaniersUtilisateur(int userId);
+    public List<Produit> rechercherProduitsPanier(int panierId);
+    public List<Panier> rechercherPaniersUtilisateur(int userId,String status);
+    public Panier rechercherPanierById(int id);
     public int ajouterPanier(Panier produit);
     public int miseAJourPanier(Panier produit);
     public int supprimerPanier(Panier produit);

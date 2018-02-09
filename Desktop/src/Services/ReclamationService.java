@@ -12,6 +12,7 @@ import Utils.Enumerations;
 import Utils.Enumerations.TypeReclamation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -91,6 +92,27 @@ public class ReclamationService implements IReclamation {
             System.out.println("Echec de suppression");
             return false;
         }
+    }
+
+    @Override
+    public Reclamation rechercherReclamation(int reclamationId) {
+        Reclamation reclamation = null;
+        try {
+            ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM evaluation WHERE id = '" + reclamationId + "'");
+            if (rs.first()) {
+                /*Evaluation = new Evaluation(rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getObject("date_création", LocalDateTime.class),
+                        rs.getInt("boutique_id"),
+                        rs.getInt("produit_id"),
+                        rs.getInt("note"),
+                        rechercherEvaluation(rs.getInt("id")));*/
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur" + e.getMessage());
+        }
+        return reclamation;
     }
 
 }
