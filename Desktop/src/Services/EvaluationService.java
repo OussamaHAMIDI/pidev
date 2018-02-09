@@ -7,12 +7,16 @@ package Services;
 
 import DataStorage.MyDB;
 import Entities.Evaluation;
+import Entities.Panier;
 import IServices.IEvaluation;
 import Utils.Enumerations;
 import Utils.Enumerations.TypeReclamation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,7 +50,7 @@ public class EvaluationService implements IEvaluation{
             ps.setInt(2, evaluation.getProduitOrBoutiqueId());
             ps.setInt(3, evaluation.getNote());
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-            ps.setObject(4, evaluation.getDateCreation());
+            ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.executeUpdate(req);
             System.out.println("Ajout evaluation effectué" + evaluation.getType().toString());
             return true;
@@ -92,7 +96,24 @@ public class EvaluationService implements IEvaluation{
 
     @Override
     public Evaluation rechercherEvaluation(int evaluationId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Evaluation evaluation = null;
+        try {
+            ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM evaluation WHERE id = '" + evaluationId + "'");
+            if (rs.first()) {
+                /*Evaluation = new Evaluation(rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getObject("date_création", LocalDateTime.class),
+                        rs.getInt("boutique_id"),
+                        rs.getInt("produit_id"),
+                        rs.getInt("note"),
+                        rechercherEvaluation(rs.getInt("id")));*/
+            }
+        } catch (SQLException e) {
+            System.out.println("erreur" + e.getMessage());
+        }
+        return evaluation;
     }
     
     
