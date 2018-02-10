@@ -48,7 +48,7 @@ public class Produit {
     }
 
     public void setIdProduit(int id) {
-        this.idProduit = idProduit;
+        this.idProduit = id;
     }
 
     public String getReference() {
