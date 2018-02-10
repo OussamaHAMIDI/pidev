@@ -66,7 +66,7 @@ public class PanierService implements IPanier{
     @Override
     public int ajouterPanier(Panier panier) {
         
-                   String req = "INSERT INTO panier (id_user,date_creation,date_livraison,total_ttc,frais_livraison,statut,mode_paiement,est_livre,est_paye) values "
+                   String req = "INSERT INTO panier (userid,datecreation,datelivraison,totalttc,fraislivraison,status,modepaiement,estlivre,estpaye) values "
                     + "(?,?,?,?,?,?,?,?,?)";
        
         try {
