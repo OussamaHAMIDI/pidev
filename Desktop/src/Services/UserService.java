@@ -343,12 +343,10 @@ public class UserService implements IUser {
                         rs.getString("adresse"), rs.getString("tel"), rs.getString("roles"), rs.getString("confirmation_token"),
                         Utils.getLocalDateTime(rs.getString("last_login")));
                 System.out.println("User retrieved");
-
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserService.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec get User");
             return u;
         }
@@ -374,25 +372,6 @@ public class UserService implements IUser {
         return nextid;
     }
 
-    private EtatUser getEtatUser(int idUser) {
-        EtatUser e = null;
-        try {
-            String req = "SELECT etat FROM user WHERE id = '" + idUser + "'";
-            ResultSet rs = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery(req);
-            if (rs.first()) {
-                e = EtatUser.valueOf(rs.getString("etat"));
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur get etat user");
-        }
-        return e;
-    }
-
     @Override
     public boolean modifierUser(User u) {
 
@@ -405,9 +384,7 @@ public class UserService implements IUser {
             ps.setString(2, u.getUserName());
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getEmail());
-            System.out.println(ps.toString());
             ps.setString(5, u.getMdp());
-            System.out.println(ps.toString());
             ps.setString(6, u.getLastLogin().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setString(7, u.getRole());
             ps.setString(8, u.getType().toString());
@@ -418,7 +395,6 @@ public class UserService implements IUser {
             ps.setString(13, u.getPrenom());
             ps.setString(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
             ps.setString(15, u.getSexe());
-            System.out.println(ps.toString());
             ps.executeUpdate();
             System.out.println("Modification User " + u.getUserName() + " réussie");
             return true;

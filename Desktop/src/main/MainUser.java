@@ -5,19 +5,10 @@
  */
 package main;
 
-import DataStorage.MyDB;
 import Entities.User;
 import Services.*;
-import Utils.Enumerations.*;
 import Utils.Utils;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +26,6 @@ public class MainUser {
 
         System.out.println(u.getLastLogin());
         u.setLastLogin(LocalDateTime.now());
-        System.out.println(u);
         us.modifierUser(u);
 //        us.modifierEtatUser(u, EtatUser.Connected);
 //         us.modifierEtatUser(u, EtatUser.Disconnected);
@@ -45,7 +35,7 @@ public class MainUser {
         System.out.println(u.getDateNaissance());
 
 // Utils.sendMail("hamdi.megdiche@esprit.tn", Utils.generateCode(6));
-// Utils.sendMail("hamdi-megdiche@outlook.fr", Utils.generateCode(6));
+ Utils.sendMail("hamdi-megdiche@outlook.fr", Utils.generateCode(6));
     }
 
 }
