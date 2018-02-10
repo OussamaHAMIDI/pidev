@@ -6,7 +6,6 @@
 package Entities;
 
 import Utils.Enumerations.*;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 /**
@@ -30,13 +29,18 @@ public class User {
     private String tel;
 
     // FOS Bundle Table
+    private LocalDateTime lastLogin;
     private String role;
     private String token;
 
     public User() {
     }
 
-    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token, LocalDateTime lastLogin) {
         this.id = id;
         this.userName = userName;
         this.mdp = mdp;
@@ -51,9 +55,10 @@ public class User {
         this.tel = tel;
         this.role = role;
         this.token = token;
+        this.lastLogin = lastLogin;
     }
 
-    public User(String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token) {
+    public User(String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token, LocalDateTime lastLogin) {
         this.userName = userName;
         this.mdp = mdp;
         this.etat = etat;
@@ -67,21 +72,9 @@ public class User {
         this.tel = tel;
         this.role = role;
         this.token = token;
+        this.lastLogin = lastLogin;
     }
 
-    public User(String userName, String mdp, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel) {
-        this.userName = userName;
-        this.mdp = mdp;
-        this.type = type;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaissance = dateNaissance;
-        this.Sexe = Sexe;
-        this.email = email;
-        this.adresse = adresse;
-        this.tel = tel;
-    }
-    
     public int getId() {
         return id;
     }
@@ -194,9 +187,19 @@ public class User {
         this.token = token;
     }
 
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", userName=" + userName + ", mdp=" + mdp + ", etat=" + etat + ", type=" + type + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", Sexe=" + Sexe + ", email=" + email + ", adresse=" + adresse + ", tel=" + tel + ", role=" + role + ", token=" + token + '}';
+        return "User{" + "id=" + id + ", userName=" + userName + ", mdp=" + mdp + ", etat=" + etat + ", type=" + type + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", Sexe=" + Sexe + ", email=" + email + ", adresse=" + adresse + ", tel=" + tel + ", lastLogin=" + lastLogin + ", role=" + role + ", token=" + token + '}';
     }
+
+  
 
 }

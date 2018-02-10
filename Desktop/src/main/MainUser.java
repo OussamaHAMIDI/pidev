@@ -5,10 +5,19 @@
  */
 package main;
 
+import DataStorage.MyDB;
+import Entities.User;
 import Services.*;
-import Entities.*;
 import Utils.Enumerations.*;
+import Utils.Utils;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +31,21 @@ public class MainUser {
     public static void main(String[] args) {
 
         UserService us = new UserService();
-        us.ajouterUser(new User("HamdiMegdiche", "548797", TypeUser.Client, "Megdiche", "Hamdi", LocalDateTime.now(), "M", "ajhjldhlsahds", "sdasdgasdg", "1254879"));
+        User u = us.getUserByUsername("HamdiMegdiche");
 
+        System.out.println(u.getLastLogin());
+        u.setLastLogin(LocalDateTime.now());
+        System.out.println(u);
+        us.modifierUser(u);
+//        us.modifierEtatUser(u, EtatUser.Connected);
+//         us.modifierEtatUser(u, EtatUser.Disconnected);
+//         us.modifierEtatUser(u, EtatUser.Connected);
+        u = us.getUserByUsername("HamdiMegdiche");
+        System.out.println(u.getLastLogin());
+        System.out.println(u.getDateNaissance());
+
+// Utils.sendMail("hamdi.megdiche@esprit.tn", Utils.generateCode(6));
+// Utils.sendMail("hamdi-megdiche@outlook.fr", Utils.generateCode(6));
     }
 
 }
