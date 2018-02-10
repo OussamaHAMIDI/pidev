@@ -6,7 +6,6 @@
  */
 package Entities;
 
-import Utils.Enumerations.StatusPanier;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -48,10 +47,6 @@ public class Panier {
     public Panier(int userId, LocalDateTime dateCreation) {
         this.userId = userId;
         this.dateCreation = dateCreation;
-        this.estLivre=false;
-        this.estPaye=false;
-        this.contenu=null;
-      this.status =StatusPanier.Temporelle.toString();
     }
 
     public Panier() {

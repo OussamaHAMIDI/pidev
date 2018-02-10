@@ -7,10 +7,8 @@ package Services;
 
 import DataStorage.MyDB;
 import Entities.Evaluation;
-import Entities.Panier;
 import IServices.IEvaluation;
-import Utils.Enumerations;
-import Utils.Enumerations.TypeReclamation;
+import Utils.Enumerations.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,7 +50,8 @@ public class EvaluationService implements IEvaluation{
             //ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(4, evaluation.getDateCreation());
             ps.executeUpdate();
-
+            ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps.executeUpdate();
             System.out.println("Ajout evaluation effectué" + evaluation.getType().toString());
             return true;
         } catch (SQLException ex) {

@@ -66,7 +66,7 @@ public class PanierService implements IPanier{
     @Override
     public int ajouterPanier(Panier panier) {
         
-                   String req = "INSERT INTO panier (user_id,date_creation,date_livraison,total_ttc,frais_livraison,status,mode_paiement,est_livre,est_paye) values "
+                   String req = "INSERT INTO panier (userid,datecreation,datelivraison,totalttc,fraislivraison,status,modepaiement,estlivre,estpaye) values "
                     + "(?,?,?,?,?,?,?,?,?)";
        
         try {
@@ -91,8 +91,8 @@ return 1;
 
     @Override
     public int miseAJourPanier(Panier panier) {
-        String req = "UPDATE panier SET user_id =?,date_creation =?,date_livraison =?,total_ttc =?,frais_livraison =?,status =?,mode_paiement =?,est_livre =?,est_paye =?"
-                    + " WHERE id=?";
+        String req = "UPDATE panier SET userid ='?',datecreation ='?',datelivraison ='?',totalttc ='?',fraislivraison ='?',status ='?',modepaiement ='?',estlivre ='?',estpaye ='?'"
+                    + " WHERE id='?'";
        
         try {
             ps = connexion.prepareStatement(req);
@@ -164,7 +164,7 @@ return 1;
     @Override
     public int ajouterProduitPanier(ProduitPanier produit, int idPanier) {
        
-            String req = "INSERT INTO produitpanier (id_panier,id_produit,reference,libelle,description,prix,taille,couleur,texture,poids,id_Boutique,quantiteVendu,poidsVendu,prixVendu) values (?,?,?,?,?,?,?,?,?,?,?,?)";                                              
+            String req = "INSERT INTO produitpanier (idpanier,idproduit,reference,libelle,description,prix,taille,couleur,texture,poids,idBoutique,quantiteVendu,poidsVendu,prixVendu) values (?,?,?,?,?,?,?,?,?,?,?,?)";                                              
               try {
             ps = connexion.prepareStatement(req);
             
@@ -193,7 +193,7 @@ return 1;
 
     @Override
     public int modifierProduitPanier(ProduitPanier produit, int idPanier) {
-         String req = "UPDATE produitpanier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,id_Boutique=?,quantiteVendu=?,poidsVendu=?,prixVendu=? where id_panier=? and id_produit=?";                                              
+         String req = "UPDATE produitpanier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,idBoutique=?,quantiteVendu=?,poidsVendu=?,prixVendu=? where idpanier=? and idproduit=?";                                              
               try {
             ps = connexion.prepareStatement(req);
             
@@ -222,7 +222,7 @@ return 1;
 
     @Override
     public int supprimerProduitPanier(int produitId, int idPanier) {
-          String req = "Delete from produitpanier where id_produit=?,id_panier=? ";
+          String req = "Delete from produitpanier where idproduit=?,idpanier=? ";
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, produitId);
@@ -241,7 +241,7 @@ return 1;
         List<Panier> paniers = null;
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM panier WHERE user_id = '" + userId + "'");
+                    .executeQuery("SELECT * FROM panier WHERE userid = '" + userId + "'");
             while (rs.next()) {
                 paniers.add(new Panier(rs.getInt("id"),
                         rs.getInt("userid"),
@@ -266,7 +266,7 @@ return 1;
         List<Panier> paniers = null;
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM panier WHERE user_id = '" + userId + "' AND status='"+status+"'");
+                    .executeQuery("SELECT * FROM panier WHERE userid = '" + userId + "' AND status='"+status+"'");
             while (rs.next()) {
                 paniers.add(new Panier(rs.getInt("id"),
                         rs.getInt("userid"),
