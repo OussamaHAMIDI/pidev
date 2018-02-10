@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="test">
+<<<<<<< HEAD
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IPanier.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/ProduitService.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/PanierService.java</file>
@@ -28,5 +29,14 @@
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/DataStorage/MyDB.java</file>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
         </group>
+=======
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Presentation/FXMLController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/UserService.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IUser.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/main/MainUser.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Entities/User.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Utils/Utils.java</file>
+        </group>
+>>>>>>> 3af20d300f3f53927f85836c56e58c605a351b7a
     </open-files>
 </project-private>
