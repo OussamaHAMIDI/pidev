@@ -6,6 +6,7 @@
 package main;
 
 import Entities.Panier;
+import Entities.ProduitPanier;
 import Services.PanierService;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -29,5 +30,6 @@ public class MainPanier {
     
     PanierService ps = new PanierService();
     ps.ajouterPanier(p);
+   // ProduitPanier p1 = new ProduitPanier(2, 2.2, 2.1, 1, user, url, user, 0, url, user, url, 0, 0)
 }
 }
