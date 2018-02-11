@@ -39,7 +39,7 @@ public class EvaluationService implements IEvaluation {
     @Override
     public boolean ajouterEvaluation(Evaluation evaluation) {
         String req;
-        // si le type de la reclamation est boutique, on ajoute l'id de la boutique sinon on ajoute l'id du produit
+        // si le type de l'evaluation est boutique, on ajoute l'id de la boutique sinon on ajoute l'id du produit
         if (evaluation.getType().equals(TypeReclamation.Produit)) {
             req = "INSERT INTO evaluation (id_produit, id_user, note , date_creation) values (?,?,?,?)";
             try {
@@ -108,20 +108,34 @@ public class EvaluationService implements IEvaluation {
     }
 
     @Override
-    public Evaluation rechercherEvaluation(int evaluationId) {
+    public Evaluation getEvaluationById(int evaluationId) {
 
         Evaluation evaluation = null;
         try {
             ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM evaluation WHERE id = '" + evaluationId + "'");
             if (rs.first()) {
-                /*Evaluation = new Evaluation(rs.getInt("id"),
-                 rs.getInt("user_id"),
-                 rs.getObject("date_création", LocalDateTime.class),
-                 rs.getInt("boutique_id"),
-                 rs.getInt("produit_id"),
-                 rs.getInt("note"),
-                 rechercherEvaluation(rs.getInt("id")));*/
+                evaluation = new Evaluation();
+                evaluation.setId(rs.getInt("id"));
+                evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                evaluation.setNote(rs.getInt("note"));
+                UserService us = new UserService();
+                evaluation.setUser(us.getUserById(rs.getInt("id_user")));
+                if(rs.getInt("id_boutique")!=0){
+                    BoutiqueService bs = new BoutiqueService();
+                    Boutique boutique = bs.chercherBoutiqueParID(rs.getInt("id_boutique"));
+                    evaluation.setBoutique(boutique);
+                    evaluation.setProduit(null);
+                    evaluation.setType(TypeReclamation.Boutique);
+                    System.out.println("evaluation trouvée " + evaluation);
+                }
+                else {
+                    //ProduitService ps = new ProduitService();
+                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    //reclamation.setProduit(produit); //en attente de jappa
+                    evaluation.setBoutique(null);
+                    evaluation.setType(TypeReclamation.Produit);
+                }
             }
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());
@@ -214,7 +228,7 @@ public class EvaluationService implements IEvaluation {
                 else {
                     //ProduitService ps = new ProduitService();
                     //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
-                    //reclamation.setProduit(produit); //en attente de jappa
+                    //evaluation.setProduit(produit); //en attente de jappa
                     evaluation.setBoutique(null);
                     evaluation.setType(TypeReclamation.Produit);
                 }
@@ -233,7 +247,6 @@ public class EvaluationService implements IEvaluation {
         
         List<Evaluation> evaluations = new ArrayList<>();        
         try {
-            //String req = "SELECT * FROM reclamation WHERE id_user = " + user.getId() + " and id_boutique = " + boutique.getId() + " ";
             String req = "SELECT * FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
@@ -282,6 +295,32 @@ public class EvaluationService implements IEvaluation {
         }
         return evaluations;
         
+    }
+
+    @Override
+    public float getNoteBoutique(Boutique boutique) {
+        
+        List<Evaluation> evaluations = rechercherEvaluationBoutique(boutique);
+        int somme = 0;
+        int i = 0;
+        for(Evaluation e : evaluations){
+            somme = somme+e.getNote();
+            i++;
+        }
+        return somme/i;
+    }
+
+    @Override
+    public float getNoteProduit(Produit produit) {
+        
+        List<Evaluation> evaluations = rechercherEvaluationProduit(produit);
+        int somme = 0;
+        int i = 0;
+        for(Evaluation e : evaluations){
+            somme = somme+e.getNote();
+            i++;
+        }
+        return somme/i;
     }
 
 }

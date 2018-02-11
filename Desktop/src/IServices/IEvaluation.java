@@ -23,7 +23,7 @@ public interface IEvaluation {
     
     public boolean supprimerEvaluation(int evaluationId);
     
-    public Evaluation rechercherEvaluation(int evaluationId);
+    public Evaluation getEvaluationById(int evaluationId);
     
     public List<Evaluation> rechercherEvaluationBoutique(Boutique boutique);
     
@@ -34,5 +34,9 @@ public interface IEvaluation {
     public List<Evaluation> rechercherEvaluationUserBoutique(User user, Boutique boutique);
     
     public List<Evaluation> rechercherEvaluationUserProduit(User user, Produit produit);
+    
+    public float getNoteBoutique(Boutique boutique);
+    
+    public float getNoteProduit(Produit produit);
     
 }

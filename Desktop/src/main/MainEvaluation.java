@@ -49,7 +49,7 @@ public class MainEvaluation {
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
         //Evaluation e1 = new Evaluation(user,boutique,5);
         //Evaluation e2 = new Evaluation(user,p1,5);
-        EvaluationService rs = new EvaluationService();
+        EvaluationService es = new EvaluationService();
 
         //boolean a = rs.ajouterEvaluation(e1);
         //boolean b = rs.ajouterEvaluation(e2);
@@ -58,9 +58,11 @@ public class MainEvaluation {
 //        es.ajouterEvaluation(e1);
 //        es.supprimerEvaluation(e2);
 //        es.supprimerEvaluation(e2.getId());
-        List<Evaluation> hey = new ArrayList<Evaluation>();
-        hey = rs.rechercherEvaluationUserProduit(user,p1);
-        System.out.println(hey);
+        //List<Evaluation> hey = new ArrayList<Evaluation>();
+        //hey = es.rechercherEvaluationUserProduit(user,p1);
+        //System.out.println(hey);
+        float note = es.getNoteBoutique(boutique);
+        System.out.println(note);
 
     }
 

@@ -25,6 +25,8 @@ public interface IReclamation {
     
     public boolean supprimerReclamation(Reclamation reclamation);
     
+    public Reclamation getReclamationById(int reclamationId);
+    
     public List<Reclamation> rechercherReclamationBoutique(Boutique boutique);
     
     public List<Reclamation> rechercherReclamationProduit(Produit produit);
