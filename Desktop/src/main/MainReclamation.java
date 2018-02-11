@@ -11,8 +11,11 @@ import Entities.Reclamation;
 import Entities.User;
 import Services.BoutiqueService;
 import Services.ReclamationService;
+import Services.UserService;
 import Utils.Enumerations;
+import Utils.Enumerations.EtatUser;
 import Utils.Enumerations.TypeReclamation;
+import Utils.Enumerations.TypeUser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +33,20 @@ public class MainReclamation {
         TypeReclamation type2 = TypeReclamation.Produit;
 
         Produit p1 = new Produit();
+        p1.setIdProduit(2);
         Produit p2 = new Produit();
         List<Produit> produits = new ArrayList<Produit>();
 
         produits.add(p1);
         produits.add(p2);
-        p1.setIdProduit(1);
-        Boutique boutique = new Boutique(5,"hello", produits, LocalDateTime.MIN, "36rue");
+        Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
+        boutique.setId(2);
         BoutiqueService bs = new BoutiqueService();
         boutique.setUserId(1);
-        User user = new User();
-        user.setId(1);
+        bs.ajouterBoutique(boutique);
+        User user ;
+        UserService us = new UserService();
+        user = us.getUserById(2);
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
         Reclamation r1 = new Reclamation(user, boutique,"maaasset", null, type1);
         Reclamation r2 = new Reclamation(user,p1,"hloww barcha",null,type2);
@@ -48,8 +54,8 @@ public class MainReclamation {
 
         boolean a = rs.ajouterReclamation(r1);
         boolean b = rs.ajouterReclamation(r2);
-        List<Reclamation> reclamations = new ArrayList<Reclamation>();
-        reclamations = rs.rechercherReclamationBoutique(boutique);
+        //List<Reclamation> reclamations = new ArrayList<Reclamation>();
+        //reclamations = rs.rechercherReclamationBoutique(boutique);
         
         //boolean x = es.supprimerReclamation(r1);
     

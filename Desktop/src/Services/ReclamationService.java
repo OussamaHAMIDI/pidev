@@ -122,10 +122,12 @@ public class ReclamationService implements IReclamation {
                 reclamation.setDescription(rs.getString("description"));
                 reclamation.setBoutique(boutique);
                 reclamation.setProduit(null);
-                User u = new User();
                 UserService us = new UserService();
+                User u = new User();
+                u = us.getUserById(rs.getInt("id_user"));
+                reclamation.setUser(u);
                 reclamation.setType(TypeReclamation.Boutique);
-                reclamation.setUser(us.getUserById(rs.getInt("id_user")));
+                
                 
                 reclamations.add(reclamation);
             }
