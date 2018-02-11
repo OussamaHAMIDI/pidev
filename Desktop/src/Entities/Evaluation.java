@@ -15,44 +15,47 @@ import java.time.LocalDateTime;
 public class Evaluation {
     
     private int id;
-    private int userId;
-    private int produitOrBoutiqueId;
+    private User user;
+    private Produit produit;
+    private Boutique boutique;
     private LocalDateTime dateCreation;
     private TypeReclamation type;
     private int note; //de 1 à 10
 
-    public Evaluation(int id, int userId, int produitOrBoutiqueId, LocalDateTime dateCreation, TypeReclamation type, int note) {
+    public Evaluation(int id, User user, Produit produit, LocalDateTime dateCreation, TypeReclamation type, int note) {
         this.id = id;
-        this.userId = userId;
-        this.produitOrBoutiqueId = produitOrBoutiqueId;
+        this.user = user;
+        this.produit = produit;
+        this.boutique = null;
         this.dateCreation = dateCreation;
         this.type = type;
         this.note = note;
     }
-
-    public Evaluation() {
+    
+    public Evaluation(int id, User user, Boutique boutique, LocalDateTime dateCreation, TypeReclamation type, int note) {
+        this.id = id;
+        this.user = user;
+        this.boutique = boutique;
+        this.produit = null;
+        this.dateCreation = dateCreation;
+        this.type = type;
+        this.note = note;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public int getProduitOrBoutiqueId() {
-        return produitOrBoutiqueId;
+    public Produit getProduit() {
+        return produit;
     }
-
     
-
-    public int getNote() {
-        return note;
-    }
-
-    public void setNote(int note) {
-        this.note = note;
+    public Boutique getBoutique(){
+        return boutique;
     }
 
     public LocalDateTime getDateCreation() {
@@ -63,18 +66,25 @@ public class Evaluation {
         return type;
     }
 
+    public int getNote() {
+        return note;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setProduitOrBoutiqueId(int produitOrBoutiqueId) {
-        this.produitOrBoutiqueId = produitOrBoutiqueId;
+    public void setProduit(Produit produit) {
+        this.produit = produit;
     }
-
+    
+    public void setBoutique(Boutique boutique){
+        this.boutique = boutique;
+    }
 
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
@@ -83,7 +93,11 @@ public class Evaluation {
     public void setType(TypeReclamation type) {
         this.type = type;
     }
-    
+
+    public void setNote(int note) {
+        this.note = note;
+    }
+
     
     
 }

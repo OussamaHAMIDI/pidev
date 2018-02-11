@@ -16,52 +16,86 @@ import java.time.LocalDateTime;
 public class Reclamation {
     
     private int id;
-    private int userId;
-    private int produitOrBoutiqueId;
+    private User user;
+    private Boutique boutique;
+    private Produit produit;
     private String description;
     private LocalDateTime dateCreation;
     private TypeReclamation type;
 
-    
-    /**
-     * 
-     * @param id
-     * @param userId
-     * @param produitOrBoutiqueId 
-     * @param description
-     * @param dateCreation 
-     */
-    
-    public Reclamation(int id, int userId, int produitOrBoutiqueId, String description, LocalDateTime dateCreation, TypeReclamation type) {
-        this.id = id;
-        this.produitOrBoutiqueId = produitOrBoutiqueId;
-        this.description = description;
-        this.dateCreation = dateCreation;
-        this.userId = userId;
-        this.type=type;
-    }
-    
     public Reclamation() {
     }
+    
+    public Reclamation(int id, User user, Boutique boutique, String description, LocalDateTime dateCreation, TypeReclamation type) {
+        this.id = id;
+        this.user = user;
+        this.boutique = boutique;
+        this.produit = null;
+        this.description = description;
+        this.dateCreation = dateCreation;
+        this.type = type;
+    }
+
+    public Reclamation(int id, User user, Produit produit, String description, LocalDateTime dateCreation, TypeReclamation type) {
+        this.id = id;
+        this.user = user;
+        this.produit = produit;
+        this.boutique = null;
+        this.description = description;
+        this.dateCreation = dateCreation;
+        this.type = type;
+    }
+
+    public Reclamation(User user, Boutique boutique, String description, LocalDateTime dateCreation, TypeReclamation type) {
+        this.user = user;
+        this.boutique = boutique;
+        this.produit = null;
+        this.description = description;
+        this.dateCreation = dateCreation;
+        this.type = type;
+    }
+
+    public Reclamation(User user, Boutique boutique, String description, TypeReclamation type) {
+        this.user = user;
+        this.boutique = boutique;
+        this.produit = null;
+        this.description = description;
+        this.type = type;
+    }
+
+    public Reclamation(User user, Produit produit, String description, LocalDateTime dateCreation, TypeReclamation type) {
+        this.user = user;
+        this.produit = produit;
+        this.boutique = null;
+        this.description = description;
+        this.dateCreation = dateCreation;
+        this.type = type;
+    }
+
+    public Reclamation(User user, Produit produit, String description, TypeReclamation type) {
+        this.user = user;
+        this.produit = produit;
+        this.boutique = null;
+        this.description = description;
+        this.type = type;
+    }
+    
+    
 
     public int getId() {
         return id;
     }
 
-    public void setType(TypeReclamation type) {
-        this.type = type;
+    public User getUser() {
+        return user;
     }
 
-    public TypeReclamation getType() {
-        return type;
+    public Boutique getBoutique() {
+        return boutique;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getProduitOrBoutiqueId() {
-        return produitOrBoutiqueId;
+    public Produit getProduit() {
+        return produit;
     }
 
     public String getDescription() {
@@ -72,16 +106,24 @@ public class Reclamation {
         return dateCreation;
     }
 
+    public TypeReclamation getType() {
+        return type;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setProduitOrBoutiqueId(int produitOrBoutiqueId) {
-        this.produitOrBoutiqueId = produitOrBoutiqueId;
+    public void setBoutique(Boutique boutique) {
+        this.boutique = boutique;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
     }
 
     public void setDescription(String description) {
@@ -91,6 +133,9 @@ public class Reclamation {
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
-    
 
+    public void setType(TypeReclamation type) {
+        this.type = type;
+    }
+    
 }
