@@ -42,6 +42,58 @@ public class Evaluation {
         this.note = note;
     }
 
+    public Evaluation() {
+    }
+
+    public Evaluation(User user, Boutique boutique, LocalDateTime dateCreation, TypeReclamation type, int note) {
+        this.user = user;
+        this.produit = null;
+        this.boutique = boutique;
+        this.dateCreation = dateCreation;
+        this.type = type;
+        this.note = note;
+    }
+
+    public Evaluation(User user, Produit produit, LocalDateTime dateCreation, TypeReclamation type, int note) {
+        this.user = user;
+        this.produit = produit;
+        this.dateCreation = dateCreation;
+        this.type = type;
+        this.note = note;
+    }
+
+    public Evaluation(User user, Boutique boutique, TypeReclamation type, int note) {
+        this.user = user;
+        this.boutique = boutique;
+        this.type = type;
+        this.note = note;
+    }
+
+    public Evaluation(User user, Produit produit, TypeReclamation type, int note) {
+        this.user = user;
+        this.produit = produit;
+        this.type = type;
+        this.note = note;
+    }
+
+    public Evaluation(User user, Produit produit, int note) {
+        this.user = user;
+        this.type = TypeReclamation.Produit;
+        this.produit = produit;
+        this.boutique = null;
+        this.note = note;
+    }
+
+    public Evaluation(User user, Boutique boutique, int note) {
+        this.user = user;
+        this.type = TypeReclamation.Boutique;
+        this.boutique = boutique;
+        this.produit = null;
+        this.note = note;
+    }
+
+    
+    
     public int getId() {
         return id;
     }

@@ -79,6 +79,22 @@ public class Reclamation {
         this.description = description;
         this.type = type;
     }
+
+    public Reclamation(User user, Boutique boutique, String description) {
+        this.user = user;
+        this.boutique = boutique;
+        this.type = TypeReclamation.Boutique;
+        this.produit = null;
+        this.description = description;
+    }
+
+    public Reclamation(User user, Produit produit, String description) {
+        this.user = user;
+        this.type = TypeReclamation.Produit;
+        this.boutique = null;
+        this.produit = produit;
+        this.description = description;
+    }
     
     
 

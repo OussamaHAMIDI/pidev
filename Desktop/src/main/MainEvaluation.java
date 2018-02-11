@@ -27,33 +27,31 @@ public class MainEvaluation {
 
     public static void main(String[] args) {
 
-        LocalDateTime now;
-        //now = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         TypeReclamation type1 = TypeReclamation.Boutique;
         TypeReclamation type2 = TypeReclamation.Produit;
 
         Produit p1 = new Produit();
+        p1.setIdProduit(2);
         Produit p2 = new Produit();
         List<Produit> produits = new ArrayList<Produit>();
 
         produits.add(p1);
         produits.add(p2);
-        p1.setIdProduit(1);
-        Boutique boutique = new Boutique(5,"hello", produits, LocalDateTime.MIN, "36rue");
+        Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
+        boutique.setId(2);
         BoutiqueService bs = new BoutiqueService();
         boutique.setUserId(1);
         bs.ajouterBoutique(boutique);
-        User user = new User();
-        user.setId(1);
+        User user ;
+        UserService us = new UserService();
+        user = us.getUserById(2);
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
-        Evaluation e2 = new Evaluation(3, user, boutique, null, type1, 5);
-        Evaluation e3 = new Evaluation(5,user,p1,null,type2,5);
-        EvaluationService es = new EvaluationService();
+        Evaluation e1 = new Evaluation(user, boutique, null, type1,5);
+        Reclamation r2 = new Evaluation(user,p1,null,type2,5);
+        ReclamationService rs = new ReclamationService();
 
-        boolean a = es.ajouterEvaluation(e2);
-        boolean b = es.ajouterEvaluation(e3);
-        int idEvaluation = e3.getId();
-        boolean x =es.supprimerEvaluation(idEvaluation);
+        boolean a = rs.ajouterReclamation(r1);
+        boolean b = rs.ajouterReclamation(r2);
         
         
 //        es.ajouterEvaluation(e1);
