@@ -46,7 +46,7 @@ public class EvaluationService implements IEvaluation {
                 ps = connexion.prepareStatement(req);
                 ps.setInt(1, evaluation.getProduit().getIdProduit());
                 ps.setInt(2, evaluation.getUser().getId());
-                ps.setInt(3, evaluation.getNote());
+                ps.setFloat(3, evaluation.getNote());
                 ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 ps.executeUpdate();
                 System.out.println("Ajout evaluation effectué " + evaluation.getType().toString());
@@ -62,7 +62,7 @@ public class EvaluationService implements IEvaluation {
                 ps = connexion.prepareStatement(req);
                 ps.setInt(1, evaluation.getBoutique().getId());
                 ps.setInt(2, evaluation.getUser().getId());
-                ps.setInt(3, evaluation.getNote());
+                ps.setFloat(3, evaluation.getNote());
                 ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 ps.executeUpdate();
                 System.out.println("Ajout evaluation effectué " + evaluation.getType().toString());
@@ -118,7 +118,7 @@ public class EvaluationService implements IEvaluation {
                 evaluation = new Evaluation();
                 evaluation.setId(rs.getInt("id"));
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                evaluation.setNote(rs.getInt("note"));
+                evaluation.setNote(rs.getFloat("note"));
                 UserService us = new UserService();
                 evaluation.setUser(us.getUserById(rs.getInt("id_user")));
                 if(rs.getInt("id_boutique")!=0){
@@ -156,7 +156,7 @@ public class EvaluationService implements IEvaluation {
                 Evaluation evaluation = new Evaluation();
                 evaluation.setId(rs.getInt("id"));
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                evaluation.setNote(rs.getInt("note"));
+                evaluation.setNote(rs.getFloat("note"));
                 evaluation.setBoutique(boutique);
                 evaluation.setProduit(null);
                 UserService us = new UserService();
@@ -186,7 +186,7 @@ public class EvaluationService implements IEvaluation {
                 Evaluation evaluation = new Evaluation();
                 evaluation.setId(rs.getInt("id"));
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                evaluation.setNote(rs.getInt("note"));
+                evaluation.setNote(rs.getFloat("note"));
                 evaluation.setProduit(produit);
                 evaluation.setBoutique(null);
                 UserService us = new UserService();
@@ -215,7 +215,7 @@ public class EvaluationService implements IEvaluation {
                 Evaluation evaluation = new Evaluation();
                 evaluation.setId(rs.getInt("id"));
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                evaluation.setNote(rs.getInt("note"));
+                evaluation.setNote(rs.getFloat("note"));
                 evaluation.setUser(user);
                 if(rs.getInt("id_boutique")!=0){
                     BoutiqueService bs = new BoutiqueService();
@@ -255,7 +255,7 @@ public class EvaluationService implements IEvaluation {
                 Evaluation evaluation = new Evaluation();
                 evaluation.setId(rs.getInt("id"));
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                evaluation.setNote(rs.getInt("note"));
+                evaluation.setNote(rs.getFloat("note"));
                 evaluation.setUser(user);
                 evaluation.setBoutique(boutique);
                 evaluation.setProduit(null);
@@ -282,7 +282,7 @@ public class EvaluationService implements IEvaluation {
                 Evaluation evaluation = new Evaluation();
                 evaluation.setId(rs.getInt("id"));
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                evaluation.setNote(rs.getInt("note"));
+                evaluation.setNote(rs.getFloat("note"));
                 evaluation.setUser(user);
                 evaluation.setBoutique(null);
                 evaluation.setProduit(produit);
@@ -301,10 +301,10 @@ public class EvaluationService implements IEvaluation {
     public float getNoteBoutique(Boutique boutique) {
         
         List<Evaluation> evaluations = rechercherEvaluationBoutique(boutique);
-        int somme = 0;
+        float somme = 0;
         int i = 0;
         for(Evaluation e : evaluations){
-            somme = somme+e.getNote();
+            somme = somme + e.getNote();
             i++;
         }
         return somme/i;
@@ -314,10 +314,10 @@ public class EvaluationService implements IEvaluation {
     public float getNoteProduit(Produit produit) {
         
         List<Evaluation> evaluations = rechercherEvaluationProduit(produit);
-        int somme = 0;
+        float somme = 0;
         int i = 0;
         for(Evaluation e : evaluations){
-            somme = somme+e.getNote();
+            somme = somme + e.getNote();
             i++;
         }
         return somme/i;

@@ -20,9 +20,9 @@ public class Evaluation {
     private Boutique boutique;
     private LocalDateTime dateCreation;
     private TypeReclamation type;
-    private int note; //de 1 à 10
+    private float note; //de 1 à 10
 
-    public Evaluation(int id, User user, Produit produit, LocalDateTime dateCreation, TypeReclamation type, int note) {
+    public Evaluation(int id, User user, Produit produit, LocalDateTime dateCreation, TypeReclamation type, float note) {
         this.id = id;
         this.user = user;
         this.produit = produit;
@@ -32,7 +32,7 @@ public class Evaluation {
         this.note = note;
     }
     
-    public Evaluation(int id, User user, Boutique boutique, LocalDateTime dateCreation, TypeReclamation type, int note) {
+    public Evaluation(int id, User user, Boutique boutique, LocalDateTime dateCreation, TypeReclamation type, float note) {
         this.id = id;
         this.user = user;
         this.boutique = boutique;
@@ -45,7 +45,7 @@ public class Evaluation {
     public Evaluation() {
     }
 
-    public Evaluation(User user, Boutique boutique, LocalDateTime dateCreation, TypeReclamation type, int note) {
+    public Evaluation(User user, Boutique boutique, LocalDateTime dateCreation, TypeReclamation type, float note) {
         this.user = user;
         this.produit = null;
         this.boutique = boutique;
@@ -54,7 +54,7 @@ public class Evaluation {
         this.note = note;
     }
 
-    public Evaluation(User user, Produit produit, LocalDateTime dateCreation, TypeReclamation type, int note) {
+    public Evaluation(User user, Produit produit, LocalDateTime dateCreation, TypeReclamation type, float note) {
         this.user = user;
         this.produit = produit;
         this.dateCreation = dateCreation;
@@ -62,21 +62,21 @@ public class Evaluation {
         this.note = note;
     }
 
-    public Evaluation(User user, Boutique boutique, TypeReclamation type, int note) {
+    public Evaluation(User user, Boutique boutique, TypeReclamation type, float note) {
         this.user = user;
         this.boutique = boutique;
         this.type = type;
         this.note = note;
     }
 
-    public Evaluation(User user, Produit produit, TypeReclamation type, int note) {
+    public Evaluation(User user, Produit produit, TypeReclamation type, float note) {
         this.user = user;
         this.produit = produit;
         this.type = type;
         this.note = note;
     }
 
-    public Evaluation(User user, Produit produit, int note) {
+    public Evaluation(User user, Produit produit, float note) {
         this.user = user;
         this.type = TypeReclamation.Produit;
         this.produit = produit;
@@ -84,7 +84,7 @@ public class Evaluation {
         this.note = note;
     }
 
-    public Evaluation(User user, Boutique boutique, int note) {
+    public Evaluation(User user, Boutique boutique, float note) {
         this.user = user;
         this.type = TypeReclamation.Boutique;
         this.boutique = boutique;
@@ -118,7 +118,7 @@ public class Evaluation {
         return type;
     }
 
-    public int getNote() {
+    public float getNote() {
         return note;
     }
 
@@ -146,7 +146,7 @@ public class Evaluation {
         this.type = type;
     }
 
-    public void setNote(int note) {
+    public void setNote(float note) {
         this.note = note;
     }
 
