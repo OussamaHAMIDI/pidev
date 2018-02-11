@@ -150,6 +150,11 @@ public class Evaluation {
         this.note = note;
     }
 
+    @Override
+    public String toString() {
+        return "Evaluation{" + "id=" + id + ", user=" + user + ", produit=" + produit + ", boutique=" + boutique + ", dateCreation=" + dateCreation + ", type=" + type + ", note=" + note + "} \n";
+    }
+
     
     
 }

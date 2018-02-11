@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -110,11 +111,13 @@ public class ReclamationService implements IReclamation {
 
     @Override
     public List<Reclamation> rechercherReclamationBoutique(Boutique boutique) {
-        List<Reclamation> reclamations = null;
-
+        
+        List<Reclamation> reclamations = new ArrayList<>();
+        
         try {
-            ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM reclamation WHERE id_boutique = '" + boutique.getId() + "'");
+            String req = "SELECT * FROM reclamation WHERE id_boutique = '" + boutique.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Reclamation reclamation = new Reclamation();
                 reclamation.setId(rs.getInt("id"));
@@ -123,38 +126,140 @@ public class ReclamationService implements IReclamation {
                 reclamation.setBoutique(boutique);
                 reclamation.setProduit(null);
                 UserService us = new UserService();
-                User u = new User();
-                u = us.getUserById(rs.getInt("id_user"));
+                User u = us.getUserById(rs.getInt("id_user"));
                 reclamation.setUser(u);
                 reclamation.setType(TypeReclamation.Boutique);
-                
-                
                 reclamations.add(reclamation);
             }
+            System.out.println("reclamation trouvée ");
         } catch (SQLException e) {
-            System.out.println("erreur" + e.getMessage());
+            System.out.println("Echec de recherche de reclamation"+e);
+        }
+        return reclamations;
+    
+    }
+
+    @Override
+    public List<Reclamation> rechercherReclamationProduit(Produit produit) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        
+        try {
+            String req = "SELECT * FROM reclamation WHERE id_produit = '" + produit.getIdProduit() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setId(rs.getInt("id"));
+                reclamation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                reclamation.setDescription(rs.getString("description"));
+                reclamation.setProduit(produit);
+                reclamation.setBoutique(null);
+                UserService us = new UserService();
+                User u = us.getUserById(rs.getInt("id_user"));
+                reclamation.setUser(u);
+                reclamation.setType(TypeReclamation.Produit);
+                reclamations.add(reclamation);
+            }
+            System.out.println("reclamation trouvée ");
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche de reclamation"+e);
         }
         return reclamations;
     }
 
     @Override
-    public List<Reclamation> rechercherReclamationProduit(Produit produit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Reclamation> rechercherReclamationUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Reclamation> reclamations = new ArrayList<>();        
+        try {
+            String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setId(rs.getInt("id"));
+                reclamation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                reclamation.setDescription(rs.getString("description"));
+                reclamation.setUser(user);
+                if(rs.getInt("id_boutique")!=0){
+                    BoutiqueService bs = new BoutiqueService();
+                    Boutique boutique = bs.chercherBoutiqueParID(rs.getInt("id_boutique"));
+                    reclamation.setBoutique(boutique);
+                    reclamation.setProduit(null);
+                    reclamation.setType(TypeReclamation.Boutique);
+                    System.out.println("reclamation trouvée " + reclamation);
+                }
+                else {
+                    //ProduitService ps = new ProduitService();
+                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    //reclamation.setProduit(produit); //en attente de jappa
+                    reclamation.setBoutique(null);
+                    reclamation.setType(TypeReclamation.Produit);
+                }
+                
+                reclamations.add(reclamation);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche de reclamation"+e);
+        }
+        return reclamations;
     }
 
     @Override
     public List<Reclamation> rechercherReclamationUserBoutique(User user, Boutique boutique) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Reclamation> reclamations = new ArrayList<>();        
+        try {
+            //String req = "SELECT * FROM reclamation WHERE id_user = " + user.getId() + " and id_boutique = " + boutique.getId() + " ";
+            String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "' AND id_boutique = '" + boutique.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println("reclamation trouvée ");
+                Reclamation reclamation = new Reclamation();
+                reclamation.setId(rs.getInt("id"));
+                reclamation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                reclamation.setDescription(rs.getString("description"));
+                reclamation.setUser(user);
+                reclamation.setBoutique(boutique);
+                reclamation.setProduit(null);
+                reclamation.setType(TypeReclamation.Boutique);
+                reclamations.add(reclamation);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche de reclamation"+e);
+        }
+        return reclamations;
     }
 
     @Override
     public List<Reclamation> rechercherReclamationUserProduit(User user, Produit produit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Reclamation> reclamations = new ArrayList<>();        
+        try {
+            //String req = "SELECT * FROM reclamation WHERE id_user = " + user.getId() + " and id_boutique = " + boutique.getId() + " ";
+            String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getIdProduit() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println("reclamation trouvée ");
+                Reclamation reclamation = new Reclamation();
+                reclamation.setId(rs.getInt("id"));
+                reclamation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                reclamation.setDescription(rs.getString("description"));
+                reclamation.setUser(user);
+                reclamation.setBoutique(null);
+                reclamation.setProduit(produit);
+                reclamation.setType(TypeReclamation.Boutique);
+                reclamations.add(reclamation);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche de reclamation"+e);
+        }
+        return reclamations;
+        
     }
 
 }

@@ -153,5 +153,12 @@ public class Reclamation {
     public void setType(TypeReclamation type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Reclamation{" + "id=" + id + ", user=" + user + ", id_boutique=" + boutique + ", produit=" + produit + ", description=" + description + ", dateCreation=" + dateCreation + ", type=" + type + "} \n";
+    }
+    
+    
     
 }

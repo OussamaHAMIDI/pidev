@@ -46,17 +46,20 @@ public class MainReclamation {
         Boutique boutique = new Boutique(user,"Hellou",produits);
         boutique.setId(2);
         BoutiqueService bs = new BoutiqueService();
-        bs.ajouterBoutique(boutique);
+        //bs.ajouterBoutique(boutique);
         
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
-        Reclamation r1 = new Reclamation(user, boutique,"maaasset");
-        Reclamation r2 = new Reclamation(user,p1,"hloww barcha");
+        //Reclamation r1 = new Reclamation(user, boutique,"maaasset");
+        //Reclamation r2 = new Reclamation(user,p1,"hloww barcha");
         ReclamationService rs = new ReclamationService();
 
-        boolean a = rs.ajouterReclamation(r1);
-        boolean b = rs.ajouterReclamation(r2);
-        //List<Reclamation> reclamations = new ArrayList<Reclamation>();
-        //reclamations = rs.rechercherReclamationBoutique(boutique);
+        //boolean a = rs.ajouterReclamation(r1);
+        //boolean b = rs.ajouterReclamation(r2);
+        List<Reclamation> hey = new ArrayList<Reclamation>();
+        hey = rs.rechercherReclamationUserBoutique(user,boutique);
+        System.out.println(hey);
+                
+                
         
         //boolean x = es.supprimerReclamation(r1);
     

@@ -5,7 +5,11 @@
  */
 package IServices;
 
+import Entities.Boutique;
 import Entities.Evaluation;
+import Entities.Produit;
+import Entities.User;
+import java.util.List;
 
 /**
  *
@@ -14,7 +18,21 @@ import Entities.Evaluation;
 public interface IEvaluation {
     
     public boolean ajouterEvaluation(Evaluation evaluation);
+    
     public boolean supprimerEvaluation(Evaluation evaluation);
+    
     public boolean supprimerEvaluation(int evaluationId);
+    
     public Evaluation rechercherEvaluation(int evaluationId);
+    
+    public List<Evaluation> rechercherEvaluationBoutique(Boutique boutique);
+    
+    public List<Evaluation> rechercherEvaluationProduit(Produit produit);
+    
+    public List<Evaluation> rechercherEvaluationUser (User user);
+    
+    public List<Evaluation> rechercherEvaluationUserBoutique(User user, Boutique boutique);
+    
+    public List<Evaluation> rechercherEvaluationUserProduit(User user, Produit produit);
+    
 }
