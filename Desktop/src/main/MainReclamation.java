@@ -39,14 +39,15 @@ public class MainReclamation {
 
         produits.add(p1);
         produits.add(p2);
-        Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
-        boutique.setId(2);
-        BoutiqueService bs = new BoutiqueService();
-        boutique.setUserId(1);
-        bs.ajouterBoutique(boutique);
         User user ;
         UserService us = new UserService();
         user = us.getUserById(2);
+        user.setId(2);
+        Boutique boutique = new Boutique(user,"Hellou",produits);
+        boutique.setId(2);
+        BoutiqueService bs = new BoutiqueService();
+        bs.ajouterBoutique(boutique);
+        
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
         Reclamation r1 = new Reclamation(user, boutique,"maaasset");
         Reclamation r2 = new Reclamation(user,p1,"hloww barcha");
