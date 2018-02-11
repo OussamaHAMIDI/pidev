@@ -48,8 +48,8 @@ public class MainReclamation {
         UserService us = new UserService();
         user = us.getUserById(2);
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
-        Reclamation r1 = new Reclamation(user, boutique,"maaasset", null, type1);
-        Reclamation r2 = new Reclamation(user,p1,"hloww barcha",null,type2);
+        Reclamation r1 = new Reclamation(user, boutique,"maaasset");
+        Reclamation r2 = new Reclamation(user,p1,"hloww barcha");
         ReclamationService rs = new ReclamationService();
 
         boolean a = rs.ajouterReclamation(r1);

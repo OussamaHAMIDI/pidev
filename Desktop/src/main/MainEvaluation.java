@@ -46,12 +46,12 @@ public class MainEvaluation {
         UserService us = new UserService();
         user = us.getUserById(2);
         //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
-        Evaluation e1 = new Evaluation(user, boutique, null, type1,5);
-        Reclamation r2 = new Evaluation(user,p1,null,type2,5);
-        ReclamationService rs = new ReclamationService();
+        Evaluation e1 = new Evaluation(user, boutique,5);
+        Evaluation e2 = new Evaluation(user,p1,5);
+        EvaluationService rs = new EvaluationService();
 
-        boolean a = rs.ajouterReclamation(r1);
-        boolean b = rs.ajouterReclamation(r2);
+        boolean a = rs.ajouterEvaluation(e1);
+        boolean b = rs.ajouterEvaluation(e2);
         
         
 //        es.ajouterEvaluation(e1);
