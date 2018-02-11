@@ -7,6 +7,7 @@ package main;
 
 import Entities.Boutique;
 import Entities.Produit;
+import Entities.User;
 import Services.BoutiqueService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,11 +32,23 @@ public class MainBoutique {
 
       produits.add(p);
       produits.add(p2);
-      Boutique boutique = new Boutique("hello",produits, LocalDateTime.MIN, "36rue");
+      User user = new User();
+      user.setId(2);
+      Boutique boutique = new Boutique(user,"hello",produits);
 
       BoutiqueService bs = new BoutiqueService();
-      boutique.setUserId(1);
+      boutique.setUser(user);
+      
       bs.ajouterBoutique(boutique);
+      boutique.setId(7);
+      //List<Boutique> boutiques = new ArrayList<Boutique>();
+      bs.modifierAdresseBoutique(boutique,"5 rue azza");
+      //boutiques = bs.chercherBoutiquesParNom("hello");
+      //System.out.println(boutiques);
+              
+              
+      //bs.supprimerBoutique(boutique);
+      
  
 }
 }

@@ -97,9 +97,9 @@ public class ProduitService implements IProduit {
         Produit produit = null;
         try {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM produit WHERE idProduit = " + id);
+                    .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                return produit = new Produit(result.getInt("idProduit"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), result.getInt("idBoutique"));
+                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), result.getInt("idBoutique"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

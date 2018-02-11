@@ -22,7 +22,7 @@ import java.util.List;
 public class Boutique {
 
     private int id;
-    private int userId;
+    private User user;
     private String nom;
     private String adresse;
     private List<Produit> listProduit;
@@ -31,29 +31,53 @@ public class Boutique {
     public Boutique() {
     }
 
-    public Boutique(int id, String nom, List<Produit> listProduit, LocalDateTime dateCreation, String adresse) {
+    public Boutique(User user, String nom, String adresse, List<Produit> listProduit, LocalDateTime dateCreation) {
+        this.user = user;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.listProduit = listProduit;
+        this.dateCreation = dateCreation;
+    }
+
+    public Boutique(User user, String nom, List<Produit> listProduit, LocalDateTime dateCreation) {
+        this.user = user;
+        this.nom = nom;
+        this.listProduit = listProduit;
+        this.dateCreation = dateCreation;
+    }
+
+    public Boutique(User user, String nom, List<Produit> listProduit) {
+        this.user = user;
+        this.nom = nom;
+        this.listProduit = listProduit;
+    }
+
+    public Boutique(User user, String nom, String adresse, List<Produit> listProduit) {
+        this.user = user;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.listProduit = listProduit;
+    }
+
+    public Boutique(int id, User user, String nom, String adresse, List<Produit> listProduit, LocalDateTime dateCreation) {
         this.id = id;
+        this.user = user;
         this.nom = nom;
+        this.adresse = adresse;
         this.listProduit = listProduit;
         this.dateCreation = dateCreation;
-        this.adresse = adresse;
     }
 
-    public Boutique(String nom, List<Produit> listProduit, LocalDateTime dateCreation, String adresse) {
-        this.nom = nom;
-        this.listProduit = listProduit;
-        this.dateCreation = dateCreation;
-        this.adresse = adresse;
+   
+
+    public User getUser() {
+        return user;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
+    
     public int getId() {
         return id;
     }
