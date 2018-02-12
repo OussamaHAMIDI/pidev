@@ -55,6 +55,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
 
+
 public class HomeAdminController implements Initializable {
 
     UserService us = new UserService();
@@ -149,16 +150,7 @@ public class HomeAdminController implements Initializable {
         if (result.get() == ButtonType.OK) {
             Utils.showTrayNotification(NotificationType.CUSTOM, "Déconnexion", null, "Au revoir " + username.getText(), u.getPhoto());
             us.modifierEtatUser(u, EtatUser.Disconnected);
-            //                Parent login = FXMLLoader.load(getClass().getResource("Login.fxml"));
-//                Scene database_scene = new Scene(login);
-//                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                app_stage.hide();
-//                app_stage.setScene(database_scene);
-//                app_stage.setTitle("Login");
-//                mouseDrag md = new mouseDrag();
-//                md.setDragged(login, app_stage);
-//                app_stage.getIcons().add(new Image("src/Images/souk.png"));
-//                app_stage.show();
+           
             Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage2.hide();
             FXMLLoader loader = new FXMLLoader();
@@ -167,8 +159,7 @@ public class HomeAdminController implements Initializable {
                 loader.load();
             } catch (Exception e) {
             }
-            LoginController hc = loader.getController();
-//hc.setValue(u.getId());
+
             Parent p = loader.getRoot();
             Stage stage = new Stage();
             Scene pp = new Scene(p);
@@ -184,11 +175,7 @@ public class HomeAdminController implements Initializable {
                 public void handle(WindowEvent event) {
                     Platform.runLater(new Runnable() {
                         @Override
-                        public void run() {
-//                                                UserService uss = new UserService();
-//                                                
-//                                                uss.modifierEtatUser(uss.getUserById(u.getId()), EtatUser.Active);
-//                                                us.modifierEtatUser(u, Enumerations.EtatUser.Disconnected);
+                        public void run() {                                             
                             System.exit(0);
                         }
                     });
