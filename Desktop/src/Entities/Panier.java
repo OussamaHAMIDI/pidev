@@ -6,6 +6,9 @@
  */
 package Entities;
 
+import Utils.Enumerations;
+import Utils.Enumerations.ModePaiement;
+import Utils.Enumerations.StatusPanier;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,8 +27,8 @@ public class Panier {
     private LocalDateTime dateLivraison;
     private double totalTTC;
     private double fraisLivraison;
-    private String status;
-    private String modePaiement;
+    private StatusPanier status;
+    private ModePaiement modePaiement;
     private boolean estLivre;
     private boolean estPaye;
     private List<Produit> contenu;
@@ -37,8 +40,8 @@ public class Panier {
         this.dateLivraison = dateLivraison;
         this.totalTTC = totalTTC;
         this.fraisLivraison = fraisLivraison;
-        this.status = status;
-        this.modePaiement = modePaiement;
+        this.status = StatusPanier.valueOf(status);
+        this.modePaiement = ModePaiement.valueOf(modePaiement);
         this.estLivre = estLivre;
         this.estPaye = estPaye;
         this.contenu = contenu;
@@ -47,6 +50,8 @@ public class Panier {
     public Panier(User user, LocalDateTime dateCreation) {
         this.user = user;
         this.dateCreation = dateCreation;
+        this.status = StatusPanier.Temporelle;
+        
     }
 
     public Panier() {
@@ -102,19 +107,19 @@ public class Panier {
         this.fraisLivraison = fraisLivraison;
     }
 
-    public String getStatus() {
+    public StatusPanier getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusPanier status) {
         this.status = status;
     }
 
-    public String getModePaiement() {
+    public ModePaiement getModePaiement() {
         return modePaiement;
     }
 
-    public void setModePaiement(String modePaiement) {
+    public void setModePaiement(ModePaiement modePaiement) {
         this.modePaiement = modePaiement;
     }
 
