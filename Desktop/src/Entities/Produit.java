@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.time.LocalDateTime;
+
 
 /**
  *
@@ -21,12 +23,17 @@ public class Produit {
     protected String couleur;
     protected String texture;
     protected float poids;
-    protected int idBoutique;
+    protected Boutique boutique;
+    protected LocalDateTime dateAjout;
 
+<<<<<<< HEAD
+    
+=======
     public Produit() {
     }
+>>>>>>> 96b6445e31e425d16aa4e386907d61b676ef2669
 
-    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, int idBoutique) {
+    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
         this.idProduit = idProduit;
         this.reference = reference;
         this.libelle = libelle;
@@ -36,12 +43,10 @@ public class Produit {
         this.couleur = couleur;
         this.texture = texture;
         this.poids = poids;
-        this.idBoutique = idBoutique;
+        this.boutique = boutique;
+        this.dateAjout = dateAjout;
     }
 
-    
-
-    
 
     public int getIdProduit() {
         return idProduit;
@@ -114,13 +119,24 @@ public class Produit {
     public void setPoids(float poids) {
         this.poids = poids;
     }
-    public int getIdBoutique() {
-        return idBoutique;
+
+    public Boutique getBoutique() {
+        return boutique;
     }
 
-    public void setIdBoutique(int idBoutique) {
-        this.idBoutique = idBoutique;
+    public void setBoutique(Boutique boutique) {
+        this.boutique = boutique;
     }
+
+    public LocalDateTime getDateAjout() {
+        return dateAjout;
+    }
+
+    public void setDateAjout(LocalDateTime dateAjout) {
+        this.dateAjout = dateAjout;
+    }
+    
+    
     
     
     @Override

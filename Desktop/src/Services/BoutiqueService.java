@@ -196,12 +196,12 @@ public class BoutiqueService implements IBoutique {
 
         List produits = new ArrayList();
         try {
-            String sql = "SELECT id_produit FROM boutique WHERE id = '" + boutique.getId() + "'";
+            String sql = "SELECT id FROM produit WHERE id_boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProduitService pService = new ProduitService();
-                Produit p = pService.chercherProduitParID(rs.getInt("id_produit"));
+                Produit p = pService.chercherProduitParID(rs.getInt("id"));
                 produits.add(p);
             }
         } catch (SQLException e) {
@@ -297,17 +297,23 @@ public class BoutiqueService implements IBoutique {
     }
 
     @Override
-    public void ajouterProduit(Produit produit, Boutique boutique) {
+    public void ajouterProduit(Produit p, Boutique boutique) {
         
         try {
-            
-            String req = "INSERT INTO produit_boutique (id_boutique, id_produit, date_ajout) VALUES ( ?, ?, ?)"; // manque adresse fel base 
+            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique) values ( ?,?,?,?,?,?,?,?,?)";
             ps = connexion.prepareStatement(req);
-            ps.setInt(1, boutique.getId());
-            ps.setInt(2, produit.getIdProduit());
-            ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps = connexion.prepareStatement(req);
+            ps.setString(1, p.getReference());
+            ps.setString(2, p.getLibelle());
+            ps.setString(3, p.getDescription());
+            ps.setFloat(4, p.getPrix());
+            ps.setString(5, p.getTaille());
+            ps.setString(6, p.getCouleur());
+            ps.setString(7, p.getTexture());
+            ps.setFloat(8, p.getPoids());
+            ps.setInt(9, p.getIdBoutique());
             ps.executeUpdate();
-            System.out.println("L'ajout du produit dans la boutique est effectué");
+            System.out.println("Ajout effectué");
         } catch (SQLException ex) {
             System.out.println("L'ajout du produit dans la boutique a échoué " + ex.getMessage());
         }

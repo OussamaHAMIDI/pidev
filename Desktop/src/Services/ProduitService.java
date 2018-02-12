@@ -33,7 +33,8 @@ public class ProduitService implements IProduit {
     @Override
     public boolean ajouterProduit(Produit p) {
         try {
-            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,idBoutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
+
+            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
@@ -43,7 +44,7 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getIdBoutique());
+            ps.setInt(9, p.getBoutique().getId());
             ps.executeUpdate();
             System.out.println("Ajout effectué");
             return true;
@@ -67,7 +68,7 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getIdBoutique());
+            ps.setInt(9, p.getBoutique().getId());
             ps.setInt(10, p.getIdProduit());
             ps.executeUpdate();
             System.out.println("Modification effectuée");
@@ -95,11 +96,12 @@ public class ProduitService implements IProduit {
     @Override
     public Produit chercherProduitParID(int id) {
         Produit produit = null;
+        BoutiqueService bs= new BoutiqueService();
         try {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), result.getInt("idBoutique"));
+                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("idBoutique")),Utils.Utils.getLocalDateTime(result.getString("date")));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
