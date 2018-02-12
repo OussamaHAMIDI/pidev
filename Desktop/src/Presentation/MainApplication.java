@@ -5,7 +5,6 @@
  */
 package Presentation;
 
-import Utils.navigation;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import javafx.application.Application;
@@ -16,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -56,10 +56,10 @@ public class MainApplication extends Application {
 
             Scene scene = new Scene(root);
             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-            // stage.getIcons().add(nav.applicationIcon);
+            stage.getIcons().add(new Image("src/Images/souk.png"));
             stage.centerOnScreen();
             stage.setScene(scene);
-            //stage.getScene().getStylesheets().setAll(MainApplication.class.getResource("main.css").toString());
+         
             stage.show();
         } catch (Exception e) {
             showExceptionDialog(e);
