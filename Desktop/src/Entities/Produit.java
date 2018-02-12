@@ -26,7 +26,12 @@ public class Produit {
     protected Boutique boutique;
     protected LocalDateTime dateAjout;
 
+<<<<<<< HEAD
     
+=======
+    public Produit() {
+    }
+>>>>>>> 96b6445e31e425d16aa4e386907d61b676ef2669
 
     public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
         this.idProduit = idProduit;
@@ -42,8 +47,6 @@ public class Produit {
         this.dateAjout = dateAjout;
     }
 
-    public Produit() {
-    }
 
     public int getIdProduit() {
         return idProduit;
