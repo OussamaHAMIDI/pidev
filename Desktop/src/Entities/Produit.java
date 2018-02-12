@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.time.LocalDateTime;
+
 
 /**
  *
@@ -22,6 +24,7 @@ public class Produit {
     protected String texture;
     protected float poids;
     protected int idBoutique;
+    protected LocalDateTime dateAjout;
 
     public Produit() {
     }

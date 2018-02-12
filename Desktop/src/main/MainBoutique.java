@@ -38,8 +38,11 @@ public class MainBoutique {
         boutique.setUser(user);
 
         //bs.ajouterBoutique(boutique);
+        p.setIdBoutique(7);
         boutique.setId(7);
         bs.ajouterProduit(p, boutique);
+        produits=bs.lireProduitsParBoutique(boutique);
+        System.out.println(produits);
         //List<Boutique> boutiques = new ArrayList<Boutique>();
         //bs.modifierAdresseBoutique(boutique,"5 rue azza");
         //boutiques = bs.chercherBoutiquesParNom("hello");
