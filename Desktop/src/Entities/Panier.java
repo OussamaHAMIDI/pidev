@@ -19,7 +19,7 @@ public class Panier {
 
 
     private int id;
-    private int userId;
+    private User user;
     private LocalDateTime dateCreation;
     private LocalDateTime dateLivraison;
     private double totalTTC;
@@ -30,9 +30,9 @@ public class Panier {
     private boolean estPaye;
     private List<Produit> contenu;
 
-    public Panier(int id, int userId, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
+    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.dateCreation = dateCreation;
         this.dateLivraison = dateLivraison;
         this.totalTTC = totalTTC;
@@ -44,8 +44,8 @@ public class Panier {
         this.contenu = contenu;
     }
 
-    public Panier(int userId, LocalDateTime dateCreation) {
-        this.userId = userId;
+    public Panier(User user, LocalDateTime dateCreation) {
+        this.user = user;
         this.dateCreation = dateCreation;
     }
 
@@ -62,12 +62,12 @@ public class Panier {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getDateCreation() {
@@ -144,14 +144,14 @@ public class Panier {
 
     @Override
     public String toString() {
-        return "Panier{" + "id=" + id + ", userId=" + userId + ", dateCreation=" + dateCreation + ", dateLivraison=" + dateLivraison + ", totalTTC=" + totalTTC + ", fraisLivraison=" + fraisLivraison + ", status=" + status + ", modePaiement=" + modePaiement + ", estLivre=" + estLivre + ", estPaye=" + estPaye + ", contenu=" + contenu + '}';
+        return "Panier{" + "id=" + id + ", userId=" + user.getId() + ", dateCreation=" + dateCreation + ", dateLivraison=" + dateLivraison + ", totalTTC=" + totalTTC + ", fraisLivraison=" + fraisLivraison + ", status=" + status + ", modePaiement=" + modePaiement + ", estLivre=" + estLivre + ", estPaye=" + estPaye + ", contenu=" + contenu + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 31 * hash + Objects.hashCode(this.id);
-        hash = 31 * hash + Objects.hashCode(this.userId);
+        hash = 31 * hash + Objects.hashCode(this.user.getId());
         hash = 31 * hash + Objects.hashCode(this.dateCreation);
         hash = 31 * hash + Objects.hashCode(this.dateLivraison);
         hash = 31 * hash + (int) (Double.doubleToLongBits(this.totalTTC) ^ (Double.doubleToLongBits(this.totalTTC) >>> 32));
@@ -183,7 +183,7 @@ public class Panier {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.userId, other.userId)) {
+        if (!Objects.equals(this.user.getId(), other.user.getId())) {
             return false;
         }
         if (!Objects.equals(this.status, other.status)) {
