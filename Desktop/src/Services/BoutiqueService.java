@@ -296,4 +296,21 @@ public class BoutiqueService implements IBoutique {
         }
     }
 
+    @Override
+    public void ajouterProduit(Produit produit, Boutique boutique) {
+        
+        try {
+            
+            String req = "INSERT INTO produit_boutique (id_boutique, id_produit, date_ajout) VALUES ( ?, ?, ?)"; // manque adresse fel base 
+            ps = connexion.prepareStatement(req);
+            ps.setInt(1, boutique.getId());
+            ps.setInt(2, produit.getIdProduit());
+            ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps.executeUpdate();
+            System.out.println("L'ajout du produit dans la boutique est effectué");
+        } catch (SQLException ex) {
+            System.out.println("L'ajout du produit dans la boutique a échoué " + ex.getMessage());
+        }
+    }
+
 }

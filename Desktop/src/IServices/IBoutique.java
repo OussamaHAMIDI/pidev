@@ -18,6 +18,8 @@ public interface IBoutique {
     public void ajouterBoutique(Boutique boutique);
 
     public void ajouterProduit(int idProduit, int idBoutique);
+    
+    public void ajouterProduit(Produit produit, Boutique boutique);
 
     public void supprimerBoutique(int idBoutique);
     
