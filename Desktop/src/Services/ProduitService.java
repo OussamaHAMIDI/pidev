@@ -33,7 +33,11 @@ public class ProduitService implements IProduit {
     @Override
     public boolean ajouterProduit(Produit p) {
         try {
+<<<<<<< HEAD
             String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,boutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
+=======
+            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
+>>>>>>> efd3c5355e01425e87fb944c1c43fa6898e7ed8d
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
