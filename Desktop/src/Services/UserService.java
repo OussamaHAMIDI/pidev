@@ -307,11 +307,11 @@ public class UserService implements IUser {
 
             if (rs.first()) {
 
-                u = new User(idUser, rs.getString("username"), rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
+                u = new User(idUser, rs.getString("username"),  rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
                         TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),
                         Utils.getLocalDateTime(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
-                        rs.getString("adresse"), rs.getString("tel"), rs.getString("roles"), rs.getString("confirmation_token"),
-                        Utils.getLocalDateTime(rs.getString("last_login")));
+                        rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
+                                rs.getString("salt") ,rs.getString("roles"), rs.getString("confirmation_token"),rs.getBinaryStream("photo_profil"));
                 System.out.println("User retrieved");
             }
 
@@ -340,8 +340,8 @@ public class UserService implements IUser {
                 u = new User(rs.getInt("id"), username, rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
                         TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),
                         Utils.getLocalDateTime(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
-                        rs.getString("adresse"), rs.getString("tel"), rs.getString("roles"), rs.getString("confirmation_token"),
-                        Utils.getLocalDateTime(rs.getString("last_login")));
+                        rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
+                                rs.getString("salt") ,rs.getString("roles"), rs.getString("confirmation_token"),rs.getBinaryStream("photo_profil"));
                 System.out.println("User retrieved");
             }
 
@@ -378,7 +378,7 @@ public class UserService implements IUser {
         try {
             String req = "UPDATE `user` SET `username`=?,`username_canonical`=?,`email`=?,`email_canonical`=?"
                     + " , `password`=?,`last_login`= ? ,`roles`=?,`type`=?,`etat`= ?,`adresse`=?,`tel`=?,`nom`= ?,`prenom`=?"
-                    + ", `date_naissance`= ? ,`sexe`=? WHERE id = '" + u.getId() + "'";
+                    + ", `date_naissance`= ? ,`sexe`=?,`salt`=? ,`photo_profil`=? WHERE id = '" + u.getId() + "'";
             ps = connexion.prepareStatement(req);
             ps.setString(1, u.getUserName());
             ps.setString(2, u.getUserName());
@@ -395,6 +395,8 @@ public class UserService implements IUser {
             ps.setString(13, u.getPrenom());
             ps.setString(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
             ps.setString(15, u.getSexe());
+            ps.setString(16, u.getSalt());
+            ps.setBinaryStream(17, u.getPhoto());
             ps.executeUpdate();
             System.out.println("Modification User " + u.getUserName() + " réussie");
             return true;

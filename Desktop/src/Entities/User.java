@@ -6,6 +6,7 @@
 package Entities;
 
 import Utils.Enumerations.*;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 /**
@@ -30,8 +31,10 @@ public class User {
 
     // FOS Bundle Table
     private LocalDateTime lastLogin;
+    private String salt;
     private String role;
     private String token;
+    private InputStream photo;
 
     public User() {
     }
@@ -40,7 +43,8 @@ public class User {
         this.id = id;
     }
 
-    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token, LocalDateTime lastLogin) {
+    // avec photo
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, LocalDateTime lastLogin, String salt, String role, String token, InputStream photo) {
         this.id = id;
         this.userName = userName;
         this.mdp = mdp;
@@ -53,12 +57,16 @@ public class User {
         this.email = email;
         this.adresse = adresse;
         this.tel = tel;
+        this.lastLogin = lastLogin;
+        this.salt = salt;
         this.role = role;
         this.token = token;
-        this.lastLogin = lastLogin;
+        this.photo = photo;
     }
 
-    public User(String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, String role, String token, LocalDateTime lastLogin) {
+ // sans photo
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, LocalDateTime lastLogin, String salt, String role, String token) {
+        this.id = id;
         this.userName = userName;
         this.mdp = mdp;
         this.etat = etat;
@@ -70,9 +78,10 @@ public class User {
         this.email = email;
         this.adresse = adresse;
         this.tel = tel;
+        this.lastLogin = lastLogin;
+        this.salt = salt;
         this.role = role;
         this.token = token;
-        this.lastLogin = lastLogin;
     }
 
     public int getId() {
@@ -87,6 +96,7 @@ public class User {
         return userName;
     }
 
+    
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -195,10 +205,29 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public InputStream getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(InputStream photo) {
+        this.photo = photo;
+    }
+
+    
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", userName=" + userName + ", mdp=" + mdp + ", etat=" + etat + ", type=" + type + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", Sexe=" + Sexe + ", email=" + email + ", adresse=" + adresse + ", tel=" + tel + ", lastLogin=" + lastLogin + ", role=" + role + ", token=" + token + '}';
+        return "User{" + "id=" + id + ", userName=" + userName + ", mdp=" + mdp + ", etat=" + etat + ", type=" + type + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", Sexe=" + Sexe + ", email=" + email + ", adresse=" + adresse + ", tel=" + tel + ", lastLogin=" + lastLogin + ", salt=" + salt + ", role=" + role + ", token=" + token + '}';
     }
+
+    
 
   
 

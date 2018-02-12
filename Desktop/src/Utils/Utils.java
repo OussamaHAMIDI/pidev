@@ -6,6 +6,7 @@
 package Utils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -13,6 +14,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Random;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,6 +26,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  *
@@ -41,8 +49,7 @@ public class Utils {
         return saltStr;
     }
 
-    public static String hashPassword(String password_plaintext) {
-        String salt = BCrypt.gensalt(4);
+    public static String hashPassword(String password_plaintext, String salt) {
         int cost = 4;// cost (iterations) in fos bundle*********************
         String digest = BCrypt.hashpw(password_plaintext, salt);
         for (int i = 0; i < cost - 2; i++) {
@@ -138,5 +145,25 @@ public class Utils {
         }
         return l;
     }
+    
+    public static void showAlert(Alert.AlertType type, String title, String header, String text) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
+
+    public static void showTrayNotification(NotificationType type, String title, String header, String text, InputStream img) {
+        TrayNotification tray = new TrayNotification();
+        tray.setNotificationType(type);
+        tray.setTitle(title);
+        tray.setMessage(text);
+        tray.setAnimationType(AnimationType.FADE);
+        tray.showAndDismiss(Duration.millis(1500));
+        tray.setRectangleFill(Color.valueOf("#4183D7"));
+        tray.setImage(new Image(img));
+    }
+
 
 }
