@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Main;
 
 /**
  *
@@ -19,7 +18,7 @@ import main.Main;
 public class MyDB {
 
     Connection connexion;
-    final String url = "jdbc:mysql://localhost:3306/souk"; // !************ change db name **************** 
+    final String url = "jdbc:mysql://localhost:3306/souk?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
     final String user = "root";
     final String password = "";
     private static MyDB instance = null;
@@ -29,8 +28,8 @@ public class MyDB {
             connexion = DriverManager.getConnection(url, user, password);
             System.out.println("*****************************\nConnexion établie");
         } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("\nOu Bien changer le nom de la BD :D ");
+            Logger.getLogger(MyDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("\nConnexion echouée !! ");
         }
     }
 

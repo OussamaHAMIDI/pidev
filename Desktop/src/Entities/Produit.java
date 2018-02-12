@@ -47,7 +47,7 @@ public class Produit {
         return idProduit;
     }
 
-    public void setIdProduit(int id) {
+    public void setIdProduit(int idProduit) {
         this.idProduit = idProduit;
     }
 

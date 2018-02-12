@@ -15,11 +15,13 @@ import java.io.InputStream;
  */
 public interface IUser {
 
+    public boolean ajouterUser(User u);
+
     public boolean ajouterUser(User u, InputStream file, int length);
+    
+    public boolean modifierUser(User u);
 
-    public boolean supprimerUser(int idUser);
-
-    public boolean modifierEtatUser(int idUser, EtatUser etat);
+    public void modifierEtatUser(User u, EtatUser etat);
 
     public boolean ajouterPhotoUser(int idUser, InputStream file, int length);
 
@@ -29,10 +31,12 @@ public interface IUser {
 
     public boolean changerMdp(int idUser, String new_mdp);
 
-   public int getIdUser(String userName, String email);
-    
+    public int getIdUser(String userName, String email);
+
     public User getUserById(int idUser);
+    
+    public User getUserByUsername(String username);
 
     public int getNextId();
-    
+
 }

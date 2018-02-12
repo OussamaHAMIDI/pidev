@@ -50,6 +50,7 @@ public class Enumerations {
      *  Enumeration pour le type de user 
      */
     public static enum TypeUser{
+        Administrateur,
         Artisan,
         Client;
     }

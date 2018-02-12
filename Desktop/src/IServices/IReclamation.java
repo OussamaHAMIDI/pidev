@@ -7,7 +7,11 @@
 package IServices;
 
 import Entities.Reclamation;
+import Entities.Boutique;
+import Entities.Produit;
+import Entities.User;
 import Utils.Enumerations;
+import java.util.List;
 
 /**
  *
@@ -21,5 +25,17 @@ public interface IReclamation {
     
     public boolean supprimerReclamation(Reclamation reclamation);
     
-    public Reclamation rechercherReclamation(int reclamationId);
+    public Reclamation getReclamationById(int reclamationId);
+    
+    public List<Reclamation> rechercherReclamationBoutique(Boutique boutique);
+    
+    public List<Reclamation> rechercherReclamationProduit(Produit produit);
+    
+    public List<Reclamation> rechercherReclamationUser (User user);
+    
+    public List<Reclamation> rechercherReclamationUserBoutique(User user, Boutique boutique);
+    
+    public List<Reclamation> rechercherReclamationUserProduit(User user, Produit produit);
+    
+    
 }
