@@ -45,8 +45,10 @@ public class PanierService implements IPanier{
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM panier WHERE id = '" + id + "'");
             if (rs.first()) {
+                UserService userGetter = new UserService();
+                
                 panier = new Panier(rs.getInt("id"),
-                        rs.getInt("userid"),
+                        userGetter.getUserById(rs.getInt("user_id")),
                         rs.getObject("date_creation", LocalDateTime.class),
                         rs.getObject("date_livraison", LocalDateTime.class),
                         rs.getDouble("tota_lttc"),
@@ -71,7 +73,7 @@ public class PanierService implements IPanier{
        
         try {
             ps = connexion.prepareStatement(req);
-            ps.setInt(1, panier.getUserId());
+            ps.setInt(1, panier.getUser().getId());
             ps.setObject(2, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(3, panier.getDateLivraison());
             ps.setDouble(4, panier.getTotalTTC());
@@ -97,7 +99,7 @@ return 1;
         try {
             ps = connexion.prepareStatement(req);
             
-            ps.setInt(1, panier.getUserId());
+            ps.setInt(1, panier.getUser().getId());
             ps.setObject(2, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setObject(3, panier.getDateLivraison());
             ps.setDouble(4, panier.getTotalTTC());
@@ -243,8 +245,9 @@ return 1;
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM panier WHERE user_id = '" + userId + "'");
             while (rs.next()) {
+                 UserService userGetter = new UserService();
                 paniers.add(new Panier(rs.getInt("id"),
-                        rs.getInt("user_id"),
+                       userGetter.getUserById(rs.getInt("user_id")),
                         rs.getObject("date_creation", LocalDateTime.class),
                         rs.getObject("date_livraison", LocalDateTime.class),
                         rs.getDouble("total_ttc"),
@@ -268,8 +271,9 @@ return 1;
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM panier WHERE user_id = '" + userId + "' AND status='"+status+"'");
             while (rs.next()) {
+                UserService userGetter = new UserService();
                 paniers.add(new Panier(rs.getInt("id"),
-                        rs.getInt("user_id"),
+                    userGetter.getUserById(rs.getInt("user_id")),
                         rs.getObject("date_creation", LocalDateTime.class),
                         rs.getObject("date_livraison", LocalDateTime.class),
                         rs.getDouble("total_ttc"),
