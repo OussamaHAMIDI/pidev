@@ -47,14 +47,14 @@ public class PanierService implements IPanier{
             if (rs.first()) {
                 panier = new Panier(rs.getInt("id"),
                         rs.getInt("userid"),
-                        rs.getObject("datecreation", LocalDateTime.class),
-                        rs.getObject("datelivraison", LocalDateTime.class),
-                        rs.getDouble("totalttc"),
-                        rs.getDouble("fraislivraison"),
+                        rs.getObject("date_creation", LocalDateTime.class),
+                        rs.getObject("date_livraison", LocalDateTime.class),
+                        rs.getDouble("tota_lttc"),
+                        rs.getDouble("frais_livraison"),
                         rs.getString("status"),
-                        rs.getString("modepaiement"),
-                        rs.getBoolean("estlivre"),
-                        rs.getBoolean("estpaye"),
+                        rs.getString("mode_paiement"),
+                        rs.getBoolean("est_livre"),
+                        rs.getBoolean("est_paye"),
                         rechercherProduitsPanier(rs.getInt("id")));
             }
         } catch (SQLException e) {
@@ -66,7 +66,7 @@ public class PanierService implements IPanier{
     @Override
     public int ajouterPanier(Panier panier) {
         
-                   String req = "INSERT INTO panier (userid,datecreation,datelivraison,totalttc,fraislivraison,status,modepaiement,estlivre,estpaye) values "
+                   String req = "INSERT INTO panier (user_id,date_creation,date_livraison,total_ttc,frais_livraison,status,mode_paiement,est_livre,est_paye) values "
                     + "(?,?,?,?,?,?,?,?,?)";
        
         try {
@@ -91,7 +91,7 @@ return 1;
 
     @Override
     public int miseAJourPanier(Panier panier) {
-        String req = "UPDATE panier SET userid ='?',datecreation ='?',datelivraison ='?',totalttc ='?',fraislivraison ='?',status ='?',modepaiement ='?',estlivre ='?',estpaye ='?'"
+        String req = "UPDATE panier SET user_id ='?',date_creation ='?',date_livraison ='?',total_ttc ='?',frais_livraison ='?',status ='?',mode_paiement ='?',est_livre ='?',est_paye ='?'"
                     + " WHERE id='?'";
        
         try {
@@ -141,18 +141,18 @@ return 1;
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produitpanier WHERE id_panier = '" + panierId + "'");
             while (rs.next()) {
-                produits.add(new ProduitPanier(rs.getFloat("quantitevendu"),
-                        rs.getFloat("poidsvendu"),
-                        rs.getFloat("prixvente"),rs.getInt("idproduit"),
+                produits.add(new ProduitPanier(rs.getFloat("quantite_vendu"),
+                        rs.getFloat("poids_vendu"),
+                        rs.getFloat("prix_vente"),rs.getInt("id_produit"),
                         rs.getString("reference"),
                         rs.getString("libelle"),
                         rs.getString("description"),
-                        rs.getFloat("idproduit"),
+                        rs.getFloat("id_produit"),
                         rs.getString("taille"),
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                        rs.getInt("idboutique")
+                        rs.getInt("id_boutique")
                         ));
             }
         } catch (SQLException e) {
@@ -164,7 +164,7 @@ return 1;
     @Override
     public int ajouterProduitPanier(ProduitPanier produit, int idPanier) {
        
-            String req = "INSERT INTO produitpanier (idpanier,idproduit,reference,libelle,description,prix,taille,couleur,texture,poids,idBoutique,quantiteVendu,poidsVendu,prixVendu) values (?,?,?,?,?,?,?,?,?,?,?,?)";                                              
+            String req = "INSERT INTO produitpanier (id_panier,id_produit,reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique,quantite_vendu,poids_vendu,prix_vendu) values (?,?,?,?,?,?,?,?,?,?,?,?)";                                              
               try {
             ps = connexion.prepareStatement(req);
             
@@ -222,7 +222,7 @@ return 1;
 
     @Override
     public int supprimerProduitPanier(int produitId, int idPanier) {
-          String req = "Delete from produitpanier where idproduit=?,idpanier=? ";
+          String req = "Delete from produitpanier where id_produit=?,id_panier=? ";
         try {
             ps = connexion.prepareStatement(req);
             ps.setInt(1, produitId);
@@ -241,18 +241,18 @@ return 1;
         List<Panier> paniers = null;
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM panier WHERE userid = '" + userId + "'");
+                    .executeQuery("SELECT * FROM panier WHERE user_id = '" + userId + "'");
             while (rs.next()) {
                 paniers.add(new Panier(rs.getInt("id"),
-                        rs.getInt("userid"),
-                        rs.getObject("datecreation", LocalDateTime.class),
-                        rs.getObject("datelivraison", LocalDateTime.class),
-                        rs.getDouble("totalttc"),
-                        rs.getDouble("fraislivraison"),
+                        rs.getInt("user_id"),
+                        rs.getObject("date_creation", LocalDateTime.class),
+                        rs.getObject("date_livraison", LocalDateTime.class),
+                        rs.getDouble("total_ttc"),
+                        rs.getDouble("frais_livraison"),
                         rs.getString("status"),
-                        rs.getString("modepaiement"),
-                        rs.getBoolean("estlivre"),
-                        rs.getBoolean("estpaye"),
+                        rs.getString("mode_paiement"),
+                        rs.getBoolean("est_livre"),
+                        rs.getBoolean("est_paye"),
                         rechercherProduitsPanier(rs.getInt("id"))));
             }
         } catch (SQLException e) {
@@ -266,18 +266,18 @@ return 1;
         List<Panier> paniers = null;
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM panier WHERE userid = '" + userId + "' AND status='"+status+"'");
+                    .executeQuery("SELECT * FROM panier WHERE user_id = '" + userId + "' AND status='"+status+"'");
             while (rs.next()) {
                 paniers.add(new Panier(rs.getInt("id"),
-                        rs.getInt("userid"),
-                        rs.getObject("datecreation", LocalDateTime.class),
-                        rs.getObject("datelivraison", LocalDateTime.class),
-                        rs.getDouble("totalttc"),
-                        rs.getDouble("fraislivraison"),
+                        rs.getInt("user_id"),
+                        rs.getObject("date_creation", LocalDateTime.class),
+                        rs.getObject("date_livraison", LocalDateTime.class),
+                        rs.getDouble("total_ttc"),
+                        rs.getDouble("frais_livraison"),
                         rs.getString("status"),
-                        rs.getString("modepaiement"),
-                        rs.getBoolean("estlivre"),
-                        rs.getBoolean("estpaye"),
+                        rs.getString("mode_paiement"),
+                        rs.getBoolean("est_livre"),
+                        rs.getBoolean("est_paye"),
                         rechercherProduitsPanier(rs.getInt("id"))));
             }
         } catch (SQLException e) {
