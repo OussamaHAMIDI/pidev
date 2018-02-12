@@ -23,16 +23,10 @@ public class Produit {
     protected String couleur;
     protected String texture;
     protected float poids;
-<<<<<<< HEAD
     protected Boutique boutique;
     protected LocalDateTime dateAjout;
-=======
-    protected int idBoutique;
-    protected LocalDateTime dateAjout;
 
-    public Produit() {
-    }
->>>>>>> efd3c5355e01425e87fb944c1c43fa6898e7ed8d
+    
 
     public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
         this.idProduit = idProduit;
