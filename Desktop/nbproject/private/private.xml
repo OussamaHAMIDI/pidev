@@ -3,31 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="test">
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IPanier.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/ProduitService.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/PanierService.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/DataStorage/MyDB.java</file>
-<<<<<<< HEAD
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/UserService.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IUser.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Entities/User.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Utils/Enumerations.java</file>
-=======
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IProduit.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/main/Main.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Entities/Produit.java</file>
         </group>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <group>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/IServices/IStock.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
->>>>>>> da9f78eee7357bc0b739bdd98cbd8eb02663b5b8
         </group>
-=======
-        <group/>
->>>>>>> 0865d1f239a3fed47341741c5f1ee030481be02c
-=======
-        <group/>
->>>>>>> 0865d1f239a3fed47341741c5f1ee030481be02c
     </open-files>
 </project-private>
