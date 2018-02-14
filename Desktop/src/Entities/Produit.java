@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class Produit {
 
-    protected int idProduit;
+    protected int id;
     protected String reference;
     protected String libelle;
     protected String description;
@@ -26,15 +26,14 @@ public class Produit {
     protected Boutique boutique;
     protected LocalDateTime dateAjout;
 
-<<<<<<< HEAD
+
     
-=======
+
     public Produit() {
     }
->>>>>>> 96b6445e31e425d16aa4e386907d61b676ef2669
 
-    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
-        this.idProduit = idProduit;
+    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
+        this.id = id;
         this.reference = reference;
         this.libelle = libelle;
         this.description = description;
@@ -48,12 +47,12 @@ public class Produit {
     }
 
 
-    public int getIdProduit() {
-        return idProduit;
+    public int getId() {
+        return id;
     }
 
-    public void setIdProduit(int idProduit) {
-        this.idProduit = idProduit;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getReference() {
@@ -141,7 +140,7 @@ public class Produit {
     
     @Override
     public String toString() {
-        return "Les informations du produit sont :" + " l'id est " + idProduit + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
+        return "Les informations du produit sont :" + " l'id est " + id + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
     }
 
 }

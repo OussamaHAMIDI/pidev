@@ -31,7 +31,7 @@ public class MainEvaluation {
         TypeReclamation type2 = TypeReclamation.Produit;
 
         Produit p1 = new Produit();
-        p1.setIdProduit(2);
+        p1.setId(2);
         Produit p2 = new Produit();
         List<Produit> produits = new ArrayList<Produit>();
 

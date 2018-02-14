@@ -69,7 +69,7 @@ public class ProduitService implements IProduit {
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
             ps.setInt(9, p.getBoutique().getId());
-            ps.setInt(10, p.getIdProduit());
+            ps.setInt(10, p.getId());
             ps.executeUpdate();
             System.out.println("Modification effectuée");
             return true;
@@ -114,12 +114,12 @@ public class ProduitService implements IProduit {
     public List<Produit> listerProduitsBoutique(int idB) {
         List produits = new ArrayList();
         try {
-            String req = "SELECT * FROM produit WHERE idBoutique = " + idB + "";
+            String req = "SELECT * FROM produit WHERE id_boutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setIdProduit(rs.getInt("idProduit"));
+                p.setId(rs.getInt("id_produit"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setDescription(rs.getString("description"));

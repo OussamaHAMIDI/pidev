@@ -193,7 +193,7 @@ return 1;
             ps = connexion.prepareStatement(req);
             
             ps.setInt(1, idPanier);
-            ps.setInt(2, produit.getIdProduit());
+            ps.setInt(2, produit.getId());
             ps.setString(3, produit.getReference());
             ps.setString(4, produit.getLibelle());
             ps.setString(5, produit.getDescription());
@@ -221,7 +221,7 @@ return 1;
             ps = connexion.prepareStatement(req);
             
             ps.setInt(13, idPanier);
-            ps.setInt(14, produit.getIdProduit());
+            ps.setInt(14, produit.getId());
             ps.setString(1, produit.getReference());
             ps.setString(2, produit.getLibelle());
             ps.setString(3, produit.getDescription());

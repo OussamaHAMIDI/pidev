@@ -311,7 +311,7 @@ public class BoutiqueService implements IBoutique {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getIdBoutique());
+            ps.setInt(9, p.getBoutique().getId());
             ps.executeUpdate();
             System.out.println("Ajout effectué");
         } catch (SQLException ex) {

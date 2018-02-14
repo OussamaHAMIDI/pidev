@@ -44,7 +44,7 @@ public class EvaluationService implements IEvaluation {
             req = "INSERT INTO evaluation (id_produit, id_user, note , date_creation) values (?,?,?,?)";
             try {
                 ps = connexion.prepareStatement(req);
-                ps.setInt(1, evaluation.getProduit().getIdProduit());
+                ps.setInt(1, evaluation.getProduit().getId());
                 ps.setInt(2, evaluation.getUser().getId());
                 ps.setFloat(3, evaluation.getNote());
                 ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -179,7 +179,7 @@ public class EvaluationService implements IEvaluation {
         List<Evaluation> evaluations = new ArrayList<>();
         
         try {
-            String req = "SELECT * FROM evaluation WHERE id_produit = '" + produit.getIdProduit() + "'";
+            String req = "SELECT * FROM evaluation WHERE id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -274,7 +274,7 @@ public class EvaluationService implements IEvaluation {
         
         List<Evaluation> evaluations = new ArrayList<>();        
         try {
-            String req = "SELECT * FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getIdProduit() + "'";
+            String req = "SELECT * FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
