@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author oussamahamidi
@@ -42,13 +44,14 @@ public class ProduitPanier extends Produit
     public ProduitPanier() {
     }
 
-    public ProduitPanier(float quantiteVendue, float poidsVendu, float prixVente, int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids,int idboutique) {
-        super(idProduit, reference, libelle, description, prix, taille, couleur, texture, poids,idboutique);
+    public ProduitPanier(float quantiteVendue, float poidsVendu, float prixVente, int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
+        super(idProduit, reference, libelle, description, prix, taille, couleur, texture, poids, boutique, dateAjout);
         this.quantiteVendue = quantiteVendue;
         this.poidsVendu = poidsVendu;
         this.prixVente = prixVente;
     }
 
+    
     
 
     

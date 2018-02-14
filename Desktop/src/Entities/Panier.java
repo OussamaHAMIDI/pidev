@@ -6,6 +6,9 @@
  */
 package Entities;
 
+import Utils.Enumerations;
+import Utils.Enumerations.ModePaiement;
+import Utils.Enumerations.StatusPanier;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,34 +22,36 @@ public class Panier {
 
 
     private int id;
-    private int userId;
+    private User user;
     private LocalDateTime dateCreation;
     private LocalDateTime dateLivraison;
     private double totalTTC;
     private double fraisLivraison;
-    private String status;
-    private String modePaiement;
+    private StatusPanier status;
+    private ModePaiement modePaiement;
     private boolean estLivre;
     private boolean estPaye;
     private List<Produit> contenu;
 
-    public Panier(int id, int userId, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
+    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.dateCreation = dateCreation;
         this.dateLivraison = dateLivraison;
         this.totalTTC = totalTTC;
         this.fraisLivraison = fraisLivraison;
-        this.status = status;
-        this.modePaiement = modePaiement;
+        this.status = StatusPanier.valueOf(status);
+        this.modePaiement = ModePaiement.valueOf(modePaiement);
         this.estLivre = estLivre;
         this.estPaye = estPaye;
         this.contenu = contenu;
     }
 
-    public Panier(int userId, LocalDateTime dateCreation) {
-        this.userId = userId;
+    public Panier(User user, LocalDateTime dateCreation) {
+        this.user = user;
         this.dateCreation = dateCreation;
+        this.status = StatusPanier.Temporelle;
+        
     }
 
     public Panier() {
@@ -62,12 +67,12 @@ public class Panier {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getDateCreation() {
@@ -102,19 +107,19 @@ public class Panier {
         this.fraisLivraison = fraisLivraison;
     }
 
-    public String getStatus() {
+    public StatusPanier getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusPanier status) {
         this.status = status;
     }
 
-    public String getModePaiement() {
+    public ModePaiement getModePaiement() {
         return modePaiement;
     }
 
-    public void setModePaiement(String modePaiement) {
+    public void setModePaiement(ModePaiement modePaiement) {
         this.modePaiement = modePaiement;
     }
 
@@ -144,14 +149,14 @@ public class Panier {
 
     @Override
     public String toString() {
-        return "Panier{" + "id=" + id + ", userId=" + userId + ", dateCreation=" + dateCreation + ", dateLivraison=" + dateLivraison + ", totalTTC=" + totalTTC + ", fraisLivraison=" + fraisLivraison + ", status=" + status + ", modePaiement=" + modePaiement + ", estLivre=" + estLivre + ", estPaye=" + estPaye + ", contenu=" + contenu + '}';
+        return "Panier{" + "id=" + id + ", userId=" + user.getId() + ", dateCreation=" + dateCreation + ", dateLivraison=" + dateLivraison + ", totalTTC=" + totalTTC + ", fraisLivraison=" + fraisLivraison + ", status=" + status + ", modePaiement=" + modePaiement + ", estLivre=" + estLivre + ", estPaye=" + estPaye + ", contenu=" + contenu + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 31 * hash + Objects.hashCode(this.id);
-        hash = 31 * hash + Objects.hashCode(this.userId);
+        hash = 31 * hash + Objects.hashCode(this.user.getId());
         hash = 31 * hash + Objects.hashCode(this.dateCreation);
         hash = 31 * hash + Objects.hashCode(this.dateLivraison);
         hash = 31 * hash + (int) (Double.doubleToLongBits(this.totalTTC) ^ (Double.doubleToLongBits(this.totalTTC) >>> 32));
@@ -183,7 +188,7 @@ public class Panier {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.userId, other.userId)) {
+        if (!Objects.equals(this.user.getId(), other.user.getId())) {
             return false;
         }
         if (!Objects.equals(this.status, other.status)) {
