@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group name="test">
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AddUserController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
@@ -11,23 +11,6 @@
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/HomeController2.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
-=======
-        <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/main/Main.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Utils/time.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/PanierService.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/main/MainPanier.java</file>
-=======
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/IServices/IStock.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
->>>>>>> 260bfd487c3571e274c4baf239537f89283c8933
->>>>>>> 61669a9470386a1a1ab96cbdd4b32a3c350b24a9
         </group>
     </open-files>
 </project-private>

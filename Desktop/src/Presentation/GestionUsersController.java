@@ -85,7 +85,7 @@ public class GestionUsersController implements Initializable {
         // us.getUsers().forEach(System.out::println);
         System.out.println(id);
         System.out.println(us.getUserByUsername("HamdiMegdiche").getEmail());
-        System.out.println("affichi amaaan");
+        System.out.println("affichi amaaan"); 
         users.add(us.getUserById(Integer.parseInt(id)));
         //us.getUsers().forEach(e -> users.add(e));
 

@@ -47,9 +47,9 @@ import tray.notification.TrayNotification;
  * @author Hamdi
  */
 public class Utils {
-
+    
     public static String generateCode(int length) {
-
+        
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
@@ -60,7 +60,7 @@ public class Utils {
         String saltStr = salt.toString();
         return saltStr;
     }
-
+    
     public static String hashPassword(String password_plaintext, String salt) {
         int cost = 4;// cost (iterations) in fos bundle*********************
         String digest = BCrypt.hashpw(password_plaintext, salt);
@@ -69,12 +69,12 @@ public class Utils {
         }
         return digest;
     }
-
+    
     public static boolean sendMail(String to_mail, String code) {
-
+        
         final String userName = "hamdi.megdiche@esprit.tn";
         final String password = "25111995";
-
+        
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
@@ -88,13 +88,13 @@ public class Utils {
             }
         };
         Session session = Session.getInstance(props, auth);
-
+        
         try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(to_mail));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to_mail));
             msg.setSubject("Code d'activation du compte Souk lemdina");
-
+            
             msg.setSentDate(new Date(System.currentTimeMillis()));
             String htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/mail.html"))).replace("123456", code);
 
@@ -116,14 +116,14 @@ public class Utils {
             Transport.send(msg);
             System.out.println("Mail envoyé");
             return true;
-
+            
         } catch (MessagingException e) {
             System.out.println("Echec de l'envoie du mail \n" + e.getMessage());
             return false;
         } catch (IOException e) {
             return false;
         }
-
+        
     }
 
     /**
@@ -137,7 +137,7 @@ public class Utils {
      * HH:mm:ss")
      */
     public static LocalDateTime getLocalDateTime(String date) {
-
+        
         LocalDateTime l;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
@@ -160,7 +160,7 @@ public class Utils {
      * @return null if date is different from this pattern ("yyyy-MM-dd")
      */
     public static LocalDate getLocalDate(String date) {
-
+        
         LocalDate l;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
@@ -172,26 +172,26 @@ public class Utils {
         }
         return l;
     }
-
+    
     public static void showAlert(Alert.AlertType type, String title, String header, String text) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(text);
         alert.showAndWait();
-
+        
     }
-
+    
     public static Alert getAlert(Alert.AlertType type, String title, String header, String text) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(text);
         return alert;
-
+        
     }
-
-    public static void showTrayNotification(NotificationType type, String title, String header, String text, Image img,int time) {
+    
+    public static void showTrayNotification(NotificationType type, String title, String header, String text, Image img, int time) {
         TrayNotification tray = new TrayNotification();
         tray.setNotificationType(type);
         tray.setTitle(title);
@@ -199,9 +199,13 @@ public class Utils {
         tray.setAnimationType(AnimationType.POPUP);
         tray.showAndDismiss(Duration.millis(time));
         tray.setRectangleFill(Color.valueOf("#1e90ff"));
-        tray.setImage(img);
+        if (img != null) {
+            tray.setImage(img);
+        } else {
+            tray.setImage(new Image("Images/icons8_User_Male_104px.png"));
+        }
     }
-
+    
     public static Stage getAnotherStage(FXMLLoader loader, String title) {
         Stage stage = new Stage();
         Parent root = null;
@@ -210,11 +214,11 @@ public class Utils {
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         stage.setTitle(title);
         stage.setMaximized(false);
         stage.setResizable(false);
-
+        
         stage.initStyle(StageStyle.DECORATED);
         //stage.initStyle(StageStyle.TRANSPARENT);
 
@@ -228,13 +232,12 @@ public class Utils {
         mouseDrag md = new mouseDrag();
         md.setDragged(root, stage);
         stage.setScene(scene);
-
+        
         return stage;
     }
-
+    
     public static void verifTextField(JFXTextField text, String match, String title) {
-
-
+        
         text.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() {
             @Override
             public void handle(javafx.scene.input.KeyEvent event) {
@@ -245,6 +248,6 @@ public class Utils {
                 }
             }
         });
-
+        
     }
 }

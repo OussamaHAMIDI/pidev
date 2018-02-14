@@ -167,12 +167,12 @@ public class InscriptionController implements Initializable {
                     null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
 
             if (us.ajouterUser(u)) {
-                Image img = new Image("Images/icons8_User_Male_104px.png");
-                if (u.getPhoto() != null) {
-                    img = new Image(u.getPhoto());
-                }
+/************************************************************************************************************************************************************/
                 //Utils.sendMail(email.getText(), code);
-                Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez verifier votre boite mail", img, 6000);
+                
+/************************************************************************************************************************************************************/
+                Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez verifier votre boite mail", 
+                        new Image(u.getPhoto()), 6000);
 
                 Utils.showAlert(Alert.AlertType.INFORMATION, "Presque terminé", "Derniere étape", "• Un code de vérification a été envoyé à :\n" + u.getEmail()
                         + "\n- Il vous sera demandé lors de votre 1ère tentative de connexion.");
