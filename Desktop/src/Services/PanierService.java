@@ -219,7 +219,7 @@ return 1;
 
     @Override
     public int modifierProduitPanier(ProduitPanier produit, int idPanier) {
-         String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantiteVendu=?,poidsVendu=?,prixVendu=? where idpanier=? and idproduit=?";                                              
+         String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantite_Vendu=?,poids_Vendu=?,prix_Vendu=? where id_panier=? and id_produit=?";                                              
               try {
             ps = connexion.prepareStatement(req);
             
