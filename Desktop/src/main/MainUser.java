@@ -7,13 +7,8 @@ package main;
 
 import Entities.User;
 import Services.*;
-import Utils.BCrypt;
-import Utils.Utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,8 +25,8 @@ public class MainUser {
         //User u = us.getUserByUsername("HamdiMegdiche");
         User u = us.getUserById(1);
         
-            u.setPhoto(new FileInputStream("src/images/souk.png"));
-            u.setAdresse("22 rue des reves");
+            u.setPhoto(new FileInputStream("src/images/HINTS.png"));
+           
             us.modifierUser(u);
             
 //        us.modifierEtatUser(u, EtatUser.Connected);

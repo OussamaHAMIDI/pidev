@@ -5,18 +5,30 @@
  */
 package Utils;
 
+import Presentation.LoginController;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -56,13 +68,6 @@ public class Utils {
             digest = BCrypt.hashpw(password_plaintext, salt);
         }
         return digest;
-    }
-
-    public static boolean checkPassword(String password_plaintext, String stored_hash) {
-        if (null == stored_hash || !stored_hash.startsWith("$2a$")) {
-            throw new java.lang.IllegalArgumentException("Hash invalide");
-        }
-        return BCrypt.checkpw(password_plaintext, stored_hash);
     }
 
     public static boolean sendMail(String to_mail, String code) {
@@ -120,8 +125,7 @@ public class Utils {
         }
 
     }
-    
-    
+
     /**
      * **** To use this function ****
      *
@@ -145,25 +149,102 @@ public class Utils {
         }
         return l;
     }
-    
+
+    /**
+     * **** To use this function ****
+     *
+     * Retrieve value From MySQL with : resultatSet.getString("date") =
+     * 2018-02-10
+     *
+     * @param date from MySQL
+     * @return null if date is different from this pattern ("yyyy-MM-dd")
+     */
+    public static LocalDate getLocalDate(String date) {
+
+        LocalDate l;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            date = date.substring(0, 10);
+            l = LocalDate.parse(date, formatter);
+        } catch (Exception e) {
+            //System.out.println("Exception in getLocalDate :\n"+e.getMessage());
+            return null;
+        }
+        return l;
+    }
+
     public static void showAlert(Alert.AlertType type, String title, String header, String text) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(text);
         alert.showAndWait();
+
     }
 
-    public static void showTrayNotification(NotificationType type, String title, String header, String text, InputStream img) {
+    public static Alert getAlert(Alert.AlertType type, String title, String header, String text) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(text);
+        return alert;
+
+    }
+
+    public static void showTrayNotification(NotificationType type, String title, String header, String text, Image img,int time) {
         TrayNotification tray = new TrayNotification();
         tray.setNotificationType(type);
         tray.setTitle(title);
         tray.setMessage(text);
-        tray.setAnimationType(AnimationType.FADE);
-        tray.showAndDismiss(Duration.millis(1500));
-        tray.setRectangleFill(Color.valueOf("#4183D7"));
-        tray.setImage(new Image(img));
+        tray.setAnimationType(AnimationType.POPUP);
+        tray.showAndDismiss(Duration.millis(time));
+        tray.setRectangleFill(Color.valueOf("#1e90ff"));
+        tray.setImage(img);
     }
 
+    public static Stage getAnotherStage(FXMLLoader loader, String title) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        stage.setTitle(title);
+        stage.setMaximized(false);
+        stage.setResizable(false);
+
+        stage.initStyle(StageStyle.DECORATED);
+        //stage.initStyle(StageStyle.TRANSPARENT);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setMaximized(false);
+        stage.setResizable(false);
+        Scene scene = new Scene(root);
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        stage.getIcons().add(new Image("Images/souk.png"));
+        stage.centerOnScreen();
+        mouseDrag md = new mouseDrag();
+        md.setDragged(root, stage);
+        stage.setScene(scene);
+
+        return stage;
+    }
+
+    public static void verifTextField(JFXTextField text, String match, String title) {
+
+
+        text.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() {
+            @Override
+            public void handle(javafx.scene.input.KeyEvent event) {
+                String t = text.getText();
+                if (!t.matches(match)) {
+                    showAlert(Alert.AlertType.WARNING, "Avertissement", null, title);
+                    text.requestFocus();
+                }
+            }
+        });
+
+    }
 }

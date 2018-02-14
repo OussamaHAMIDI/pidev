@@ -22,7 +22,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author benab
+ * @author hamdi
  */
 public class MainApplication extends Application {
 
@@ -34,7 +34,6 @@ public class MainApplication extends Application {
     public void start(Stage stage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-            root.setId("ROOTNODE");
             stage.setTitle("Login");
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initStyle(StageStyle.TRANSPARENT);
@@ -56,12 +55,13 @@ public class MainApplication extends Application {
 
             Scene scene = new Scene(root);
             scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-            stage.getIcons().add(new Image("src/Images/souk.png"));
+            stage.getIcons().add(new Image("Images/souk.png"));
             stage.centerOnScreen();
             stage.setScene(scene);
          
             stage.show();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             showExceptionDialog(e);
         }
 

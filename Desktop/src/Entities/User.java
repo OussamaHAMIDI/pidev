@@ -7,6 +7,7 @@ package Entities;
 
 import Utils.Enumerations.*;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -23,7 +24,7 @@ public class User {
 
     private String nom;
     private String prenom;
-    private LocalDateTime dateNaissance;
+    private LocalDate dateNaissance;
     private String Sexe;
     private String email;
     private String adresse;
@@ -44,7 +45,7 @@ public class User {
     }
 
     // avec photo
-    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, LocalDateTime lastLogin, String salt, String role, String token, InputStream photo) {
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDate dateNaissance, String Sexe, String email, String adresse, String tel, LocalDateTime lastLogin, String salt, String role, String token, InputStream photo) {
         this.id = id;
         this.userName = userName;
         this.mdp = mdp;
@@ -65,7 +66,7 @@ public class User {
     }
 
  // sans photo
-    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDateTime dateNaissance, String Sexe, String email, String adresse, String tel, LocalDateTime lastLogin, String salt, String role, String token) {
+    public User(int id, String userName, String mdp, EtatUser etat, TypeUser type, String nom, String prenom, LocalDate dateNaissance, String Sexe, String email, String adresse, String tel, LocalDateTime lastLogin, String salt, String role, String token) {
         this.id = id;
         this.userName = userName;
         this.mdp = mdp;
@@ -141,11 +142,11 @@ public class User {
         this.prenom = prenom;
     }
 
-    public LocalDateTime getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(LocalDateTime dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 

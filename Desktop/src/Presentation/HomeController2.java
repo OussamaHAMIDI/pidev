@@ -7,7 +7,7 @@ import Utils.Enumerations.EtatUser;
 import animasi.FadeInRightTransition;
 import animasi.FadeInTransition;
 import animasi.FadeOutLeftTransition;
-import Utils.exit;
+
 import Utils.mouseDrag;
 import Utils.navigation;
 import Utils.time;
@@ -54,7 +54,7 @@ public class HomeController2 implements Initializable {
     UserService us = new UserService();
     
     
-    exit ex = new exit();
+  
     private String username_text,email_text,nama_text;
     
     TrayNotification tray = new TrayNotification();
@@ -158,7 +158,7 @@ public class HomeController2 implements Initializable {
     }
     @FXML
     private void handleMinimizeClicked(MouseEvent event){
-        ex.minimizeClicked(event);
+        //ex.minimizeClicked(event);
     }
         
     @Override
