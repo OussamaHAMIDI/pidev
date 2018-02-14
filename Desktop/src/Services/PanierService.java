@@ -164,6 +164,8 @@ return 1;
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit_panier WHERE id_panier = '" + panierId + "'");
+            BoutiqueService bs = new BoutiqueService();
+            
             while (rs.next()) {
                 produits.add(new ProduitPanier(rs.getFloat("quantite_vendu"),
                         rs.getFloat("poids_vendu"),
@@ -176,7 +178,8 @@ return 1;
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                        rs.getInt("id_boutique")
+                        bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
+                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout"))
                         ));
             }
         } catch (SQLException e) {
