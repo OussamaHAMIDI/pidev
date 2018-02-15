@@ -2,24 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Boutique.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/EvaluationController.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/IServices/IProduit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStock.fxml</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/ProduitPanier.java</file>
-=======
-        <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/HomeAdminController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/MainApplication.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/HomeController2.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
->>>>>>> 5824faef98177ee3d2d9ed1f8eb1f124a4c41b38
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
         </group>
     </open-files>
 </project-private>
