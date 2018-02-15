@@ -44,7 +44,7 @@ public class ReclamationService implements IReclamation {
             req = "INSERT INTO reclamation (id_produit, id_user, description , date_creation) values (?,?,?,?)";
             try {
                 ps = connexion.prepareStatement(req);
-                ps.setInt(1, reclamation.getProduit().getIdProduit());
+                ps.setInt(1, reclamation.getProduit().getId());
                 ps.setInt(2, reclamation.getUser().getId());
                 ps.setString(3, reclamation.getDescription());
                 ps.setObject(4, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -144,7 +144,7 @@ public class ReclamationService implements IReclamation {
         List<Reclamation> reclamations = new ArrayList<>();
         
         try {
-            String req = "SELECT * FROM reclamation WHERE id_produit = '" + produit.getIdProduit() + "'";
+            String req = "SELECT * FROM reclamation WHERE id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -239,7 +239,7 @@ public class ReclamationService implements IReclamation {
         List<Reclamation> reclamations = new ArrayList<>();        
         try {
             //String req = "SELECT * FROM reclamation WHERE id_user = " + user.getId() + " and id_boutique = " + boutique.getId() + " ";
-            String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getIdProduit() + "'";
+            String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

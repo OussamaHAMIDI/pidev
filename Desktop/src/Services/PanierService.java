@@ -164,6 +164,8 @@ return 1;
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit_panier WHERE id_panier = '" + panierId + "'");
+            BoutiqueService bs = new BoutiqueService();
+            
             while (rs.next()) {
                 produits.add(new ProduitPanier(rs.getFloat("quantite_vendu"),
                         rs.getFloat("poids_vendu"),
@@ -176,7 +178,8 @@ return 1;
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                        rs.getInt("id_boutique")
+                        bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
+                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout"))
                         ));
             }
         } catch (SQLException e) {
@@ -193,7 +196,7 @@ return 1;
             ps = connexion.prepareStatement(req);
             
             ps.setInt(1, idPanier);
-            ps.setInt(2, produit.getIdProduit());
+            ps.setInt(2, produit.getId());
             ps.setString(3, produit.getReference());
             ps.setString(4, produit.getLibelle());
             ps.setString(5, produit.getDescription());
@@ -216,12 +219,12 @@ return 1;
 
     @Override
     public int modifierProduitPanier(ProduitPanier produit, int idPanier) {
-         String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantiteVendu=?,poidsVendu=?,prixVendu=? where idpanier=? and idproduit=?";                                              
+         String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantite_Vendu=?,poids_Vendu=?,prix_Vendu=? where id_panier=? and id_produit=?";                                              
               try {
             ps = connexion.prepareStatement(req);
             
             ps.setInt(13, idPanier);
-            ps.setInt(14, produit.getIdProduit());
+            ps.setInt(14, produit.getId());
             ps.setString(1, produit.getReference());
             ps.setString(2, produit.getLibelle());
             ps.setString(3, produit.getDescription());

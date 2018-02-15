@@ -16,60 +16,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="567.0" prefWidth="912.0" style="-fx-background-color: #ececec;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AddUserController">
+<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: #ececec;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionController">
    <children>
-      <JFXButton fx:id="ajouter" layoutX="221.0" layoutY="488.0" onAction="#ajouterClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
+      <JFXButton fx:id="inscrire" layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="annuler" layoutX="488.0" layoutY="488.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
+      <JFXButton fx:id="annuler" layoutX="544.0" layoutY="487.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="username" labelFloat="true" layoutX="472.0" layoutY="107.0" prefHeight="44.0" prefWidth="188.0" promptText="Nom d'utilisateur">
+      <Label fx:id="titre" layoutX="358.0" layoutY="14.0" prefHeight="74.0" prefWidth="219.0" text="Inscription" textFill="#e82932" wrapText="true">
+         <font>
+            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="username" labelFloat="true" layoutX="468.0" layoutY="107.0" prefHeight="44.0" prefWidth="188.0" promptText="Nom d'utilisateur">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" labelFloat="true" layoutX="697.0" layoutY="106.0" prefHeight="40.0" prefWidth="185.0" promptText="Mot de passe">
+      <JFXPasswordField fx:id="password" labelFloat="true" layoutX="669.0" layoutY="106.0" maxWidth="201.0" minWidth="188.0" prefHeight="44.0" prefWidth="188.0" promptText="Mot de passe">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXPasswordField>
-      <JFXTextField fx:id="email" labelFloat="true" layoutX="478.0" layoutY="186.0" maxWidth="407.0" minWidth="324.0" prefHeight="44.0" prefWidth="407.0" promptText="Email">
+      <JFXTextField fx:id="email" labelFloat="true" layoutX="473.0" layoutY="186.0" maxWidth="407.0" minWidth="324.0" prefHeight="44.0" prefWidth="385.0" promptText="Email">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="nom" labelFloat="true" layoutX="22.0" layoutY="107.0" maxWidth="237.0" minWidth="185.0" prefHeight="44.0" prefWidth="228.0" promptText="Nom">
+      <JFXTextField fx:id="nom" labelFloat="true" layoutX="22.0" layoutY="107.0" maxWidth="237.0" minWidth="185.0" prefHeight="44.0" prefWidth="203.0" promptText="Nom">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="prenom" labelFloat="true" layoutX="275.0" layoutY="109.0" maxWidth="231.0" minWidth="185.0" prefHeight="44.0" prefWidth="185.0" promptText="Prénom">
+      <JFXTextField fx:id="prenom" labelFloat="true" layoutX="256.0" layoutY="107.0" maxWidth="231.0" minWidth="185.0" prefHeight="44.0" prefWidth="185.0" promptText="Prénom">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="adresse" labelFloat="true" layoutX="24.0" layoutY="184.0" prefHeight="44.0" prefWidth="435.0" promptText="Adresse">
+      <JFXTextField fx:id="adresse" labelFloat="true" layoutX="24.0" layoutY="184.0" maxWidth="422.0" minWidth="407.0" prefHeight="44.0" prefWidth="408.0" promptText="Adresse">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="tel" labelFloat="true" layoutX="22.0" layoutY="256.0" maxWidth="200.0" minWidth="200.0" prefHeight="44.0" prefWidth="200.0" promptText="Télephone">
+      <JFXTextField fx:id="tel" labelFloat="true" layoutX="22.0" layoutY="256.0" maxWidth="200.0" minWidth="178.0" prefHeight="44.0" prefWidth="178.0" promptText="Télephone">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXDatePicker fx:id="date" layoutX="239.0" layoutY="261.0" prefHeight="40.0" prefWidth="206.0" promptText="Date de naissance" />
-      <JFXComboBox fx:id="etat" layoutX="24.0" layoutY="325.0" prefHeight="40.0" prefWidth="188.0" promptText="Etat" />
+      <JFXDatePicker fx:id="date" layoutX="235.0" layoutY="261.0" prefHeight="40.0" prefWidth="219.0" promptText="Date de naissance" />
       
 
 
 
-      <JFXComboBox fx:id="type" layoutX="245.0" layoutY="325.0" prefHeight="40.0" prefWidth="206.0" promptText="Type" />
+      <JFXComboBox fx:id="type" layoutX="256.0" layoutY="319.0" prefHeight="40.0" prefWidth="133.0" promptText="Type" />
      
 
 
@@ -97,15 +101,10 @@
          </image>
       </ImageView>
       <Separator orientation="VERTICAL" prefHeight="200.0" />
-      <Separator layoutX="460.0" layoutY="108.0" orientation="VERTICAL" prefHeight="327.0" prefWidth="15.0" />
-      <ImageView fx:id="close" fitHeight="67.0" fitWidth="69.0" layoutX="813.0" layoutY="20.0" onMouseClicked="#closeClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-         <image>
-            <Image url="@../Images/close-button.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="222.0" layoutY="14.0" prefHeight="74.0" prefWidth="501.0" text="Ajouter un nouvel utilisateur" textFill="#e82932" wrapText="true">
+      <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
+      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="S'incrire en tant que :">
          <font>
-            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+            <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
    </children>

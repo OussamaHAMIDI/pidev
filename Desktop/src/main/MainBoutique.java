@@ -21,7 +21,7 @@ public class MainBoutique {
     
     public static void main(String[] args) {
         Produit p = new Produit();
-        p.setIdProduit(2);
+        p.setId(2);
         Produit p2 = new Produit();
         //Produit p3 = new Produit();
         //Produit p4 = new Produit();
@@ -33,13 +33,12 @@ public class MainBoutique {
         User user = new User();
         user.setId(2);
         Boutique boutique = new Boutique(user, "hello", produits);
-        
+        boutique.setId(7);
         BoutiqueService bs = new BoutiqueService();
         boutique.setUser(user);
 
         //bs.ajouterBoutique(boutique);
-        p.setIdBoutique(7);
-        boutique.setId(7);
+        
         bs.ajouterProduit(p, boutique);
         produits=bs.lireProduitsParBoutique(boutique);
         System.out.println(produits);
