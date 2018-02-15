@@ -121,15 +121,14 @@ public class EvaluationService implements IEvaluation {
                 evaluation.setNote(rs.getFloat("note"));
                 UserService us = new UserService();
                 evaluation.setUser(us.getUserById(rs.getInt("id_user")));
-                if(rs.getInt("id_boutique")!=0){
+                if (rs.getInt("id_boutique") != 0) {
                     BoutiqueService bs = new BoutiqueService();
                     Boutique boutique = bs.chercherBoutiqueParID(rs.getInt("id_boutique"));
                     evaluation.setBoutique(boutique);
                     evaluation.setProduit(null);
                     evaluation.setType(TypeReclamation.Boutique);
                     System.out.println("evaluation trouvée " + evaluation);
-                }
-                else {
+                } else {
                     //ProduitService ps = new ProduitService();
                     //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
                     //reclamation.setProduit(produit); //en attente de jappa
@@ -145,9 +144,9 @@ public class EvaluationService implements IEvaluation {
 
     @Override
     public List<Evaluation> rechercherEvaluationBoutique(Boutique boutique) {
-        
+
         List<Evaluation> evaluations = new ArrayList<>();
-        
+
         try {
             String req = "SELECT * FROM evaluation WHERE id_boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -167,17 +166,17 @@ public class EvaluationService implements IEvaluation {
                 System.out.println("evaluation trouvée ");
             }
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de evaluation"+e);
+            System.out.println("Echec de recherche de evaluation" + e);
         }
         return evaluations;
-        
+
     }
 
     @Override
     public List<Evaluation> rechercherEvaluationProduit(Produit produit) {
-        
+
         List<Evaluation> evaluations = new ArrayList<>();
-        
+
         try {
             String req = "SELECT * FROM evaluation WHERE id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -197,16 +196,16 @@ public class EvaluationService implements IEvaluation {
             }
             System.out.println("evaluation trouvée ");
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de evaluation"+e);
+            System.out.println("Echec de recherche de evaluation" + e);
         }
         return evaluations;
-    
+
     }
 
     @Override
     public List<Evaluation> rechercherEvaluationUser(User user) {
-        
-        List<Evaluation> evaluations = new ArrayList<>();        
+
+        List<Evaluation> evaluations = new ArrayList<>();
         try {
             String req = "SELECT * FROM evaluation WHERE id_user = '" + user.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -217,35 +216,34 @@ public class EvaluationService implements IEvaluation {
                 evaluation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
                 evaluation.setNote(rs.getFloat("note"));
                 evaluation.setUser(user);
-                if(rs.getInt("id_boutique")!=0){
+                if (rs.getInt("id_boutique") != 0) {
                     BoutiqueService bs = new BoutiqueService();
                     Boutique boutique = bs.chercherBoutiqueParID(rs.getInt("id_boutique"));
                     evaluation.setBoutique(boutique);
                     evaluation.setProduit(null);
                     evaluation.setType(TypeReclamation.Boutique);
                     System.out.println("evaluation trouvée " + evaluation);
-                }
-                else {
+                } else {
                     //ProduitService ps = new ProduitService();
                     //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
                     //evaluation.setProduit(produit); //en attente de jappa
                     evaluation.setBoutique(null);
                     evaluation.setType(TypeReclamation.Produit);
                 }
-                
+
                 evaluations.add(evaluation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de evaluation"+e);
+            System.out.println("Echec de recherche de evaluation" + e);
         }
         return evaluations;
     }
 
     @Override
     public List<Evaluation> rechercherEvaluationUserBoutique(User user, Boutique boutique) {
-        
-        List<Evaluation> evaluations = new ArrayList<>();        
+
+        List<Evaluation> evaluations = new ArrayList<>();
         try {
             String req = "SELECT * FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -262,17 +260,17 @@ public class EvaluationService implements IEvaluation {
                 evaluation.setType(TypeReclamation.Boutique);
                 evaluations.add(evaluation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de evaluation"+e);
+            System.out.println("Echec de recherche de evaluation" + e);
         }
         return evaluations;
     }
 
     @Override
     public List<Evaluation> rechercherEvaluationUserProduit(User user, Produit produit) {
-        
-        List<Evaluation> evaluations = new ArrayList<>();        
+
+        List<Evaluation> evaluations = new ArrayList<>();
         try {
             String req = "SELECT * FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -289,38 +287,57 @@ public class EvaluationService implements IEvaluation {
                 evaluation.setType(TypeReclamation.Boutique);
                 evaluations.add(evaluation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de evaluation"+e);
+            System.out.println("Echec de recherche de evaluation" + e);
         }
         return evaluations;
-        
+
     }
 
     @Override
     public float getNoteBoutique(Boutique boutique) {
-        
+
         List<Evaluation> evaluations = rechercherEvaluationBoutique(boutique);
         float somme = 0;
         int i = 0;
-        for(Evaluation e : evaluations){
+        for (Evaluation e : evaluations) {
             somme = somme + e.getNote();
             i++;
         }
-        return somme/i;
+        return somme / i;
     }
 
     @Override
     public float getNoteProduit(Produit produit) {
-        
+
         List<Evaluation> evaluations = rechercherEvaluationProduit(produit);
         float somme = 0;
         int i = 0;
-        for(Evaluation e : evaluations){
+        for (Evaluation e : evaluations) {
             somme = somme + e.getNote();
             i++;
         }
-        return somme/i;
+        return somme / i;
+    }
+
+    @Override
+    public boolean modifierEvaluation(Evaluation evaluation) {
+        String req;
+        req = " update evaluation set note = ? , date_creation = ? where id = ? ";
+        try {
+            ps = connexion.prepareStatement(req);
+            ps.setFloat(1, evaluation.getNote());
+            ps.setObject(2, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            ps.setInt(3, evaluation.getId());
+            ps.executeUpdate();
+            System.out.println("Modification evaluation effectué " + evaluation.getType().toString());
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EvaluationService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec de modification d'evaluation");
+            return false;
+        }
     }
 
 }

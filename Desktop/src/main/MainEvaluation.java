@@ -63,6 +63,9 @@ public class MainEvaluation {
         //System.out.println(hey);
         float note = es.getNoteBoutique(boutique);
         System.out.println(note);
+        Evaluation ev = es.getEvaluationById(5);
+        ev.setNote(10);
+        es.modifierEvaluation(ev);
 
     }
 
