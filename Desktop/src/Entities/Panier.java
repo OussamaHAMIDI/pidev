@@ -31,9 +31,9 @@ public class Panier {
     private ModePaiement modePaiement;
     private boolean estLivre;
     private boolean estPaye;
-    private List<Produit> contenu;
+    private List<ProduitPanier> contenu;
 
-    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
+    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<ProduitPanier> contenu) {
         this.id = id;
         this.user = user;
         this.dateCreation = dateCreation;
@@ -139,11 +139,11 @@ public class Panier {
         this.estPaye = estPaye;
     }
 
-    public List<Produit> getContenu() {
+        public List<ProduitPanier> getContenu() {
         return contenu;
     }
 
-    public void setContenu(List<Produit> contenu) {
+    public void setContenu(List<ProduitPanier> contenu) {
         this.contenu = contenu;
     }
 

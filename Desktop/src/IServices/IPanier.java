@@ -22,7 +22,7 @@ public interface IPanier {
     public int modifierProduitPanier(ProduitPanier produit,int idPanier);
     public int supprimerProduitPanier(int produitId,int idPanier);
     public List<Panier> rechercherPaniersUtilisateur(int userId);
-    public List<Produit> rechercherProduitsPanier(int panierId);
+    public List<ProduitPanier> rechercherProduitsPanier(int panierId);
     public List<Panier> rechercherPaniersUtilisateur(int userId,String status);
     public Panier rechercherPanierById(int id);
     public int ajouterPanier(Panier produit);

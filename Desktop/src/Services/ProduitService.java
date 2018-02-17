@@ -6,6 +6,7 @@
 package Services;
 
 import DataStorage.MyDB;
+import Entities.Boutique;
 import IServices.IProduit;
 import Entities.Produit;
 import java.sql.Connection;
@@ -101,11 +102,12 @@ public class ProduitService implements IProduit {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("idBoutique")),Utils.Utils.getLocalDateTime(result.getString("date")));
+                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_Boutique")),Utils.Utils.getLocalDateTime(result.getString("date_ajout")));
+                return produit;
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur" + ex.getMessage());
+            System.out.println("erreur : " + ex.getMessage());
         }
         return produit;
     }
@@ -117,9 +119,10 @@ public class ProduitService implements IProduit {
             String req = "SELECT * FROM produit WHERE id_boutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
+            BoutiqueService bs = new BoutiqueService();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setId(rs.getInt("id_produit"));
+                p.setId(rs.getInt("id"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setDescription(rs.getString("description"));
@@ -128,11 +131,12 @@ public class ProduitService implements IProduit {
                 p.setCouleur(rs.getString("couleur"));
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
+                p.setBoutique(new Boutique());
                 produits.add(p);
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Echec");
+            System.out.println("Echec listerProduitsBoutique");
         }
         return produits;
     }

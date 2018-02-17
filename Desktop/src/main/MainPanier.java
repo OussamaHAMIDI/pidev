@@ -34,7 +34,9 @@ public class MainPanier {
         PanierService ps = new PanierService();
        //ps.ajouterPanier(p);
        BoutiqueService bs = new BoutiqueService();
-       
+       p = ps.rechercherPanierById(1);
+       p.getContenu().forEach((t) -> {System.out.println(t);
+       });
       // ProduitPanier pp = new ProduitPanier(1, 1, 1, 2, "omek", "bouk", "jedek", 1, "m", "rouge", "", 0, 2,bs.chercherBoutiqueParID(0),LocalDateTime.now());
       // ps.ajouterProduitPanier(pp, 1);
 }

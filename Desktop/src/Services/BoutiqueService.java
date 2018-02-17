@@ -122,8 +122,9 @@ public class BoutiqueService implements IBoutique {
             if (rs.first()) {
                 User user;
                 UserService us = new UserService();
+                ProduitService ps = new ProduitService();
                 user = us.getUserById(rs.getInt("id_user"));
-                boutique = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"), lireProduitsParBoutique(rs.getString("nom")),
+                boutique = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"),ps.listerProduitsBoutique(idBoutique),
                         rs.getObject("date_creation", LocalDateTime.class));
             }
         } catch (SQLException e) {
@@ -150,7 +151,7 @@ public class BoutiqueService implements IBoutique {
                 boutiques.add(b);
             }
         } catch (SQLException e) {
-            System.out.println("Echec");
+            System.out.println("Echec lireBoutiques");
         }
         return boutiques;
     }
@@ -168,7 +169,7 @@ public class BoutiqueService implements IBoutique {
                 produits.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("Echec");
+            System.out.println("Echec lireProduitsParBoutique(idBoutique)");
         }
         return produits;
     }
@@ -182,11 +183,11 @@ public class BoutiqueService implements IBoutique {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProduitService pService = new ProduitService();
-                Produit p = pService.chercherProduitParID(rs.getInt("id_produit"));
+                Produit p = pService.chercherProduitParID(rs.getInt("id"));
                 produits.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("Echec");
+            System.out.println("Echec lireProduitsParBoutique(NomBoutique) " + e.getMessage());
         }
         return produits;
     }
@@ -205,7 +206,7 @@ public class BoutiqueService implements IBoutique {
                 produits.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("Echec");
+            System.out.println("Echec lireProduitsParBoutique(Boutique)");
         }
         return produits;
     }
