@@ -5,6 +5,7 @@
  */
 package Services;
 import DataStorage.MyDB;
+import Entities.Boutique;
 import Entities.Panier;
 import Entities.Produit;
 import Entities.ProduitPanier;
@@ -53,7 +54,7 @@ public class PanierService implements IPanier{
                         userGetter.getUserById(rs.getInt("id_user")),
                         rs.getObject("date_creation", LocalDateTime.class),
                         rs.getObject("date_livraison", LocalDateTime.class),
-                        rs.getDouble("tota_lttc"),
+                        rs.getDouble("total_ttc"),
                         rs.getDouble("frais_livraison"),
                         rs.getString("statut"),
                         rs.getString("mode_paiement"),
@@ -158,16 +159,20 @@ return 1;
  
 
     @Override
-    public List<Produit> rechercherProduitsPanier(int panierId) {
-        List<Produit> produits = null;
-        
+    public List<ProduitPanier> rechercherProduitsPanier(int panierId) {
+
+        List<ProduitPanier> produits = new ArrayList<ProduitPanier>();
+
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit_panier WHERE id_panier = '" + panierId + "'");
+            ProduitService ps = new ProduitService();
+            Boutique b = new Boutique();
             while (rs.next()) {
-                produits.add(new ProduitPanier(rs.getFloat("quantite_vendu"),
+                ProduitPanier x = new ProduitPanier(rs.getFloat("quantite_vendu"),
                         rs.getFloat("poids_vendu"),
-                        rs.getFloat("prix_vente"),rs.getInt("id_produit"),
+                        rs.getFloat("prix_vente"),
+                        rs.getInt("id_produit"),
                         rs.getString("reference"),
                         rs.getString("libelle"),
                         rs.getString("description"),
@@ -176,8 +181,11 @@ return 1;
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                        rs.getInt("id_boutique")
-                        ));
+                        ps.chercherProduitParID(rs.getInt("id_produit")).getBoutique(),
+                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout"))
+                        );
+                //System.out.println(x);
+               produits.add(x);
             }
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());
@@ -193,7 +201,7 @@ return 1;
             ps = connexion.prepareStatement(req);
             
             ps.setInt(1, idPanier);
-            ps.setInt(2, produit.getIdProduit());
+            ps.setInt(2, produit.getId());
             ps.setString(3, produit.getReference());
             ps.setString(4, produit.getLibelle());
             ps.setString(5, produit.getDescription());
@@ -216,12 +224,12 @@ return 1;
 
     @Override
     public int modifierProduitPanier(ProduitPanier produit, int idPanier) {
-         String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantiteVendu=?,poidsVendu=?,prixVendu=? where idpanier=? and idproduit=?";                                              
+         String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantite_Vendu=?,poids_Vendu=?,prix_Vendu=? where id_panier=? and id_produit=?";                                              
               try {
             ps = connexion.prepareStatement(req);
             
             ps.setInt(13, idPanier);
-            ps.setInt(14, produit.getIdProduit());
+            ps.setInt(14, produit.getId());
             ps.setString(1, produit.getReference());
             ps.setString(2, produit.getLibelle());
             ps.setString(3, produit.getDescription());

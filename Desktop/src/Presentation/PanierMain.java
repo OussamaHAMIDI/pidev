@@ -18,17 +18,25 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author benab
+ * @author monta
  */
-public class EvaluationMain extends Application {
+public class PanierMain extends Application {
     
     @Override
-    public void start(Stage stage) throws IOException{
-        //Parent root = FXMLLoader.load(getClass().getResource(("Evaluation.fxml")));
-        Parent root = FXMLLoader.load(getClass().getResource(("Reclamation.fxml")));
+    public void start(Stage primaryStage) {
+        try
+        {
+            
+      
+        Parent root = FXMLLoader.load(getClass().getResource(("Panier.fxml")));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.show();
+          }
+        catch(IOException e)
+        {
+            System.err.println("Erreur start : " + e.getMessage());
+        }
     }
 
     /**

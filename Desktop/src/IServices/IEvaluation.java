@@ -39,4 +39,6 @@ public interface IEvaluation {
     
     public float getNoteProduit(Produit produit);
     
+    public boolean modifierEvaluation(Evaluation evaluation);
+    
 }

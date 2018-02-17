@@ -8,6 +8,7 @@ package main;
 import Entities.Panier;
 import Entities.ProduitPanier;
 import Entities.User;
+import Services.BoutiqueService;
 import Services.PanierService;
 import Services.UserService;
 import java.sql.Connection;
@@ -32,8 +33,11 @@ public class MainPanier {
         Panier p = new Panier(u, LocalDateTime.now());
         PanierService ps = new PanierService();
        //ps.ajouterPanier(p);
-       
-       ProduitPanier pp = new ProduitPanier(1, 1, 1, 2, "omek", "bouk", "jedek", 1, "m", "rouge", "", 0, 2);
-       ps.ajouterProduitPanier(pp, 1);
+       BoutiqueService bs = new BoutiqueService();
+       p = ps.rechercherPanierById(1);
+       p.getContenu().forEach((t) -> {System.out.println(t);
+       });
+      // ProduitPanier pp = new ProduitPanier(1, 1, 1, 2, "omek", "bouk", "jedek", 1, "m", "rouge", "", 0, 2,bs.chercherBoutiqueParID(0),LocalDateTime.now());
+      // ps.ajouterProduitPanier(pp, 1);
 }
 }
