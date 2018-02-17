@@ -24,7 +24,7 @@ import javafx.stage.StageStyle;
  *
  * @author hamdi
  */
-public class MainApplication extends Application {
+public class UserMain extends Application {
 
     private double x;
     private double y;
@@ -75,7 +75,7 @@ public class MainApplication extends Application {
 //        borderPane.setCenter(loadLoginScreen());
 //        Scene scene = new Scene(borderPane, 700, 500);
 //        scene.getStylesheets().add(
-//                MainApplication.class.getResource("context.css")
+//                UserMain.class.getResource("context.css")
 //                        .toExternalForm());
 //        stage.setScene(scene);
 //        stage.show();
