@@ -33,10 +33,10 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Test.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
             stage.setTitle("Login");
-//            stage.initStyle(StageStyle.UNDECORATED);
-//            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initStyle(StageStyle.TRANSPARENT);
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
