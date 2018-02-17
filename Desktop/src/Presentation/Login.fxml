@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.Light.Distant?>
@@ -11,7 +12,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
@@ -64,7 +64,7 @@
       </AnchorPane>
       <AnchorPane id="AnchorPane" fx:id="loginForm" layoutX="2.0" layoutY="144.0" minHeight="570.0" minWidth="566.0" prefHeight="575.0" prefWidth="582.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0 0 25 25; -fx-border-radius: 0 0 25 25;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="143.0">
          <children>
-            <JFXTextField fx:id="username" labelFloat="true" layoutX="227.0" layoutY="174.0" prefHeight="40.0" prefWidth="198.0" promptText="Username">
+            <JFXTextField fx:id="username" labelFloat="true" layoutX="227.0" layoutY="174.0" prefHeight="40.0" prefWidth="198.0" promptText="Username / Email">
                <font>
                   <Font name="Segoe UI" size="20.0" />
                </font>
@@ -74,10 +74,13 @@
                   <Font name="Segoe UI" size="20.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="login" layoutX="193.0" layoutY="390.0" onMouseClicked="#handleLoginClicked" prefHeight="40.0" prefWidth="198.0" style="-fx-background-color: #4183D7;" text="Se connecter" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton fx:id="login" layoutX="66.0" layoutY="389.0" onMouseClicked="#handleLoginClicked" prefHeight="40.0" prefWidth="198.0" style="-fx-background-color: #4183D7;" text="Se connecter" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold Italic" size="25.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
             <ImageView fitHeight="57.0" fitWidth="68.0" layoutX="136.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -94,12 +97,16 @@
                   <Font name="Segoe UI Semibold" size="41.0" />
                </font>
             </Label>
-            <Label fx:id="createUser" layoutX="178.0" layoutY="462.0" minWidth="229.0" onMouseClicked="#handleCreateUser" prefHeight="30.0" prefWidth="229.0" text="Pas encore un membre ?" underline="true">
+            <Label fx:id="chnagerMdp" layoutX="189.0" layoutY="463.0" minWidth="198.0" onMouseClicked="#changerMdpClicked" prefHeight="30.0" prefWidth="198.0" style="-fx-cursor: hand;" text="Mot de passe oublié ?" underline="true">
                <font>
                   <Font name="System Italic" size="20.0" />
                </font>
             </Label>
-            <StackPane fx:id="pane" layoutX="19.0" layoutY="149.0" prefHeight="150.0" prefWidth="547.0" />
+            <JFXButton fx:id="createUser" layoutX="315.0" layoutY="389.0" onMouseClicked="#createUserClicked" prefHeight="40.0" prefWidth="198.0" style="-fx-background-color: green; -fx-cursor: hand;" text="S'inscrire" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold Italic" size="25.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="loadPane" prefHeight="200.0" prefWidth="200.0" />

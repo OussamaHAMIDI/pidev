@@ -144,7 +144,7 @@ public class HomeAdminController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
         alert.setHeaderText(null);
-        alert.setContentText("Voulez-vous se déconnecter ?");
+        alert.setContentText("Voulez-vous vous déconnecter ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
