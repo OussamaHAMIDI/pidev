@@ -60,9 +60,7 @@ import tray.notification.TrayNotification;
  * @author Hamdi
  */
 public class Utils {
-
-    public static Object objetToPass;
-
+    
     public static String generateCode(int length) {
 
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

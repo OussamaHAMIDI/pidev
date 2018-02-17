@@ -71,8 +71,9 @@ public class GestionUsersController implements Initializable {
     private AnchorPane blur;
 
     private UserService us = new UserService();
-    private boolean selected = false;
+
     private User selectedUser;
+    public static User user;
 
     public void buildUsersTable() {
         ObservableList<User> users = FXCollections.observableArrayList();
@@ -97,8 +98,6 @@ public class GestionUsersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-         
-        
         Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> cellFactory = new Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>>() {
             @Override
             public TableCell<User, Boolean> call(final TableColumn<User, Boolean> param) {
@@ -207,7 +206,6 @@ public class GestionUsersController implements Initializable {
             }
         });
 
-        
         // 0. Initialize  columns.
         idColumn.setCellValueFactory((new PropertyValueFactory<>("id")));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -217,7 +215,7 @@ public class GestionUsersController implements Initializable {
         etatColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
         lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
         editer.setCellFactory(cellFactory);
-        
+
 //        table.setOnMousePressed(new EventHandler<MouseEvent>() {
 //            @Override
 //            public void handle(MouseEvent event) {
@@ -228,9 +226,6 @@ public class GestionUsersController implements Initializable {
 //                }
 //            }
 //        });
-       
-        
-        
         filter.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.toLowerCase().matches("[a-z]+ [a-z]+ [a-z]+ [a-z]*")) {
                 filter.setText(oldValue);
@@ -291,20 +286,18 @@ public class GestionUsersController implements Initializable {
     }
 
     private void modifier(User u) {
-       
+
         if (u != null) {
             blur.setEffect(new GaussianBlur(5));
+            ModifierUserController.blur = blur;
+            ModifierUserController.userSelected = u;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierUser.fxml"));
-            Utils.objetToPass = u;
-            ModifierUserController auc = loader.getController();
-            auc.blur = blur; // transfer anchorPane to new stage **************************************
             Stage stage = Utils.getAnotherStage(loader, "Modification");
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent we) {
                     blur.setEffect(null);
-
                 }
             });
             stage.show();

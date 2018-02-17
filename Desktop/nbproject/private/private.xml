@@ -2,33 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdp.fxml</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/Test.fxml</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/UserMain.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdp.fxml</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/TestController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdpController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
-=======
-        <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/EvaluationController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStock.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
->>>>>>> ba8a3f5ce41ad5b75f022c66727a916391f615ce
-        </group>
-        <group>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierController.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/Panier.fxml</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierMain.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/main/MainPanier.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/PanierService.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdpController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ContactController.java</file>
         </group>
     </open-files>
 </project-private>

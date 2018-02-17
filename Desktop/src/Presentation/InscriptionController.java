@@ -91,8 +91,6 @@ public class InscriptionController implements Initializable {
     private FileInputStream photoProfil = null;
     @FXML
     private Button Bt_importer;
-    @FXML
-    private Button capturer;
 
     /**
      * Initializes the controller class.
@@ -176,24 +174,18 @@ public class InscriptionController implements Initializable {
                     null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
 
             if (us.ajouterUser(u)) {
-                
+
                 Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez verifier votre boite mail",
                         u.getPhoto(), 6000);
                 Utils.showAlert(Alert.AlertType.INFORMATION, "Presque terminé", "Derniere étape", "• Un code de vérification a été envoyé à :\n" + u.getEmail()
                         + "\n- Il vous sera demandé lors de votre 1ère tentative de connexion.");
                 Utils.sendMail(email.getText(), code);
-                
+
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 s.close();
 
             }
         }
-    }
-
-    @FXML
-    private void onSetAction_capturer(ActionEvent event) {
-        Stage stage = new Stage();
-        //wc.start(stage);
     }
 
 }

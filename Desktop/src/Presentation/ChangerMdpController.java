@@ -18,10 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import Utils.Utils;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.mindrot.BCrypt;
 import tray.notification.NotificationType;
 
 /**
@@ -43,7 +41,8 @@ public class ChangerMdpController implements Initializable {
     private JFXPasswordField password2;
     @FXML
     private Label email;
-
+    @FXML
+    private JFXButton confirmer;
     @FXML
     private Label erreur;
 
@@ -55,10 +54,9 @@ public class ChangerMdpController implements Initializable {
         u = user;
         code = codeVerif;
         blur = blurr;
-       
     }
-    @FXML
-    private JFXButton confirmer;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -74,23 +72,23 @@ public class ChangerMdpController implements Initializable {
 
     @FXML
     private void confirmerClicked(MouseEvent event) {
-      
-            if (!verif.getText().equals("") && !password1.getText().equals("") && !password2.getText().equals("")) {
-                if (!password1.getText().equals(password2.getText())) {
-                    erreur.setText("Les mots de passe doivent être identiques");
-                } else if (!verif.getText().equals(code)) {
-                    erreur.setText("Code de vérification incorrect");
-                } else {
-                    UserService us = new UserService();
-                    if (us.changerMdp(u.getId(), code)) {
-                        Utils.showTrayNotification(NotificationType.NOTICE, "Votre mot de passe est changé", null, null, u.getPhoto(), 2000);
-                    }
-                    Stage s = (Stage) annuler.getScene().getWindow();
-                    blur.setEffect(null);
-                    s.close();
-                }
 
+        if (!verif.getText().equals("") && !password1.getText().equals("") && !password2.getText().equals("")) {
+            if (!password1.getText().equals(password2.getText())) {
+                erreur.setText("Les mots de passe doivent être identiques");
+            } else if (!verif.getText().equals(code)) {
+                erreur.setText("Code de vérification incorrect");
             } else {
+                UserService us = new UserService();
+                if (us.changerMdp(u.getId(), code)) {
+                    Utils.showTrayNotification(NotificationType.NOTICE, "Votre mot de passe est changé", null, null, u.getPhoto(), 2000);
+                }
+                Stage s = (Stage) annuler.getScene().getWindow();
+                blur.setEffect(null);
+                s.close();
+            }
+
+        } else {
             erreur.setText("Veuillez renseigner tous les champs");
         }
     }

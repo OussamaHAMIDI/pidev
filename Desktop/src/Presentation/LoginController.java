@@ -9,7 +9,6 @@ import Entities.User;
 import Services.UserService;
 import Utils.Enumerations.EtatUser;
 import Utils.Utils;
-import Utils.mouseDrag;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -19,8 +18,6 @@ import tray.notification.NotificationType;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,18 +27,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -134,8 +127,9 @@ public class LoginController implements Initializable {
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 stage.close();
 
+                                GestionUsersController.user = u;
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
-                                Utils.objetToPass = u;
+
                                 stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
                                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                                     @Override
@@ -173,9 +167,8 @@ public class LoginController implements Initializable {
                                             case Administrateur:
                                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                                 stage.close();
-
+                                                GestionUsersController.user = u;
                                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
-                                                Utils.objetToPass = u;
                                                 stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
                                                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                                                     @Override
@@ -224,17 +217,17 @@ public class LoginController implements Initializable {
             }
             if (u != null) {
                 String code = Utils.generateCode(6);
-                
+
                 ChangerMdpController.set(code, u, blur);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangerMdp.fxml"));
-                Stage stage =  Utils.getAnotherStage(loader, "Changer mot de passe");
+                Stage stage = Utils.getAnotherStage(loader, "Changer mot de passe");
                 stage.initStyle(StageStyle.TRANSPARENT);
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                                                    @Override
-                                                    public void handle(WindowEvent we) {
-                                                        blur.setEffect(null);
-                                                    }
-                                                });
+                    @Override
+                    public void handle(WindowEvent we) {
+                        blur.setEffect(null);
+                    }
+                });
                 stage.show();
                 Utils.sendMail(u.getEmail(), code);
 
@@ -261,9 +254,6 @@ public class LoginController implements Initializable {
     private void createUserClicked(MouseEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Inscription.fxml"));
         Utils.getAnotherStage(loader, "Inscription").show();
-
-//        Stage s = (Stage) createUser.getScene().getWindow();
-//        s.close();
     }
 
 }

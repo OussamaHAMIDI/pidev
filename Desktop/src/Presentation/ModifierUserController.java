@@ -91,7 +91,7 @@ public class ModifierUserController implements Initializable {
     ObservableList<String> etatList = FXCollections.observableArrayList("En attente", "Active", "Déconnecté");
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
 
-    public User userSelected = (User) Utils.objetToPass;
+    public static User userSelected;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -196,6 +196,8 @@ public class ModifierUserController implements Initializable {
 
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 blur.setEffect(null);
+                GestionUsersController c = new GestionUsersController();
+                c.buildUsersTable();
                 s.close();
             }
         }
@@ -244,7 +246,7 @@ public class ModifierUserController implements Initializable {
             Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Veuillez bien renseigner votre date de naissance.\nExemple : 1995-11-25");
             return false;
         } else {
-             if (us.verifColumn("email", email.getText())) {
+             if (!userSelected.getEmail().equals(email.getText()) && us.verifColumn("email", email.getText())) {
                 Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Email déjà existant, veuillez choisir un autre");
                 email.requestFocus();
                 return false;
