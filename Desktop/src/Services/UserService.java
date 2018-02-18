@@ -379,16 +379,14 @@ public class UserService implements IUser {
     }
 
     @Override
-    public void supprimerUser(int idUser) {
-        try {
-            String req = "Delete from user WHERE id = '" + idUser + "'";
-            connexion.prepareStatement(req).executeUpdate();
+    public void supprimerUser(User u) {
+        u.setEtat(EtatUser.Deleted);
+        u.setEmail(u.getEmail() + u.getId());
+        u.setUserName(u.getUserName() + u.getId());
+        UserService us = new UserService();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Modification User echouée");
-
+        if (!us.modifierUser(u)) {
+            System.out.println("Suppression User echouée");
         }
     }
 

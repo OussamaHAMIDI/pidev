@@ -88,7 +88,7 @@ public class ModifierUserController implements Initializable {
 
     UserService us = new UserService();
 
-    ObservableList<String> etatList = FXCollections.observableArrayList("En attente", "Active", "Déconnecté");
+    ObservableList<String> etatList = FXCollections.observableArrayList("En attente", "Active", "Déconnecté", "Supprimé");
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
 
     public static User userSelected;
@@ -107,6 +107,9 @@ public class ModifierUserController implements Initializable {
                         break;
                     case Disconnected:
                         etat.setValue("Déconnecté");
+                        break;
+                    case Deleted:
+                        etat.setValue("Supprimé");
                         break;
                     default:
                         etat.setValue("Active");
@@ -172,6 +175,8 @@ public class ModifierUserController implements Initializable {
                     etatU = EtatUser.Active;
                 case "Déconnecté":
                     etatU = EtatUser.Disconnected;
+                case "Supprimé":
+                    etatU = EtatUser.Deleted;
             }
 
             userSelected.setType(TypeUser.valueOf(type.getValue()));
@@ -237,7 +242,7 @@ public class ModifierUserController implements Initializable {
         Stage s = (Stage) annuler.getScene().getWindow();
         blur.setEffect(null);
         s.close();
-       
+
     }
 
     private boolean verfier() {
@@ -246,7 +251,7 @@ public class ModifierUserController implements Initializable {
             Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Veuillez bien renseigner votre date de naissance.\nExemple : 1995-11-25");
             return false;
         } else {
-             if (!userSelected.getEmail().equals(email.getText()) && us.verifColumn("email", email.getText())) {
+            if (!userSelected.getEmail().equals(email.getText()) && us.verifColumn("email", email.getText())) {
                 Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Email déjà existant, veuillez choisir un autre");
                 email.requestFocus();
                 return false;

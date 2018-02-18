@@ -92,7 +92,7 @@ public class AddUserController implements Initializable {
 
     UserService us = new UserService();
 
-    ObservableList<String> etatList = FXCollections.observableArrayList("En attente", "Active", "Déconnecté");
+    ObservableList<String> etatList = FXCollections.observableArrayList("Active", "Déconnecté");
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
     private FileInputStream photoProfil = null;
 
@@ -173,8 +173,6 @@ public class AddUserController implements Initializable {
             String sexe = ((RadioButton) this.sexe.getSelectedToggle()).getText();
             EtatUser etatU = null;
             switch (etat.getValue()) {
-                case "En attente":
-                    etatU = EtatUser.Pending;
                 case "Active":
                     etatU = EtatUser.Active;
                 case "Déconnecté":

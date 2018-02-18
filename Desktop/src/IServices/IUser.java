@@ -42,6 +42,6 @@ public interface IUser {
 
     public List<User> getUsers();
 
-    public void supprimerUser(int idUser);
+    public void supprimerUser(User u);
 
 }
