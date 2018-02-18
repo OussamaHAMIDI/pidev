@@ -181,11 +181,17 @@ return 1;
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
+<<<<<<< HEAD
+                        bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
+                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout")),null
+                        ));
+=======
                         ps.chercherProduitParID(rs.getInt("id_produit")).getBoutique(),
                         Utils.Utils.getLocalDateTime(rs.getString("date_ajout"))
                         );
                 //System.out.println(x);
                produits.add(x);
+>>>>>>> 8858ead19622c628a6e7d5a389751cc5ce9f2363
             }
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());

@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 public class MyDB {
 
     Connection connexion;
-    final String url = "jdbc:mysql://localhost:3306/souk?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
+    final String url = "jdbc:mysql://localhost:3306/souk";
     final String user = "root";
-    final String password = "";
+    final String password = "root";
     private static MyDB instance = null;
 
     private MyDB() {
