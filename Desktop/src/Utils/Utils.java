@@ -97,7 +97,7 @@ public class Utils {
         Content content = new Content("text/plain", "hahahaah");
         Mail mail = new Mail(from, subject, to, content);
 
-        SendGrid sg = new SendGrid(System.getenv("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"));
+        SendGrid sg = new SendGrid(System.getenv("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"));
         Request request = new Request();
         try {
             request.setMethod(Method.POST);
@@ -105,7 +105,7 @@ public class Utils {
             request.setBody(mail.build());
             Response response = sg.api(request);
             System.out.println(response.getStatusCode());
-            System.out.println("2" + response.getBody());
+            System.out.println(response.getBody());
             System.out.println(response.getHeaders());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
