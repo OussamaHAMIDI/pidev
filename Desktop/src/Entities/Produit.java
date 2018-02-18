@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 
@@ -25,6 +26,7 @@ public class Produit {
     protected float poids;
     protected Boutique boutique;
     protected LocalDateTime dateAjout;
+    private InputStream photo;
 
 
     
@@ -32,7 +34,7 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
+    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
         this.id = id;
         this.reference = reference;
         this.libelle = libelle;
@@ -44,6 +46,7 @@ public class Produit {
         this.poids = poids;
         this.boutique = boutique;
         this.dateAjout = dateAjout;
+        this.photo = photo;
     }
 
 
@@ -134,7 +137,13 @@ public class Produit {
     public void setDateAjout(LocalDateTime dateAjout) {
         this.dateAjout = dateAjout;
     }
-    
+    public InputStream getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(InputStream photo) {
+        this.photo = photo;
+    }
     
     
     

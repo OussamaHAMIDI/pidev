@@ -179,7 +179,7 @@ return 1;
                         rs.getString("texture"),
                         rs.getFloat("poids"),
                         bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
-                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout"))
+                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout")),null
                         ));
             }
         } catch (SQLException e) {

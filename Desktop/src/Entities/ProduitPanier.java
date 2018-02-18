@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 /**
@@ -44,12 +45,13 @@ public class ProduitPanier extends Produit
     public ProduitPanier() {
     }
 
-    public ProduitPanier(float quantiteVendue, float poidsVendu, float prixVente, int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout) {
-        super(idProduit, reference, libelle, description, prix, taille, couleur, texture, poids, boutique, dateAjout);
+    public ProduitPanier(float quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+        super(id, reference, libelle, description, prix, taille, couleur, texture, poids, boutique, dateAjout, photo);
         this.quantiteVendue = quantiteVendue;
         this.poidsVendu = poidsVendu;
         this.prixVente = prixVente;
     }
+    
 
     
     
