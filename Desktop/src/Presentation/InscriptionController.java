@@ -34,9 +34,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -77,14 +77,17 @@ public class InscriptionController implements Initializable {
     @FXML
     private Label titre;
     @FXML
-    private Button Bt_importer;
-    @FXML
     private ImageView photo;
     @FXML
     private JFXButton inscrire;
 
+    //WebCamAppLauncher wc = new WebCamAppLauncher();
+    public AnchorPane blur;
+
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
     private FileInputStream photoProfil = null;
+    @FXML
+    private Button Bt_importer;
 
     /**
      * Initializes the controller class.
@@ -93,8 +96,9 @@ public class InscriptionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         type.setValue("Client");
         type.setItems(typeList);
+
         date.setConverter(new StringConverter<LocalDate>() {
-            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             @Override
             public String toString(LocalDate localDate) {
@@ -112,6 +116,7 @@ public class InscriptionController implements Initializable {
                 return LocalDate.parse(dateString, dateTimeFormatter);
             }
         });
+
     }
 
     @FXML
@@ -136,7 +141,6 @@ public class InscriptionController implements Initializable {
 
                 File img = new File(path);
                 photoProfil = new FileInputStream(img);
-                //img = (int) img.length();
             } else {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
             }
@@ -167,15 +171,13 @@ public class InscriptionController implements Initializable {
                     null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
 
             if (us.ajouterUser(u)) {
-/************************************************************************************************************************************************************/
-                //Utils.sendMail(email.getText(), code);
-                
-/************************************************************************************************************************************************************/
-                Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez verifier votre boite mail", 
-                        new Image(u.getPhoto()), 6000);
 
+                Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez verifier votre boite mail",
+                        u.getPhoto(), 6000);
                 Utils.showAlert(Alert.AlertType.INFORMATION, "Presque terminé", "Derniere étape", "• Un code de vérification a été envoyé à :\n" + u.getEmail()
                         + "\n- Il vous sera demandé lors de votre 1ère tentative de connexion.");
+                Utils.sendMail(email.getText(), code);
+
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 s.close();
 

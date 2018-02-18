@@ -12,7 +12,6 @@ import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,7 +27,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -51,16 +49,14 @@ import tray.notification.NotificationType;
  *
  * @author Hamdi
  */
-public class AddUserController implements Initializable {
+public class ModifierUserController implements Initializable {
 
     @FXML
-    private JFXButton ajouter;
+    private JFXButton modifier;
     @FXML
     private JFXButton annuler;
     @FXML
     private JFXTextField username;
-    @FXML
-    private JFXPasswordField password;
     @FXML
     private JFXTextField email;
     @FXML
@@ -83,31 +79,63 @@ public class AddUserController implements Initializable {
     private Button Bt_importer;
     @FXML
     private ImageView photo;
-
     @FXML
     private ImageView close;
 
-    public AnchorPane blur;
-   
+    public static AnchorPane blur;
+
+    private FileInputStream photoProfil = null;
 
     UserService us = new UserService();
 
     ObservableList<String> etatList = FXCollections.observableArrayList("En attente", "Active", "Déconnecté");
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
-    private FileInputStream photoProfil = null;
 
-    /**
-     * Initializes the controller class.
-     */
+    public static User userSelected;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        close.setCursor(Cursor.HAND);
 
-       
-        type.setValue("Client");
-        type.setItems(typeList);
-        etat.setValue("Active");
-        etat.setItems(etatList);
+        if (userSelected != null) {
+            System.out.println(userSelected.getEtat().toString());
+            if (null == userSelected.getEtat()) {
+                etat.setValue("Active");
+            } else {
+                switch (userSelected.getEtat()) {
+                    case Pending:
+                        etat.setValue("En attente");
+                        break;
+                    case Disconnected:
+                        etat.setValue("Déconnecté");
+                        break;
+                    default:
+                        etat.setValue("Active");
+                        break;
+                }
+            }
+
+            type.setValue(userSelected.getType().toString());
+
+            type.setItems(typeList);
+
+            etat.setItems(etatList);
+
+            nom.setText(userSelected.getNom());
+            prenom.setText(userSelected.getPrenom());
+            adresse.setText(userSelected.getAdresse());
+            tel.setText(userSelected.getTel());
+            if (userSelected.getSexe().equals("Femelle")) {
+                sexe.selectToggle(sexe.getToggles().get(1));
+            }
+            username.setText(userSelected.getUserName());
+            email.setText(userSelected.getEmail());
+
+            if (userSelected.getPhoto() != null) {
+                photo.setImage(new Image(userSelected.getPhoto()));
+            }
+            date.setValue(userSelected.getDateNaissance());
+        }
+
         Utils.verifTextField(tel, "[0-9]*", "Seuls les chiffres sont permis !");
 
         date.setConverter(new StringConverter<LocalDate>() {
@@ -129,7 +157,50 @@ public class AddUserController implements Initializable {
                 return LocalDate.parse(dateString, dateTimeFormatter);
             }
         });
+    }
 
+    @FXML
+    private void modifierClicked(ActionEvent event) {
+        if (verfier()) {
+            String code = Utils.generateCode(6);
+            String sexe = ((RadioButton) this.sexe.getSelectedToggle()).getText();
+            EtatUser etatU = null;
+            switch (etat.getValue()) {
+                case "En attente":
+                    etatU = EtatUser.Pending;
+                case "Active":
+                    etatU = EtatUser.Active;
+                case "Déconnecté":
+                    etatU = EtatUser.Disconnected;
+            }
+
+            userSelected.setType(TypeUser.valueOf(type.getValue()));
+            userSelected.setEtat(etatU);
+            userSelected.setNom(nom.getText());
+            userSelected.setPrenom(prenom.getText());
+            userSelected.setEmail(email.getText());
+            userSelected.setAdresse(adresse.getText());
+            userSelected.setDateNaissance(date.getValue());
+
+            userSelected.setSexe(sexe);
+            if (photoProfil != null) {
+                userSelected.setPhoto(photoProfil);
+            }
+
+            date.setValue(userSelected.getDateNaissance());
+
+            if (us.modifierUser(userSelected)) {
+
+                Utils.showTrayNotification(NotificationType.CUSTOM, "Utilisateur modifié avec succès", null, userSelected.getUserName()
+                        + "\n" + userSelected.getEmail(), photo.getImage(), 6000);
+
+                Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                blur.setEffect(null);
+                GestionUsersController c = new GestionUsersController();
+                c.buildUsersTable();
+                s.close();
+            }
+        }
     }
 
     @FXML
@@ -139,7 +210,6 @@ public class AddUserController implements Initializable {
         s.close();
     }
 
-     
     @FXML
     private void onSetAction_importer(ActionEvent event) throws IOException {
         FileChooser file = new FileChooser(); //pour choisir la photo
@@ -160,49 +230,6 @@ public class AddUserController implements Initializable {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
             }
         }
-
-    }
-
-    @FXML
-    private void ajouterClicked(ActionEvent event) {
-
-        if (verfier()) {
-            String salt = BCrypt.gensalt(4);
-            String mdp = Utils.hashPassword(password.getText(), salt);
-            String code = Utils.generateCode(6);
-            String sexe = ((RadioButton) this.sexe.getSelectedToggle()).getText();
-            EtatUser etatU = null;
-            switch (etat.getValue()) {
-                case "En attente":
-                    etatU = EtatUser.Pending;
-                case "Active":
-                    etatU = EtatUser.Active;
-                case "Déconnecté":
-                    etatU = EtatUser.Disconnected;
-            }
-
-            User u = new User(us.getNextId(), username.getText(), mdp, etatU, TypeUser.valueOf(type.getValue()), nom.getText(), prenom.getText(),
-                    date.getValue(), sexe, email.getText(), adresse.getText(), tel.getText(),
-                    null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
-
-            if (us.ajouterUser(u)) {
-                Image img = photo.getImage();
-                if (u.getPhoto() != null) {
-                    img = new Image(u.getPhoto());
-
-                }
-                Utils.showTrayNotification(NotificationType.CUSTOM, "Utilisateur ajouté avec succès", null, "Mail envoyé à " + u.getEmail(), img, 6000);
-
-                Utils.sendMail(email.getText(), code);
-                Utils.showAlert(Alert.AlertType.INFORMATION, "Utilisateur ajouté avec succès", null, "Mail envoyé à " + u.getEmail());
-                Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-               
-                blur.setEffect(null);
-               
-                s.close();
-            }
-        }
     }
 
     @FXML
@@ -210,19 +237,16 @@ public class AddUserController implements Initializable {
         Stage s = (Stage) annuler.getScene().getWindow();
         blur.setEffect(null);
         s.close();
+       
     }
 
     private boolean verfier() {
 
-        if (username.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty()) {
+        if (username.getText().isEmpty() || email.getText().isEmpty()) {
             Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Veuillez bien renseigner votre date de naissance.\nExemple : 1995-11-25");
             return false;
         } else {
-            if (us.verifColumn("username", username.getText())) {// if existing in table user
-                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Nom d'utilisateur déjà existant, veuillez choisir un autre");
-                username.requestFocus();
-                return false;
-            } else if (us.verifColumn("email", email.getText())) {
+             if (!userSelected.getEmail().equals(email.getText()) && us.verifColumn("email", email.getText())) {
                 Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Email déjà existant, veuillez choisir un autre");
                 email.requestFocus();
                 return false;

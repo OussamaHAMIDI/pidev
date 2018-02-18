@@ -18,19 +18,11 @@ public interface IUser {
 
     public boolean ajouterUser(User u);
 
-    public boolean ajouterUser(User u, InputStream file, int length);
-
     public boolean modifierUser(User u);
-
-    public boolean modifierUser(int idUser);
 
     public void modifierEtatUser(int idUser, EtatUser etat);
 
-    public boolean ajouterPhotoUser(int idUser, InputStream file, int length);
-
     public boolean changerToken(String code, String email);
-
-  
 
     public boolean changerMdp(int idUser, String new_mdp);
 
@@ -40,14 +32,16 @@ public interface IUser {
 
     public User getUserByUsername(String username);
 
+    public User getUserByEmail(String email);
+
     public int getNextId();
 
     public InputStream getPhotoUser(int idUser);
 
-    public boolean verifColumn(String columnName,String columnValue);
-    
+    public boolean verifColumn(String columnName, String columnValue);
+
     public List<User> getUsers();
 
- 
+    public void supprimerUser(int idUser);
 
 }

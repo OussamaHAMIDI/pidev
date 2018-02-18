@@ -90,7 +90,7 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXRadioButton>
-      <Button fx:id="Bt_importer" layoutX="564.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="237.0" style="-fx-background-color: #18222c;" text="Importer une photo de profil" textFill="WHITE">
+      <Button fx:id="Bt_importer" layoutX="598.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo" textFill="WHITE">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>

@@ -8,6 +8,7 @@ package Presentation;
 import Entities.User;
 import Services.UserService;
 import Utils.Enumerations.EtatUser;
+import Utils.Enumerations.TypeUser;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -31,12 +32,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 /**
@@ -59,20 +60,24 @@ public class LoginController implements Initializable {
     @FXML
     private JFXButton login;
     @FXML
-    private Label createUser;
+    private JFXButton createUser;
     @FXML
     private AnchorPane blur;
     @FXML
     private StackPane pane;
     @FXML
     private AnchorPane loadPane;
+    @FXML
+    private Label chnagerMdp;
+
+    UserService us = new UserService();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+
         createUser.setCursor(Cursor.HAND);
         exit.setCursor(Cursor.HAND);
         username.setText("HamdiMegdiche");
@@ -103,29 +108,30 @@ public class LoginController implements Initializable {
             Utils.showAlert(Alert.AlertType.WARNING, "Champ(s) vide(s)", null, "Veuillez bien renseigner votre username et/ou mot de passe");
             username.requestFocus();
         } else {
-            UserService us = new UserService();
             User u = null;
-            u = us.getUserByUsername(username.getText());
-            int idUser = u.getId();
+            if (username_text.contains("@")) {
+                u = us.getUserByEmail(username_text);
+            }
+            u = us.getUserByUsername(username_text);
+
             if (u != null) {
+                int idUser = u.getId();
                 String pswHashed = Utils.hashPassword(password_text, u.getSalt());
                 if (pswHashed.equals(u.getMdp())) {
-                    System.out.println("dkhal ");
+
                     if (u.getEtat() == EtatUser.Active || u.getEtat() == EtatUser.Disconnected) {
-                        Utils.showTrayNotification(NotificationType.NOTICE, "Connexion etablie", u.getType().toString(), "Bienvenue " + u.getNom() + " "
-                                + u.getPrenom(), new Image(u.getPhoto()),2000);
+                        Utils.showTrayNotification(NotificationType.NOTICE, "Connexion établie", u.getType().toString(), "Bienvenue " + u.getNom() + " "
+                                + u.getPrenom(), u.getPhoto(), 2000);
                         us.modifierEtatUser(idUser, EtatUser.Connected);
                         switch (u.getType()) {
                             case Administrateur:
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 stage.close();
 
+                                GestionUsersController.user = u;
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
+
                                 stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
-
-                                GestionUsersController guc = loader.getController();
-                                guc.id = Integer.toString(u.getId()); // transfer Id to new stage **************************************
-
                                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                                     @Override
                                     public void handle(WindowEvent we) {
@@ -133,9 +139,7 @@ public class LoginController implements Initializable {
                                         us.modifierEtatUser(idUser, EtatUser.Disconnected);
                                     }
                                 });
-
                                 stage.show();
-
                                 break;
                             case Artisan:
 
@@ -162,13 +166,9 @@ public class LoginController implements Initializable {
                                             case Administrateur:
                                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                                 stage.close();
+                                                GestionUsersController.user = u;
                                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
-
                                                 stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
-
-                                                GestionUsersController guc = loader.getController();
-                                                guc.id = Integer.toString(u.getId()); // transfer Id to new stage **************************************
-
                                                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                                                     @Override
                                                     public void handle(WindowEvent we) {
@@ -191,6 +191,9 @@ public class LoginController implements Initializable {
                             }
                         });
 
+                    }else if (u.getEtat() == EtatUser.Inactive && u.getType() == TypeUser.Administrateur) {
+                        Utils.showAlert(Alert.AlertType.WARNING, "En attente en confirmation", null, "Votre type de compte est Administrateur.\n"
+                                + "Pour pouvoir y acceder il faut qu'un autre adminitrateur confirme votre compte.");
                     }
                 }
             } else {
@@ -201,13 +204,58 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void handleCreateUser(MouseEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inscription.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Inscription");
-        s.show();
+    private void changerMdpClicked(MouseEvent event) {
+        String usr = username.getText();
 
-//        Stage s = (Stage) createUser.getScene().getWindow();
-//        s.close();
+        if (usr.equals("")) {
+            Utils.showAlert(Alert.AlertType.WARNING, "Champ vide", null, "Veuillez bien renseigner votre nom d'utilisateur ou email");
+            username.requestFocus();
+        } else {
+            User u = null;
+            if (usr.contains("@")) {
+                u = us.getUserByEmail(usr);
+            } else {
+                u = us.getUserByUsername(usr);
+            }
+            if (u != null) {
+                String code = Utils.generateCode(6);
+
+                ChangerMdpController.set(code, u, blur);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangerMdp.fxml"));
+                Stage stage = Utils.getAnotherStage(loader, "Changer mot de passe");
+                stage.initStyle(StageStyle.TRANSPARENT);
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent we) {
+                        blur.setEffect(null);
+                    }
+                });
+                stage.show();
+                Utils.sendMail(u.getEmail(), code);
+
+            } else {
+                Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Erreur de récupération", null,
+                        "Username ou mail n'existe pas dans notre base de données \nVoulez-vous faire une inscription ?");
+                alert.show();
+                alert.resultProperty().addListener(new ChangeListener<ButtonType>() {
+                    @Override
+                    public void changed(ObservableValue<? extends ButtonType> observable, ButtonType oldValue, ButtonType newValue) {
+                        if (newValue == ButtonType.OK) {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("Inscription.fxml"));
+                            Utils.getAnotherStage(loader, "Inscription").show();
+                        }
+                    }
+                });
+
+                username.requestFocus();
+            }
+        }
+    }
+
+    @FXML
+    private void createUserClicked(MouseEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inscription.fxml"));
+        Utils.getAnotherStage(loader, "Inscription").show();
     }
 
 }

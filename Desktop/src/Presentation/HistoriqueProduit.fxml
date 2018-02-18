@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorProduit" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HistoriqueProduitController">
+   <children>
+      <TableView fx:id="historiqueProduit" layoutX="35.0" layoutY="33.0" prefHeight="241.0" prefWidth="531.0">
+        <columns>
+          <TableColumn fx:id="reference" prefWidth="132.0" text="Reference" />
+          <TableColumn fx:id="libelle" prefWidth="214.0" text="Libelle" />
+            <TableColumn fx:id="prixVente" prefWidth="109.0" text="Prix" />
+            <TableColumn fx:id="quantiteVendue" prefWidth="75.0" text="Quantité" />
+        </columns>
+      </TableView>
+      <Button fx:id="retour" layoutX="35.0" layoutY="333.0" mnemonicParsing="false" onAction="#retourner" text="Retourner" />
+   </children>
+</AnchorPane>
