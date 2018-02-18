@@ -268,7 +268,7 @@ public class GestionUsersController implements Initializable {
         User u = table.getSelectionModel().getSelectedItem();
         if (u != null) {
             if (u.getEtat() == EtatUser.Inactive && u.getType() == TypeUser.Administrateur) {
-                u.setEtat(EtatUser.Inactive);
+                u.setEtat(EtatUser.Active);
                 buildUsersTable();
             }
         }

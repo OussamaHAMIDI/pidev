@@ -22,14 +22,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -199,7 +193,7 @@ public class AddUserController implements Initializable {
                 }
                 Utils.showTrayNotification(NotificationType.CUSTOM, "Utilisateur ajouté avec succès", null, "Mail envoyé à " + u.getEmail(), img, 6000);
 
-                 Utils.sendMail(email.getText(), code);
+                Utils.sendMail(email.getText(), code);
                 Utils.showAlert(Alert.AlertType.INFORMATION, "Utilisateur ajouté avec succès", null, "Mail envoyé à " + u.getEmail());
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
