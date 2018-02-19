@@ -7,13 +7,7 @@ package Utils;
 
 import Presentation.LoginController;
 import com.jfoenix.controls.JFXTextField;
-import com.sendgrid.Content;
-import com.sendgrid.Email;
-import com.sendgrid.Mail;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -24,10 +18,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Random;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.EventHandler;
@@ -60,7 +50,7 @@ import tray.notification.TrayNotification;
  * @author Hamdi
  */
 public class Utils {
-    
+
     public static String generateCode(int length) {
 
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -84,49 +74,9 @@ public class Utils {
     }
 
     public static void sendMail(String to_mail, String code) {
-        Email from = new Email("hamdi.megdiche@esprit.tn");
-        String subject = "Vérification compte Souk lemdina";
-        Email to = new Email(to_mail);
 
-        String htmlBody = null;
-        try {
-            htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/mail.html"))).replace("123456", code);
-        } catch (IOException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Content content = new Content("text/plain", "hahahaah");
-        Mail mail = new Mail(from, subject, to, content);
-
-        SendGrid sg = new SendGrid(System.getenv("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"));
-        Request request = new Request();
-        try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            Response response = sg.api(request);
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-//    public static void sendMail(String to_mail, String code) {
-//        ExecutorService executor = Executors.newFixedThreadPool(4);
-//
-//        Future<Void> future = executor.submit(new Callable<Void>() {
-//            @Override
-//            public Void call() throws Exception {
-//                send(to_mail, code);
-//                return null;
-//            }
-//        });
-//    }
-    private static boolean send(String to_mail, String code) {
-
-        final String userName = "hamdi.megdiche@esprit.tn";
-        final String password = "25111995";
+        final String userName = "souklemdina@gmail.com";
+        final String password = "hints2018";
 
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
@@ -136,6 +86,7 @@ public class Utils {
 
         // creates a new session with an authenticator
         Authenticator auth = new Authenticator() {
+            @Override
             public PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(userName, password);
             }
@@ -146,21 +97,27 @@ public class Utils {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(to_mail));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to_mail));
-            msg.setSubject("Code d'activation du compte Souk lemdina");
+            msg.setSubject("Votre compte Souk lemdina requiert votre attention");
 
             msg.setSentDate(new Date(System.currentTimeMillis()));
             String htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/mail.html"))).replace("123456", code);
 
             msg.setContent(htmlBody, "text/html");
-            Transport.send(msg);
-            System.out.println("Mail envoyé");
-            return true;
 
-        } catch (MessagingException e) {
+            Runnable runnable = () -> {
+                try {
+                    Transport.send(msg);
+                    System.out.println("Mail envoyé");
+                } catch (MessagingException ex) {
+                    System.out.println("Echec de l'envoie du mail \n" + ex.getMessage());
+                }
+            };
+
+            Thread thread = new Thread(runnable);
+            thread.start();
+
+        } catch (IOException | MessagingException e) {
             System.out.println("Echec de l'envoie du mail \n" + e.getMessage());
-            return false;
-        } catch (IOException e) {
-            return false;
         }
 
     }
@@ -239,13 +196,13 @@ public class Utils {
         tray.showAndDismiss(Duration.millis(time));
         tray.setRectangleFill(Color.valueOf("#1e90ff"));
         if (img != null) {
-            tray.setImage(new Image (img));
+            tray.setImage(new Image(img));
         } else {
             tray.setImage(new Image("Images/icons8_User_Male_104px.png"));
         }
     }
-    
-        public static void showTrayNotification(NotificationType type, String title, String header, String text, Image img, int time) {
+
+    public static void showTrayNotification(NotificationType type, String title, String header, String text, Image img, int time) {
         TrayNotification tray = new TrayNotification();
         tray.setNotificationType(type);
         tray.setTitle(title);
