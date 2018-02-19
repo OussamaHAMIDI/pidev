@@ -157,5 +157,32 @@ public class ProduitService implements IProduit {
         return nextid;
     }
 
+    @Override
+    public List<Produit> listerProduits() {
+        List produits = new ArrayList();
+        try {
+            String req = "SELECT * FROM produit";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            Produit p = new Produit();
+            while (rs.next()) {
+                p.setId(rs.getInt("id_produit"));
+                p.setReference(rs.getString("reference"));
+                p.setLibelle(rs.getString("libelle"));
+                p.setDescription(rs.getString("description"));
+                p.setPrix(rs.getFloat("prix"));
+                p.setTaille(rs.getString("taille"));
+                p.setCouleur(rs.getString("couleur"));
+                p.setTexture(rs.getString("texture"));
+                p.setPoids(rs.getFloat("poids"));
+                produits.add(p);
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec");
+        }
+        return produits;
+    }
+
 
 }
