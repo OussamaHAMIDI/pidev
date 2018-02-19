@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -108,7 +109,7 @@ public class LoginController implements Initializable {
             Utils.showAlert(Alert.AlertType.WARNING, "Champ(s) vide(s)", null, "Veuillez bien renseigner votre username et/ou mot de passe");
             username.requestFocus();
         } else {
-            User u;
+            User u = null;
             if (username_text.contains("@")) {
                 u = us.getUserByEmail(username_text);
             }
@@ -191,6 +192,9 @@ public class LoginController implements Initializable {
                             }
                         });
 
+                    }else if (u.getEtat() == EtatUser.Inactive && u.getType() == TypeUser.Administrateur) {
+                        Utils.showAlert(Alert.AlertType.WARNING, "En attente en confirmation", null, "Votre type de compte est Administrateur.\n"
+                                + "Pour pouvoir y acceder il faut qu'un autre adminitrateur confirme votre compte.");
                     }
                 }
             } else {
@@ -208,7 +212,7 @@ public class LoginController implements Initializable {
             Utils.showAlert(Alert.AlertType.WARNING, "Champ vide", null, "Veuillez bien renseigner votre nom d'utilisateur ou email");
             username.requestFocus();
         } else {
-            User u;
+            User u = null;
             if (usr.contains("@")) {
                 u = us.getUserByEmail(usr);
             } else {

@@ -169,9 +169,6 @@ public class GestionUsersController implements Initializable {
                     if (etat.equals(EtatUser.Pending)) {
                         return "En attente";
                     }
-                    if (etat.equals(EtatUser.Deleted)) {
-                        return "Supprimé";
-                    }
                     return etat.toString();
                 } else {
                     return "Jamais";
@@ -183,9 +180,6 @@ public class GestionUsersController implements Initializable {
                 if (string != null && !string.isEmpty()) {
                     if (string.equals("En attente")) {
                         return EtatUser.Pending;
-                    }
-                    if (string.equals("Supprimé")) {
-                        return EtatUser.Deleted;
                     }
                     return EtatUser.valueOf(string);
                 } else {
@@ -270,10 +264,22 @@ public class GestionUsersController implements Initializable {
     }
 
     @FXML
+    private void confirmerClicked(ActionEvent event) {
+        User u = table.getSelectionModel().getSelectedItem();
+        if (u != null) {
+            if (u.getEtat() == EtatUser.Inactive && u.getType() == TypeUser.Administrateur) {
+                u.setEtat(EtatUser.Active);
+                buildUsersTable();
+            }
+        }
+
+    }
+
+    @FXML
     private void supprimerClicked(ActionEvent event) {
         User u = table.getSelectionModel().getSelectedItem();
         if (u != null) {
-            us.supprimerUser(u);
+            us.supprimerUser(u.getId());
             buildUsersTable();
         }
 
