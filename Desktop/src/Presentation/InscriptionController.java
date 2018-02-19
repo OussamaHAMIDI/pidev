@@ -84,7 +84,7 @@ public class InscriptionController implements Initializable {
     //WebCamAppLauncher wc = new WebCamAppLauncher();
     public AnchorPane blur;
 
-    ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
+    ObservableList<String> typeList = FXCollections.observableArrayList("Client", "Artisan");
     private FileInputStream photoProfil = null;
     @FXML
     private Button Bt_importer;

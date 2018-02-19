@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
@@ -10,6 +11,18 @@
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/GestionUsersController.java</file>
+=======
+        <group name="test">
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AddUserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ModifierUserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ModifierProduitController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/IServices/IUser.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Enumerations.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Services/UserService.java</file>
+>>>>>>> 75da049ff9f776e6424b4e3dce76a3a623d99f12
         </group>
     </open-files>
 </project-private>
