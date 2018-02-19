@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -39,3 +40,46 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group name="test">
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
+=======
+        <group>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListProduitsController.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/UserService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Boutique.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/User.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Utils/Enumerations.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Utils/Utils.java</file>
+        </group>
+        <group>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Boutique.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/User.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/UserService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Utils/Enumerations.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Utils/Utils.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListProduitsController.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
+>>>>>>> 07fe8d532dbabe8ce90a6321d6c4ce3a3b8ab538
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> ecb3d44b40ec5cf4f45cbad6dc1de420132d8b45
