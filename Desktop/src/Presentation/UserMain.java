@@ -33,10 +33,13 @@ public class UserMain extends Application {
     @Override
     public void start(Stage stage) {
         try {
+<<<<<<< HEAD
+            Parent root = FXMLLoader.load(getClass().getResource("AccueilAdmin.fxml"));
+=======
             Parent root = FXMLLoader.load(getClass().getResource("Test.fxml"));
+>>>>>>> c46d26d7f0b40a9a0b392b67d49bb736786af2f5
             stage.setTitle("Login");
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.initStyle(StageStyle.TRANSPARENT);
+            
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {

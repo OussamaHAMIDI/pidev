@@ -5,8 +5,6 @@
  */
 package main;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import Utils.Utils;
 
 /**
@@ -18,7 +16,7 @@ public class MainUser {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args)  {
 
         System.out.println("1");
 

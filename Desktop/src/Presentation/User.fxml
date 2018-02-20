@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="user" prefHeight="261.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserController">
+    <children>
+      <Label fx:id="nomPrenom" layoutX="52.0" layoutY="66.0" prefHeight="30.0" prefWidth="246.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 18;" text="Nom prenom" />
+      <Label fx:id="tel" layoutX="52.0" layoutY="165.0" prefHeight="30.0" prefWidth="246.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Telephone">
+         <graphic>
+            <MaterialDesignIconView fill="#73879c" glyphName="PHONE" size="16.0" wrappingWidth="21.0" />
+         </graphic>
+      </Label>
+      <Label fx:id="typeUser" layoutX="25.0" layoutY="19.0" prefHeight="30.0" prefWidth="246.0" style="-fx-text-fill: #73879C;" text="Type User">
+         <font>
+            <Font name="System Italic" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="adresse" layoutX="52.0" layoutY="134.0" prefHeight="30.0" prefWidth="246.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Address">
+         <graphic>
+            <FontAwesomeIconView fill="#73879c" glyphName="HOME" size="16.0" wrappingWidth="22.0" />
+         </graphic>
+      </Label>
+      <Pane layoutY="200.0" prefHeight="61.0" prefWidth="517.0" style="-fx-border-radius: 0 0 3 3; -fx-background-color: #E5E8EB; -fx-border-color: #C3C3C3; -fx-border-width: 1 0 0 0;">
+         <children>
+            <JFXButton layoutX="367.0" layoutY="14.0" onMouseClicked="#voirUser" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #337AB7; -fx-text-fill: white; -fx-font-size: 14;" text="Voir profil">
+               <graphic>
+                  <FontAwesomeIconView fill="#fffdfd" glyphName="EYE" size="14" wrappingWidth="18.0" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="supprimer" accessibleRole="IMAGE_VIEW" layoutX="41.0" layoutY="14.0" onMouseClicked="#supprimerUser" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="    Supprimer">
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="DELETE" size="16.0" wrappingWidth="9.0" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton layoutX="200.0" layoutY="15.0" onMouseClicked="#editerUser" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #26B99A;" text="Editer" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" onMouseClicked="#editerUser" size="16" wrappingWidth="25.0" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Label fx:id="email" layoutX="52.0" layoutY="105.0" prefHeight="30.0" prefWidth="246.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Email">
+         <graphic>
+            <FontAwesomeIconView fill="#73879c" glyphName="" size="16.0" wrappingWidth="22.0" />
+         </graphic>
+      </Label>
+      <Circle fx:id="circle" fill="#e5e8eb" layoutX="403.0" layoutY="105.0" radius="75.0" stroke="#c3c3c3" strokeLineCap="ROUND" strokeType="INSIDE" />
+      <ImageView fx:id="photoUser" fitHeight="120.0" fitWidth="120.0" layoutX="343.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/icons8_User_Male_104px.png" />
+         </image>
+      </ImageView>
+      
+      
+   </children>
+</AnchorPane>
