@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,8 +35,9 @@ public class ProduitService implements IProduit {
     public boolean ajouterProduit(Produit p) {
         try {
 
-            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique,photo) values ( ?,?,?,?,?,?,?,?,?)";                                              
+            String req = "INSERT INTO `produit`(`reference`, `libelle`, `description`, `prix`, `taille`, `couleur`, `texture`, `poids`, `date_creation`, `photo`) VALUES ( ?,?,?,?,?,?,?,?,?,?)";                                              
             ps = connexion.prepareStatement(req);
+//            ps.setInt(1, p.getBoutique().getId());
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
             ps.setString(3, p.getDescription());
@@ -44,7 +46,7 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getBoutique().getId());
+            ps.setString(9,LocalDateTime.now().toString());
             ps.setBinaryStream(10, p.getPhoto());
             ps.executeUpdate();
             System.out.println("Ajout effectué");
