@@ -14,5 +14,17 @@
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdpController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ContactController.java</file>
         </group>
+        <group>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/IServices/IPanier.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierController.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/Panier.fxml</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierMain.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/DataStorage/MyDB.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/main/MainPanier.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/PanierService.java</file>
+            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
+        </group>
     </open-files>
 </project-private>
