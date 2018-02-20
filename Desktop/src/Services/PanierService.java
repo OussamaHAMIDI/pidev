@@ -13,6 +13,7 @@ import IServices.IPanier;
 import Utils.Enumerations;
 import Utils.Enumerations.ModePaiement;
 import Utils.Enumerations.StatusPanier;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -183,7 +184,7 @@ return 1;
                         rs.getFloat("poids"),
 
                         ps.chercherProduitParID(rs.getInt("id_produit")).getBoutique(),
-                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout"))
+                        Utils.Utils.getLocalDateTime(rs.getString("date_ajout")),null
                         );
                 //System.out.println(x);
                produits.add(x);
