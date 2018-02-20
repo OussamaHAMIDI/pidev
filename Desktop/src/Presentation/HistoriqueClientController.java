@@ -198,8 +198,8 @@ public class HistoriqueClientController implements Initializable {
         pp2.setPrixVente(2500);
         List<ProduitPanier> pps = new ArrayList<ProduitPanier>();
         pps.add(pp1); pps.add(pp2);
-        Panier panier1 = new Panier(5, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now(), 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, pps);
-        Panier panier2 = new Panier(3, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now() , 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, pps);
+        Panier panier1 = new Panier(5, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now(), 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(),Enumerations.ModeLivraison.SurPlace.toString(), true, true, pps);
+        Panier panier2 = new Panier(3, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now() , 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(),Enumerations.ModeLivraison.SurPlace.toString(), true, true, pps);
         List<Panier> paniers = new ArrayList<Panier>();
         paniers.add(panier1);
         paniers.add(panier2);

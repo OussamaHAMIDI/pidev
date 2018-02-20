@@ -48,6 +48,7 @@ public class HistoriqueService implements IHistorique {
                         rs.getDouble("frais_livraison"),
                         rs.getString("statut"),
                         rs.getString("mode_paiement"),
+                        rs.getString("mode_livraison"),
                         rs.getBoolean("est_livre"),
                         rs.getBoolean("est_paye"),
                         ps.rechercherProduitsPanier(rs.getInt("id"))));

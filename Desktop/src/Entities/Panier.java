@@ -7,6 +7,7 @@
 package Entities;
 
 import Utils.Enumerations;
+import Utils.Enumerations.ModeLivraison;
 import Utils.Enumerations.ModePaiement;
 import Utils.Enumerations.StatusPanier;
 import java.sql.Date;
@@ -29,11 +30,12 @@ public class Panier {
     private double fraisLivraison;
     private StatusPanier status;
     private ModePaiement modePaiement;
+    private ModeLivraison modeLivraison;
     private boolean estLivre;
     private boolean estPaye;
     private List<ProduitPanier> contenu;
 
-    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<ProduitPanier> contenu) {
+    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, String modeLivraison, boolean estLivre, boolean estPaye, List<ProduitPanier> contenu) {
         this.id = id;
         this.user = user;
         this.dateCreation = dateCreation;
@@ -45,16 +47,26 @@ public class Panier {
         this.estLivre = estLivre;
         this.estPaye = estPaye;
         this.contenu = contenu;
+      this.modeLivraison = ModeLivraison.valueOf(modeLivraison);
     }
 
     public Panier(User user, LocalDateTime dateCreation) {
         this.user = user;
         this.dateCreation = dateCreation;
         this.status = StatusPanier.Temporelle;
+        this.modeLivraison = ModeLivraison.SurPlace;
         
     }
 
     public Panier() {
+    }
+
+    public ModeLivraison getModeLivraison() {
+        return modeLivraison;
+    }
+
+    public void setModeLivraison(ModeLivraison modeLivraison) {
+        this.modeLivraison = modeLivraison;
     }
     
     
