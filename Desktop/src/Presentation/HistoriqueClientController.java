@@ -72,6 +72,7 @@ public class HistoriqueClientController implements Initializable {
     @FXML
     private AnchorPane anchorHistorique;
     
+    public static Panier panierCourant ;
     public static List<ProduitPanier> produitsPasse;
 
     private HistoriqueService hs = new HistoriqueService();
@@ -106,9 +107,9 @@ public class HistoriqueClientController implements Initializable {
                         } else {
                             btnDetails.setCursor(Cursor.HAND);
                             btnDetails.setOnAction((ActionEvent e) -> {
-                                System.out.println("Bouton Cliqué , rediriger");
-                                Panier panierCourant = getTableView().getItems().get(getIndex());
+                                panierCourant = getTableView().getItems().get(getIndex());
                                 produitsPasse = panierCourant.getContenu();
+                                System.out.println("Bouton Cliqué , rediriger" + "AHAWAAAAAA pan courant" + panierCourant + "AHAWAAAAA CONTENU" + panierCourant.getContenu());                               
                                 
                                 /*ModifierUserController auc = loader.getController();
                                 
@@ -191,14 +192,14 @@ public class HistoriqueClientController implements Initializable {
         //LocalDateTime now = e.getDateCreation();
         //System.out.println(now.toString());
         historique.clear();
-        //ProduitPanier pp1 = new ProduitPanier();
-        //ProduitPanier pp2 = new ProduitPanier();
-        //pp1.setReference("hellou");
-        //pp2.setPrixVente(2500);
-        //List<ProduitPanier> pps = new ArrayList<ProduitPanier>();
-        //pps.add(pp1); pps.add(pp2);
-        Panier panier1 = new Panier(5, us.getUserById(2), /*now*/ null, null, 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, null);
-        Panier panier2 = new Panier(3, us.getUserById(2), null, null, 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, null);
+        ProduitPanier pp1 = new ProduitPanier();
+        ProduitPanier pp2 = new ProduitPanier();
+        pp1.setReference("hellou");
+        pp2.setPrixVente(2500);
+        List<ProduitPanier> pps = new ArrayList<ProduitPanier>();
+        pps.add(pp1); pps.add(pp2);
+        Panier panier1 = new Panier(5, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now(), 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, pps);
+        Panier panier2 = new Panier(3, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now() , 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, pps);
         List<Panier> paniers = new ArrayList<Panier>();
         paniers.add(panier1);
         paniers.add(panier2);

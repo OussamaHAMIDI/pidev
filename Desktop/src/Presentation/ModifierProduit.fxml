@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ModifierProduitController">
+   <children>
+      <Text layoutX="15.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reference" />
+      <TextField fx:id="reference" layoutX="94.0" layoutY="67.0" />
+      <TextField fx:id="libelle" layoutX="410.0" layoutY="67.0" />
+      <Text layoutX="327.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libelle" />
+      <Text layoutX="15.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+      <TextArea fx:id="description" layoutX="94.0" layoutY="124.0" prefHeight="48.0" prefWidth="484.0" />
+      <TextField fx:id="prix" layoutX="94.0" layoutY="187.0" />
+      <Text layoutX="15.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
+      <TextField fx:id="taille" layoutX="406.0" layoutY="187.0" />
+      <Text layoutX="327.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taille" />
+      <TextField fx:id="couleur" layoutX="94.0" layoutY="236.0" />
+      <Text layoutX="15.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couleur" />
+      <TextField fx:id="texture" layoutX="406.0" layoutY="236.0" />
+      <Text layoutX="327.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Texture" />
+      <TextField fx:id="poids" layoutX="92.0" layoutY="280.0" />
+      <Text layoutX="14.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poids" />
+      <Button fx:id="modifier" layoutX="218.0" layoutY="347.0" mnemonicParsing="false" onAction="#modifierProduit" text="Confirmer" />
+      <Button layoutX="323.0" layoutY="280.0" mnemonicParsing="false" text="Ajouter photo" />
+      <Button fx:id="supprimer" layoutX="316.0" layoutY="347.0" mnemonicParsing="false" onAction="#supprimerProduit" text="Supprimer" />
+      <Text fx:id="statut" layoutX="480.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>

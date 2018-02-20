@@ -2,17 +2,27 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/IServices/IProduit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/GestionUsersController.java</file>
+=======
         <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/Test.fxml</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/UserMain.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdp.fxml</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/TestController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ChangerMdpController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ContactController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AddUserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Services/UserService.java</file>
+<<<<<<< HEAD
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/main/MainUser.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/InscriptionController.java</file>
+=======
+>>>>>>> 75da049ff9f776e6424b4e3dce76a3a623d99f12
+>>>>>>> ecb8a88784142d8f1131a348fa8ec4612096ce8b
         </group>
         <group>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>

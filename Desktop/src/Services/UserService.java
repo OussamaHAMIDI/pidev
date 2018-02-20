@@ -29,7 +29,7 @@ import org.mindrot.BCrypt;
  */
 public class UserService implements IUser {
 
-    Connection connexion; // last_login
+    Connection connexion;
     PreparedStatement ps;
 
     public UserService() {
@@ -295,7 +295,7 @@ public class UserService implements IUser {
             String req = "UPDATE `user` SET `username`=?,`username_canonical`=?,`email`=?,`email_canonical`=?"
                     + " , `password`=?,`last_login`= ? ,`roles`=?,`type`=?,`etat`= ?,`adresse`=?,`tel`=?,`nom`= ?,`prenom`=?"
                     + ", `date_naissance`= ? ,`sexe`=?,`salt`=? ,`photo_profil`=? WHERE id = '" + u.getId() + "'";
-            ps = connexion.prepareStatement(req);// without photo !
+            ps = connexion.prepareStatement(req);
             ps.setString(1, u.getUserName());
             ps.setString(2, u.getUserName());
             ps.setString(3, u.getEmail());
@@ -305,7 +305,7 @@ public class UserService implements IUser {
             try {
                 String date = u.getLastLogin().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 ps.setString(6, date);
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 ps.setString(6, null);
             }
 
@@ -379,16 +379,14 @@ public class UserService implements IUser {
     }
 
     @Override
-    public void supprimerUser(int idUser) {
-        try {
-            String req = "Delete from user WHERE id = '" + idUser + "'";
-            connexion.prepareStatement(req).executeUpdate();
+    public void supprimerUser(User u) {
+        u.setEtat(EtatUser.Deleted);
+        u.setEmail(u.getEmail() + u.getId());
+        u.setUserName(u.getUserName() + u.getId());
+        UserService us = new UserService();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Modification User echouée");
-
+        if (!us.modifierUser(u)) {
+            System.out.println("Suppression User echouée");
         }
     }
 

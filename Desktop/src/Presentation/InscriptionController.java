@@ -22,8 +22,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -36,7 +34,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
@@ -87,7 +84,7 @@ public class InscriptionController implements Initializable {
     //WebCamAppLauncher wc = new WebCamAppLauncher();
     public AnchorPane blur;
 
-    ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
+    ObservableList<String> typeList = FXCollections.observableArrayList("Client", "Artisan");
     private FileInputStream photoProfil = null;
     @FXML
     private Button Bt_importer;

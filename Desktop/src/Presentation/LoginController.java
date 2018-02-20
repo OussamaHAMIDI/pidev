@@ -8,6 +8,7 @@ package Presentation;
 import Entities.User;
 import Services.UserService;
 import Utils.Enumerations.EtatUser;
+import Utils.Enumerations.TypeUser;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -107,7 +108,7 @@ public class LoginController implements Initializable {
             Utils.showAlert(Alert.AlertType.WARNING, "Champ(s) vide(s)", null, "Veuillez bien renseigner votre username et/ou mot de passe");
             username.requestFocus();
         } else {
-            User u = null;
+            User u;
             if (username_text.contains("@")) {
                 u = us.getUserByEmail(username_text);
             }
@@ -138,9 +139,7 @@ public class LoginController implements Initializable {
                                         us.modifierEtatUser(idUser, EtatUser.Disconnected);
                                     }
                                 });
-
                                 stage.show();
-
                                 break;
                             case Artisan:
 
@@ -209,7 +208,7 @@ public class LoginController implements Initializable {
             Utils.showAlert(Alert.AlertType.WARNING, "Champ vide", null, "Veuillez bien renseigner votre nom d'utilisateur ou email");
             username.requestFocus();
         } else {
-            User u = null;
+            User u;
             if (usr.contains("@")) {
                 u = us.getUserByEmail(usr);
             } else {

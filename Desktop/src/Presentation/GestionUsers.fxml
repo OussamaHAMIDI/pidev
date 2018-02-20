@@ -12,17 +12,12 @@
 
 <AnchorPane id="AnchorPane" fx:id="blur" prefHeight="627.0" prefWidth="1034.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.GestionUsersController">
    <children>
-      <JFXButton fx:id="ajouter" layoutX="166.0" layoutY="554.0" onAction="#ajouterClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
+      <JFXButton fx:id="ajouter" layoutX="216.0" layoutY="553.0" onAction="#ajouterClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="726.0" layoutY="553.0" onAction="#supprimerClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Supprimer" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI" size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="455.0" layoutY="554.0" onAction="#confirmerClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Confirmer" textFill="WHITE">
+      <JFXButton layoutX="608.0" layoutY="553.0" onAction="#supprimerClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Supprimer" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>

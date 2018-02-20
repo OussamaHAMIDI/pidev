@@ -6,7 +6,6 @@
 package Services;
 
 import DataStorage.MyDB;
-import Entities.Boutique;
 import IServices.IProduit;
 import Entities.Produit;
 import java.sql.Connection;
@@ -35,7 +34,7 @@ public class ProduitService implements IProduit {
     public boolean ajouterProduit(Produit p) {
         try {
 
-            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
+            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique,photo) values ( ?,?,?,?,?,?,?,?,?)";                                              
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
@@ -46,6 +45,7 @@ public class ProduitService implements IProduit {
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
             ps.setInt(9, p.getBoutique().getId());
+            ps.setBinaryStream(10, p.getPhoto());
             ps.executeUpdate();
             System.out.println("Ajout effectué");
             return true;
@@ -59,7 +59,7 @@ public class ProduitService implements IProduit {
     @Override
     public boolean modifierProduit(Produit p) {
         try {
-            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , idBoutique=? WHERE idProduit=?";
+            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , idBoutique=?, photo=? WHERE idProduit=?";
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
@@ -70,7 +70,8 @@ public class ProduitService implements IProduit {
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
             ps.setInt(9, p.getBoutique().getId());
-            ps.setInt(10, p.getId());
+            ps.setBinaryStream(10, p.getPhoto());
+            ps.setInt(11, p.getId());
             ps.executeUpdate();
             System.out.println("Modification effectuée");
             return true;
@@ -102,12 +103,11 @@ public class ProduitService implements IProduit {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_Boutique")),Utils.Utils.getLocalDateTime(result.getString("date_ajout")));
-                return produit;
+                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("idBoutique")),Utils.Utils.getLocalDateTime(result.getString("date")),result.getBinaryStream("photo"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("erreur : " + ex.getMessage());
+            System.out.println("erreur" + ex.getMessage());
         }
         return produit;
     }
@@ -119,10 +119,9 @@ public class ProduitService implements IProduit {
             String req = "SELECT * FROM produit WHERE id_boutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
-            BoutiqueService bs = new BoutiqueService();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id_produit"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setDescription(rs.getString("description"));
@@ -131,12 +130,11 @@ public class ProduitService implements IProduit {
                 p.setCouleur(rs.getString("couleur"));
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
-                p.setBoutique(new Boutique());
                 produits.add(p);
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Echec listerProduitsBoutique");
+            System.out.println("Echec");
         }
         return produits;
     }
@@ -159,6 +157,32 @@ public class ProduitService implements IProduit {
         return nextid;
     }
 
+    @Override
+    public List<Produit> listerProduits() {
+        List produits = new ArrayList();
+        try {
+            String req = "SELECT * FROM produit";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            Produit p = new Produit();
+            while (rs.next()) {
+                p.setId(rs.getInt("id_produit"));
+                p.setReference(rs.getString("reference"));
+                p.setLibelle(rs.getString("libelle"));
+                p.setDescription(rs.getString("description"));
+                p.setPrix(rs.getFloat("prix"));
+                p.setTaille(rs.getString("taille"));
+                p.setCouleur(rs.getString("couleur"));
+                p.setTexture(rs.getString("texture"));
+                p.setPoids(rs.getFloat("poids"));
+                produits.add(p);
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec");
+        }
+        return produits;
+    }
 
-    
+
 }
