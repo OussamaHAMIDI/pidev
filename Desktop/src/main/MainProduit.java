@@ -25,7 +25,7 @@ public class MainProduit {
     final static String password = "";
     
     public static void main(String[] args) {
-    Produit p = new Produit();
+    Produit p = new Produit(0,"", "ref", "", 100, "54", "fsgd", "sgg", 0, null, null, null);
     
     
     ProduitService ps = new ProduitService();
