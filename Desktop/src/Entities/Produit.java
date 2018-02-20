@@ -50,6 +50,19 @@ public class Produit {
         this.photo = photo;
     }
 
+    public Produit(String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.description = description;
+        this.prix = prix;
+        this.taille = taille;
+        this.couleur = couleur;
+        this.texture = texture;
+        this.poids = poids;
+        this.boutique = boutique;
+        this.dateAjout = dateAjout;
+        this.photo = photo;
+    }
 
     public int getId() {
         return id;
