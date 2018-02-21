@@ -9,6 +9,8 @@ import Entities.Boutique;
 import Entities.Panier;
 import Entities.ProduitPanier;
 import Services.PanierService;
+import Utils.Enumerations;
+import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -19,6 +21,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -38,6 +42,7 @@ import javafx.scene.layout.*;
 public class PanierController implements Initializable {
 
     Panier panier = new Panier();
+    
     
     private Pane content;
 
@@ -59,6 +64,12 @@ public class PanierController implements Initializable {
  Double scrollHeight =0.0;
     @FXML
     private ScrollPane contacts;
+     ObservableList<String> paiementList = FXCollections.observableArrayList("Espece", "Internet", "Cheque");
+     ObservableList<String> typeList = FXCollections.observableArrayList("Sur place", "A domicile", "Par poste");
+    @FXML
+    private JFXComboBox<String> modeLivraison;
+    @FXML
+    private JFXComboBox<String> modePaiement;
     /**
      * Initializes the controller class.
      */
@@ -94,9 +105,10 @@ public class PanierController implements Initializable {
         
         try {
             // TODO
+         
             panier.setContenu(new ArrayList<ProduitPanier>());
             ProduitPanier pp = new ProduitPanier(1, 0, 22.321f, 1, "ref-art", "testArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
-             ProduitPanier pp2 = new ProduitPanier(1, 0, 22.321f, 22, "ref-a22222rt", "tes22222tArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
+            ProduitPanier pp2 = new ProduitPanier(1, 0, 22.321f, 22, "ref-a22222rt", "tes22222tArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
             panier.getContenu().add(pp);
             panier.getContenu().add(pp2);
             panier.getContenu().add(pp);
@@ -124,16 +136,19 @@ public class PanierController implements Initializable {
             contacts.setPannable(true);
             contacts.setContent(gridPane);
             ProduitPanierController.pc = this;
+            modeLivraison.setItems(typeList);
+            modeLivraison.setValue("Sur place");
+            modePaiement.setItems(paiementList);
+            modePaiement.setValue("Espece");
         } catch (IOException ex) {
             Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public void modifierContenu(ProduitPanier produit)
+    public void modifierContenu(ProduitPanier produit,ProduitPanier old)
     {
-        panier.getContenu().remove(produit);
-        panier.getContenu().add(produit);
+        panier.getContenu().set(panier.getContenu().indexOf(old), produit);
 
     }
 
@@ -143,6 +158,46 @@ public class PanierController implements Initializable {
         prixArticles.setText(v.toString());
         v = (Float.parseFloat(totalTTC.getText())+prix);
         totalTTC.setText(v.toString());
+    }
+
+    @FXML
+    private void modifierMode(ActionEvent event) {
+         Float value = Float.parseFloat(totalTTC.getText());
+        switch (modeLivraison.getValue()) {
+                case "Sur place":
+                    panier.setModeLivraison(Enumerations.ModeLivraison.SurPlace);
+                      if(prixLivraison.getText().equals("12.0"))
+                    {
+                         prixLivraison.setText("0.0");
+                    value -= 12.0f;
+                    totalTTC.setText(value.toString());
+                     panier.setFraisLivraison(0.0);
+                    panier.setTotalTTC(value);
+                    }
+                      break;
+                case "A domicile":
+                    panier.setModeLivraison(Enumerations.ModeLivraison.Domicile);
+                    if(prixLivraison.getText().equals("0.0"))
+                    {
+                    prixLivraison.setText("12.0");
+                    value += 12.0f;
+                    totalTTC.setText(value.toString());
+                     panier.setFraisLivraison(12.0);
+                    panier.setTotalTTC(value);
+                    }
+                    break;
+                case "Par poste":
+                if(prixLivraison.getText().equals("0.0"))
+                    {
+                         prixLivraison.setText("12.0");
+                    value += 12.0f;
+                    totalTTC.setText(value.toString());
+                    panier.setFraisLivraison(12.0);
+                    panier.setTotalTTC(value);
+                    }
+                  panier.setModeLivraison(Enumerations.ModeLivraison.Poste);
+                break;
+            }
     }
     
 

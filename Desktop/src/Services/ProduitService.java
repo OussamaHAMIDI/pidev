@@ -37,7 +37,6 @@ public class ProduitService implements IProduit {
 
             String req = "INSERT INTO `produit`(`reference`, `libelle`, `description`, `prix`, `taille`, `couleur`, `texture`, `poids`, `date_creation`, `photo`) VALUES ( ?,?,?,?,?,?,?,?,?,?)";                                              
             ps = connexion.prepareStatement(req);
-//            ps.setInt(1, p.getBoutique().getId());
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
             ps.setString(3, p.getDescription());
