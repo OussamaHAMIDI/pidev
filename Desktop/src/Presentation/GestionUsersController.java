@@ -1,303 +1,407 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation;
 
-import Entities.Panier;
 import Entities.User;
 import Services.UserService;
-import Utils.Enumerations.EtatUser;
-import Utils.Enumerations.TypeUser;
+import Utils.Enumerations.*;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.effect.GaussianBlur;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
+import javax.imageio.ImageIO;
+import tray.notification.NotificationType;
 
+/**
+ * FXML Controller class
+ *
+ * @author Hamdi
+ */
 public class GestionUsersController implements Initializable {
 
     @FXML
-    private JFXButton ajouter;
+    private JFXTextField filter;
+    @FXML
+    private ScrollPane users;
+    @FXML
+    private JFXButton modifier;
+    @FXML
+    private JFXTextField username;
+    @FXML
+    private JFXTextField email;
+    @FXML
+    private JFXTextField nom;
+    @FXML
+    private JFXTextField prenom;
+    @FXML
+    private JFXTextField adresse;
+    @FXML
+    private JFXTextField tel;
+    @FXML
+    private JFXDatePicker date;
+    @FXML
+    private JFXComboBox<String> etat;
+    @FXML
+    private JFXComboBox<String> type;
+    @FXML
+    private ToggleGroup sexe;
+    @FXML
+    private Button Bt_importer;
+    @FXML
+    private ImageView photo;
+    @FXML
+    private Label labelCompte;
 
-    //********************************************************************************
-    @FXML
-    private TableColumn<User, Integer> idColumn = new TableColumn<>("id");
-    @FXML
-    private TableColumn<User, String> nomColumn = new TableColumn<>("nom");
-    @FXML
-    private TableColumn<User, String> prenomColumn = new TableColumn<>("prenom");
-    @FXML
-    private TableColumn<User, String> typeColumn = new TableColumn<>("type");
-    @FXML
-    private TableColumn<User, String> sexeColumn = new TableColumn<>("sexe");
-    @FXML
-    private TableColumn<User, EtatUser> etatColumn = new TableColumn<>("etat");
-    @FXML
-    private TableColumn<User, LocalDateTime> lastLoginColumn = new TableColumn<>("lastLogin");
-    @FXML
-    private TableColumn<User, Boolean> editer = new TableColumn<>("editer");
-    //********************************************************************************
-    @FXML
-    public JFXTextField filter;
-    @FXML
-    private TableView<User> table;
-    @FXML
-    private AnchorPane blur;
+    /**
+     * ***************************************************************
+     */
+    GridPane gridPane = new GridPane();
+    public static List<User> list;
+    public static UserController uc;
+    public static User userSelected;
 
-    private UserService us = new UserService();
+    private FileInputStream photoProfil;
 
-    private User selectedUser;
-    public static User user;
+    UserService us = new UserService();
 
-    public void buildUsersTable() {
-        ObservableList<User> users = FXCollections.observableArrayList();
-        us.getUsers().forEach(e -> users.add(e));
-        table.setItems(users);
-        table.refresh();
+    ObservableList<String> etatList = FXCollections.observableArrayList("En attente", "Active", "Déconnecté", "Supprimé");
+    ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
+    private User user;
+
+    /**
+     * Initializes the controller class.
+     */
+    private void addToGrid(List<User> list, GridPane gridPane) {
+        int totalItems = list.size();
+        int nbrItems = gridPane.getChildren().size();
+        int nbrRows = (nbrItems % 2 == 0) ? nbrItems / 2 : (nbrItems + 1) / 2;
+        List<Parent> parents = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                UserController.index = i;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("User.fxml"));
+                Parent root = loader.load();
+                parents.add(root);
+            } catch (IOException ex) {
+                Logger.getLogger(GestionUsersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (nbrItems % 2 == 1) {// impaire
+            if (list.size() > 0) {
+                gridPane.add(parents.get(0), 1, nbrRows - 1);
+                parents.remove(0);
+            }
+        }
+        //paire
+        for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
+            //for (int col = 0; col < 2; col++) {
+            if (list.size() > 0) {
+                gridPane.add(parents.get(0), 0, ligne);
+                parents.remove(0);
+            } else {
+                return;
+            }
+            // }
+        }
+
+    }
+
+    public void setValues(User userSelected, String label) {
+        if (userSelected != null) {
+            labelCompte.setText(label);
+            if (null == userSelected.getEtat()) {
+                etat.setValue("Active");
+            } else {
+                switch (userSelected.getEtat()) {
+                    case Pending:
+                        etat.setValue("En attente");
+                        break;
+                    case Disconnected:
+                        etat.setValue("Déconnecté");
+                        break;
+                    case Deleted:
+                        etat.setValue("Supprimé");
+                        break;
+                    default:
+                        etat.setValue("Active");
+                        break;
+                }
+            }
+
+            type.setValue(userSelected.getType().toString());
+
+            nom.setText(userSelected.getNom());
+            prenom.setText(userSelected.getPrenom());
+            adresse.setText(userSelected.getAdresse());
+            tel.setText(userSelected.getTel());
+            if (userSelected.getSexe().equals("Male")) {
+                sexe.selectToggle(sexe.getToggles().get(0));
+            } else {
+                sexe.selectToggle(sexe.getToggles().get(1));
+            }
+            username.setText(userSelected.getUserName());
+            email.setText(userSelected.getEmail());
+            Image img = us.getPhoto(userSelected.getId());
+            if (img != null) {
+                photo.setImage(img);
+            } else {
+                photo.setImage(new Image("Images/user.png"));
+            }
+            date.setValue(userSelected.getDateNaissance());
+        }
+    }
+
+    public void disable(boolean b) {
+        username.setDisable(true);
+        nom.setDisable(b);
+        prenom.setDisable(b);
+        email.setDisable(b);
+        adresse.setDisable(b);
+        tel.setDisable(b);
+        etat.setDisable(b);
+        type.setDisable(b);
+        modifier.setDisable(b);
+        Bt_importer.setDisable(b);
+        Bt_importer.setVisible(true);
+        date.setDisable(b);
+        username.setEditable(true);
+        nom.setEditable(true);
+        prenom.setEditable(true);
+        email.setEditable(true);
+        adresse.setEditable(true);
+        tel.setEditable(true);
+        modifier.setDisable(false);
+        date.setEditable(true);
+    }
+
+    public void voir() {
+        disable(false);
+        username.setEditable(false);
+        nom.setEditable(false);
+        prenom.setEditable(false);
+        email.setEditable(false);
+        adresse.setEditable(false);
+        tel.setEditable(false);
+        modifier.setDisable(false);
+        date.setEditable(false);
+        modifier.setDisable(true);
+        Bt_importer.setVisible(false);
     }
 
     private void updateItems(String text) {
-        ObservableList<User> users = FXCollections.observableArrayList();
+
         if (!text.isEmpty()) {
-            users.addAll(us.getUsers().stream().filter(u -> u.getPrenom().toLowerCase().contains(text.toLowerCase())
+            gridPane.getChildren().clear();
+            list = list.stream().filter(u -> u.getPrenom().toLowerCase().contains(text.toLowerCase())
                     || u.getNom().toLowerCase().contains(text.toLowerCase())
-                    || u.getType().toString().toLowerCase().startsWith(text.toLowerCase())).collect(Collectors.toList()));
-            table.setItems(users);
-            table.refresh();
+                    || u.getType().toString().toLowerCase().startsWith(text.toLowerCase())).collect(Collectors.toList());
+            addToGrid(list, gridPane);
         } else {
-            buildUsersTable();
+            list = us.getUsers();
+            gridPane.getChildren().clear();
+            addToGrid(list, gridPane);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> cellFactory = new Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>>() {
-            @Override
-            public TableCell<User, Boolean> call(final TableColumn<User, Boolean> param) {
-                final TableCell<User, Boolean> cell = new TableCell<User, Boolean>() {
-                    Image imgDetails = new Image(getClass().getResourceAsStream("/Images/editer.png"));
-                    final Button btnDetails = new Button();
-
-                    @Override
-                    public void updateItem(Boolean check, boolean empty) {
-                        super.updateItem(check, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            btnDetails.setCursor(Cursor.HAND);
-
-                            btnDetails.setOnAction(e -> {
-                                User user = getTableView().getItems().get(getIndex());
-                                modifier(user);
-                            });
-
-                            btnDetails.setStyle("-fx-background-color: transparent;");
-                            ImageView iv = new ImageView();
-                            iv.setImage(imgDetails);
-                            iv.setPreserveRatio(true);
-                            iv.setSmooth(true);
-                            iv.setCache(true);
-                            btnDetails.setGraphic(iv);
-
-                            setGraphic(btnDetails);
-                            setAlignment(Pos.CENTER);
-                            setText(null);
-                        }
-                    }
-
-                };
-                return cell;
-            }
-        };
-
-        lastLoginColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<LocalDateTime>() {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        /**
+         * **************** initialize modifier ****************
+         */
+        
+        date.setConverter(new StringConverter<LocalDate>() {
+            private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             @Override
-            public String toString(LocalDateTime date) {
-                if (date != null) {
-                    return formatter.format(date).replace("T", " ");
-                } else {
-                    return "Jamais";
+            public String toString(LocalDate localDate) {
+                if (localDate == null) {
+                    return "";
                 }
+                return dateTimeFormatter.format(localDate);
             }
 
             @Override
-            public LocalDateTime fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDateTime.parse(string, formatter);
-                } else {
+            public LocalDate fromString(String dateString) {
+                if (dateString == null || dateString.trim().isEmpty()) {
                     return null;
                 }
-            }
-        }));
-
-        etatColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<EtatUser>() {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-            @Override
-            public String toString(EtatUser etat) {
-                if (etat != null) {
-                    if (etat.equals(EtatUser.Pending)) {
-                        return "En attente";
-                    }
-                    if (etat.equals(EtatUser.Deleted)) {
-                        return "Supprimé";
-                    }
-                    return etat.toString();
-                } else {
-                    return "Jamais";
-                }
-            }
-
-            @Override
-            public EtatUser fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    if (string.equals("En attente")) {
-                        return EtatUser.Pending;
-                    }
-                    if (string.equals("Supprimé")) {
-                        return EtatUser.Deleted;
-                    }
-                    return EtatUser.valueOf(string);
-                } else {
-                    return null;
-                }
-            }
-        }));
-
-        table.setRowFactory(new Callback<TableView<User>, TableRow<User>>() {
-            @Override
-            public TableRow<User> call(TableView<User> tv) {
-                final TableRow<User> row = new TableRow<>();
-                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        final int index = row.getIndex();
-                        if (index >= 0 && index < table.getItems().size() && table.getSelectionModel().isSelected(index)) {
-                            table.getSelectionModel().clearSelection();
-                            event.consume();
-                        }
-                    }
-                });
-                return row;
+                return LocalDate.parse(dateString, dateTimeFormatter);
             }
         });
+        type.setItems(typeList);
+        etat.setItems(etatList);
+        disable(true);
+        modifier.setDisable(false);
 
-        // 0. Initialize  columns.
-        idColumn.setCellValueFactory((new PropertyValueFactory<>("id")));
-        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        sexeColumn.setCellValueFactory(new PropertyValueFactory<>("sexe"));
-        etatColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
-        lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
-        editer.setCellFactory(cellFactory);
+        /**
+         * ************************************************************************
+         */
+        filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
 
-//        table.setOnMousePressed(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-//                    
-//                    System.out.println(table.getSelectionModel().getSelectedItem());
-//                    table.getSelectionModel().clearSelection();
-//                }
-//            }
-//        });
-        filter.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.toLowerCase().matches("[a-z]+ [a-z]+ [a-z]+ [a-z]*")) {
-                filter.setText(oldValue);
+        list = us.getUsers();
+        UserController.contenu = list;
+        UserController.guc = this;
+
+        addToGrid(list, gridPane);
+
+        gridPane.setHgap(45);
+        gridPane.setVgap(20);
+
+        users.setPannable(true);
+        users.setContent(gridPane);
+
+        users.vvalueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.doubleValue() == users.getVmax()) {
+                    System.out.println("AT BOTTOM");
+                    // load more items
+//                    List<Parent> list2 = parents;
+//                    for (int i = 0; i < list.size(); i++) {
+//                        try {
+//                            FXMLLoader loader = new FXMLLoader(getClass().getResource("User.fxml"));
+//                            Parent root = loader.load();
+//                            list2.add(root);
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                    addToGrid(parents, gridPane);
+                }
             }
-
-//            if (oldValue.isEmpty() && newValue.equals(" ")) {
-//                filter.setText("");
-//            } else {
-//                filter.setText(newValue.replace("  ", " "));
-//                if (newValue.toLowerCase().matches("[a-z]+ [a-z]+ [a-z]+ [a-z]*")) {
-//                    filter.setText(oldValue);
-//                }
-//            }
-            updateItems(filter.getText());
-
-        });
-
-        buildUsersTable();
+        }
+        );
     }
 
     @FXML
-    private void ajouterClicked(ActionEvent event) {
-        blur.setEffect(new GaussianBlur(5));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddUser.fxml"));
-        Stage stage = Utils.getAnotherStage(loader, "Inscription");
-        stage.initStyle(StageStyle.TRANSPARENT);
-        AddUserController auc = loader.getController();
-        auc.blur = blur; // transfer anchorPane to new stage **************************************
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent we) {
-                buildUsersTable();
+    private void modifierClicked(ActionEvent event) {
+        user = userSelected;
+        if (verfier()) {
+            //String code = Utils.generateCode(6);
+            String sexe = ((RadioButton) this.sexe.getSelectedToggle()).getText();
+            EtatUser etatU = null;
+            switch (etat.getValue()) {
+                case "En attente":
+                    etatU = EtatUser.Pending;
+                    break;
+                case "Active":
+                    etatU = EtatUser.Active;
+                    break;
+                case "Déconnecté":
+                    etatU = EtatUser.Disconnected;
+                    break;
+                case "Supprimé":
+                    etatU = EtatUser.Deleted;
+                    break;
             }
-        });
-        stage.show();
+
+            userSelected.setType(TypeUser.valueOf(type.getValue()));
+            userSelected.setEtat(etatU);
+            userSelected.setNom(nom.getText());
+            userSelected.setPrenom(prenom.getText());
+            userSelected.setEmail(email.getText());
+            userSelected.setAdresse(adresse.getText());
+            userSelected.setDateNaissance(date.getValue());
+            userSelected.setTel(tel.getText());
+
+            userSelected.setSexe(sexe);
+            userSelected.setPhoto(us.getPhotoUser(userSelected.getId()));
+            if (photoProfil != null) {
+                userSelected.setPhoto(photoProfil);
+            }
+
+            date.setValue(userSelected.getDateNaissance());
+
+            if (us.modifierUser(userSelected)) {
+
+                Utils.showTrayNotification(NotificationType.CUSTOM, "Utilisateur modifié avec succès", null, userSelected.getUserName()
+                        + "\n" + userSelected.getEmail(), photo.getImage(), 6000);
+
+                list.set(list.indexOf(user), userSelected);
+                uc.setValues(userSelected);
+            }
+        }
     }
 
     @FXML
-    private void supprimerClicked(ActionEvent event) {
-        User u = table.getSelectionModel().getSelectedItem();
-        if (u != null) {
-            us.supprimerUser(u);
-            buildUsersTable();
-        }
+    private void onSetAction_importer(ActionEvent event) throws IOException {
+        FileChooser file = new FileChooser(); //pour choisir la photo
+        file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
+        file.setTitle("Choisir une photo de profil");
 
+        File selected_photo = file.showOpenDialog((Stage) modifier.getScene().getWindow());
+        if (selected_photo != null) {
+            if ((selected_photo.length() / 1024) / 1024 < 4.0) {
+                String path = selected_photo.getAbsolutePath();
+                BufferedImage bufferedImage = ImageIO.read(selected_photo);
+                WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
+                photo.setImage(image);
+
+                File img = new File(path);
+                photoProfil = new FileInputStream(img);
+            } else {
+                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
+            }
+        }
     }
 
-    private void modifier(User u) {
-
-        if (u != null) {
-            blur.setEffect(new GaussianBlur(5));
-            ModifierUserController.blur = blur;
-            ModifierUserController.userSelected = u;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierUser.fxml"));
-            Stage stage = Utils.getAnotherStage(loader, "Modification");
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent we) {
-                    blur.setEffect(null);
-                }
-            });
-            stage.show();
-            buildUsersTable();
+    private boolean verfier() {
+        if (!userSelected.getEmail().equals(email.getText()) && us.verifColumn("email", email.getText())) {
+            Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Email déjà existant, veuillez choisir un autre");
+            email.requestFocus();
+            return false;
+        } else if (date.getValue() == null) {
+            Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Veuillez bien renseigner votre date de naissance.\nExemple : 1995-11-25");
+            date.requestFocus();
+            return false;
         }
 
+        return true;
     }
 
 }
