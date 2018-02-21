@@ -5,21 +5,24 @@
  */
 package Presentation;
 
+import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 
 /**
  * FXML Controller class
  *
- * @author Hamdi
+ * @author monta
  */
-public class ContactController implements Initializable {
+public class CommandeArtisantController implements Initializable {
 
-    @FXML
-    private AnchorPane contact;
+   
+    private ScrollPane contacts;
 
     /**
      * Initializes the controller class.
@@ -27,7 +30,10 @@ public class ContactController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
     }    
+
+    @FXML
+    private void modifierMode(ActionEvent event) {
+    }
     
 }

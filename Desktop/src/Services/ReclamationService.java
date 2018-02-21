@@ -297,4 +297,45 @@ public class ReclamationService implements IReclamation {
         return reclamation;
     }
 
+    
+    public List<Reclamation> getAllReclamations(){
+        
+        List<Reclamation> reclamations = new ArrayList<>();        
+        try {
+            String req = "SELECT * FROM reclamation ";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setId(rs.getInt("id"));
+                reclamation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                reclamation.setDescription(rs.getString("description"));
+                UserService us = new UserService();
+                reclamation.setUser(us.getUserById(rs.getInt("id_user")));
+                if(rs.getInt("id_boutique")!=0){
+                    BoutiqueService bs = new BoutiqueService();
+                    reclamation.setBoutique(bs.chercherBoutiqueParID(rs.getInt("id_boutique")));
+                    reclamation.setProduit(null);
+                    reclamation.setType(TypeReclamation.Boutique);
+                    System.out.println("reclamation trouvée " + reclamation);
+                }
+                else {
+                    //ProduitService ps = new ProduitService();
+                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    //reclamation.setProduit(produit); //en attente de jappa
+                    reclamation.setBoutique(null);
+                    reclamation.setType(TypeReclamation.Produit);
+                }
+                
+                reclamations.add(reclamation);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche de reclamation"+e);
+        }
+        return reclamations;
+    }
+
+    
+    
 }

@@ -34,6 +34,7 @@ import javafx.scene.layout.Pane;
 public class ProduitPanierController implements Initializable {
 
     ProduitPanier produit;
+    ProduitPanier old;
     static public int index;
     static public List<ProduitPanier> contenu;
     
@@ -73,6 +74,7 @@ public class ProduitPanierController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         produit = contenu.get(index);
+        old = produit;
         reference.setText(produit.getReference());
         nom.setText(produit.getLibelle());
         description.setText(produit.getDescription());
@@ -86,7 +88,7 @@ public class ProduitPanierController implements Initializable {
     private void supprimerProduitPanier(MouseEvent event) {
         pc.panier.getContenu().remove(produit);
         contenu.remove(produit);
-        pc.modifierTotaux(produit.getPrix()*produit.getQuantiteVendue());
+        pc.modifierTotaux(produit.getPrix()*produit.getQuantiteVendue()*-1);
         GridPane parent = (GridPane)contact.getParent();
         parent.getChildren().remove(contact);
     }
@@ -101,7 +103,8 @@ public class ProduitPanierController implements Initializable {
         quantite.setText(qte.toString());
         prixTotal.setText(prixT.toString());
        pc.modifierTotaux(produit.getPrix());
-       pc.modifierContenu(produit);
+       pc.modifierContenu(produit,old);
+       old = produit;
     }
 
     @FXML
@@ -109,13 +112,14 @@ public class ProduitPanierController implements Initializable {
        
         if(produit.getQuantiteVendue()>1)
         {
-              Float qte = produit.getQuantiteVendue()-1;
+        Float qte = produit.getQuantiteVendue()-1;
         produit.setQuantiteVendue(qte); 
         Float prixT =qte*Float.parseFloat(prix.getText());
         quantite.setText(qte.toString());
         prixTotal.setText(prixT.toString());
         pc.modifierTotaux(produit.getPrix()*-1);
-        pc.modifierContenu(produit);
+        pc.modifierContenu(produit,old);
+        old = produit;
         }
     }
 

@@ -37,5 +37,7 @@ public interface IReclamation {
     
     public List<Reclamation> rechercherReclamationUserProduit(User user, Produit produit);
     
+    public List<Reclamation> getAllReclamations();
+    
     
 }

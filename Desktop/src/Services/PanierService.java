@@ -59,6 +59,7 @@ public class PanierService implements IPanier{
                         rs.getDouble("frais_livraison"),
                         rs.getString("statut"),
                         rs.getString("mode_paiement"),
+                        rs.getString("mode_livraison"),
                         rs.getBoolean("est_livre"),
                         rs.getBoolean("est_paye"),
                         rechercherProduitsPanier(rs.getInt("id")));
@@ -285,6 +286,7 @@ return 1;
                         rs.getDouble("frais_livraison"),
                         rs.getString("statut"),
                         rs.getString("mode_paiement"),
+                        rs.getString("mode_livraison"),
                         rs.getBoolean("est_livre"),
                         rs.getBoolean("est_paye"),
                         rechercherProduitsPanier(rs.getInt("id"))));
@@ -311,6 +313,7 @@ return 1;
                         rs.getDouble("frais_livraison"),
                         rs.getString("statut"),
                         rs.getString("mode_paiement"),
+                        rs.getString("mode_livraison"),
                         rs.getBoolean("est_livre"),
                         rs.getBoolean("est_paye"),
                         rechercherProduitsPanier(rs.getInt("id"))));

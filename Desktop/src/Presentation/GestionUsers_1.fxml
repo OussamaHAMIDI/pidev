@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="blur" prefHeight="600.0" prefWidth="1140.0" style="-fx-background-color: #ececec;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.GestionUsersController2">
+   <children>
+      <ImageView fitHeight="37.0" fitWidth="43.0" layoutX="661.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/icons8_Search_50px.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="filter" labelFloat="true" layoutX="442.0" layoutY="27.0" maxWidth="219.0" minWidth="219.0" prefHeight="44.0" prefWidth="219.0" promptText="Rechercher">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <ScrollPane fx:id="users" layoutY="93.0" prefHeight="507.0" prefWidth="1140.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
+         <padding>
+            <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
+         </padding>
+      </ScrollPane>
+   </children>
+</AnchorPane>
