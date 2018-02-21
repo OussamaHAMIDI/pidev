@@ -5,7 +5,9 @@
  */
 package Utils;
 
+import Entities.Reclamation;
 import Presentation.LoginController;
+import Utils.Enumerations.TypeReclamation;
 import com.jfoenix.controls.JFXTextField;
 
 import java.io.IOException;
@@ -257,6 +259,63 @@ public class Utils {
                 }
             }
         });
+    }
+    
+    public static boolean sendReclamationMail(Reclamation reclamation){
+        try{
+            String host ="smtp.gmail.com" ;
+            String user = "souklemdina3a12@gmail.com";
+            String to;
+            if (reclamation.getType() == TypeReclamation.Boutique){
+                to = reclamation.getBoutique().getUser().getEmail();
+            }else{
+                to = reclamation.getProduit().getBoutique().getUser().getEmail();
+            }
+            String pass = "3A12SoukLemdina";
+            String from = "souklemdina3a12@gmail.com";
+            String subject = "Reclamation";
+            boolean sessionDebug = false;
+
+            Properties props = System.getProperties();
+
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", host);
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.required", "true");
+
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session mailSession = Session.getDefaultInstance(props, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(from));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subject); msg.setSentDate(null);
+
+            String htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/ReclamationMail.html")));
+            htmlBody = htmlBody.replace("type",reclamation.getType().toString() + " : ");
+            htmlBody = htmlBody.replace("reclamation", reclamation.getDescription());
+            if(reclamation.getBoutique()!=null){
+                htmlBody = htmlBody.replace("nom", reclamation.getBoutique().getNom());
+            }else{
+                htmlBody = htmlBody.replace("nom", reclamation.getProduit().getLibelle());
+            }
+           
+            
+            msg.setContent(htmlBody, "text/html");
+            
+           Transport transport=mailSession.getTransport("smtp");
+           transport.connect(host, user, pass);
+           transport.sendMessage(msg, msg.getAllRecipients());
+           transport.close();
+           System.out.println("mail envoyé");
+           return true;
+        }catch(Exception ex)
+        {
+            System.out.println(ex);
+            return false;
+        }
     }
 
 }

@@ -27,15 +27,13 @@ public class MainProduit {
     final static String password = "";
     
     public static void main(String[] args) {
-<<<<<<< HEAD
+
     Produit p = new Produit(0,"", "ref", "", 100, "54", "fsgd", "sgg", 0, null, null, null);
-=======
     
         Boutique b = new Boutique();
         b.setId(10);
-        Produit p = new Produit("azerty", "azerty", "azert", 1.0f, "azerty" , "azerty", "azerty", 2.2f, b, LocalDateTime.MAX, null);
->>>>>>> c46d26d7f0b40a9a0b392b67d49bb736786af2f5
-    
+        //Produit p = new Produit("azerty", "azerty", "azert", 1.0f, "azerty" , "azerty", "azerty", 2.2f, b, LocalDateTime.MAX, null);
+
     
     ProduitService ps = new ProduitService();
     ps.ajouterProduit(p);
