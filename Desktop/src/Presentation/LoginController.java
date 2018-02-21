@@ -128,7 +128,7 @@ public class LoginController implements Initializable {
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                 stage.close();
 
-                                GestionUsersController.user = u;
+                                GestionUsersController1.user = u;
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
 
                                 stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
@@ -166,7 +166,7 @@ public class LoginController implements Initializable {
                                             case Administrateur:
                                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                                 stage.close();
-                                                GestionUsersController.user = u;
+                                                GestionUsersController1.user = u;
                                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
                                                 stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
                                                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

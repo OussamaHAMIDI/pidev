@@ -2,32 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AddUserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AccueilAdminController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ModifierUserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/UserMain.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/main/MainUser.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/UserController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
-=======
-        <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-        </group>
-        <group>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/IServices/IPanier.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierController.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/Panier.fxml</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierMain.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/main/MainPanier.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/PanierService.java</file>
-            <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
->>>>>>> c46d26d7f0b40a9a0b392b67d49bb736786af2f5
         </group>
     </open-files>
 </project-private>

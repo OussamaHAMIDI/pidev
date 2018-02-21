@@ -93,7 +93,7 @@
       </Button>
       <ImageView fx:id="photo" fitHeight="133.0" fitWidth="150.0" layoutX="616.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/icons8_User_Male_104px.png" />
+            <Image url="@../Images/user.png" />
          </image>
       </ImageView>
       <Separator orientation="VERTICAL" prefHeight="200.0" />

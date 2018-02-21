@@ -9,6 +9,7 @@ import Entities.User;
 import Utils.Enumerations.*;
 import java.io.InputStream;
 import java.util.List;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -36,12 +37,14 @@ public interface IUser {
 
     public int getNextId();
 
-    public InputStream getPhotoUser(int idUser);
+    public Image getPhoto(int id);
 
     public boolean verifColumn(String columnName, String columnValue);
 
     public List<User> getUsers();
 
     public void supprimerUser(User u);
+
+    public InputStream getPhotoUser(int id);
 
 }
