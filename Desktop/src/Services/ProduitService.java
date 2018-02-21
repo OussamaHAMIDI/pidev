@@ -60,7 +60,7 @@ public class ProduitService implements IProduit {
     @Override
     public boolean modifierProduit(Produit p) {
         try {
-            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , idBoutique=?, photo=? WHERE idProduit=?";
+            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , photo=? WHERE idProduit=?";
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
@@ -70,9 +70,8 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getBoutique().getId());
-            ps.setBinaryStream(10, p.getPhoto());
-            ps.setInt(11, p.getId());
+            ps.setBinaryStream(9, p.getPhoto());
+            ps.setInt(10, p.getId());
             ps.executeUpdate();
             System.out.println("Modification effectuée");
             return true;

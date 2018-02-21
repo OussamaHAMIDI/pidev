@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.text.Text;
@@ -63,20 +64,32 @@ public class ModifierProduitController implements Initializable {
     private Button ajouterPhoto;
     @FXML
     private ImageView photo;
+    
     private FileInputStream photoProduit= null;
+    
+    public static Produit selectedProduit;
     /**
      * Initializes the controller class.
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        reference.setText(selectedProduit.getReference());
+        libelle.setText(selectedProduit.getLibelle());
+        description.setText(selectedProduit.getDescription());
+        prix.setText(String.valueOf(selectedProduit.getPrix()));
+        taille.setText(selectedProduit.getTaille());
+        couleur.setText(selectedProduit.getCouleur());
+        texture.setText(selectedProduit.getTexture());
+        poids.setText(String.valueOf(selectedProduit.getPoids()));
+        photo.setImage(new Image(selectedProduit.getPhoto()));
     }    
     @FXML
     public void modifierProduit (ActionEvent event)
     {
         ProduitService ps=new ProduitService();
         Boutique b = new Boutique();
-        ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
+        ps.modifierProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{
@@ -100,70 +113,14 @@ public class ModifierProduitController implements Initializable {
         }
 
     }
-    public void clearFields ()
+
+    /**
+     *
+     * @param event
+     */
+    public void supprimerProduit (ActionEvent event)
     {
-        reference.setText("");
-        libelle.setText("");
-        description.setText("");
-        prix.setText("");
-        taille.setText("");
-        couleur.setText("");
-        texture.setText("");
-        poids.setText("");
-        
+        ProduitService ps=new ProduitService();
+        ps.supprimerProduit(selectedProduit.getId());
     }
 }
-//    @FXML
-//    private TextField reference;
-//    @FXML
-//    private TextField libelle;
-//    @FXML
-//    private TextArea description;
-//    @FXML
-//    private TextField prix;
-//    @FXML
-//    private TextField taille;
-//    @FXML
-//    private TextField couleur;
-//    @FXML
-//    private TextField texture;
-//    @FXML
-//    private TextField poids;
-//    @FXML
-//    private Text statut;
-//    @FXML
-//    private Button modifier;
-//    @FXML
-//    private Button supprimer;
-//
-//    /**
-//     * Initializes the controller class.
-//     */
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        Produit pr=new Produit();
-//        reference.setText(pr.getReference());
-//        libelle.setText(pr.getLibelle());
-//        description.setText(pr.getDescription());
-//        prix.setText(Float.toString(pr.getPrix()));
-//        taille.setText(pr.getTaille());
-//        texture.setText(pr.getTexture());
-//        poids.setText(Float.toString(pr.getPoids()));
-//        
-//        
-//    }    
-//
-//    @FXML
-//    private void modifierProduit(ActionEvent event) {
-//        ProduitService ps=new ProduitService();
-//        ps.modifierProduit(new Produit(0, reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), null, LocalDateTime.MAX, null));
-//    }
-//
-//    @FXML
-//    private void supprimerProduit(ActionEvent event) {
-//        ProduitService ps=new ProduitService();
-//        Produit pr=new Produit();
-//        ps.supprimerProduit(pr.getId());
-//    }
-//    
-//}
