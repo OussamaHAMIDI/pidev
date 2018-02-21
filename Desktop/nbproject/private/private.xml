@@ -2,45 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IPanier.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/ProduitService.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Services/PanierService.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/IServices/IProduit.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/main/Main.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/PiDev-HiNTS/Desktop/src/Entities/Produit.java</file>
-        </group>
         <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/IServices/IStock.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Stock.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-=======
-<<<<<<< HEAD
-        <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/HomeAdminController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/main/MainUser.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/MainApplication.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/main.css</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/HomeController2.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/animasi/FadeInRightTransition.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/LoginController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Entities/User.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Services/UserService.java</file>
-=======
-        <group>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/main/MainBoutique.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/ModifierNomBoutiqueController.java</file>
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/IServices/IBoutique.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/InterfaceBoutique.fxml</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/ModifierAdresseBoutiqueController.java</file>
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Entities/Boutique.java</file>
->>>>>>> 70513bb8b1ffd4dea388811b91543e2093bfe3af
->>>>>>> 1a02ff5182a24702d03fab72f21a912726d9288d
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueMain.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/Boutique.fxml</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/InterfaceModifierBoutiqueController.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/InterfaceBoutiqueController.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/DataStorage/MyDB.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/IServices/IProduit.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueController.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Entities/Produit.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/HomeController2.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/ModifierAdresseBoutique.fxml</file>
         </group>
     </open-files>
 </project-private>
