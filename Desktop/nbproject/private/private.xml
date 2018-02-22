@@ -1,133 +1,19 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationAdmin2Controller.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/PanierController.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationAdminController.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationAdmin2.fxml</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationItemController.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationMain2.java</file>
-        </group>
-    </open-files>
-</project-private>
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Utils/NavigatorData.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueMain.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/InterfaceBoutiqueController.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueMapController.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueController.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Entities/Boutique.java</file>
-        </group>
-    </open-files>
-</project-private>
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-
-
-
-
-
-
-
-
-
-        <group name="test">
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/AccueilAdminController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/ModifierUserController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/UserMain.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/GestionUsersController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/main/MainUser.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Presentation/UserController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/Cloned/Desktop/src/Utils/Utils.java</file>
-=======
-        <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-        </group>
-        <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/ReclamationMail.html</file>
-        </group>
-    </open-files>
-</project-private>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-        </group>
-        <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
-            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/ReclamationMail.html</file>
-        </group>
-    </open-files>
-</project-private>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/BoutiqueController.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainBoutique.java</file>
         </group>
         <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/BoutiqueController.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainBoutique.java</file>
-=======
-            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Services/ProduitService.java</file>
->>>>>>> 512e8e06cf080e282c3471ae2c9f20053b839c3f
         </group>
     </open-files>
 </project-private>
->>>>>>> origin/master
