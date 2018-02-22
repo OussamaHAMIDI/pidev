@@ -40,7 +40,7 @@
 
 package GUI;
 
-import Iservices.ControlledScreen;
+import IServices.ControlledScreen;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
