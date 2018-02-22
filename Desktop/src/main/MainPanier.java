@@ -6,9 +6,14 @@
 package main;
 
 import Entities.Panier;
+import Entities.ProduitPanier;
+import Entities.User;
+import Services.BoutiqueService;
 import Services.PanierService;
+import Services.UserService;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -23,10 +28,16 @@ public class MainPanier {
     final static String password = "";
     
     public static void main(String[] args) {
-    Panier p = new Panier();
-    
-    
-    PanierService ps = new PanierService();
-    ps.ajouterPanier(p);
+        UserService us = new UserService();
+        User u = us.getUserById(1);
+        Panier p = new Panier(u, LocalDateTime.now());
+        PanierService ps = new PanierService();
+       //ps.ajouterPanier(p);
+       BoutiqueService bs = new BoutiqueService();
+       p = ps.rechercherPanierById(1);
+       p.getContenu().forEach((t) -> {System.out.println(t);
+       });
+      // ProduitPanier pp = new ProduitPanier(1, 1, 1, 2, "omek", "bouk", "jedek", 1, "m", "rouge", "", 0, 2,bs.chercherBoutiqueParID(0),LocalDateTime.now());
+      // ps.ajouterProduitPanier(pp, 1);
 }
 }

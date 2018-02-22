@@ -23,8 +23,8 @@
       <LocalDateTimeTextField fx:id="btDate" layoutX="232.0" layoutY="217.0" prefHeight="25.0" prefWidth="133.0" promptText="Date" />
       <JFXTextField fx:id="longi" layoutX="170.0" layoutY="295.0" maxWidth="127.0" minWidth="127.0" prefHeight="25.0" prefWidth="127.0" visible="false" />
       <JFXTextField fx:id="lat" layoutX="325.0" layoutY="295.0" visible="false" />
-      <FontAwesomeIcon iconName="USER" layoutX="202.0" layoutY="178.0" />
-      <FontAwesomeIcon iconName="CALENDAR" layoutX="201.0" layoutY="234.0" />
-      <FontAwesomeIcon iconName="GLOBE" layoutX="201.0" layoutY="278.0" />
+      
+      
+     
    </children>
 </AnchorPane>

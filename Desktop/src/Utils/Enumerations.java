@@ -27,10 +27,6 @@ public class Enumerations {
          * Le compte User est activé / verifé
          */
         Active,
-         /**
-         * Le compte user est desactivé
-         */
-        Inactive,
         /**
          * User est connecté
          */

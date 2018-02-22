@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="526.0" prefWidth="429.0" style="-fx-background-color: #ececec; -fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ChangerMdpController">
+   <children>
+      <JFXButton fx:id="confirmer" layoutX="63.0" layoutY="462.0" onMouseClicked="#confirmerClicked" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: #4183d7;" text="Confirmer" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="annuler" cancelButton="true" layoutX="244.0" layoutY="462.0" onMouseClicked="#annulerClicked" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label fx:id="titre" layoutX="50.0" layoutY="14.0" prefHeight="102.0" prefWidth="326.0" text="Changement de mot de passe" textAlignment="CENTER" textFill="#ed1e00" wrapText="true">
+         <font>
+            <Font name="Bookman Old Style Bold Italic" size="31.0" />
+         </font>
+      </Label>
+      <JFXPasswordField fx:id="password1" labelFloat="true" layoutX="35.0" layoutY="284.0" maxWidth="248.0" minWidth="188.0" prefHeight="44.0" prefWidth="248.0" promptText="Nouveau mot de passe">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXTextField fx:id="verif" labelFloat="true" layoutX="35.0" layoutY="210.0" maxWidth="248.0" minWidth="185.0" prefHeight="44.0" prefWidth="248.0" promptText="Code de vérification">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="password2" labelFloat="true" layoutX="35.0" layoutY="360.0" maxWidth="248.0" minWidth="188.0" prefHeight="44.0" prefWidth="248.0" promptText="Confirmer mot de passe">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXPasswordField>
+      <Label fx:id="email" layoutX="33.0" layoutY="128.0" prefHeight="74.0" prefWidth="373.0" text="testtesttestes@test.test" textFill="#07e02bfe" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="103.0" prefHeight="57.0" prefWidth="373.0" text="Un code de vérification a été envoyé à :" wrapText="true">
+         <font>
+            <Font name="Bell MT Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="erreur" layoutX="27.0" layoutY="404.0" prefHeight="57.0" prefWidth="373.0" text="Les mots de passe doivent être identiques" textFill="#f00000f3" wrapText="true">
+         <font>
+            <Font name="Microsoft Uighur Bold" size="29.0" />
+         </font>
+      </Label>
+   </children>
+   <effect>
+      <DropShadow />
+   </effect>
+</AnchorPane>

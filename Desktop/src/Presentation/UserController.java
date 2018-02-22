@@ -1,72 +1,105 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Presentation;
 
-import function.mouseDrag;
-import function.navigation;
-import java.io.IOException;
+import Entities.User;
+import Services.UserService;
+import Utils.Utils;
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import model.homeModel;
-import model.userModel;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
+/**
+ * FXML Controller class
+ *
+ * @author Hamdi
+ */
 public class UserController implements Initializable {
 
-    userModel model = new userModel();
-    navigation nav = new navigation();
-    
+    public static User u;
+
     @FXML
-    private Label idLabel;
-    
+    private Label nomPrenom;
     @FXML
-    private TextField usernameField, namaField, emailField;
-    
+    private Label tel;
     @FXML
-    private PasswordField passwordField;
-    
+    private Label typeUser;
+    @FXML
+    private Label adresse;
+    @FXML
+    private JFXButton supprimer;
+    @FXML
+    private ImageView photoUser;
+    @FXML
+    private Label email;
+    @FXML
+    private AnchorPane user;
+    @FXML
+    private Circle circle;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+        typeUser.setText(u.getType().toString());
+        adresse.setText(u.getAdresse());
+        nomPrenom.setText(u.getNom() + " " + u.getPrenom());
+        tel.setText(u.getTel());
+        email.setText(u.getEmail());
+        if (u.getPhoto() != null) {
+            circle.setStroke(Color.SEAGREEN);
+            circle.setFill(Color.SNOW);
+            circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+            circle.setFill(new ImagePattern(new Image(u.getPhoto())));
+            photoUser.setVisible(false);
+        }
+
+    }
+
     @FXML
-    private void simpanClicked(ActionEvent event) throws IOException{
-        model.updateUser(idLabel.getText(), usernameField.getText(), passwordField.getText(), namaField.getText(), emailField.getText());
-        if(model.getStatus()==true){
-            homeModel modelStatus = new homeModel();
-            modelStatus.setStatus(idLabel.getText());
-            nav.showAlert(Alert.AlertType.INFORMATION, "Sukses", null, "Profil berhasil tersimpan..");
-            Parent database_parent = FXMLLoader.load(getClass().getResource(nav.getLogin()));
-            Scene database_scene = new Scene(database_parent);
-            Stage app_stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            app_stage.hide();
-            app_stage.setScene(database_scene);
-            app_stage.setTitle("Login");
-            mouseDrag md = new mouseDrag();
-            md.setDragged(database_parent, app_stage);
-            app_stage.show();
-        }
-        else{
-            nav.showAlert(Alert.AlertType.ERROR, "Error", null, "Profil gagal tersimpan..");
-        }
+    private void voirUser(MouseEvent event) {
     }
-    
-    public void setValue(String id, String username, String password, String nama, String email){
-        idLabel.setText(id);
-        usernameField.setText(username);
-        passwordField.setText(password);
-        namaField.setText(nama);
-        emailField.setText(email);
+
+    @FXML
+    private void supprimerUser(MouseEvent event) {
     }
-    
+
+    @FXML
+    private void editerUser(MouseEvent event) {
+        user.setEffect(new GaussianBlur(5));
+        ModifierUserController.blur = user;
+        ModifierUserController.userSelected = new UserService().getUserById(u.getId());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierUser.fxml"));
+        Stage stage = Utils.getAnotherStage(loader, "Modification");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent we) {
+                user.setEffect(null);
+            }
+        });
+        stage.show();
+    }
+
 }

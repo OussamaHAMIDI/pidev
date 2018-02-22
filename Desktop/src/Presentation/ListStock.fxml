@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ListStockController">
+   <children>
+      <TableView fx:id="tableStock" fixedCellSize="0.0" layoutX="15.0" layoutY="14.0" prefHeight="313.0" prefWidth="570.0">
+        <columns>
+          <TableColumn fx:id="columnRef" prefWidth="75.0" resizable="false" text="Reference" />
+          <TableColumn fx:id="columnLib" prefWidth="208.0" text="Libellé" />
+            <TableColumn fx:id="columnPrix" prefWidth="157.0" text="Prix" />
+            <TableColumn fx:id="columnQte" minWidth="0.0" prefWidth="129.0" text="Quantité" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnReload" layoutX="107.0" layoutY="348.0" mnemonicParsing="false" onAction="#loadFromDB" text="Rafraichir" />
+      <Button fx:id="btnConfirm" layoutX="399.0" layoutY="349.0" mnemonicParsing="false" text="Confirmer" />
+      <Label layoutX="300.0" layoutY="353.0" text="Qté" />
+      <Button fx:id="incrementer" layoutX="364.0" layoutY="335.0" mnemonicParsing="false" text="+" />
+      <Button fx:id="decrementer" layoutX="365.0" layoutY="362.0" mnemonicParsing="false" text="-" />
+   </children>
+</AnchorPane>

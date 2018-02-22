@@ -8,7 +8,7 @@ package Presentation;
 import Entities.Boutique;
 import Entities.User;
 import GUI.ScreensController;
-import Iservices.ControlledScreen;
+import IServices.ControlledScreen;
 import Services.BoutiqueService;
 import Services.ProduitService;
 import com.jfoenix.controls.JFXDatePicker;
@@ -181,7 +181,6 @@ GoogleMapView mapView = new GoogleMapView();
         });
     }
 
-    @Override
     public void mapInitialized() {
 geocodingService = new GeocodingService();
         MapOptions options = new MapOptions();
@@ -197,12 +196,10 @@ geocodingService = new GeocodingService();
         directionsPane = mapView.getDirec();
     }
 
-    @Override
     public void directionsReceived(DirectionsResult dr, DirectionStatus ds) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void setScreenParent(ScreensController screenPage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

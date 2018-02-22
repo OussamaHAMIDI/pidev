@@ -6,6 +6,9 @@
  */
 package Entities;
 
+
+import java.io.InputStream;
+
 import java.time.LocalDateTime;
 
 
@@ -15,7 +18,7 @@ import java.time.LocalDateTime;
  */
 public class Produit {
 
-    protected int idProduit;
+    protected int id;
     protected String reference;
     protected String libelle;
     protected String description;
@@ -24,14 +27,23 @@ public class Produit {
     protected String couleur;
     protected String texture;
     protected float poids;
+
     protected int idBoutique;
     protected LocalDateTime dateAjout;
+
+    protected Boutique boutique;
+    
+    private InputStream photo;
+
+
+    
+
 
     public Produit() {
     }
 
-    public Produit(int idProduit, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, int idBoutique) {
-        this.idProduit = idProduit;
+    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+        this.id = id;
         this.reference = reference;
         this.libelle = libelle;
         this.description = description;
@@ -40,19 +52,31 @@ public class Produit {
         this.couleur = couleur;
         this.texture = texture;
         this.poids = poids;
-        this.idBoutique = idBoutique;
+        this.boutique = boutique;
+        this.dateAjout = dateAjout;
+        this.photo = photo;
     }
 
-    
-
-    
-
-    public int getIdProduit() {
-        return idProduit;
+    public Produit(String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.description = description;
+        this.prix = prix;
+        this.taille = taille;
+        this.couleur = couleur;
+        this.texture = texture;
+        this.poids = poids;
+        this.boutique = boutique;
+        this.dateAjout = dateAjout;
+        this.photo = photo;
     }
 
-    public void setIdProduit(int idProduit) {
-        this.idProduit = idProduit;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getReference() {
@@ -118,18 +142,35 @@ public class Produit {
     public void setPoids(float poids) {
         this.poids = poids;
     }
-    public int getIdBoutique() {
-        return idBoutique;
+
+    public Boutique getBoutique() {
+        return boutique;
     }
 
-    public void setIdBoutique(int idBoutique) {
-        this.idBoutique = idBoutique;
+    public void setBoutique(Boutique boutique) {
+        this.boutique = boutique;
     }
+
+    public LocalDateTime getDateAjout() {
+        return dateAjout;
+    }
+
+    public void setDateAjout(LocalDateTime dateAjout) {
+        this.dateAjout = dateAjout;
+    }
+    public InputStream getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(InputStream photo) {
+        this.photo = photo;
+    }
+    
     
     
     @Override
     public String toString() {
-        return "Les informations du produit sont :" + " l'id est " + idProduit + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
+        return "Les informations du produit sont :" + " l'id est " + id + ", la reference est " + reference + ", le libelle produit est " + libelle + ", la description est " + description;
     }
 }
 

@@ -6,25 +6,30 @@
 package Presentation;
 
 import Entities.Produit;
+import Entities.Reclamation;
+import Entities.User;
 import Services.ProduitService;
+import Services.ReclamationService;
+import Services.UserService;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
  *
  * @author benab
  */
-public class FXMLController implements Initializable {
+public class ReclamationController implements Initializable {
     @FXML
-    private TextField tf_libelle;
+    private Button reclamer;
     @FXML
-    private TextField tf_prix;
+    private TextArea reclamation;
 
     /**
      * Initializes the controller class.
@@ -32,25 +37,19 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void ajoutAction(ActionEvent event) {
         
-        Produit p = new Produit();
-        p.setLibelle(tf_libelle.getText());
-        p.setPrix(Integer.parseInt(tf_prix.getText()));
+    }    
+    
+    @FXML
+    private void reclamer(ActionEvent event) {
         
         ProduitService ps = new ProduitService();
-        ps.ajouterProduit(p);
-    }
-
-    @FXML
-    private void vide(ActionEvent event) {
-        
-        tf_libelle.setText("");
-        tf_prix.setText("");
-       
+        UserService us = new UserService();
+        ReclamationService rs = new ReclamationService();
+        Produit p = new Produit();
+        p.setId(2);
+        User u = us.getUserById(2);
+        rs.ajouterReclamation(new Reclamation(u,p,reclamation.getText()));
     }
     
 }

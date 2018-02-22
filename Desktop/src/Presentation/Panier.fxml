@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.PanierController">
+   <children>
+      <AnchorPane layoutX="869.0" prefHeight="606.0" prefWidth="270.0" style="-fx-background-color: white; -fx-background-radius: 3; -fx-border-color: #3C8DBC; -fx-border-radius: 3; -fx-border-width: 4 0 0 0; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-padding: 4;">
+         <children>
+            <Separator layoutX="14.0" layoutY="394.0" prefHeight="4.0" prefWidth="244.0" />
+            <Label layoutX="42.0" layoutY="22.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #162E3B; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Total du panier:" />
+            <Separator layoutX="14.0" layoutY="432.0" prefHeight="4.0" prefWidth="244.0" />
+            <Separator layoutX="15.0" layoutY="471.0" prefHeight="4.0" prefWidth="244.0" />
+            <Separator layoutX="15.0" layoutY="510.0" prefHeight="4.0" prefWidth="244.0" />
+            <Label layoutX="15.0" layoutY="406.0" prefHeight="17.0" prefWidth="94.0" text="Prix articles :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="445.0" prefHeight="17.0" prefWidth="94.0" text="Prix livraison :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="484.0" prefHeight="17.0" prefWidth="94.0" text="TotalTTC :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="prixArticles" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="197.0" layoutY="406.0" prefHeight="17.0" prefWidth="60.0" text="0" textFill="#918dbc">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="prixLivraison" alignment="CENTER_RIGHT" layoutX="197.0" layoutY="445.0" prefHeight="17.0" prefWidth="60.0" text="0" textFill="#918dbc">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalTTC" alignment="CENTER_RIGHT" layoutX="197.0" layoutY="484.0" prefHeight="17.0" prefWidth="60.0" text="0" textFill="#918dbc">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="47.0" layoutY="546.0" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Commander" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXComboBox fx:id="modeLivraison" layoutX="34.0" layoutY="323.0" onAction="#modifierMode" prefHeight="40.0" prefWidth="206.0" promptText="Mode de livraison" />
+            <JFXComboBox fx:id="modePaiement" layoutX="33.0" layoutY="276.0" onAction="#modifierMode" prefHeight="40.0" prefWidth="206.0" promptText="Mode de paiement" />
+            <ImageView fitHeight="57.0" fitWidth="60.0" layoutX="109.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8_Shopping_Cart_48px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="606.0" prefWidth="869.0" style="-fx-background-color: white; -fx-background-radius: 3; -fx-border-radius: 3; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+         <children>
+            <ScrollPane fx:id="contacts" prefHeight="606.0" prefWidth="870.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-padding: 4; -fx-border-width: 4 0 0 0; -fx-border-radius: 3; -fx-border-color: #3C8DBC;">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

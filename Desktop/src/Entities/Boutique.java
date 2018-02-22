@@ -29,6 +29,8 @@ public class Boutique {
     private String adresse;
     private List<Produit> listProduit;
     private LocalDateTime dateCreation;
+
+    
         public int getIDUser(){return user.getId();
 }
 
@@ -41,6 +43,21 @@ public class Boutique {
         this.adresse = adresse;
         this.listProduit = listProduit;
         this.dateCreation = dateCreation;
+    }
+
+    public Boutique(int id, User user, String nom, String adresse, List<Produit> listProduit) {
+        this.id = id;
+        this.user = user;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.listProduit = listProduit;
+    }
+
+    public Boutique(int id, User user, String nom, String adresse) {
+        this.id = id;
+        this.user = user;
+        this.nom = nom;
+        this.adresse = adresse;
     }
 
     public void setIDUser(int id){this.user.setId(id);}
@@ -72,13 +89,12 @@ public class Boutique {
         this.dateCreation = dateCreation;
     }
 
-    public Boutique(User user, String nom, String adresse, LocalDateTime dateCreation) {
+       public Boutique(User user, String nom, String adresse, LocalDateTime dateCreation) {
         this.user = user;
         this.nom = nom;
         this.adresse = adresse;
         this.dateCreation = dateCreation;
     }
-    
 
     public Boutique(User user, String nom, List<Produit> listProduit, LocalDateTime dateCreation) {
         this.user = user;
@@ -189,7 +205,8 @@ public class Boutique {
 
     @Override
     public String toString() {
-        return "Boutique{" + "id=" + id + ", Long=" + Long + ", Lat=" + Lat + ", user=" + user + ", nom=" + nom + ", adresse=" + adresse + ", listProduit=" + listProduit + ", dateCreation=" + dateCreation + '}';
+//        return "Boutique{" + "id=" + id + ", Long=" + Long + ", Lat=" + Lat + ", user=" + user + ", nom=" + nom + ", adresse=" + adresse + ", listProduit=" + listProduit + ", dateCreation=" + dateCreation + '}';
+        return "Boutique{" + "id=" + id + ", Long=" + Long + ", Lat=" + Lat + ", user=" + user + ", nom=" + nom + ", adresse=" + adresse + ", listProduit=" + listProduit + ", dateCreation=" + dateCreation+'}';
     }
 
    

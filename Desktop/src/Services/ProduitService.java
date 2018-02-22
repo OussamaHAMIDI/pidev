@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,8 +34,10 @@ public class ProduitService implements IProduit {
     @Override
     public boolean ajouterProduit(Produit p) {
         try {
-            String req = "INSERT INTO produit (reference,libelle,description,prix,taille,couleur,texture,poids,id_boutique) values ( ?,?,?,?,?,?,?,?,?)";                                              
+
+            String req = "INSERT INTO `produit`(`reference`, `libelle`, `description`, `prix`, `taille`, `couleur`, `texture`, `poids`, `date_creation`, `photo`) VALUES ( ?,?,?,?,?,?,?,?,?,?)";                                              
             ps = connexion.prepareStatement(req);
+//            ps.setInt(1, p.getBoutique().getId());
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
             ps.setString(3, p.getDescription());
@@ -43,7 +46,8 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getIdBoutique());
+            ps.setString(9,LocalDateTime.now().toString());
+            ps.setBinaryStream(10, p.getPhoto());
             ps.executeUpdate();
             System.out.println("Ajout effectué");
             return true;
@@ -57,7 +61,7 @@ public class ProduitService implements IProduit {
     @Override
     public boolean modifierProduit(Produit p) {
         try {
-            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , idBoutique=? WHERE idProduit=?";
+            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , idBoutique=?, photo=? WHERE idProduit=?";
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
@@ -67,8 +71,9 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setInt(9, p.getIdBoutique());
-            ps.setInt(10, p.getIdProduit());
+            ps.setInt(9, p.getBoutique().getId());
+            ps.setBinaryStream(10, p.getPhoto());
+            ps.setInt(11, p.getId());
             ps.executeUpdate();
             System.out.println("Modification effectuée");
             return true;
@@ -95,11 +100,12 @@ public class ProduitService implements IProduit {
     @Override
     public Produit chercherProduitParID(int id) {
         Produit produit = null;
+        BoutiqueService bs= new BoutiqueService();
         try {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), result.getInt("idBoutique"));
+                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("idBoutique")),Utils.Utils.getLocalDateTime(result.getString("date")),result.getBinaryStream("photo"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,12 +118,12 @@ public class ProduitService implements IProduit {
     public List<Produit> listerProduitsBoutique(int idB) {
         List produits = new ArrayList();
         try {
-            String req = "SELECT * FROM produit WHERE idBoutique = " + idB + "";
+            String req = "SELECT * FROM produit WHERE id_boutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setIdProduit(rs.getInt("idProduit"));
+                p.setId(rs.getInt("id_produit"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setDescription(rs.getString("description"));
@@ -153,6 +159,32 @@ public class ProduitService implements IProduit {
         return nextid;
     }
 
+    @Override
+    public List<Produit> listerProduits() {
+        List produits = new ArrayList();
+        try {
+            String req = "SELECT * FROM produit";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            Produit p = new Produit();
+            while (rs.next()) {
+                p.setId(rs.getInt("id_produit"));
+                p.setReference(rs.getString("reference"));
+                p.setLibelle(rs.getString("libelle"));
+                p.setDescription(rs.getString("description"));
+                p.setPrix(rs.getFloat("prix"));
+                p.setTaille(rs.getString("taille"));
+                p.setCouleur(rs.getString("couleur"));
+                p.setTexture(rs.getString("texture"));
+                p.setPoids(rs.getFloat("poids"));
+                produits.add(p);
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec");
+        }
+        return produits;
+    }
 
-    
+
 }

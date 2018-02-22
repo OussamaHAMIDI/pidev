@@ -17,8 +17,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.mindrot.BCrypt;
 
 /**
  *
@@ -26,128 +29,52 @@ import java.util.logging.Logger;
  */
 public class UserService implements IUser {
 
-    Connection connexion; // last_login
+    Connection connexion;
     PreparedStatement ps;
 
     public UserService() {
         connexion = MyDB.getinstance().getConnexion();
     }
 
-    /**
-     *
-     * @param u User
-     *
-     * @return
-     */
     @Override
     public boolean ajouterUser(User u) {
-
-        if (u.getEtat() == EtatUser.Connected) {
-            System.out.println("User :" + u.getUserName() + " is connected");
+        try {
+            String req = "INSERT INTO `user`(`username`, `username_canonical`, `email`, `email_canonical`, `enabled`,`password`, `roles`,`type` , "
+                    + "`etat` , `adresse`, `tel`, `nom`, `prenom`, `date_naissance`, `sexe`,`confirmation_token`,`photo_profil`,`salt`) "
+                    + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            ps = connexion.prepareStatement(req);
+            ps.setString(1, u.getUserName());
+            ps.setString(2, u.getUserName());
+            ps.setString(3, u.getEmail());
+            ps.setString(4, u.getEmail());
+            ps.setInt(5, 1); // pas sur de la valeur !!*****************************
+            ps.setString(6, u.getMdp());
+            ps.setString(7, "a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
+            ps.setString(8, u.getType().toString());
+            ps.setString(9, EtatUser.Pending.toString());
+            ps.setString(10, u.getAdresse());
+            ps.setString(11, u.getTel());
+            ps.setString(12, u.getNom());
+            ps.setString(13, u.getPrenom());
+            ps.setString(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
+            ps.setString(15, u.getSexe());
+            ps.setString(16, u.getToken());
+            ps.setBinaryStream(17, u.getPhoto());
+            ps.setString(18, u.getSalt());
+            ps.executeUpdate();
+            System.out.println("Ajout User réussi");
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Ajout User echoué");
             return false;
         }
-        // Verifier si l'utilisateur n'existe pas dans la table (etat = deleted or pending)
-        if (u.getEtat() == EtatUser.Deleted || u.getEtat() == EtatUser.Inactive) {
-            modifierEtatUser(u, EtatUser.Active);
-        } else if (u.getEtat() == EtatUser.Pending) {
-            // pas encore activé (resend verification mail and notify user from GUI)
-        } else {
-            try {
-                String req = "INSERT INTO `user`(`username`, `username_canonical`, `email`, `email_canonical`, `enabled`,"
-                        + "`password`, `roles`,`type` , `etat` , `adresse`, `tel`, `nom`, `prenom`, `date_naissance`, `sexe`) "
-                        + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                ps = connexion.prepareStatement(req);
-                ps.setString(1, u.getUserName());
-                ps.setString(2, u.getUserName());
-                ps.setString(3, u.getEmail());
-                ps.setString(4, u.getEmail());
-                ps.setInt(5, 1); // pas sur de la valeur !!*****************************
-                ps.setString(6, u.getMdp());
-                // ps.setString(7, "587dsa8754487dsfa");//u.getToken());
-                ps.setString(7, "a:1:{i:0;s:11:\"ROLE_CLIENT\";}");
-                ps.setString(8, u.getType().toString());
-                ps.setString(9, EtatUser.Pending.toString());
-                ps.setString(10, u.getAdresse());
-                ps.setString(11, u.getTel());
-                ps.setString(12, u.getNom());
-                ps.setString(13, u.getPrenom());
-                ps.setString(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
-                ps.setString(15, u.getSexe());
+        // }
 
-                ps.executeUpdate();
-                System.out.println("Ajout User réussi");
-                return true;
-            } catch (SQLException ex) {
-                Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Ajout User echoué");
-                return false;
-            }
-        }
-
-        return false;
     }
 
-    /**
-     *
-     * @param u User
-     * @param file La photo de User
-     * @param length Get it from the file
-     * @return
-     */
     @Override
-    public boolean ajouterUser(User u, InputStream file, int length) {
-        // Verifier si l'utilisateur n'existe pas dans la table (etat = deleted or pending)
-        if (u.getId() > -1) { //if existed
-            if (u.getEtat() == EtatUser.Deleted || u.getEtat() == EtatUser.Inactive) {
-                modifierEtatUser(u, EtatUser.Active);
-            }
-            if (u.getEtat() == EtatUser.Pending) {
-                // pas encore activé (resend verification mail and notify user from GUI)
-            }
-        } else {
-            try {
-                String req = "INSERT INTO `user`(`username`, `username_canonical`, `email`, `email_canonical`, `enabled` , "
-                        + "`password`, `roles`,`type` , `etat` , `adresse`, `tel`, `nom`, `prenom`, `date_naissance`, `sexe`,"
-                        + "`photo_profil`) "
-                        + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                ps = connexion.prepareStatement(req);
-                ps.setString(1, u.getUserName());
-                ps.setString(2, u.getUserName());
-                ps.setString(3, u.getEmail());
-                ps.setString(4, u.getEmail());
-                ps.setInt(5, 1); // pas sur de la valeur !!*****************************
-                ps.setString(6, u.getMdp());
-                ps.setString(7, "a:1:{i:0;s:11:\"ROLE_CLIENT\";}");
-                ps.setString(8, u.getType().toString());
-                ps.setString(9, u.getEtat().toString());
-                ps.setString(10, u.getAdresse());
-                ps.setString(11, u.getTel());
-                ps.setString(12, u.getNom());
-                ps.setString(13, u.getPrenom());
-                ps.setObject(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
-                ps.setString(15, u.getSexe());
-                ps.setBinaryStream(16, file, length);
-                ps.executeUpdate();
-                System.out.println("Ajout User réussi");
-                return true;
-
-            } catch (SQLException ex) {
-                Logger.getLogger(UserService.class
-                        .getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Ajout User echoué");
-                return false;
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param u
-     * @param etat
-     */
-    @Override
-    public void modifierEtatUser(User u, EtatUser etat) {
+    public void modifierEtatUser(int idUser, EtatUser etat) {
 
         String req;
         if (etat == EtatUser.Connected) {
@@ -158,39 +85,14 @@ public class UserService implements IUser {
         try {
             ps = connexion.prepareStatement(req);
             ps.setString(1, etat.toString());
-            ps.setInt(2, u.getId());
+            ps.setInt(2, idUser);
             ps.executeUpdate();
-            System.out.println("Client " + u.getNom() + " " + u.getPrenom() + " est " + etat);
+            System.out.println("User updated to " + etat);
 
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class
                     .getName()).log(Level.SEVERE, null, ex);
             System.out.println("erreur modifier etat user");
-        }
-    }
-
-    /**
-     *
-     * @param idUser idUser
-     * @param file La photo de User
-     * @param length Get it from the file
-     * @return
-     */
-    @Override
-    public boolean ajouterPhotoUser(int idUser, InputStream file, int length) {
-        try {
-            String req = "UPDATE `user` SET `photo_profil` = ? WHERE id='" + idUser + "'";
-            ps = connexion.prepareStatement(req);
-            ps.setBinaryStream(1, file, length);
-            ps.executeUpdate();
-            System.out.println("photo ajoutée avec succès");
-            return true;
-        } catch (SQLException ex) {
-            System.out.println("echec de l'ajout de la photo");
-            Logger
-                    .getLogger(UserService.class
-                            .getName()).log(Level.SEVERE, null, ex);
-            return false;
         }
     }
 
@@ -205,21 +107,18 @@ public class UserService implements IUser {
             return true;
         } catch (SQLException ex) {
             System.out.println("erreur changement token");
-            Logger
-                    .getLogger(UserService.class
-                            .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
-    public boolean verifMail(String email) {
-        ResultSet rs;
+    public boolean verifColumn(String columnName, String columnValue) {
         int nb = 0;
         try {
-            String req = "SELECT id from user where email_canonical = '" + email + "'";
+            String req = "SELECT id from user where " + columnName + " = '" + columnValue + "'";
             ps = connexion.prepareStatement(req);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 nb++;
             }
@@ -235,9 +134,13 @@ public class UserService implements IUser {
     @Override
     public boolean changerMdp(int idUser, String new_mdp) {
         try {
-            String req = "UPDATE user  SET password = ?  WHERE id = '" + idUser + "'";
+            String salt = BCrypt.gensalt(4);
+            String mdp = Utils.hashPassword(new_mdp, salt);
+
+            String req = "UPDATE user  SET password = ?  , salt = ? WHERE id = '" + idUser + "'";
             ps = connexion.prepareStatement(req);
-            ps.setString(1, new_mdp);
+            ps.setString(1, mdp);
+            ps.setString(2, salt);
             ps.executeUpdate();
             System.out.println("mot de passe changé avec succes");
             return true;
@@ -292,11 +195,6 @@ public class UserService implements IUser {
         }
     }
 
-    /**
-     *
-     * @param idUser
-     * @return null si idUser n'existe pas
-     */
     @Override
     public User getUserById(int idUser) {
         User u = null;
@@ -307,11 +205,11 @@ public class UserService implements IUser {
 
             if (rs.first()) {
 
-                u = new User(idUser, rs.getString("username"),  rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
+                u = new User(idUser, rs.getString("username"), rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
                         TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),
-                        Utils.getLocalDateTime(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
+                        Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
                         rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
-                                rs.getString("salt") ,rs.getString("roles"), rs.getString("confirmation_token"),rs.getBinaryStream("photo_profil"));
+                        rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
                 System.out.println("User retrieved");
             }
 
@@ -324,11 +222,6 @@ public class UserService implements IUser {
         return u;
     }
 
-    /**
-     *
-     * @param username
-     * @return null si username n'existe pas
-     */
     @Override
     public User getUserByUsername(String username) {
         User u = null;
@@ -339,9 +232,33 @@ public class UserService implements IUser {
             if (rs.first()) {
                 u = new User(rs.getInt("id"), username, rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
                         TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),
-                        Utils.getLocalDateTime(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
+                        Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
                         rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
-                                rs.getString("salt") ,rs.getString("roles"), rs.getString("confirmation_token"),rs.getBinaryStream("photo_profil"));
+                        rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
+                System.out.println("User retrieved");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get User");
+            return u;
+        }
+        return u;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        User u = null;
+        try {
+            String req = "SELECT * FROM `user` WHERE email = '" + email + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                u = new User(rs.getInt("id"), rs.getString("email"), rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
+                        TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),
+                        Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), email,
+                        rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
+                        rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
                 System.out.println("User retrieved");
             }
 
@@ -374,7 +291,6 @@ public class UserService implements IUser {
 
     @Override
     public boolean modifierUser(User u) {
-
         try {
             String req = "UPDATE `user` SET `username`=?,`username_canonical`=?,`email`=?,`email_canonical`=?"
                     + " , `password`=?,`last_login`= ? ,`roles`=?,`type`=?,`etat`= ?,`adresse`=?,`tel`=?,`nom`= ?,`prenom`=?"
@@ -385,7 +301,14 @@ public class UserService implements IUser {
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getEmail());
             ps.setString(5, u.getMdp());
-            ps.setString(6, u.getLastLogin().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+
+            try {
+                String date = u.getLastLogin().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                ps.setString(6, date);
+            } catch (SQLException e) {
+                ps.setString(6, null);
+            }
+
             ps.setString(7, u.getRole());
             ps.setString(8, u.getType().toString());
             ps.setString(9, u.getEtat().toString());
@@ -397,13 +320,73 @@ public class UserService implements IUser {
             ps.setString(15, u.getSexe());
             ps.setString(16, u.getSalt());
             ps.setBinaryStream(17, u.getPhoto());
+
             ps.executeUpdate();
             System.out.println("Modification User " + u.getUserName() + " réussie");
             return true;
+
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Modification User echouée");
             return false;
+        }
+    }
+
+    @Override
+    public InputStream getPhotoUser(int idUser) {
+        InputStream img = null;
+        try {
+            String req = "SELECT photo_profil FROM `user` WHERE id = '" + idUser + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                img = rs.getBinaryStream("photo_profil");
+                System.out.println("Photo retrieved");
+            }
+            return img;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get photo");
+            return img;
+        }
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            String req = "SELECT * FROM `user` ";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), EtatUser.valueOf(rs.getString("etat")),
+                        TypeUser.valueOf(rs.getString("type")), rs.getString("nom"), rs.getString("prenom"),
+                        Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
+                        rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
+                        rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
+                users.add(u);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get User");
+            return null;
+        }
+
+        return users;
+    }
+
+    @Override
+    public void supprimerUser(User u) {
+        u.setEtat(EtatUser.Deleted);
+        u.setEmail(u.getEmail() + u.getId());
+        u.setUserName(u.getUserName() + u.getId());
+        UserService us = new UserService();
+
+        if (!us.modifierUser(u)) {
+            System.out.println("Suppression User echouée");
         }
     }
 

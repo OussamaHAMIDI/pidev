@@ -6,6 +6,10 @@
  */
 package Entities;
 
+import Utils.Enumerations;
+import Utils.Enumerations.ModeLivraison;
+import Utils.Enumerations.ModePaiement;
+import Utils.Enumerations.StatusPanier;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,32 +28,45 @@ public class Panier {
     private LocalDateTime dateLivraison;
     private double totalTTC;
     private double fraisLivraison;
-    private String status;
-    private String modePaiement;
+    private StatusPanier status;
+    private ModePaiement modePaiement;
+    private ModeLivraison modeLivraison;
     private boolean estLivre;
     private boolean estPaye;
-    private List<Produit> contenu;
+    private List<ProduitPanier> contenu;
 
-    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, boolean estLivre, boolean estPaye, List<Produit> contenu) {
+    public Panier(int id, User user, LocalDateTime dateCreation, LocalDateTime dateLivraison, double totalTTC, double fraisLivraison, String status, String modePaiement, String modeLivraison, boolean estLivre, boolean estPaye, List<ProduitPanier> contenu) {
         this.id = id;
         this.user = user;
         this.dateCreation = dateCreation;
         this.dateLivraison = dateLivraison;
         this.totalTTC = totalTTC;
         this.fraisLivraison = fraisLivraison;
-        this.status = status;
-        this.modePaiement = modePaiement;
+        this.status = StatusPanier.valueOf(status);
+        this.modePaiement = ModePaiement.valueOf(modePaiement);
         this.estLivre = estLivre;
         this.estPaye = estPaye;
         this.contenu = contenu;
+      this.modeLivraison = ModeLivraison.valueOf(modeLivraison);
     }
 
     public Panier(User user, LocalDateTime dateCreation) {
         this.user = user;
         this.dateCreation = dateCreation;
+        this.status = StatusPanier.Temporelle;
+        this.modeLivraison = ModeLivraison.SurPlace;
+        
     }
 
     public Panier() {
+    }
+
+    public ModeLivraison getModeLivraison() {
+        return modeLivraison;
+    }
+
+    public void setModeLivraison(ModeLivraison modeLivraison) {
+        this.modeLivraison = modeLivraison;
     }
     
     
@@ -102,19 +119,19 @@ public class Panier {
         this.fraisLivraison = fraisLivraison;
     }
 
-    public String getStatus() {
+    public StatusPanier getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusPanier status) {
         this.status = status;
     }
 
-    public String getModePaiement() {
+    public ModePaiement getModePaiement() {
         return modePaiement;
     }
 
-    public void setModePaiement(String modePaiement) {
+    public void setModePaiement(ModePaiement modePaiement) {
         this.modePaiement = modePaiement;
     }
 
@@ -134,11 +151,11 @@ public class Panier {
         this.estPaye = estPaye;
     }
 
-    public List<Produit> getContenu() {
+        public List<ProduitPanier> getContenu() {
         return contenu;
     }
 
-    public void setContenu(List<Produit> contenu) {
+    public void setContenu(List<ProduitPanier> contenu) {
         this.contenu = contenu;
     }
 

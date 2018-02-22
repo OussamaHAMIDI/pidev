@@ -6,7 +6,7 @@
 package Presentation;
 
 import GUI.ScreensController;
-import Iservices.ControlledScreen;
+import IServices.ControlledScreen;
 import Utils.NavigatorData;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;

@@ -31,7 +31,7 @@ public class MainEvaluation {
         TypeReclamation type2 = TypeReclamation.Produit;
 
         Produit p1 = new Produit();
-        p1.setIdProduit(2);
+        p1.setId(2);
         Produit p2 = new Produit();
         List<Produit> produits = new ArrayList<Produit>();
 
@@ -63,6 +63,9 @@ public class MainEvaluation {
         //System.out.println(hey);
         float note = es.getNoteBoutique(boutique);
         System.out.println(note);
+        Evaluation ev = es.getEvaluationById(5);
+        ev.setNote(10);
+        es.modifierEvaluation(ev);
 
     }
 

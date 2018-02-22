@@ -24,6 +24,7 @@ public interface IProduit {
     public Produit chercherProduitParID(int id);
 
     public List<Produit> listerProduitsBoutique(int idB);
+    public List<Produit> listerProduits();
     
     public String  getNextId();
     

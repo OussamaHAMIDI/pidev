@@ -144,12 +144,12 @@ public class HomeAdminController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
         alert.setHeaderText(null);
-        alert.setContentText("Voulez-vous se déconnecter ?");
+        alert.setContentText("Voulez-vous vous déconnecter ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Utils.showTrayNotification(NotificationType.CUSTOM, "Déconnexion", null, "Au revoir " + username.getText(), u.getPhoto());
-            us.modifierEtatUser(u, EtatUser.Disconnected);
+            Utils.showTrayNotification(NotificationType.CUSTOM, "Déconnexion", null, "Au revoir " + username.getText(), new Image(u.getPhoto()),2000);
+            us.modifierEtatUser(Integer.getInteger(idUser.getText()), EtatUser.Disconnected);
            
             Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage2.hide();
@@ -219,8 +219,7 @@ public class HomeAdminController implements Initializable {
             blur.setEffect(new GaussianBlur(10));
             new FadeInRightTransition(trans).play();
             AnchorPane pane = Loader.load();
-            UserController userController = Loader.getController();
-            //userController.setValue(model.getId(), model.getUsername(), model.getPassword(), model.getNama(), model.getEmail());
+          
             loadPane.getChildren().setAll(pane);
         } catch (IOException ex) {
             Logger.getLogger(HomeAdminController.class.getName()).log(Level.SEVERE, null, ex);
