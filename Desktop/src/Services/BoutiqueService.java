@@ -39,14 +39,17 @@ public class BoutiqueService implements IBoutique {
     @Override
     public void ajouterBoutique(Boutique boutique) {
         try {
-            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse) values ( ? , ? , ? , ? )"; // manque adresse fel base 
+            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse,longitude,altitude) values ( ? , ? , ? , ? ,?,?)"; // manque adresse fel base 
             ps = connexion.prepareStatement(req);
             ps.setInt(1, boutique.getUser().getId());
             ps.setString(2, boutique.getNom());
             ps.setObject(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.setString(4, boutique.getAdresse());
+            ps.setString(5, String.valueOf(boutique.getLat()));
+            ps.setString(6, String.valueOf(boutique.getLong()));
 
             ps.executeUpdate();
+            System.out.println(ps.executeUpdate());
             System.out.println("L'ajout de la boutique est effectué");
         } catch (SQLException ex) {
             System.out.println("L'ajout de la boutique a échoué " + ex.getMessage());
@@ -94,7 +97,6 @@ public class BoutiqueService implements IBoutique {
         }
     }
 
-    @Override
     public Boutique chercherBoutiqueParNom(String nom) { // add unique field to nom dans la table boutique
         Boutique boutique = null;
         try {
@@ -116,6 +118,7 @@ public class BoutiqueService implements IBoutique {
     @Override
     public Boutique chercherBoutiqueParID(int idBoutique) {
         Boutique boutique = null;
+        Boutique boutique2= null;
         try {
             ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM boutique WHERE id = '" + idBoutique + "'");
@@ -124,8 +127,12 @@ public class BoutiqueService implements IBoutique {
                 UserService us = new UserService();
                 ProduitService ps = new ProduitService();
                 user = us.getUserById(rs.getInt("id_user"));
-                boutique = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"),ps.listerProduitsBoutique(idBoutique),
-                        rs.getObject("date_creation", LocalDateTime.class));
+//           boutique = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"), lireProduitsParBoutique(rs.getString("nom")));
+//          boutique2 = new Boutique()     
+           boutique = new Boutique(idBoutique, rs.getDouble("longitude"), rs.getDouble("altitude"), user, rs.getString("nom"), rs.getString("adresse"), lireProduitsParBoutique(rs.getString("nom")),rs.getObject("date_creation", LocalDateTime.class));
+             boutique2 = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"));
+
+               
             }
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());
@@ -136,43 +143,49 @@ public class BoutiqueService implements IBoutique {
     @Override
     public List<Boutique> lireBoutiques() {
 
-        List boutiques = new ArrayList();
+        List<Boutique> boutiques = new ArrayList<Boutique>();
         try {
             String sql = "SELECT * FROM boutique";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            Boutique b = new Boutique();
+            
             while (rs.next()) {
+               Boutique b = new Boutique();
                 b.setId(rs.getInt("id"));
-                b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
+               // b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
+                //b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
                 b.setNom(rs.getString("nom"));
                 b.setAdresse(rs.getString("adresse"));
+                b.setLong(rs.getDouble("longitude"));
+                b.setLat(rs.getDouble("altitude"));
                 b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
                 boutiques.add(b);
             }
         } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
             System.out.println("Echec lireBoutiques");
         }
         return boutiques;
     }
 
-    @Override
-    public List<Produit> lireProduitsParBoutique(int idBoutique) {
-        List produits = new ArrayList();
-        try {
-            String sql = "SELECT id_produit FROM boutique WHERE id = '" + idBoutique + "'";
-            ps = connexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ProduitService pService = new ProduitService();
-                Produit p = pService.chercherProduitParID(rs.getInt("id_produit"));
-                produits.add(p);
-            }
-        } catch (SQLException e) {
-            System.out.println("Echec lireProduitsParBoutique(idBoutique)");
-        }
-        return produits;
-    }
+//    @Override
+//    public List<Produit> lireProduitsParBoutique(int idBoutique) {
+////        List produits = new ArrayList();
+////        try {
+////            String sql = "SELECT id_produit FROM boutique WHERE id = '" + idBoutique + "'";
+////            ps = connexion.prepareStatement(sql);
+////            ResultSet rs = ps.executeQuery();
+////            while (rs.next()) {
+////                ProduitService pService = new ProduitService();
+////                Produit p = pService.chercherProduitParID(rs.getInt("id_produit"));
+////                produits.add(p);
+////            }
+////        } catch (SQLException e) {
+////            System.out.println("Echec lireProduitsParBoutique(idBoutique)");
+////        }
+////        return produits;
+//    }
 
     @Override
     public List<Produit> lireProduitsParBoutique(String nomBoutique) {
@@ -228,28 +241,28 @@ public class BoutiqueService implements IBoutique {
         return nextid;
     }
 
-    @Override
-    public List<Boutique> chercherBoutiquesParNom(String nom) {
-
-        List boutiques = new ArrayList();
-        try {
-            String sql = "SELECT * FROM boutique WHERE nom = '" + nom + "'";
-            ps = connexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            Boutique b = new Boutique();
-            while (rs.next()) {
-                b.setId(rs.getInt("id"));
-                b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
-                b.setNom(rs.getString("nom"));
-                b.setAdresse(rs.getString("adresse"));
-                b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                boutiques.add(b);
-            }
-        } catch (SQLException e) {
-            System.out.println("Echec");
-        }
-        return boutiques;
-    }
+//    @Override
+//    public List<Boutique> chercherBoutiquesParNom(String nom) {
+//
+//        List boutiques = new ArrayList();
+//        try {
+//            String sql = "SELECT * FROM boutique WHERE nom = '" + nom + "'";
+//            ps = connexion.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            Boutique b = new Boutique();
+//            while (rs.next()) {
+//                b.setId(rs.getInt("id"));
+//                b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
+//                b.setNom(rs.getString("nom"));
+//                b.setAdresse(rs.getString("adresse"));
+//                b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+//                boutiques.add(b);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Echec");
+//        }
+//        return boutiques;
+//    }
 
     @Override
     public void modifierBoutique(Boutique boutique, String nom, String adresse) {
@@ -284,11 +297,10 @@ public class BoutiqueService implements IBoutique {
 
     @Override
     public void modifierAdresseBoutique(Boutique boutique, String adresse) {
-        String req = "UPDATE boutique SET adresse = ? WHERE id = ?";
+        String req = "UPDATE `boutique` SET nom='ahmed',`adresse`='"+adresse+"' WHERE id='"+boutique.getId()+"'";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setString(1, adresse);
-            ps.setInt(2, boutique.getId());
+          
             ps.executeUpdate();
             System.out.println("La mise a jour de la boutique est effectuée");
         } catch (SQLException ex) {

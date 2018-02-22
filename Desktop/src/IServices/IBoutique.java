@@ -25,13 +25,13 @@ public interface IBoutique {
     
     public void supprimerBoutique(Boutique boutique);
 
-    public Boutique chercherBoutiqueParNom(String nom);
+   public Boutique chercherBoutiqueParNom(String nom);
     
-    public List<Boutique> chercherBoutiquesParNom(String nom);
+    //public List<Boutique> chercherBoutiquesParNom(String nom);
 
     public Boutique chercherBoutiqueParID(int idBoutique);
 
-    public List<Produit> lireProduitsParBoutique(int idBoutique);
+   // public List<Produit> lireProduitsParBoutique(int idBoutique);
     
     public List<Produit> lireProduitsParBoutique(Boutique boutique);
 

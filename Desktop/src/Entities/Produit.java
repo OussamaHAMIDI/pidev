@@ -6,7 +6,9 @@
  */
 package Entities;
 
+
 import java.io.InputStream;
+
 import java.time.LocalDateTime;
 
 
@@ -25,12 +27,17 @@ public class Produit {
     protected String couleur;
     protected String texture;
     protected float poids;
-    protected Boutique boutique;
+
+    protected int idBoutique;
     protected LocalDateTime dateAjout;
+
+    protected Boutique boutique;
+    
     private InputStream photo;
 
 
     
+
 
     public Produit() {
     }

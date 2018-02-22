@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InterfaceModifierBoutiqueController">
+   <children>
+      <Label layoutX="135.0" layoutY="31.0" text="Choisir la modification désirée">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Label>
+      <Button fx:id="button1" layoutX="200.0" layoutY="108.0" mnemonicParsing="false" prefWidth="200.0" text="ajouter produit" />
+      <Button fx:id="button2" layoutX="200.0" layoutY="164.0" mnemonicParsing="false" onAction="#modifierNom" prefWidth="200.0" text="modifier le nom de la boutique" />
+      <Button fx:id="button3" layoutX="200.0" layoutY="223.0" mnemonicParsing="false" onAction="#modifierAdresse" prefWidth="200.0" text="modifier l'adrese de la boutique" />
+      <Button fx:id="button4" layoutX="200.0" layoutY="279.0" mnemonicParsing="false" onAction="#modifierBou" prefWidth="200.0" text="modifier toute la boutique" />
+   </children>
+</AnchorPane>
