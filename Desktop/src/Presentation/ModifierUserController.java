@@ -6,6 +6,8 @@
 package Presentation;
 
 import Entities.User;
+import static Presentation.ProduitPanierController.contenu;
+import static Presentation.ProduitPanierController.pc;
 import Services.UserService;
 import Utils.Enumerations.*;
 import Utils.Utils;
@@ -37,6 +39,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -83,6 +86,8 @@ public class ModifierUserController implements Initializable {
     private ImageView close;
 
     public static AnchorPane blur;
+    
+    public static UserController userCont;
 
     private FileInputStream photoProfil = null;
 
@@ -92,12 +97,13 @@ public class ModifierUserController implements Initializable {
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
 
     public static User userSelected;
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         if (userSelected != null) {
-            System.out.println(userSelected.getEtat().toString());
+            user = userSelected;
             if (null == userSelected.getEtat()) {
                 etat.setValue("Active");
             } else {
@@ -132,8 +138,11 @@ public class ModifierUserController implements Initializable {
             }
             username.setText(userSelected.getUserName());
             email.setText(userSelected.getEmail());
-
+            
+            //photo.setImage(userCont.);
+            
             if (userSelected.getPhoto() != null) {
+                System.out.println("fama taswira ma n7ebech naffichiha !!");
                 photo.setImage(new Image(userSelected.getPhoto()));
             }
             date.setValue(userSelected.getDateNaissance());
@@ -201,8 +210,14 @@ public class ModifierUserController implements Initializable {
 
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 blur.setEffect(null);
-                GestionUsersController c = new GestionUsersController();
-                c.buildUsersTable();
+
+                GestionUsersController.list.set(GestionUsersController.list.indexOf(user), userSelected);
+                userCont.setValues(userSelected);
+//                GestionUsersController GridPane parent = (GridPane) contact.getParent();
+//                parent.getChildren().remove(contact);
+
+//                GestionUsersController1 c = new GestionUsersController1();
+//                c.buildUsersTable();
                 s.close();
             }
         }

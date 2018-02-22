@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -30,6 +32,12 @@ public class AccueilAdminController implements Initializable {
     private JFXButton btnUsers;
 
     AnchorPane controls, users;
+    @FXML
+    private AnchorPane menu;
+    @FXML
+    private Label username;
+    @FXML
+    private ImageView photoUser;
 
  
 
@@ -41,8 +49,8 @@ public class AccueilAdminController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            GestionUsersController2.list = new UserService().getUsers();
-            users = FXMLLoader.load(getClass().getResource("GestionUsers_1.fxml"));
+           // GestionUsersController.list = new UserService().getUsers();
+            users = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
 
             //controls = FXMLLoader.load(getClass().getResource("Controls.fxml"));
             setNode(users);
@@ -64,6 +72,10 @@ public class AccueilAdminController implements Initializable {
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
         ft.play();
+    }
+
+    @FXML
+    private void logout(ActionEvent event) {
     }
 
 }

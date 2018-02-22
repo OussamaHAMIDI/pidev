@@ -40,7 +40,7 @@ public class HistoriqueService implements IHistorique {
             while (rs.next()) {
                 UserService us = new UserService();
                 PanierService ps = new PanierService();
-                paniers.add(new Panier(rs.getInt("id"),
+                /*paniers.add(new Panier(rs.getInt("id"),
                         us.getUserById(rs.getInt("id_user")),
                         rs.getObject("date_creation", LocalDateTime.class),
                         rs.getObject("date_livraison", LocalDateTime.class),
@@ -48,10 +48,9 @@ public class HistoriqueService implements IHistorique {
                         rs.getDouble("frais_livraison"),
                         rs.getString("statut"),
                         rs.getString("mode_paiement"),
-                        rs.getString("mode_livraison"),
                         rs.getBoolean("est_livre"),
                         rs.getBoolean("est_paye"),
-                        ps.rechercherProduitsPanier(rs.getInt("id"))));
+                        ps.rechercherProduitsPanier(rs.getInt("id"))));*/
             }
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());

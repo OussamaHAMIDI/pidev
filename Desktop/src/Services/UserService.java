@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 import org.mindrot.BCrypt;
 
 /**
@@ -305,7 +306,7 @@ public class UserService implements IUser {
             try {
                 String date = u.getLastLogin().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 ps.setString(6, date);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 ps.setString(6, null);
             }
 
@@ -319,6 +320,7 @@ public class UserService implements IUser {
             ps.setString(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
             ps.setString(15, u.getSexe());
             ps.setString(16, u.getSalt());
+
             ps.setBinaryStream(17, u.getPhoto());
 
             ps.executeUpdate();
@@ -332,27 +334,26 @@ public class UserService implements IUser {
         }
     }
 
-    @Override
-    public InputStream getPhotoUser(int idUser) {
-        InputStream img = null;
-        try {
-            String req = "SELECT photo_profil FROM `user` WHERE id = '" + idUser + "'";
-            ps = connexion.prepareStatement(req);
-            ResultSet rs = ps.executeQuery();
-            if (rs.first()) {
-                img = rs.getBinaryStream("photo_profil");
-                System.out.println("Photo retrieved");
-            }
-            return img;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Echec get photo");
-            return img;
-        }
-    }
-
+//    @Override
+//    public InputStream getPhotoUser(int idUser) {
+//        InputStream img = null;
+//        try {
+//            String req = "SELECT photo_profil FROM `user` WHERE id = '" + idUser + "'";
+//            ps = connexion.prepareStatement(req);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.first()) {
+//                img = rs.getBinaryStream("photo_profil");
+//                System.out.println("Photo retrieved");
+//            }
+//            return img;
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UserService.class
+//                    .getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("Echec get photo");
+//            return img;
+//        }
+//    }
     @Override
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
@@ -388,6 +389,51 @@ public class UserService implements IUser {
         if (!us.modifierUser(u)) {
             System.out.println("Suppression User echouée");
         }
+    }
+
+    @Override
+    public InputStream getPhotoUser(int id) {
+        InputStream photo = null;
+        try {
+            String req = "SELECT photo_profil FROM `user` WHERE id = '" + id + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+
+                photo = rs.getBinaryStream("photo_profil");
+                System.out.println("photo retrieved");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get photo");
+
+        }
+        return photo;
+    }
+
+    @Override
+    public Image getPhoto(int id) {
+        InputStream photo = null;
+        try {
+            String req = "SELECT photo_profil FROM `user` WHERE id = '" + id + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+
+                photo = rs.getBinaryStream("photo_profil");
+                System.out.println("photo retrieved");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get photo");
+
+        }
+        if (photo != null) {
+            return new Image(photo);
+        }
+        return null;
     }
 
 }

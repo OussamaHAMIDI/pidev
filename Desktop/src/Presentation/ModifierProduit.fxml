@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ModifierProduitController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AjouterProduitController">
    <children>
       <Text layoutX="15.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reference" />
       <TextField fx:id="reference" layoutX="94.0" layoutY="67.0" />
@@ -25,9 +26,9 @@
       <Text layoutX="327.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Texture" />
       <TextField fx:id="poids" layoutX="92.0" layoutY="280.0" />
       <Text layoutX="14.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poids" />
-      <Button fx:id="modifier" layoutX="218.0" layoutY="347.0" mnemonicParsing="false" onAction="#modifierProduit" text="Confirmer" />
-      <Button layoutX="323.0" layoutY="280.0" mnemonicParsing="false" text="Ajouter photo" />
-      <Button fx:id="supprimer" layoutX="316.0" layoutY="347.0" mnemonicParsing="false" onAction="#supprimerProduit" text="Supprimer" />
-      <Text fx:id="statut" layoutX="480.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button fx:id="modifier" layoutX="63.0" layoutY="353.0" mnemonicParsing="false" onAction="#modifierProduit" text="Modifier" />
+      <Button fx:id="ajouterPhoto" layoutX="323.0" layoutY="280.0" mnemonicParsing="false" onAction="#uploadPhoto" text="Ajouter photo" />
+      <Button fx:id="supprimer" layoutX="160.0" layoutY="353.0" mnemonicParsing="false" onAction="#supprimerProduit" text="Supprimer" />
+      <ImageView fx:id="photo" fitHeight="93.0" fitWidth="114.0" layoutX="446.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
