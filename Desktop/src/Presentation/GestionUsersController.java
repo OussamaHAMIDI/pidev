@@ -35,7 +35,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -46,7 +45,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -97,12 +96,13 @@ public class GestionUsersController implements Initializable {
     /**
      * ***************************************************************
      */
-    GridPane gridPane = new GridPane();
+    public static GridPane gridPane = new GridPane();
+
     public static List<User> list;
     public static UserController uc;
     public static User userSelected;
 
-    private FileInputStream photoProfil;
+    private FileInputStream photoProfil = null;
 
     UserService us = new UserService();
 
@@ -113,7 +113,7 @@ public class GestionUsersController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private void addToGrid(List<User> list, GridPane gridPane) {
+    public void addToGrid(List<User> list) {
         int totalItems = list.size();
         int nbrItems = gridPane.getChildren().size();
         int nbrRows = (nbrItems % 2 == 0) ? nbrItems / 2 : (nbrItems + 1) / 2;
@@ -186,6 +186,7 @@ public class GestionUsersController implements Initializable {
             username.setText(userSelected.getUserName());
             email.setText(userSelected.getEmail());
             Image img = us.getPhoto(userSelected.getId());
+            
             if (img != null) {
                 photo.setImage(img);
             } else {
@@ -214,7 +215,7 @@ public class GestionUsersController implements Initializable {
         email.setEditable(true);
         adresse.setEditable(true);
         tel.setEditable(true);
-        modifier.setDisable(false);
+
         date.setEditable(true);
     }
 
@@ -239,11 +240,11 @@ public class GestionUsersController implements Initializable {
             list = list.stream().filter(u -> u.getPrenom().toLowerCase().contains(text.toLowerCase())
                     || u.getNom().toLowerCase().contains(text.toLowerCase())
                     || u.getType().toString().toLowerCase().startsWith(text.toLowerCase())).collect(Collectors.toList());
-            addToGrid(list, gridPane);
+            addToGrid(list);
         } else {
-            list = us.getUsers();
+            list = us.getUsers().stream().filter(u -> u.getEtat() != EtatUser.Deleted).collect(Collectors.toList());;
             gridPane.getChildren().clear();
-            addToGrid(list, gridPane);
+            addToGrid(list);
         }
     }
 
@@ -253,7 +254,6 @@ public class GestionUsersController implements Initializable {
         /**
          * **************** initialize modifier ****************
          */
-        
         date.setConverter(new StringConverter<LocalDate>() {
             private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -276,18 +276,17 @@ public class GestionUsersController implements Initializable {
         type.setItems(typeList);
         etat.setItems(etatList);
         disable(true);
-        modifier.setDisable(false);
 
         /**
          * ************************************************************************
          */
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
 
-        list = us.getUsers();
+        list = us.getUsers().stream().filter(u -> u.getEtat() != EtatUser.Deleted).collect(Collectors.toList());
         UserController.contenu = list;
         UserController.guc = this;
 
-        addToGrid(list, gridPane);
+        addToGrid(list);
 
         gridPane.setHgap(45);
         gridPane.setVgap(20);
@@ -351,8 +350,13 @@ public class GestionUsersController implements Initializable {
 
             userSelected.setSexe(sexe);
             userSelected.setPhoto(us.getPhotoUser(userSelected.getId()));
+
+            userSelected.setPhoto(user.getPhoto());
+
             if (photoProfil != null) {
+                System.out.println("g choisis une nouvelle photo ");
                 userSelected.setPhoto(photoProfil);
+                photoProfil = null;
             }
 
             date.setValue(userSelected.getDateNaissance());
@@ -364,6 +368,7 @@ public class GestionUsersController implements Initializable {
 
                 list.set(list.indexOf(user), userSelected);
                 uc.setValues(userSelected);
+                modifier.setDisable(true);
             }
         }
     }
@@ -402,6 +407,14 @@ public class GestionUsersController implements Initializable {
         }
 
         return true;
+    }
+
+    @FXML
+    private void ajouterUser(MouseEvent event) {
+        AddUserController.guc = this;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddUser.fxml"));
+
+        Utils.getAnotherStage(loader, "Ajout d'utilisateur en tant qu'administrateur").show();
     }
 
 }

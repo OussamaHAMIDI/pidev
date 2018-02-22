@@ -117,5 +117,11 @@
             <Font name="Bookman Old Style Bold Italic" size="32.0" />
          </font>
       </Label>
+      <JFXButton layoutX="414.0" layoutY="31.0" prefHeight="59.0" prefWidth="44.0" text=" " />
+      <ImageView fitHeight="49.0" fitWidth="47.0" layoutX="389.0" layoutY="4.0" onMouseClicked="#ajouterUser" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/icons8_Chevron_Down_52px.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
