@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduit.fxml</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Entities/Produit.java</file>
@@ -17,6 +18,9 @@
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/main/MainProduit.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
+=======
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Services/ProduitService.java</file>
+>>>>>>> 005f46d9bd9b7011556f41e29004acd1216aa3c0
         </group>
     </open-files>
 </project-private>
