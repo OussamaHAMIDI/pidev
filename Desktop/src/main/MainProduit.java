@@ -28,7 +28,7 @@ public class MainProduit {
     
     public static void main(String[] args) {
 
-    Produit p = new Produit(0,"", "ref", "", 100, "54", "fsgd", "sgg", 0, null, null, null);
+    Produit p = new Produit(0,"", "azzzz", "", 100, "54", "fsgd", "sgg", 0, null, null, null);
     
         Boutique b = new Boutique();
         b.setId(10);

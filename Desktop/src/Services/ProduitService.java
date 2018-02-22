@@ -60,7 +60,7 @@ public class ProduitService implements IProduit {
     @Override
     public boolean modifierProduit(Produit p) {
         try {
-            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , photo=? WHERE idProduit=?";
+            String req = "UPDATE produit SET  reference=? , libelle=? , description=? , prix=? , taille=? , couleur=? , texture=? , poids=? , photo=? WHERE id=?";
             ps = connexion.prepareStatement(req);
             ps.setString(1, p.getReference());
             ps.setString(2, p.getLibelle());
@@ -84,7 +84,7 @@ public class ProduitService implements IProduit {
     @Override
     public boolean supprimerProduit(int id) {
         try {
-            String req = " DELETE FROM `produit` WHERE idProduit = " + id + "";
+            String req = " DELETE FROM `produit` WHERE id = " + id + "";
             ps = connexion.prepareStatement(req);
             ps.executeUpdate();
             System.out.println("La supression de la boutique est effectuée");
@@ -130,6 +130,7 @@ public class ProduitService implements IProduit {
                 p.setCouleur(rs.getString("couleur"));
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
+                p.setPhoto(rs.getBinaryStream("photo"));
                 produits.add(p);
             }
         } catch (SQLException ex) {
@@ -166,7 +167,7 @@ public class ProduitService implements IProduit {
             ResultSet rs = ps.executeQuery();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setId(rs.getInt("id_produit"));
+                p.setId(rs.getInt("id"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setDescription(rs.getString("description"));
@@ -175,6 +176,7 @@ public class ProduitService implements IProduit {
                 p.setCouleur(rs.getString("couleur"));
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
+                p.setPhoto(rs.getBinaryStream("photo"));
                 produits.add(p);
             }
         } catch (SQLException ex) {
