@@ -28,13 +28,12 @@ public class UserMain extends Application {
 
     private double x;
     private double y;
-    //navigation nav = new navigation();
 
     @Override
     public void start(Stage stage) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("AccueilAdmin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Accueil.fxml"));
 
             stage.setTitle("Login");
             

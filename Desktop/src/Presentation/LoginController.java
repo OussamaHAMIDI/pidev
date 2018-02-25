@@ -17,12 +17,9 @@ import java.io.IOException;
 import tray.notification.NotificationType;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,7 +35,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -71,32 +67,26 @@ public class LoginController implements Initializable {
     private Label chnagerMdp;
 
     UserService us = new UserService();
+    public static AccueilController ac ;
+    User u = null;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         createUser.setCursor(Cursor.HAND);
         exit.setCursor(Cursor.HAND);
+        
+        
         username.setText("HamdiMegdiche");
         password.setText("25111995");
     }
 
     @FXML
     private void handleExit(MouseEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText(null);
-        alert.setContentText("Voulez vous vraiment quitter l'application ?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            Platform.exit();
-            System.exit(0);
-        }
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -104,93 +94,50 @@ public class LoginController implements Initializable {
 
         String username_text = username.getText();
         String password_text = password.getText();
-        if (username_text.equals("") || password_text.equals("")) {
+        if (username_text.isEmpty() || password_text.isEmpty()) {
             Utils.showAlert(Alert.AlertType.WARNING, "Champ(s) vide(s)", null, "Veuillez bien renseigner votre username et/ou mot de passe");
             username.requestFocus();
         } else {
-            User u;
+            u = us.getUserByUsername(username_text);
             if (username_text.contains("@")) {
                 u = us.getUserByEmail(username_text);
             }
-            u = us.getUserByUsername(username_text);
 
             if (u != null) {
-                int idUser = u.getId();
                 String pswHashed = Utils.hashPassword(password_text, u.getSalt());
                 if (pswHashed.equals(u.getMdp())) {
 
                     if (u.getEtat() == EtatUser.Active || u.getEtat() == EtatUser.Disconnected) {
+
                         Utils.showTrayNotification(NotificationType.NOTICE, "Connexion établie", u.getType().toString(), "Bienvenue " + u.getNom() + " "
-                                + u.getPrenom(), u.getPhoto(), 2000);
-                        us.modifierEtatUser(idUser, EtatUser.Connected);
-                        switch (u.getType()) {
-                            case Administrateur:
-                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                stage.close();
+                                + u.getPrenom(), u.getPhoto(), 5000);
 
-                                GestionUsersController1.user = u;
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
+                        us.modifierEtatUser(u.getId(), EtatUser.Connected);
+                        AccueilController.userConnected = u;
+                        ac.setAccueil();
 
-                                stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
-                                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                                    @Override
-                                    public void handle(WindowEvent we) {
-                                        UserService us = new UserService();
-                                        us.modifierEtatUser(idUser, EtatUser.Disconnected);
-                                    }
-                                });
-                                stage.show();
-                                break;
-                            case Artisan:
-
-                                break;
-                            case Client:
-
-                                break;
-                        }
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.close();
 
                     } else if (u.getEtat() == EtatUser.Pending) {
-                        Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Bienvenue", null, "Vous êtes maintenant membre");
-                        TextField tf_code = new TextField();
-                        tf_code.setPromptText("Entrez le code de validation");
-                        alert.setGraphic(tf_code);
-                        alert.show();
-                        alert.resultProperty().addListener(new ChangeListener<ButtonType>() {
-                            @Override
-                            public void changed(ObservableValue<? extends ButtonType> observable, ButtonType oldValue, ButtonType newValue) {
+                        if (u.getType() == TypeUser.Artisan && (u.getToken() == null || u.getToken().isEmpty())) {
+                            Utils.showAlert(Alert.AlertType.ERROR, "Confirmation en attente", null, "Bienvenue artisan " + u.getPrenom() + ".\n"
+                                    + "Vos données sont corrects mais il faut attendre la confirmation de votre permis de vente de la part de l'administrateur.\n"
+                                    + "Un mail sera envoyé lors de la confirmation à : " + u.getEmail());
+                        } else {
+                            Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Bienvenue", null, "Vous êtes maintenant membre");
+                            TextField tf_code = new TextField();
+                            tf_code.setPromptText("Entrez le code de validation reçu par mail");
+                            alert.setGraphic(tf_code);
+                            alert.show();
+                            alert.resultProperty().addListener((observable, oldValue, newValue) -> {
                                 if (newValue == ButtonType.OK) {
-                                    User u = us.getUserById(idUser);
                                     if (u.getToken().equals(tf_code.getText())) {
                                         us.modifierEtatUser(u.getId(), EtatUser.Active);
-                                        switch (u.getType()) {
-                                            case Administrateur:
-                                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                                stage.close();
-                                                GestionUsersController1.user = u;
-                                                FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionUsers.fxml"));
-                                                stage = Utils.getAnotherStage(loader, "Bienvenue " + u.getPrenom() + " " + u.getNom());
-                                                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                                                    @Override
-                                                    public void handle(WindowEvent we) {
-                                                        UserService us = new UserService();
-                                                        us.modifierEtatUser(idUser, EtatUser.Disconnected);
-                                                    }
-                                                });
-
-                                                stage.show();
-                                                break;
-                                            case Artisan:
-
-                                                break;
-                                            case Client:
-
-                                                break;
-                                        }
                                     }
                                 }
-                            }
-                        });
-
+                            });
+                        }
                     }
                 }
             } else {
@@ -216,19 +163,12 @@ public class LoginController implements Initializable {
             }
             if (u != null) {
                 String code = Utils.generateCode(6);
-
+                Utils.sendMail(u.getEmail(), code);
                 ChangerMdpController.set(code, u, blur);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangerMdp.fxml"));
                 Stage stage = Utils.getAnotherStage(loader, "Changer mot de passe");
                 stage.initStyle(StageStyle.TRANSPARENT);
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent we) {
-                        blur.setEffect(null);
-                    }
-                });
                 stage.show();
-                Utils.sendMail(u.getEmail(), code);
 
             } else {
                 Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Erreur de récupération", null,

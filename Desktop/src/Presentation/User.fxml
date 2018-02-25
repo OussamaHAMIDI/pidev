@@ -16,7 +16,11 @@
       <Label fx:id="nomPrenom" layoutX="27.0" layoutY="46.0" prefHeight="30.0" prefWidth="211.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Nom prenom" />
       <Label fx:id="tel" layoutX="31.0" layoutY="139.0" prefHeight="30.0" prefWidth="193.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 13;" text="Telephone">
          <graphic>
-            <MaterialDesignIconView fill="#73879c" glyphName="PHONE" size="16.0" wrappingWidth="21.0" />
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8_Phone_50px.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Label>
       <Label fx:id="typeUser" layoutX="26.0" layoutY="11.0" prefHeight="30.0" prefWidth="193.0" text="Type User">
@@ -26,20 +30,23 @@
       </Label>
       <Label fx:id="adresse" layoutX="31.0" layoutY="108.0" prefHeight="30.0" prefWidth="211.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 13;" text="Address">
          <graphic>
-            <FontAwesomeIconView fill="#73879c" glyphName="HOME" size="16.0" wrappingWidth="22.0" />
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8_Home_50px.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Label>
       <Label fx:id="email" layoutX="31.0" layoutY="79.0" prefHeight="30.0" prefWidth="211.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 13;" text="Email">
          <graphic>
-            <FontAwesomeIconView fill="#73879c" glyphName="" size="16.0" wrappingWidth="22.0" />
+            <ImageView fitHeight="24.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8_Email_50px_1.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Label>
       <Circle fx:id="circle" fill="#e5e8eb" layoutX="314.0" layoutY="96.0" radius="65.0" stroke="#c3c3c3" strokeLineCap="ROUND" strokeType="INSIDE" />
-      <ImageView fx:id="photoUser" fitHeight="107.0" fitWidth="103.0" layoutX="265.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/user.png" />
-         </image>
-      </ImageView>
       <JFXButton alignment="CENTER" graphicTextGap="3.0" layoutX="309.0" layoutY="184.0" onMouseClicked="#voirUser" prefHeight="34.0" prefWidth="45.0" ripplerFill="#0000008d" style="-fx-background-color: #337AB7;" text=" ">
          <cursor>
             <Cursor fx:constant="HAND" />

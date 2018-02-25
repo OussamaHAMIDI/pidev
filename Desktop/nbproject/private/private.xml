@@ -16,10 +16,15 @@
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
         </group>
         <group name="test">
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/ModifierUserController.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/GestionUsersController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/UserMain.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/UserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Services/UserService.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/LoginController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/AccueilController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Entities/User.java</file>
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/AddUserController.java</file>
-            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/AccueilAdminController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -46,5 +46,9 @@ public interface IUser {
     public void supprimerUser(User u);
 
     public InputStream getPhotoUser(int id);
+    
+    public boolean addPhotoArtisan(int idArtisan,InputStream photo);
+    
+    public Image getPhotoArtisan(int idArtisan);
 
 }
