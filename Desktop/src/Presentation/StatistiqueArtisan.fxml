@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.StatistiqueArtisanController">
+   <children>
+      <LineChart fx:id="lineChart" layoutX="50.0" layoutY="43.0" prefHeight="534.0" prefWidth="750.0" title="Quantité de produits vendus / mois">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <PieChart fx:id="pieChartProd" layoutX="866.0" layoutY="43.3" prefHeight="250.0" prefWidth="250.0" title="Nombre Total de Produits Vs Nombre de Produits Vendus" />
+      <BarChart fx:id="barChartp" layoutX="820.0" layoutY="326.6" prefHeight="250.0" prefWidth="300.0" title="Top Ten Produits">
+         <xAxis>
+            <CategoryAxis fx:id="axex" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="y" prefHeight="382.0" prefWidth="30.0" side="LEFT" />
+         </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

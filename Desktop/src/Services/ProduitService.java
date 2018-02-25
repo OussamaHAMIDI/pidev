@@ -103,7 +103,8 @@ public class ProduitService implements IProduit {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("idBoutique")),Utils.Utils.getLocalDateTime(result.getString("date")),result.getBinaryStream("photo"));
+                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), /*bs.chercherBoutiqueParID(result.getInt("id_boutique"))*/ null,Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
+                return produit;
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,7 +122,7 @@ public class ProduitService implements IProduit {
             ResultSet rs = ps.executeQuery();
             Produit p = new Produit();
             while (rs.next()) {
-                p.setId(rs.getInt("id_produit"));
+                p.setId(rs.getInt("id"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));
                 p.setDescription(rs.getString("description"));
@@ -160,13 +161,13 @@ public class ProduitService implements IProduit {
 
     @Override
     public List<Produit> listerProduits() {
-        List produits = new ArrayList();
+        List<Produit> produits = new ArrayList();
         try {
             String req = "SELECT * FROM produit";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
-            Produit p = new Produit();
             while (rs.next()) {
+                Produit p = new Produit();
                 p.setId(rs.getInt("id"));
                 p.setReference(rs.getString("reference"));
                 p.setLibelle(rs.getString("libelle"));

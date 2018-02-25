@@ -42,7 +42,10 @@ public class ReclamationAdmin2Controller implements Initializable {
     @FXML
     private AnchorPane reclamations = new AnchorPane();
     
+    public static List<Reclamation> listeReclamations;
     public static ObservableList<Node> reclamationsChildren;
+    public static ReclamationItemController ric;
+    public static Reclamation ReclamationSelectionnee;
     
     @FXML
     private ScrollPane scrollReclamation;
@@ -52,45 +55,23 @@ public class ReclamationAdmin2Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ReclamationService rs = new ReclamationService();
-        List<Reclamation> listeReclamations = new ArrayList<Reclamation>();
 
-        //listeReclamations = rs.getAllReclamations();
-        ProduitService ps = new ProduitService();
-        UserService us = new UserService();
-        User u = us.getUserById(2);
-        Produit p = new Produit();
-        List<Produit> lp = new ArrayList<Produit>();
-        Boutique b = new Boutique(u, "IMENS BOUTIQUE", lp);
-        p.setId(2);
-        p.setLibelle("LE PRODUIT LFLENI");
-        p.setBoutique(b);
-        lp.add(p);
-        Reclamation rec1 = new Reclamation(u, p, "MAAAAASEEETTT");
-        Reclamation rec2 = new Reclamation(u, b, "HLOWWWWWWWWWW");
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec2);
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec2);
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec1);
-        listeReclamations.add(rec1);
-
+        listeReclamations = rs.getAllReclamations();
         List<Parent> list = new ArrayList<Parent>();
-
+        ReclamationItemController.listeReclamations = this.listeReclamations;
         try {
             for (int i = 0; i < listeReclamations.size(); i++) {
-                ReclamationItemController.reclamationPassee = listeReclamations.get(i);
+                //ReclamationItemController.listeReclamations =  this.listeReclamations;
+                ReclamationItemController.index = i;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ReclamationItem.fxml"));
                 Parent root = loader.load();
                 list.add(root);
             }
             addToGrid(list, gridPane);
             gridPane.setHgap(0);
-            gridPane.setVgap(30);
+            gridPane.setVgap(0);
             scrollReclamation.setContent(gridPane);
+            ReclamationItemController.rac=this;
             reclamationsChildren = reclamations.getChildren();
             
         } catch (IOException ex) {
