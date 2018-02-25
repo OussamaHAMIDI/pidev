@@ -6,6 +6,7 @@
 package Presentation;
 
 import Entities.User;
+import static Presentation.GestionUsersController.list;
 import Services.UserService;
 import Utils.Enumerations.*;
 import Utils.Utils;
@@ -88,9 +89,9 @@ public class AddUserController implements Initializable {
     private ImageView close;
 
     public AnchorPane blur;
-   
 
     UserService us = new UserService();
+    public static GestionUsersController guc;
 
     ObservableList<String> etatList = FXCollections.observableArrayList("Active", "Déconnecté");
     ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
@@ -103,7 +104,6 @@ public class AddUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         close.setCursor(Cursor.HAND);
 
-       
         type.setValue("Client");
         type.setItems(typeList);
         etat.setValue("Active");
@@ -139,7 +139,6 @@ public class AddUserController implements Initializable {
         s.close();
     }
 
-     
     @FXML
     private void onSetAction_importer(ActionEvent event) throws IOException {
         FileChooser file = new FileChooser(); //pour choisir la photo
@@ -189,15 +188,19 @@ public class AddUserController implements Initializable {
                     img = new Image(u.getPhoto());
 
                 }
+
+                GestionUsersController.list.add(u);
+                list = us.getUsers();
+                GestionUsersController.gridPane.getChildren().clear();
+                guc.addToGrid(list);
+
                 Utils.showTrayNotification(NotificationType.CUSTOM, "Utilisateur ajouté avec succès", null, "Mail envoyé à " + u.getEmail(), img, 6000);
 
                 Utils.sendMail(email.getText(), code);
                 Utils.showAlert(Alert.AlertType.INFORMATION, "Utilisateur ajouté avec succès", null, "Mail envoyé à " + u.getEmail());
                 Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-               
-                blur.setEffect(null);
-               
+                // blur.setEffect(null);
                 s.close();
             }
         }

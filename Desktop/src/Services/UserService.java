@@ -10,6 +10,9 @@ import Entities.User;
 import IServices.IUser;
 import Utils.Enumerations.*;
 import Utils.Utils;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,11 +64,15 @@ public class UserService implements IUser {
             ps.setString(15, u.getSexe());
             ps.setString(16, u.getToken());
             ps.setBinaryStream(17, u.getPhoto());
+            if (u.getPhoto() == null) {
+                ps.setBinaryStream(17, new FileInputStream("src/Images/user.png"));
+            }
+
             ps.setString(18, u.getSalt());
             ps.executeUpdate();
             System.out.println("Ajout User réussi");
             return true;
-        } catch (SQLException ex) {
+        } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Ajout User echoué");
             return false;
@@ -416,24 +423,24 @@ public class UserService implements IUser {
     public Image getPhoto(int id) {
         InputStream photo = null;
         try {
+            photo = new FileInputStream("src/Images/user.png");
             String req = "SELECT photo_profil FROM `user` WHERE id = '" + id + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
 
                 photo = rs.getBinaryStream("photo_profil");
-                System.out.println("photo retrieved");
-            }
+                //System.out.println("photo retrieved");
 
-        } catch (SQLException ex) {
+            }
+            return new Image(photo);
+
+        } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec get photo");
 
         }
-        if (photo != null) {
-            return new Image(photo);
-        }
-        return null;
+        return new Image(photo);
     }
 
 }
