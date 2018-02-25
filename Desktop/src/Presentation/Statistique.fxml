@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.StatistiqueController">
+   <children>
+      <PieChart fx:id="pieChart" layoutX="856.4" layoutY="316.6" prefHeight="250.0" prefWidth="250.0" title="Nombre d'utilisateurs" />
+      <LineChart fx:id="lineChart" layoutX="390.0" layoutY="33.3" prefHeight="533.3" prefWidth="400.0" title="Quantité de produits vendus / mois">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <BarChart fx:id="barChartp" layoutX="33.3" layoutY="316.6" prefHeight="250.0" prefWidth="300.0" title="Top Ten Produits">
+         <xAxis>
+            <CategoryAxis fx:id="axex" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="y" prefHeight="382.0" prefWidth="30.0" side="LEFT" />
+         </yAxis>
+      </BarChart>
+      <PieChart fx:id="pieChartProd" layoutX="856.0" layoutY="33.3" prefHeight="250.0" prefWidth="250.0" title="Nombre Total de Produits Vs Nombre de Produits Vendus" />
+      <BarChart fx:id="barChartb" layoutX="33.3" layoutY="33.3" prefHeight="250.0" prefWidth="300.0" title="Top Ten Boutiques">
+         <xAxis>
+            <CategoryAxis fx:id="axex1" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="y1" prefHeight="382.0" prefWidth="30.0" side="LEFT" />
+         </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

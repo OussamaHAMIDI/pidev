@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -28,3 +29,34 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/UserController.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/Statistique.fxml</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/StatistiqueController.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Services/EvaluationService.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/IServices/IReclamation.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/IServices/IEvaluation.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationAdmin2Controller.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/PanierController.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Services/StatistiqueService.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationAdmin2.fxml</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationItemController.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Utils/Utils.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/HistoriqueClient2.fxml</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/HistoriqueClient2Controller.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/HistoriqueClientItemController.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ProduitPanierController.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/HistoriqueMain.java</file>
+            <file>file:/C:/Users/benab/Documents/GitHub/pidev/Desktop/src/Presentation/ReclamationItemController.java</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> fbf415660b15e33b8ff0a686bf540766fcf702d5

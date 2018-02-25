@@ -41,4 +41,10 @@ public interface IEvaluation {
     
     public boolean modifierEvaluation(Evaluation evaluation);
     
+    public boolean produitHasNote(Produit produit);
+    
+    public boolean boutiqueHasNote(Boutique boutique);
+    
+    public boolean peutEvaluer(User user, Produit produit);
+    
 }

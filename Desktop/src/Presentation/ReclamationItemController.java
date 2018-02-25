@@ -6,11 +6,14 @@
 package Presentation;
 
 import Entities.Reclamation;
+import Services.ReclamationService;
 import Utils.Enumerations;
 import Utils.Enumerations.TypeReclamation;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -30,7 +34,11 @@ import javafx.scene.layout.Pane;
  */
 public class ReclamationItemController implements Initializable {
     
-    public static Reclamation reclamationPassee;
+    public static List<Reclamation> listeReclamations;
+    public static int index;
+    private Reclamation r;
+    public static ReclamationAdmin2Controller rac;
+    
     @FXML
     private AnchorPane reclamation;
     @FXML
@@ -45,16 +53,19 @@ public class ReclamationItemController implements Initializable {
     private JFXButton buttonBP;
     @FXML
     private JFXButton buttonU;
-
-    
+    @FXML
+    private JFXButton supprimerR;
+    @FXML
+    private Label date;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        description.setText(reclamationPassee.getDescription());
-        id.setText(((Integer)reclamationPassee.getId()).toString());
-        if (reclamationPassee.getType()==TypeReclamation.Boutique){
+        r = ReclamationAdmin2Controller.listeReclamations.get(index);
+        description.setText(r.getDescription());
+        date.setText(r.getDateCreation().toString().replace("T", " à "));
+        id.setText(((Integer)r.getId()).toString());
+        if (r.getType()==TypeReclamation.Boutique){
             buttonBP.setText("Voir Boutique");
         }else{
             buttonBP.setText("Voir Produit");
@@ -77,7 +88,7 @@ public class ReclamationItemController implements Initializable {
 
     @FXML
     private void voirBP(ActionEvent event) {
-        if (reclamationPassee.getType()==TypeReclamation.Boutique){
+        if (r.getType()==TypeReclamation.Boutique){
             try {
                 redirectBoutique();
             } catch (IOException ex) {
@@ -99,5 +110,18 @@ public class ReclamationItemController implements Initializable {
             Logger.getLogger(ReclamationItemController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void supprimer(ActionEvent event) {
+        ReclamationService rs = new ReclamationService();
+        System.out.println(r);
+        rs.supprimerReclamation(getThis());
+        rac.listeReclamations.remove(r);
+        GridPane parent = (GridPane)reclamation.getParent();
+        parent.getChildren().remove(reclamation);
+    }
     
+    private Reclamation getThis(){
+        return this.r;
+    }
 }
