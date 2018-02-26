@@ -18,10 +18,38 @@
     color: #3C4858;
 }
 
-/*.nav-button {
-    -fx-background-color: #C63D0F;
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
 }
-.nav-button:pressed {
-    -fx-background-color:#D9853B;
-}*/
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #96b946;
+}
 

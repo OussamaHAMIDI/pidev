@@ -100,12 +100,12 @@ public class GestionUsersController implements Initializable {
     private Tab tabPermis;
     @FXML
     private ImageView photoPermis;
-    /**
-     * ***************************************************************
-     */
-    public static GridPane gridPane = new GridPane();
+
+    
+    public static GridPane gridPane = null ;
 
     public static List<User> list;
+    
     public static UserController uc;
     public static User userSelected;
 
@@ -327,6 +327,7 @@ public class GestionUsersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        gridPane = new GridPane();
         date.setConverter(new StringConverter<LocalDate>() {
             private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -474,7 +475,7 @@ public class GestionUsersController implements Initializable {
 
         File selected_photo = file.showOpenDialog((Stage) modifier.getScene().getWindow());
         if (selected_photo != null) {
-            if ((selected_photo.length() / 1024) / 1024 < 4.0) {
+            if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -483,7 +484,7 @@ public class GestionUsersController implements Initializable {
                 File img = new File(path);
                 photoProfil = new FileInputStream(img);
             } else {
-                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taille trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
+                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taille trop grande !", "Veuillez choisir une photo de profil avec une taille < 2 Mo");
             }
         }
     }

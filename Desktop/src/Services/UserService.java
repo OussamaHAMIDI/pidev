@@ -13,6 +13,7 @@ import Utils.Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -368,13 +369,12 @@ public class UserService implements IUser {
     }
 
     @Override
-    public void supprimerUser(User u) {
+    public void supprimerUser(int idUser) {
 //        
 //        u.setEtat(EtatUser.Deleted);
 //        u.setEmail(u.getEmail() + u.getId());
 //        u.setUserName(u.getUserName() + u.getId());
-        UserService us = new UserService();
-        us.modifierEtatUser(u.getId(), EtatUser.Deleted);
+     modifierEtatUser(idUser, EtatUser.Deleted);
 //        if (!us.modifierUser(u)) {
 //            System.out.println("Suppression User echouée");
 //        }
