@@ -95,10 +95,10 @@ public class ReclamationService implements IReclamation {
     @Override
     public boolean supprimerReclamation(Reclamation reclamation) {
 
-        String req = "Delete from reclamation where id=? ";
+        String req = "Delete from reclamation where id='" + reclamation.getId() +  "'";
         try {
             ps = connexion.prepareStatement(req);
-            ps.setInt(1, reclamation.getId());
+            //ps.setInt(1, reclamation.getId());
             ps.executeUpdate();
             System.out.println("suppresssion reclamation effectué ");
             return true;

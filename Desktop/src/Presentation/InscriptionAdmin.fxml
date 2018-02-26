@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: #ececec;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionController">
+<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: #ececec; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionAdminController">
    <children>
-      <JFXButton layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#177fffaa" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
+      <JFXButton layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -27,7 +27,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="annuler" layoutX="541.0" layoutY="490.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#177fffa9" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
+      <JFXButton fx:id="annuler" layoutX="541.0" layoutY="490.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -35,7 +35,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label fx:id="titre" layoutX="358.0" layoutY="14.0" prefHeight="74.0" prefWidth="219.0" text="Inscription" textFill="#e82932" wrapText="true">
+      <Label fx:id="titre" layoutX="280.0" layoutY="14.0" prefHeight="74.0" prefWidth="322.0" text="Ajout d'utilisateur" textFill="#e82932" wrapText="true">
          <font>
             <Font name="Bookman Old Style Bold Italic" size="32.0" />
          </font>
@@ -80,7 +80,10 @@
 
 
 
-      <JFXComboBox fx:id="type" layoutX="256.0" layoutY="319.0" prefHeight="40.0" prefWidth="133.0" promptText="Type" />
+      <JFXComboBox fx:id="type" layoutX="256.0" layoutY="322.0" prefHeight="40.0" prefWidth="150.0" promptText="Type">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXComboBox>
      
 
 
@@ -112,7 +115,7 @@
       </ImageView>
       <Separator orientation="VERTICAL" prefHeight="200.0" />
       <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
-      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="S'incrire en tant que :">
+      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="Ajout en tant que :">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -128,6 +131,11 @@
       <ImageView fx:id="photoPermis" fitHeight="133.0" fitWidth="150.0" layoutX="495.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/icons8_Licence_100px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="close" fitHeight="67.0" fitWidth="69.0" layoutX="782.0" layoutY="18.0" onMouseClicked="#closeClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@../Images/close-button.png" />
          </image>
       </ImageView>
    </children>

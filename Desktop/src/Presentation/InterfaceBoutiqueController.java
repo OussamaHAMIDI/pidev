@@ -192,7 +192,7 @@ public class InterfaceBoutiqueController implements Initializable {
             BoutiqueService bt=new BoutiqueService();
             B=bt.chercherBoutiqueParID(B.getId());
        
-               String accessToken = "EAACEdEose0cBALnh8FXxkOGAmDxrhvukgahtLksbuUITg8vydx3NFcBjAQnZBcXNFjmTIyFMIisUrB2gKFwSbzjYnnuMkOLySiQJRWe2kkXxlwZAbmYlkvZBKduoPXPqrhwWsgdfn9ivXJY4SweyM0ZBH2XZBZANgJNHLH3LaLMibaUhKejQdlA5H9taDsrQYZD";
+               String accessToken = "EAACEdEose0cBAP27Lda4HrkFnzl7XZBZAovbHcG4N9IHStxtBS9OtEQXQwz17ZByihgaulS5m90uPQFIm9itnIIDRJ0dPJKWOz1H5ZBDfVDqps7SfIBHiqrUQkzLMR4DO5zqDZCF8CqCchZBZBcSuliL2UMshscCZCOg7WttxK27HXZArJ0Y5xd8BuuKW7n5cq2IZD";
        Scanner s = new Scanner(System.in);
         FacebookClient fbClient= new DefaultFacebookClient(accessToken);
          FacebookType response = fbClient.publish("me/feed", FacebookType.class,

@@ -56,7 +56,7 @@ public class MainReclamation {
         //boolean a = rs.ajouterReclamation(r1);
         //boolean b = rs.ajouterReclamation(r2);
         List<Reclamation> hey = new ArrayList<Reclamation>();
-        //hey = rs.getAllReclamations();
+        hey = rs.getAllReclamations();
         System.out.println(hey);
                 
                 
