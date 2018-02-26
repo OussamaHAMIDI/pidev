@@ -11,6 +11,7 @@ import Entities.Produit;
 import Entities.User;
 import Services.BoutiqueService;
 import Services.EvaluationService;
+import Services.StatistiqueService;
 import Services.UserService;
 import Utils.Enumerations.TypeReclamation;
 import java.time.LocalDateTime;
@@ -27,29 +28,30 @@ public class MainEvaluation {
 
     public static void main(String[] args) {
 
-        TypeReclamation type1 = TypeReclamation.Boutique;
-        TypeReclamation type2 = TypeReclamation.Produit;
-
-        Produit p1 = new Produit();
-        p1.setId(2);
-        Produit p2 = new Produit();
-        List<Produit> produits = new ArrayList<Produit>();
-
-        produits.add(p1);
-        produits.add(p2);
+//        TypeReclamation type1 = TypeReclamation.Boutique;
+//        TypeReclamation type2 = TypeReclamation.Produit;
+//
+//        Produit p1 = new Produit();
+//        p1.setId(2);
+//        Produit p2 = new Produit();
+//        List<Produit> produits = new ArrayList<Produit>();
+//
+//        produits.add(p1);
+//        produits.add(p2);
         User user ;
         UserService us = new UserService();
         user = us.getUserById(2);
-        user.setId(2);
-        Boutique boutique = new Boutique(user,"Hellou",produits);
-        boutique.setId(2);
-        BoutiqueService bs = new BoutiqueService();
-        //bs.ajouterBoutique(boutique);
-        
-        //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
-        //Evaluation e1 = new Evaluation(user,boutique,5);
-        //Evaluation e2 = new Evaluation(user,p1,5);
-        EvaluationService es = new EvaluationService();
+        System.out.println(user);
+//        user.setId(2);
+//        Boutique boutique = new Boutique(user,"Hellou",produits);
+//        boutique.setId(2);
+//        BoutiqueService bs = new BoutiqueService();
+//        //bs.ajouterBoutique(boutique);
+//        
+//        //Evaluation e1 = new Evaluation(1,1,1,now,type,8);
+//        //Evaluation e1 = new Evaluation(user,boutique,5);
+//        //Evaluation e2 = new Evaluation(user,p1,5);
+//        EvaluationService es = new EvaluationService();
 
         //boolean a = rs.ajouterEvaluation(e1);
         //boolean b = rs.ajouterEvaluation(e2);
@@ -61,11 +63,27 @@ public class MainEvaluation {
         //List<Evaluation> hey = new ArrayList<Evaluation>();
         //hey = es.rechercherEvaluationUserProduit(user,p1);
         //System.out.println(hey);
-        float note = es.getNoteBoutique(boutique);
-        System.out.println(note);
-        Evaluation ev = es.getEvaluationById(5);
-        ev.setNote(10);
-        es.modifierEvaluation(ev);
+//        float note = es.getNoteBoutique(boutique);
+//        System.out.println(note);
+//        Evaluation ev = es.getEvaluationById(5);
+//        ev.setNote(10);
+//        es.modifierEvaluation(ev);
+        
+        StatistiqueService ss = new StatistiqueService();
+//        
+//        lb = ss.getTopTenBoutiques();
+        BoutiqueService bs = new BoutiqueService();
+        List<Boutique> lb = bs.lireBoutique(user);
+        List<Produit> lp = new ArrayList<Produit>();
+        for(Boutique b : lb){
+            lp.addAll(bs.lireProduitsParBoutique(b));
+            b.setListProduit(lp);
+        }
+        
+       System.out.println(lb);
+        System.out.println(lp);
+//        Float x = ss.getQuantiteProduitsVendusParMois("-02-");
+//        System.out.println(x);
 
     }
 

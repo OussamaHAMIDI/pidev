@@ -7,6 +7,7 @@ package Presentation;
 
 import java.io.IOException;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,14 +21,17 @@ import javafx.stage.Stage;
  *
  * @author benab
  */
-public class HistoriqueMain extends Application {
+public class StatistiqueMain extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(("HistoriqueClient2.fxml")));
+        
+        Parent root = FXMLLoader.load(getClass().getResource(("Statistique.fxml")));
+        //Parent root = FXMLLoader.load(getClass().getResource(("StatistiqueArtisan.fxml")));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        
     }
 
     /**

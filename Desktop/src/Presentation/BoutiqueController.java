@@ -7,6 +7,10 @@ package Presentation;
 
 import Entities.Boutique;
 import Entities.User;
+<<<<<<< HEAD
+=======
+
+>>>>>>> ecc389bcd598fa940a028e569f7f6191131f032d
 import Services.BoutiqueService;
 import Services.ProduitService;
 import com.jfoenix.controls.JFXDatePicker;

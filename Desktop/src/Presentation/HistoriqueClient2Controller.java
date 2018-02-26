@@ -5,20 +5,14 @@
  */
 package Presentation;
 
-import Entities.Boutique;
-import Entities.Produit;
-import Entities.Reclamation;
-import Entities.User;
-import Services.ProduitService;
-import Services.ReclamationService;
+import Entities.Panier;
+import Services.HistoriqueService;
 import Services.UserService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,52 +28,43 @@ import javafx.scene.layout.GridPane;
  *
  * @author benab
  */
-public class ReclamationAdmin2Controller implements Initializable {
-
-   
-    
-    
+public class HistoriqueClient2Controller implements Initializable {
     @FXML
-    private AnchorPane reclamations = new AnchorPane();
-    
-    public static List<Reclamation> listeReclamations;
-    public static ObservableList<Node> reclamationsChildren;
-    public static ReclamationItemController ric;
-    public static Reclamation ReclamationSelectionnee;
-    
+    private AnchorPane historiques = new AnchorPane();
     @FXML
-    private ScrollPane scrollReclamation;
-
+    private ScrollPane scrollHistoriques;
+    
+    public static ObservableList<Node> historiquesChildren;
     GridPane gridPane = new GridPane();
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ReclamationService rs = new ReclamationService();
-
-        listeReclamations = rs.getAllReclamations();
+        HistoriqueService hs = new HistoriqueService();
+        List<Panier> listePaniers = new ArrayList<Panier>();
+        UserService us = new UserService();
+        listePaniers = hs.getHistoriqueUser(us.getUserById(29));
         List<Parent> list = new ArrayList<Parent>();
-        ReclamationItemController.listeReclamations = this.listeReclamations;
         try {
-            for (int i = 0; i < listeReclamations.size(); i++) {
-                //ReclamationItemController.listeReclamations =  this.listeReclamations;
-                ReclamationItemController.index = i;
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ReclamationItem.fxml"));
+            for (int i = 0; i < listePaniers.size(); i++) {
+                HistoriqueClientItemController.panierPasse = listePaniers.get(i);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("HistoriqueClientItem.fxml"));
                 Parent root = loader.load();
                 list.add(root);
             }
             addToGrid(list, gridPane);
             gridPane.setHgap(0);
-            gridPane.setVgap(0);
-            scrollReclamation.setContent(gridPane);
-            ReclamationItemController.rac=this;
-            reclamationsChildren = reclamations.getChildren();
+            gridPane.setVgap(30);
+            scrollHistoriques.setContent(gridPane);
+            historiquesChildren = historiques.getChildren();
             
         } catch (IOException ex) {
             System.out.println(ex);
         }
-        
-    }
-
+    }    
+    
     private void addToGrid(List<Parent> list, GridPane gridPane) {
         int totalItems = list.size();
         int nbrItems = gridPane.getChildren().size();
@@ -103,6 +88,4 @@ public class ReclamationAdmin2Controller implements Initializable {
 
     }
     
-    
-
 }

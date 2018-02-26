@@ -6,6 +6,7 @@
 package Presentation;
 
 import Entities.User;
+import static Presentation.GestionUsersController.list;
 import Services.UserService;
 import Utils.Enumerations.*;
 import Utils.Utils;
@@ -14,7 +15,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.property.adapter.PropertyDescriptor;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,23 +24,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -53,10 +53,12 @@ import tray.notification.NotificationType;
  *
  * @author Hamdi
  */
-public class InscriptionController implements Initializable {
+public class InscriptionAdminController implements Initializable {
 
     @FXML
     private JFXButton annuler;
+    @FXML
+    private Label titre;
     @FXML
     private JFXTextField username;
     @FXML
@@ -78,48 +80,29 @@ public class InscriptionController implements Initializable {
     @FXML
     private ToggleGroup sexe;
     @FXML
-    private Label titre;
+    private Button Bt_importer;
     @FXML
     private ImageView photo;
     @FXML
-    private JFXButton inscrire;
+    private Button Bt_importerPermis;
     @FXML
     private ImageView photoPermis;
-
     @FXML
-    private Button Bt_importer;
-    @FXML
-    private Button Bt_importerPermis;
+    private ImageView close;
 
-    public AnchorPane blur;
+    UserService us = new UserService();
+    public static GestionUsersController guc;
+
+    ObservableList<String> typeList = FXCollections.observableArrayList("Administrateur", "Client", "Artisan");
     private FileInputStream photoProfil = null;
     private FileInputStream PhotoPermis = null;
-
-    private UserService us = new UserService();
-
-    ObservableList<String> typeList = FXCollections.observableArrayList("Client", "Artisan");
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        type.setItems(typeList);
-
-        type.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.equals("Artisan")) {
-                    photoPermis.setVisible(true);
-                    Bt_importerPermis.setVisible(true);
-                } else {
-                    photoPermis.setVisible(false);
-                    Bt_importerPermis.setVisible(false);
-                }
-            }
-        });
-        type.setValue("Client");
+        close.setCursor(Cursor.HAND);
         date.setConverter(new StringConverter<LocalDate>() {
             private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -139,13 +122,18 @@ public class InscriptionController implements Initializable {
                 return LocalDate.parse(dateString, dateTimeFormatter);
             }
         });
+        type.setItems(typeList);
 
-    }
-
-    @FXML
-    private void annulerClicked(ActionEvent event) {
-        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        s.close();
+        type.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("Artisan")) {
+                photoPermis.setVisible(true);
+                Bt_importerPermis.setVisible(true);
+            } else {
+                photoPermis.setVisible(false);
+                Bt_importerPermis.setVisible(false);
+            }
+        });
+        type.setValue("Client");
     }
 
     @FXML
@@ -176,7 +164,7 @@ public class InscriptionController implements Initializable {
 
         if (verif()) {
             if (type.getValue().equals("Artisan") && PhotoPermis == null) {
-                Utils.showAlert(Alert.AlertType.WARNING, "Informations manquantes", "Informations manquantes", "Veuillez importer votre permis de vente afin que l'administrateur le vérifie");
+                Utils.showAlert(Alert.AlertType.WARNING, "Informations manquantes", "Informations manquantes", "Veuillez importer un permis de vente");
             } else {
                 String salt = BCrypt.gensalt(4);
                 String mdp = Utils.hashPassword(password.getText(), salt);
@@ -186,8 +174,8 @@ public class InscriptionController implements Initializable {
                 if (type.getValue().equals("Artisan")) {
                     code = null;
                 }
-                
-                User u = new User(us.getNextId(), username.getText(), mdp, EtatUser.Pending, TypeUser.valueOf(type.getValue()), nom.getText(), prenom.getText(),
+
+                User u = new User(us.getNextId(), username.getText(), mdp, EtatUser.Active, TypeUser.valueOf(type.getValue()), nom.getText(), prenom.getText(),
                         date.getValue(), sexe, email.getText(), adresse.getText(), tel.getText(),
                         null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
 
@@ -196,19 +184,17 @@ public class InscriptionController implements Initializable {
                     if (type.getValue().equals("Artisan") && PhotoPermis != null) {
                         us.addPhotoArtisan(u.getId(), PhotoPermis);
                     }
-
-                    if (!type.getValue().equals("Artisan")) {
-                        Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez verifier votre boite mail",
-                                u.getPhoto(), 6000);
-                        Utils.showAlert(Alert.AlertType.INFORMATION, "Presque terminé", "Derniere étape", "• Un code de vérification a été envoyé à :\n"
-                                + u.getEmail() + "\n- Il vous sera demandé lors de votre 1ère tentative de connexion.");
-                        Utils.sendMail(email.getText(), code);
-                    } else {
-                        Utils.showTrayNotification(NotificationType.CUSTOM, "Inscription avec succès", null, "Veuillez attendre la confirmation de "
-                                + "l'administrateur", u.getPhoto(), 6000);
-                        Utils.showAlert(Alert.AlertType.INFORMATION, "Presque terminé", "Derniere étape", "• Si l'administrateur confirme votre permis, un code "
-                                + "de vérification sera envoyé à :\n" + u.getEmail() + "\n- Il vous sera demandé lors de votre 1ère tentative de connexion.");
+                    Utils.showAlert(Alert.AlertType.INFORMATION, "Succés", "Ajout avec succés", "Username : " + username.getText() + "\nEmail : " + email.getText()
+                            + "\nMot de passe : " + password.getText());
+                    Image img = photo.getImage();
+                    if (u.getPhoto() != null) {
+                        img = new Image(u.getPhoto());
                     }
+                    Utils.showTrayNotification(NotificationType.CUSTOM, "Succés d'ajout", null, "L'utilisateur a été ajouté avec succés", img, 6000);
+                    GestionUsersController.list.add(u);
+                    list = us.getUsers();
+                    GestionUsersController.gridPane.getChildren().clear();
+                    guc.addToGrid(list);
 
                     Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     s.close();
@@ -275,15 +261,13 @@ public class InscriptionController implements Initializable {
                 date.requestFocus();
                 return false;
             }
-
-            if (date.getValue().getYear() > 2010) {
-                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vous êtes trop jeune !");
+            if (!Pattern.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d", date.getValue().toString())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Verifier bien renseigner une date de naissance valide.\nExemple : 1995-11-25");
                 date.requestFocus();
                 return false;
             }
-
-            if (!Pattern.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d", date.getValue().toString())) {
-                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Verifier bien renseigner une date de naissance valide.\nExemple : 1995-11-25");
+            if (date.getValue().getYear() > 2000) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vous êtes mineur !\nAge minimal 18 ans");
                 date.requestFocus();
                 return false;
             }
@@ -317,6 +301,18 @@ public class InscriptionController implements Initializable {
             }
         }
         return true;
+    }
+
+    @FXML
+    private void annulerClicked(ActionEvent event) {
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
+    }
+
+    @FXML
+    private void closeClicked(MouseEvent event) {
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
 
 }

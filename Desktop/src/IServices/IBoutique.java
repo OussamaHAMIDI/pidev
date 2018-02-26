@@ -7,6 +7,7 @@ package IServices;
 
 import Entities.Boutique;
 import Entities.Produit;
+import Entities.User;
 import java.util.List;
 
 /**
@@ -49,4 +50,6 @@ public interface IBoutique {
 
 //     public Boutique chercherBoutiqueParProduit (Produit produit);
 //     public void modifierBoutique(Boutique boutique);
+     
+     public List<Boutique> lireBoutique(User user);
 }

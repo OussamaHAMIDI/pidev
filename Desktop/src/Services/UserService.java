@@ -10,6 +10,9 @@ import Entities.User;
 import IServices.IUser;
 import Utils.Enumerations.*;
 import Utils.Utils;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,7 +55,7 @@ public class UserService implements IUser {
             ps.setString(6, u.getMdp());
             ps.setString(7, "a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
             ps.setString(8, u.getType().toString());
-            ps.setString(9, EtatUser.Pending.toString());
+            ps.setString(9, u.getEtat().toString());
             ps.setString(10, u.getAdresse());
             ps.setString(11, u.getTel());
             ps.setString(12, u.getNom());
@@ -61,11 +64,15 @@ public class UserService implements IUser {
             ps.setString(15, u.getSexe());
             ps.setString(16, u.getToken());
             ps.setBinaryStream(17, u.getPhoto());
+            if (u.getPhoto() == null) {
+                ps.setBinaryStream(17, new FileInputStream("src/Images/user.png"));
+            }
+
             ps.setString(18, u.getSalt());
             ps.executeUpdate();
             System.out.println("Ajout User réussi");
             return true;
-        } catch (SQLException ex) {
+        } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Ajout User echoué");
             return false;
@@ -310,7 +317,7 @@ public class UserService implements IUser {
                 ps.setString(6, null);
             }
 
-            ps.setString(7, u.getRole());
+            ps.setString(7,"a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
             ps.setString(8, u.getType().toString());
             ps.setString(9, u.getEtat().toString());
             ps.setString(10, u.getAdresse());
@@ -321,7 +328,7 @@ public class UserService implements IUser {
             ps.setString(15, u.getSexe());
             ps.setString(16, u.getSalt());
 
-            ps.setBinaryStream(17, u.getPhoto());
+            ps.setBlob(17, u.getPhoto());
 
             ps.executeUpdate();
             System.out.println("Modification User " + u.getUserName() + " réussie");
@@ -334,31 +341,12 @@ public class UserService implements IUser {
         }
     }
 
-//    @Override
-//    public InputStream getPhotoUser(int idUser) {
-//        InputStream img = null;
-//        try {
-//            String req = "SELECT photo_profil FROM `user` WHERE id = '" + idUser + "'";
-//            ps = connexion.prepareStatement(req);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.first()) {
-//                img = rs.getBinaryStream("photo_profil");
-//                System.out.println("Photo retrieved");
-//            }
-//            return img;
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserService.class
-//                    .getName()).log(Level.SEVERE, null, ex);
-//            System.out.println("Echec get photo");
-//            return img;
-//        }
-//    }
+
     @Override
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         try {
-            String req = "SELECT * FROM `user` ";
+            String req = "SELECT * FROM `user` order by id desc ";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -381,14 +369,15 @@ public class UserService implements IUser {
 
     @Override
     public void supprimerUser(User u) {
-        u.setEtat(EtatUser.Deleted);
-        u.setEmail(u.getEmail() + u.getId());
-        u.setUserName(u.getUserName() + u.getId());
+//        
+//        u.setEtat(EtatUser.Deleted);
+//        u.setEmail(u.getEmail() + u.getId());
+//        u.setUserName(u.getUserName() + u.getId());
         UserService us = new UserService();
-
-        if (!us.modifierUser(u)) {
-            System.out.println("Suppression User echouée");
-        }
+        us.modifierEtatUser(u.getId(), EtatUser.Deleted);
+//        if (!us.modifierUser(u)) {
+//            System.out.println("Suppression User echouée");
+//        }
     }
 
     @Override
@@ -416,24 +405,60 @@ public class UserService implements IUser {
     public Image getPhoto(int id) {
         InputStream photo = null;
         try {
+            photo = new FileInputStream("src/Images/user.png");
             String req = "SELECT photo_profil FROM `user` WHERE id = '" + id + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
-
                 photo = rs.getBinaryStream("photo_profil");
-                System.out.println("photo retrieved");
+                //System.out.println("photo retrieved");
             }
+            return new Image(photo);
 
-        } catch (SQLException ex) {
+        } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec get photo");
 
         }
-        if (photo != null) {
-            return new Image(photo);
-        }
-        return null;
+        return new Image(photo);
     }
 
+    @Override
+    public boolean addPhotoArtisan(int idArtisan,InputStream photo) {
+        try {
+            String req = "UPDATE `user` SET `photo_permis`=? WHERE id = '" + idArtisan + "'";
+            ps = connexion.prepareStatement(req);
+            ps.setBlob(1, photo);
+            ps.executeUpdate();
+            System.out.println("Modification photo artisan réussie");
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Modification photo artisan echouée");
+            return false;
+        }
+    }
+
+    @Override
+    public Image getPhotoArtisan(int idArtisan) {
+        InputStream permis = null;
+        try {
+           
+            String req = "SELECT photo_permis FROM `user` WHERE id = '" + idArtisan + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                permis = rs.getBinaryStream("photo_permis");
+                //System.out.println("photo retrieved");
+            }
+            return new Image(permis);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get photo artisan");
+
+        }
+        return new Image(permis);
+    }
 }

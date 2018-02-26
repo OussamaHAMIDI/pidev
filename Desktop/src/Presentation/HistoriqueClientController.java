@@ -188,23 +188,13 @@ public class HistoriqueClientController implements Initializable {
 
     private void setHistoriqueDetails() {
 
-        //Evaluation e = es.getEvaluationById(3);
-        //LocalDateTime now = e.getDateCreation();
-        //System.out.println(now.toString());
+        UserService us = new UserService();
+        HistoriqueService hs = new HistoriqueService();
+        PanierService ps = new PanierService();
         historique.clear();
-        ProduitPanier pp1 = new ProduitPanier();
-        ProduitPanier pp2 = new ProduitPanier();
-        pp1.setReference("hellou");
-        pp2.setPrixVente(2500);
-        List<ProduitPanier> pps = new ArrayList<ProduitPanier>();
-        pps.add(pp1); pps.add(pp2);
-        //Panier panier1 = new Panier(5, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now(), 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, pps);
-        //Panier panier2 = new Panier(3, us.getUserById(2), LocalDateTime.now() , LocalDateTime.now() , 201, 7, Enumerations.StatusPanier.Valide.toString(), Enumerations.ModePaiement.Espece.toString(), true, true, pps);
-        List<Panier> paniers = new ArrayList<Panier>();
-        //paniers.add(panier1);
-        //paniers.add(panier2);
+        List<Panier> paniers = hs.getHistoriqueUser(us.getUserById(29));
+        System.out.println(paniers);
         historique.addAll(paniers);
-
         historiqueClient.setItems(historique);
 
     }
