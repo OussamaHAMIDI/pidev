@@ -7,7 +7,10 @@ package Presentation;
 
 import Entities.Boutique;
 import Entities.User;
+<<<<<<< HEAD
+=======
 
+>>>>>>> ecc389bcd598fa940a028e569f7f6191131f032d
 import Services.BoutiqueService;
 import Services.ProduitService;
 import com.jfoenix.controls.JFXDatePicker;
@@ -55,7 +58,7 @@ import org.controlsfx.control.textfield.TextFields;
  *
  * @author Azza
  */
-public class BoutiqueController implements Initializable , MapComponentInitializedListener, DirectionsServiceCallback, ControlledScreen {
+public class BoutiqueController implements Initializable , MapComponentInitializedListener, DirectionsServiceCallback {
     private GeocodingService geocodingService;
     protected DirectionsPane directionsPane;
 List<String> l = new ArrayList();
@@ -199,8 +202,5 @@ geocodingService = new GeocodingService();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setScreenParent(ScreensController screenPage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+  
 }

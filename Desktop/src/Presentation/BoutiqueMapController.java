@@ -5,8 +5,7 @@
  */
 package Presentation;
 
-import GUI.ScreensController;
-import IServices.ControlledScreen;
+
 import Utils.NavigatorData;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -36,7 +35,7 @@ import javafx.fxml.Initializable;
  *
  * @author Azza
  */
-public class BoutiqueMapController implements Initializable , MapComponentInitializedListener, DirectionsServiceCallback, ControlledScreen {
+public class BoutiqueMapController implements Initializable , MapComponentInitializedListener, DirectionsServiceCallback {
  private GeocodingService geocodingService;
   private MarkerOptions markerOptions;
    private GoogleMap map;
@@ -113,9 +112,6 @@ public class BoutiqueMapController implements Initializable , MapComponentInitia
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }

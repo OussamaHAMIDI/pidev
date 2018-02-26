@@ -35,6 +35,10 @@ public class Produit {
     
     private InputStream photo;
 
+    public Produit(int id) {
+        this.id = id;
+    }
+
 
     
 

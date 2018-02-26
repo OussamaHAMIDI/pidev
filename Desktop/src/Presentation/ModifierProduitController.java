@@ -9,10 +9,13 @@ import Entities.Boutique;
 import Entities.Produit;
 import Services.ProduitService;
 import Utils.Utils;
+import com.jfoenix.controls.JFXButton;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -31,6 +34,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+
 
 /**
  * FXML Controller class
@@ -57,23 +61,26 @@ public class ModifierProduitController implements Initializable {
     @FXML
     private Button modifier;
     @FXML
-    private Button annuler;
-    @FXML
-    private Button supprimer;
-    @FXML
     private Button ajouterPhoto;
     @FXML
     private ImageView photo;
     
     private FileInputStream photoProduit= null;
     
-    public static Produit selectedProduit;
+    public static Produit selectedProduit = new Produit(106);
+    @FXML
+    private JFXButton Supprimer;
     /**
      * Initializes the controller class.
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ProduitService ps=new ProduitService();
+        selectedProduit=ps.chercherProduitParID(selectedProduit.getId());
+        
+        
         reference.setText(selectedProduit.getReference());
         libelle.setText(selectedProduit.getLibelle());
         description.setText(selectedProduit.getDescription());
@@ -82,14 +89,20 @@ public class ModifierProduitController implements Initializable {
         couleur.setText(selectedProduit.getCouleur());
         texture.setText(selectedProduit.getTexture());
         poids.setText(String.valueOf(selectedProduit.getPoids()));
-        photo.setImage(new Image(selectedProduit.getPhoto()));
+        if (selectedProduit.getPhoto()!=null) {
+            photo.setImage(new Image(selectedProduit.getPhoto()));
+        }
     }    
     @FXML
     public void modifierProduit (ActionEvent event)
     {
         ProduitService ps=new ProduitService();
         Boutique b = new Boutique();
-        ps.modifierProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
+        if(photoProduit!=null)
+        {
+        selectedProduit.setPhoto(photoProduit);
+        }
+        ps.modifierProduit(new Produit(selectedProduit.getId(),reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, selectedProduit.getPhoto()));
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{
@@ -97,7 +110,7 @@ public class ModifierProduitController implements Initializable {
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo du produit");
 
-        File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
+        File selected_photo = file.showOpenDialog((Stage) prix.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 4.0) {
                 String path = selected_photo.getAbsolutePath();
@@ -118,6 +131,7 @@ public class ModifierProduitController implements Initializable {
      *
      * @param event
      */
+    @FXML
     public void supprimerProduit (ActionEvent event)
     {
         ProduitService ps=new ProduitService();
