@@ -8,7 +8,9 @@ package Presentation;
 import Entities.Boutique;
 import Entities.Produit;
 import Services.ProduitService;
+import Utils.SmsSender;
 import Utils.Utils;
+import com.jfoenix.controls.JFXButton;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +28,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -54,14 +55,13 @@ public class AjouterProduitController implements Initializable {
     @FXML
     private TextField poids;
     @FXML
-    private Button ajouter;
-    @FXML
-    private Button annuler;
-    @FXML
     private Button ajouterPhoto;
     @FXML
     private ImageView photo;
     private FileInputStream photoProduit= null;
+    private JFXButton modifier;
+    @FXML
+    private JFXButton ajouter;
     /**
      * Initializes the controller class.
      * @param url
@@ -70,11 +70,15 @@ public class AjouterProduitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }    
     @FXML
-    public void ajouterProduit (ActionEvent event)
+    public void ajouterProduit (ActionEvent event) throws IOException
     {
         ProduitService ps=new ProduitService();
         Boutique b = new Boutique();
-        ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
+        if(ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit)))
+        {
+            SmsSender ss = new SmsSender();
+            ss.sendSms("ajout%20effectué", "54476969");
+        }
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{
@@ -82,7 +86,7 @@ public class AjouterProduitController implements Initializable {
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo du produit");
 
-        File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
+        File selected_photo = file.showOpenDialog((Stage) ajouter.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 4.0) {
                 String path = selected_photo.getAbsolutePath();

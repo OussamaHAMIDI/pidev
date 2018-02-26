@@ -103,7 +103,7 @@ public class ProduitService implements IProduit {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("idBoutique")),Utils.Utils.getLocalDateTime(result.getString("date")),result.getBinaryStream("photo"));
+                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -178,6 +178,7 @@ public class ProduitService implements IProduit {
                 p.setPoids(rs.getFloat("poids"));
                 p.setPhoto(rs.getBinaryStream("photo"));
                 produits.add(p);
+                p= new Produit();
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

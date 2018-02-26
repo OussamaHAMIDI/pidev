@@ -33,11 +33,12 @@ public class StockService implements IServices.IStock{
     {
         Stock stock = new Stock(idBoutique);
         try {
-            String req = "SELECT * FROM stock WHERE idBoutique = " + idBoutique + "";
+            String req = "SELECT * FROM stock WHERE id_Boutique = " + idBoutique + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                stock.getListStock().put(rs.getInt("idProduit"), rs.getInt("quantite"));
+                stock.getIds().add(rs.getInt("id_Produit"));
+                stock.getQuantites().add(rs.getInt("quantite"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,14 +51,15 @@ public class StockService implements IServices.IStock{
     public Stock modifierStock(int idProduit, Stock stock, int qte) 
     {
         try {
-            String req = "UPDATE stock SET  quantite=quantite + ? WHERE idBoutique=? and idProduit=?";
+            String req = "UPDATE stock SET  quantite=quantite + (?) WHERE id_Boutique=? and id_Produit=?";
             ps = connexion.prepareStatement(req);
             ps.setInt(1, qte);
             ps.setInt(2, stock.getIdBoutique());
             ps.setInt(3, idProduit);
             ps.executeUpdate();
             System.out.println("Modification effectuée");
-            stock.getListStock().replace(idProduit,stock.getListStock().get(idProduit)+qte);
+            
+            stock.getQuantites().set(stock.getIds().indexOf(idProduit),stock.getQuantites().get(stock.getIds().indexOf(idProduit))+qte);
             return stock;
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

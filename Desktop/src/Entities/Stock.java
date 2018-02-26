@@ -16,18 +16,14 @@ public class Stock {
     
     
     private int idBoutique;
-    private Map<Integer,Integer> listStock;
-
+    private List<Integer> ids;
+    private List<Integer> quantites;
+    
     public Stock() {
     }
 
     public Stock(int idBoutique) {
         this.idBoutique = idBoutique;
-    }
-    
-    public Stock(int idBoutique, Map<Integer, Integer> listStock) {
-        this.idBoutique = idBoutique;
-        this.listStock = listStock;
     }
 
     public int getIdBoutique() {
@@ -38,20 +34,26 @@ public class Stock {
         this.idBoutique = idBoutique;
     }
 
-    public Map<Integer, Integer> getListStock() {
-        return listStock;
+    public List<Integer> getIds() {
+        return ids;
     }
 
-    public void setListStock(Map<Integer, Integer> listStock) {
-        this.listStock = listStock;
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
+    }
+
+    public List<Integer> getQuantites() {
+        return quantites;
+    }
+
+    public void setQuantites(List<Integer> quantites) {
+        this.quantites = quantites;
+    }
+
+    public Stock(int idBoutique, List<Integer> ids, List<Integer> quantites) {
+        this.idBoutique = idBoutique;
+        this.ids = ids;
+        this.quantites = quantites;
     }
     
-    
-    
-    
-   
-    
-    
-    
-  
 }

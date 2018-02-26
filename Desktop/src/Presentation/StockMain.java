@@ -20,11 +20,11 @@ import javafx.stage.Stage;
  *
  * @author oussamahamidi
  */
-public class MainProduit extends Application {
+public class StockMain extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(("ListProduits.fxml")));
+        Parent root = FXMLLoader.load(getClass().getResource(("ListStock.fxml")));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
