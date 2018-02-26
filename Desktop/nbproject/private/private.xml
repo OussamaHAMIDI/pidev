@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduit.fxml</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueMain.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/main/MainBoutique.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/Boutique.fxml</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/InterfaceBoutiqueController.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueController.java</file>
+            <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Services/BoutiqueService.java</file>
         </group>
-        <group>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierUserController.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/ProduitService.java</file>
-            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
