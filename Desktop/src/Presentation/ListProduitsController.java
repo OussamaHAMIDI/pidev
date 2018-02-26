@@ -98,7 +98,7 @@ public class ListProduitsController implements Initializable {
             ProduitController.pc = this;
 
         } catch (IOException ex) {
-            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListProduitsController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         

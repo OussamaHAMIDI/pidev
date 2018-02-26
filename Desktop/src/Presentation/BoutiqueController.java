@@ -6,14 +6,7 @@
 package Presentation;
 
 import Entities.Boutique;
-import Entities.User;
-<<<<<<< HEAD
-=======
-
->>>>>>> ecc389bcd598fa940a028e569f7f6191131f032d
 import Services.BoutiqueService;
-import Services.ProduitService;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -31,8 +24,6 @@ import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -49,7 +40,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import jfxtras.scene.control.LocalDateTextField;
 import jfxtras.scene.control.LocalDateTimeTextField;
 import org.controlsfx.control.textfield.TextFields;
 
