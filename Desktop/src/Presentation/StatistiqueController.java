@@ -71,6 +71,7 @@ public class StatistiqueController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        System.out.println("blablabla");
         scrollStat.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         StatistiqueService ss = new StatistiqueService();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(

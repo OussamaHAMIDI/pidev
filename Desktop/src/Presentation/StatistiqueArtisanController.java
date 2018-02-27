@@ -115,6 +115,7 @@ public class StatistiqueArtisanController implements Initializable {
         float k = (float) Math.round(prc * 100) / 100;
         pourcentage.setText((String.valueOf(k)) + "% Vendus");
         progress.setProgress(k/100);
+        System.out.println("blablabla");
     }    
     
 }

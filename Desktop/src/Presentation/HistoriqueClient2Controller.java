@@ -108,6 +108,7 @@ public class HistoriqueClient2Controller implements Initializable {
         HistoriqueProduitController.p = listePaniers.get(index2);
         HistoriqueProduitController.index=index2;
         System.out.println("EKHER FORSSAAA ==== " + index2 + listePaniers.get(index2));
+        System.out.println("blablabla");
         
     }
 }

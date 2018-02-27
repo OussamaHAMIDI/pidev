@@ -117,6 +117,7 @@ public class HistoriqueProduitController implements Initializable {
         System.out.println("retourner");
         AnchorPane pane = FXMLLoader.load(getClass().getResource("HistoriqueClient2.fxml"));
         anchorProduit.getChildren().setAll(pane);
+        System.out.println("blablabla");
     }
 
 }

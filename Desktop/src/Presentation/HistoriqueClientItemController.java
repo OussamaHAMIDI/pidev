@@ -92,6 +92,7 @@ public class HistoriqueClientItemController implements Initializable {
         HistoriqueProduitController.listePassee=lpp;
         AnchorPane pane = FXMLLoader.load(getClass().getResource("HistoriqueProduit.fxml"));
         HistoriqueClient2Controller.historiquesChildren.setAll(pane);
+        System.out.println("blablabla");
     }
     
     private Panier getThis(){

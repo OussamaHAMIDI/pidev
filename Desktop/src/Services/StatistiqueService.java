@@ -97,6 +97,7 @@ public class StatistiqueService implements IStatistique {
     public List<Produit> getTopTenProduits() {
         ProduitService ps = new ProduitService();
         List<Produit> produits = ps.listerProduits();
+        System.out.println("blablabla");
         List<Produit> topTenProduits = new ArrayList<Produit>();
         EvaluationService es = new EvaluationService();
         Map<Float, ArrayList<Produit>> noteProduit = new TreeMap<Float, ArrayList<Produit>>(Collections.reverseOrder());
