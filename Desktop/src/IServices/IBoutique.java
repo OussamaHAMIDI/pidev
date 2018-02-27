@@ -39,6 +39,8 @@ public interface IBoutique {
    // public List<Produit> lireProduitsParBoutique(int idBoutique);
     
     public List<Produit> lireProduitsParBoutique(Boutique boutique);
+    
+    public Boutique remplirProduitsParBoutique(Boutique boutique);
 
     public List<Produit> lireProduitsParBoutique(String nomBoutique);
 

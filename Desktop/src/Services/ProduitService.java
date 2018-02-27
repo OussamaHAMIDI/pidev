@@ -6,6 +6,7 @@
 package Services;
 
 import DataStorage.MyDB;
+import Entities.Boutique;
 import IServices.IProduit;
 import Entities.Produit;
 import java.sql.Connection;
@@ -104,8 +105,27 @@ public class ProduitService implements IProduit {
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
 
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
+                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
+                return produit;
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur" + ex.getMessage());
+        }
+        return produit;
+    }
+    
+    
+    @Override
+    public Produit chercherProduitParID(Boutique boutique, int id) {
+        Produit produit = null;
+        try {
+            ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM produit WHERE id = " + id);
+            if (result.first()) {
 
+                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), boutique,Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
+                return produit;
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
