@@ -81,7 +81,7 @@ public class ChangerMdpController implements Initializable {
             } else {
                 UserService us = new UserService();
                 if (us.changerMdp(u.getId(), code)) {
-                    Utils.showTrayNotification(NotificationType.NOTICE, "Votre mot de passe est changé", null, null, u.getPhoto(), 2000);
+                    Utils.showTrayNotification(NotificationType.NOTICE, "Votre mot de passe est changé", null, null, u.getPhoto(), 5000);
                 }
                 Stage s = (Stage) annuler.getScene().getWindow();
                 blur.setEffect(null);

@@ -43,8 +43,12 @@ public interface IUser {
 
     public List<User> getUsers();
 
-    public void supprimerUser(User u);
+    public void supprimerUser(int idUser);
 
     public InputStream getPhotoUser(int id);
+    
+    public boolean addPhotoArtisan(int idArtisan,InputStream photo);
+    
+    public Image getPhotoArtisan(int idArtisan);
 
 }

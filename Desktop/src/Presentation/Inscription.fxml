@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -18,15 +19,21 @@
 
 <AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: #ececec;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionController">
    <children>
-      <JFXButton fx:id="inscrire" layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
+      <JFXButton layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#177fffaa" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
-      <JFXButton fx:id="annuler" layoutX="544.0" layoutY="487.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
+      <JFXButton fx:id="annuler" layoutX="541.0" layoutY="490.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#177fffa9" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <Label fx:id="titre" layoutX="358.0" layoutY="14.0" prefHeight="74.0" prefWidth="219.0" text="Inscription" textFill="#e82932" wrapText="true">
          <font>
@@ -90,14 +97,17 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXRadioButton>
-      <Button fx:id="Bt_importer" layoutX="598.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo" textFill="WHITE">
+      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo" textFill="WHITE">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <ImageView fx:id="photo" fitHeight="133.0" fitWidth="150.0" layoutX="616.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="photo" fitHeight="133.0" fitWidth="150.0" layoutX="682.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/icons8_User_Male_104px.png" />
+            <Image url="@../Images/user.png" />
          </image>
       </ImageView>
       <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -107,6 +117,19 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
+      <Button fx:id="Bt_importerPermis" layoutX="477.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importerPermis" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo de permis de vente" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Maiandra GD" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fx:id="photoPermis" fitHeight="133.0" fitWidth="150.0" layoutX="495.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/icons8_Licence_100px.png" />
+         </image>
+      </ImageView>
    </children>
    <effect>
       <DropShadow />
