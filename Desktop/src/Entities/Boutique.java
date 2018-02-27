@@ -7,6 +7,7 @@ package Entities;
 
 import DataStorage.MyDB;
 import Services.ProduitService;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,10 +30,19 @@ public class Boutique {
     private String adresse;
     private List<Produit> listProduit;
     private LocalDateTime dateCreation;
+     private InputStream photo;
 
     
         public int getIDUser(){return user.getId();
 }
+
+    public InputStream getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(InputStream photo) {
+        this.photo = photo;
+    }
 
     public Boutique(int id, Double Long, Double Lat, User user, String nom, String adresse, List<Produit> listProduit, LocalDateTime dateCreation) {
         this.id = id;
