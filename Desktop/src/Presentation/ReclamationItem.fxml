@@ -15,20 +15,20 @@
          <children>
             <Pane layoutX="14.0" layoutY="11.0" prefHeight="128.0" prefWidth="947.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
                <children>
-                  <Label fx:id="date" layoutX="105.0" layoutY="14.0" prefHeight="36.0" prefWidth="273.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Date" />
-                  <Pane prefHeight="128.0" prefWidth="92.0" style="-fx-background-color: #00C0EF;">
+                  <Label fx:id="date" layoutX="105.0" layoutY="14.0" prefHeight="36.0" prefWidth="273.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #73879C;" text="Date" />
+                  <Pane prefHeight="128.0" prefWidth="92.0" style="-fx-background-color: #4183d7;">
                      <children>
-                        <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="92.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="id" textAlignment="CENTER" />
+                        <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="92.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="id" textAlignment="CENTER" />
                      </children>
                   </Pane>
-                  <Label fx:id="description" layoutX="105.0" layoutY="50.0" prefHeight="70.0" prefWidth="832.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Description" />
+                  <Label fx:id="description" layoutX="105.0" layoutY="50.0" prefHeight="70.0" prefWidth="832.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #73879C;" text="Description" />
                </children>
             </Pane>
          </children>
       </Pane>
       <Pane fx:id="buttons" layoutX="962.0" prefHeight="150.0" prefWidth="178.0">
          <children>
-             <JFXButton fx:id="buttonBP" buttonType="RAISED" layoutX="28.0" layoutY="21.0" onAction="#voirBP" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #00C0EF;" textFill="WHITE">
+             <JFXButton fx:id="buttonBP" buttonType="RAISED" layoutX="28.0" layoutY="21.0" onAction="#voirBP" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #4183d7;" textFill="WHITE">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
                </font>

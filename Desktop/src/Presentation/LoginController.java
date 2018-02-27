@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
     private Label chnagerMdp;
 
     UserService us = new UserService();
-    public static AccueilController ac ;
+    public static AccueilController ac;
     User u = null;
 
     /**
@@ -77,8 +77,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         createUser.setCursor(Cursor.HAND);
         exit.setCursor(Cursor.HAND);
-        
-        
+
         username.setText("HamdiMegdiche");
         password.setText("25111995");
     }
@@ -107,7 +106,7 @@ public class LoginController implements Initializable {
                 String pswHashed = Utils.hashPassword(password_text, u.getSalt());
                 if (pswHashed.equals(u.getMdp())) {
 
-                    if (u.getEtat() == EtatUser.Active || u.getEtat() == EtatUser.Disconnected) {
+                    if (u.getEtat() == EtatUser.Active || u.getEtat() == EtatUser.Disconnected || u.getEtat() == EtatUser.Connected) {
 
                         Utils.showTrayNotification(NotificationType.NOTICE, "Connexion établie", u.getType().toString(), "Bienvenue " + u.getNom() + " "
                                 + u.getPrenom(), u.getPhoto(), 5000);
@@ -125,19 +124,53 @@ public class LoginController implements Initializable {
                                     + "Vos données sont corrects mais il faut attendre la confirmation de votre permis de vente de la part de l'administrateur.\n"
                                     + "Un mail sera envoyé lors de la confirmation à : " + u.getEmail());
                         } else {
-                            Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Bienvenue", null, "Vous êtes maintenant membre");
-                            TextField tf_code = new TextField();
-                            tf_code.setPromptText("Entrez le code de validation reçu par mail");
+                            Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Bienvenue", null, "Entrez le code de validation envoyé à votre mail :"
+                                    + "\n" + u.getEmail().substring(0, 5) + "***" + u.getEmail().substring(u.getEmail().indexOf("@"), u.getEmail().indexOf("@") + 5) + "***");
+                            JFXTextField tf_code = new JFXTextField();
+                            tf_code.setPromptText("######");
                             alert.setGraphic(tf_code);
+                            tf_code.requestFocus();
                             alert.show();
                             alert.resultProperty().addListener((observable, oldValue, newValue) -> {
                                 if (newValue == ButtonType.OK) {
-                                    if (u.getToken().equals(tf_code.getText())) {
+                                    if (u.getToken().equals(tf_code.getText().trim())) {
                                         us.modifierEtatUser(u.getId(), EtatUser.Active);
+                                        Utils.showTrayNotification(NotificationType.NOTICE, "Vous êtes confirmé", u.getType().toString(), "Veuillez-vous connecter",
+                                                 u.getPhoto(), 5000);
                                     }
                                 }
                             });
                         }
+                    } else if (u.getEtat() == EtatUser.Deleted) {
+                        Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Bienvenue", null, "Votre compte est supprimé, voulez-vous le récuperer ?");
+                        alert.show();
+                        alert.resultProperty().addListener((observable, oldValue, newValue) -> {
+                            if (newValue == ButtonType.OK) {
+                                alert.close();
+                                String code = Utils.generateCode(6);
+                                Utils.sendMail(u.getEmail(), code);
+                                us.changerToken(code, u.getEmail());
+                                Alert alert2 = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Bienvenue", null, "Entrez le code de validation envoyé à votre mail :"
+                                        + "\n" + u.getEmail().substring(0, 5) + "***" + u.getEmail().substring(u.getEmail().indexOf("@"), u.getEmail().indexOf("@") + 5) + "***");
+                                JFXTextField tf_code = new JFXTextField();
+                                tf_code.setPromptText("######");
+                                tf_code.requestFocus();
+                                alert2.setGraphic(tf_code);
+                                alert2.show();
+                                alert2.resultProperty().addListener((observable2, oldValue2, newValue2) -> {
+                                    if (newValue2 == ButtonType.OK) {
+                                        if (code.equals(tf_code.getText().trim())) {
+                                            us.modifierEtatUser(u.getId(), EtatUser.Connected);
+                                            AccueilController.userConnected = u;
+                                            ac.setAccueil();
+
+                                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                            stage.close();
+                                        }
+                                    }
+                                });
+                            }
+                        });
                     }
                 }
             } else {

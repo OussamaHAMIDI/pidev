@@ -17,11 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -29,8 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import tray.notification.NotificationType;
 
 public class AccueilController implements Initializable {
 
@@ -56,6 +57,8 @@ public class AccueilController implements Initializable {
     private MenuItem changerMdp;
     @FXML
     private JFXButton btn_login;
+    @FXML
+    private MenuItem supprimerCompte;
     @FXML
     private VBox sideBarAdmin;
     @FXML
@@ -124,8 +127,11 @@ public class AccueilController implements Initializable {
 
         LoginController.ac = this;
         infos.setOnAction(event -> {
-
-            System.out.println("Option infos selected via Lambda");
+            ModifierUserController.blur = holderPane;
+            ModifierUserController.userSelected = userConnected;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierUser.fxml"));
+            Stage stage = Utils.getAnotherStage(loader, "Modifier infos user");
+            stage.show();
         });
         changerMdp.setOnAction(event -> {
             String code = Utils.generateCode(6);
@@ -133,8 +139,21 @@ public class AccueilController implements Initializable {
             ChangerMdpController.set(code, userConnected, holderPane);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangerMdp.fxml"));
             Stage stage = Utils.getAnotherStage(loader, "Changer mot de passe");
-            stage.initStyle(StageStyle.TRANSPARENT);
             stage.show();
+        });
+        supprimerCompte.setOnAction(event -> {
+            Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Confirmation", null,
+                    "Voulez-vous vraiment supprimé votre compte ?");
+            alert.show();
+            alert.resultProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue == ButtonType.OK) {
+                    us.supprimerUser(userConnected.getId());
+                    Utils.showTrayNotification(NotificationType.CUSTOM, "Informations", null, "Ce compte a été supprimé", us.getPhoto(userConnected.getId()), 6000);
+                    userConnected = null;
+                    setAccueil();
+                }
+            });
+
         });
 
         try {
@@ -164,7 +183,6 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void loginClicked(MouseEvent event) {
-        System.out.println("dkhal");
         if (userConnected == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Utils.getAnotherStage(loader, "Connexion").show();

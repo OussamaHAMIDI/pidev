@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuBoutiqueController">
+   <children>
+      <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="41.0" layoutY="23.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #162E3B; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Boutique" />
+            <Label fx:id="idB" layoutX="41.0" layoutY="208.0" prefHeight="17.0" prefWidth="94.0" text="Id :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="dateB" layoutX="41.0" layoutY="274.0" prefHeight="20.0" prefWidth="189.0" text="Date de création :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="adresseB" layoutX="41.0" layoutY="308.0" prefHeight="25.0" prefWidth="189.0" text="Adresse :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="NomB" layoutX="41.0" layoutY="241.0" prefHeight="20.0" prefWidth="189.0" text="Nom :">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="35.0" layoutY="207.0" prefWidth="200.0" />
+            <Separator layoutX="35.0" layoutY="240.0" prefWidth="200.0" />
+            <Separator layoutX="35.0" layoutY="273.0" prefWidth="200.0" />
+            <Separator layoutX="36.0" layoutY="307.0" prefWidth="200.0" />
+            <JFXButton fx:id="MapB" layoutX="48.0" layoutY="404.0" onAction="#MapBoutique" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Voir sur map" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <FontAwesomeIconView fill="#f5efef" glyphName="MAP" layoutX="67.0" layoutY="423.0" />
+            <JFXButton fx:id="produitB" layoutX="48.0" layoutY="452.0" onAction="#afficherProduit" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Voir Produit" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <FontAwesomeIconView fill="#eee9e9" glyphName="LIST" layoutX="73.0" layoutY="472.0" />
+            <ImageView fx:id="photo" fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="202.0" layoutY="14.0" prefHeight="606.0" prefWidth="869.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fx:id="boutiques" layoutX="8.0" layoutY="14.0" prefHeight="538.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </ScrollPane>
+            <JFXButton layoutX="577.0" layoutY="7.0" onMouseClicked="#ajouterBoutique" prefHeight="48.0" prefWidth="53.0" ripplerFill="#00000086" styleClass="nav-button" stylesheets="@style.css" text=" ">
+               <font>
+                  <Font size="1.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons8_Add_User_Male_52px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="501.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8_Search_48px_2.png" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="filter" layoutX="297.0" layoutY="16.0" maxWidth="219.0" minWidth="204.0" onMouseClicked="#rechercheBoutique" prefHeight="21.0" prefWidth="204.0" promptText="Rechercher">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -75,7 +75,7 @@
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXDatePicker fx:id="date" layoutX="235.0" layoutY="261.0" prefHeight="40.0" prefWidth="219.0" promptText="Date de naissance" />
+      <JFXDatePicker fx:id="date" defaultColor="#0c2edad4" layoutX="235.0" layoutY="261.0" prefHeight="40.0" prefWidth="185.0" promptText="Date de naissance" />
       
 
 
@@ -100,7 +100,7 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXRadioButton>
-      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo" textFill="WHITE">
+      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo de profil" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>
@@ -113,7 +113,6 @@
             <Image url="@../Images/user.png" />
          </image>
       </ImageView>
-      <Separator orientation="VERTICAL" prefHeight="200.0" />
       <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
       <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="Ajout en tant que :">
          <font>

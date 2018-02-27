@@ -47,4 +47,6 @@ public interface IEvaluation {
     
     public boolean peutEvaluer(User user, Produit produit);
     
+    public boolean peutEvaluer(User user, Boutique boutique);
+    
 }

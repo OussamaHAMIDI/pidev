@@ -141,7 +141,7 @@ public class PanierController implements Initializable {
             modePaiement.setItems(paiementList);
             modePaiement.setValue("Espece");
         } catch (IOException ex) {
-            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PanierController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

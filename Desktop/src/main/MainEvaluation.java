@@ -7,10 +7,13 @@ package main;
 
 import Entities.Boutique;
 import Entities.Evaluation;
+import Entities.Panier;
 import Entities.Produit;
+import Entities.ProduitPanier;
 import Entities.User;
 import Services.BoutiqueService;
 import Services.EvaluationService;
+import Services.PanierService;
 import Services.StatistiqueService;
 import Services.UserService;
 import Utils.Enumerations.TypeReclamation;
@@ -69,22 +72,25 @@ public class MainEvaluation {
 //        ev.setNote(10);
 //        es.modifierEvaluation(ev);
         
-        StatistiqueService ss = new StatistiqueService();
+//        StatistiqueService ss = new StatistiqueService();
+////        
+////        lb = ss.getTopTenBoutiques();
+//        BoutiqueService bs = new BoutiqueService();
+//        List<Boutique> lb = bs.lireBoutique(user);
+//        List<Produit> lp = new ArrayList<Produit>();
+//        for(Boutique b : lb){
+//            lp.addAll(bs.lireProduitsParBoutique(b));
+//            b.setListProduit(lp);
+//        }
 //        
-//        lb = ss.getTopTenBoutiques();
-        BoutiqueService bs = new BoutiqueService();
-        List<Boutique> lb = bs.lireBoutique(user);
-        List<Produit> lp = new ArrayList<Produit>();
-        for(Boutique b : lb){
-            lp.addAll(bs.lireProduitsParBoutique(b));
-            b.setListProduit(lp);
-        }
-        
-       System.out.println(lb);
-        System.out.println(lp);
+//       System.out.println(lb);
+//        System.out.println(lp);
 //        Float x = ss.getQuantiteProduitsVendusParMois("-02-");
 //        System.out.println(x);
-
+        PanierService ps = new PanierService();
+        //Panier panier = ps.rechercherPanierById(29);
+        List<ProduitPanier> lpp = ps.rechercherProduitsPanier(29);
+        System.out.println("Le panier EST" + lpp);
     }
 
 }

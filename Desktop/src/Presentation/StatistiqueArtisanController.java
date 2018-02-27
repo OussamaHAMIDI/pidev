@@ -20,12 +20,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 
 /**
  * FXML Controller class
@@ -43,6 +47,14 @@ public class StatistiqueArtisanController implements Initializable {
     private NumberAxis y;
     @FXML
     private CategoryAxis axex;
+    @FXML
+    private ScrollPane scrollStat;
+    @FXML
+    private Label nbTot;
+    @FXML
+    private ProgressBar progress;
+    @FXML
+    private Label pourcentage;
 
     /**
      * Initializes the controller class.
@@ -50,6 +62,7 @@ public class StatistiqueArtisanController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        scrollStat.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         StatistiqueService ss = new StatistiqueService();
         BoutiqueService bs = new BoutiqueService();
         UserService us = new UserService();
@@ -83,16 +96,26 @@ public class StatistiqueArtisanController implements Initializable {
         XYChart.Series setP = new XYChart.Series<>();
         for (Produit p : topTenProduits) {
             if (es.produitHasNote(p)) {
-                setP.getData().add(new XYChart.Data("Produit : " + p.getId(), es.getNoteProduit(p)));
+                setP.getData().add(new XYChart.Data(p.getId() + ":" + p.getReference(), es.getNoteProduit(p)));
             }
         }
         barChartp.getData().addAll(setP);
+        
         
         ObservableList<PieChart.Data> pieChartDataProduits = FXCollections.observableArrayList(
                 new PieChart.Data("Nombre total de produits : " + ss.getNombreProduits(lb), ss.getNombreProduits(lb)),
                 new PieChart.Data("Nombre de produits Vendus : " + ss.getNombreProduitsVendus(lb), ss.getNombreProduitsVendus(lb))
         );
         pieChartProd.setData(pieChartDataProduits);
+        pieChartProd.setLegendSide(Side.RIGHT);
+        double x = ss.getNombreProduits(lb);
+        double m = ss.getNombreProduitsVendus(lb);
+        nbTot.setText("Nombre Total : " + ((Double)x).toString()+ "%");
+        double prc = (m/x)*100;
+        float k = (float) Math.round(prc * 100) / 100;
+        pourcentage.setText((String.valueOf(k)) + "% Vendus");
+        progress.setProgress(k/100);
+        System.out.println("blablabla");
     }    
     
 }
