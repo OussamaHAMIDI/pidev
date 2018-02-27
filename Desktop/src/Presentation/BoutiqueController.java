@@ -6,7 +6,6 @@
 package Presentation;
 
 import Entities.Boutique;
-<<<<<<< HEAD
 import Entities.User;
 import static Presentation.MenuBoutiqueController.list;
 
@@ -14,9 +13,8 @@ import Services.BoutiqueService;
 import Services.ProduitService;
 import Utils.Utils;
 import com.jfoenix.controls.JFXDatePicker;
-=======
+
 import Services.BoutiqueService;
->>>>>>> c542c14912a9631e67cdd94d8e49e6641f5f31eb
 import com.jfoenix.controls.JFXTextField;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -59,11 +57,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-<<<<<<< HEAD
+
 import javax.imageio.ImageIO;
 import jfxtras.scene.control.LocalDateTextField;
-=======
->>>>>>> c542c14912a9631e67cdd94d8e49e6641f5f31eb
+
 import jfxtras.scene.control.LocalDateTimeTextField;
 import org.controlsfx.control.textfield.TextFields;
 
