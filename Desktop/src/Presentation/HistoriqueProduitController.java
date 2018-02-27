@@ -67,6 +67,10 @@ public class HistoriqueProduitController implements Initializable {
     //@FXML
     //private TableColumn<ProduitPanier, Boolean> details = new TableColumn<>("details");
 
+    public static List<ProduitPanier> listePassee = new ArrayList<ProduitPanier>();
+    public static Panier p;
+    public static int index;
+    private List<ProduitPanier> produitsPanier;
     @FXML
     private AnchorPane anchorProduit;
 
@@ -76,8 +80,13 @@ public class HistoriqueProduitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // TODO
+        
+        System.out.println("PRODUIT CONTROLLERRRR P  statique ====" + p);
+        PanierService ps = new PanierService();
+        produitsPanier = ps.rechercherProduitsPanier(p.getId());
+        System.out.println(produitsPanier);
         setColumnProperties();
-        setProduitDetails();
+        setProduitDetails(produitsPanier);
     }
 
     private void redirect() throws IOException {
@@ -87,7 +96,7 @@ public class HistoriqueProduitController implements Initializable {
     }
 
     private void setColumnProperties() {
-
+        
         
         reference.setCellValueFactory(new PropertyValueFactory<>("reference"));
         libelle.setCellValueFactory(new PropertyValueFactory<>("libelle"));
@@ -95,9 +104,10 @@ public class HistoriqueProduitController implements Initializable {
         quantiteVendue.setCellValueFactory(new PropertyValueFactory<>("quantiteVendue"));
     }
 
-    private void setProduitDetails() {
+    private void setProduitDetails(List<ProduitPanier> pp) {
+        System.out.println(listePassee);
         produits.clear();
-        produits.addAll(HistoriqueClientController.produitsPasse);
+        produits.addAll(pp);
         historiqueProduit.setItems(produits);
 
     }
@@ -105,7 +115,7 @@ public class HistoriqueProduitController implements Initializable {
     @FXML
     private void retourner(ActionEvent event) throws IOException {
         System.out.println("retourner");
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("HistoriqueClient.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("HistoriqueClient2.fxml"));
         anchorProduit.getChildren().setAll(pane);
     }
 

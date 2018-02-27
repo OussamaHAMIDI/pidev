@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorProduit" prefHeight="600.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HistoriqueProduitController">
+<AnchorPane id="AnchorPane" fx:id="anchorProduit" prefHeight="600.0" prefWidth="1140.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HistoriqueProduitController">
    <children>
-      <TableView fx:id="historiqueProduit" layoutX="35.0" layoutY="33.0" prefHeight="200.0" prefWidth="1000.0" style="-fx-border-radius: 5; -fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="40.0">
+      <TableView fx:id="historiqueProduit" layoutX="35.0" layoutY="33.0" prefHeight="475.0" prefWidth="1000.0" style="-fx-border-radius: 5; -fx-background-color: #FFFFFF;" stylesheets="@stat.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="40.0">
         <columns>
-          <TableColumn fx:id="reference" maxWidth="280.0" prefWidth="280.0" text="Reference Produit" />
+          <TableColumn fx:id="reference" editable="false" maxWidth="280.0" prefWidth="280.0" text="Reference Produit" />
           <TableColumn fx:id="libelle" maxWidth="480.0" prefWidth="480.0" text="Libelle" />
-            <TableColumn fx:id="prixVente" maxWidth="140.0" prefWidth="140.0" text="Prix" />
+            <TableColumn fx:id="prixVente" maxWidth="140.0" prefWidth="140.0" text="Prix unitaire" />
             <TableColumn fx:id="quantiteVendue" maxWidth="98.0" prefWidth="98.0" text="Quantité" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <Button fx:id="retour" layoutX="35.0" layoutY="333.0" mnemonicParsing="false" onAction="#retourner" style="-fx-background-radius: 2;" text="Retourner" />
+      <JFXButton fx:id="retour" accessibleRole="IMAGE_VIEW" layoutX="25.0" layoutY="545.0" onAction="#retourner" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #4183d7; -fx-text-fill: white; -fx-font-size: 14;" text="Retourner" />
    </children>
 </AnchorPane>
