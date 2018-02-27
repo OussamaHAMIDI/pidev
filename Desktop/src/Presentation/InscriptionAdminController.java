@@ -144,7 +144,7 @@ public class InscriptionAdminController implements Initializable {
 
         File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
         if (selected_photo != null) {
-            if ((selected_photo.length() / 1024) / 1024 < 4.0) {
+            if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -153,7 +153,7 @@ public class InscriptionAdminController implements Initializable {
                 File img = new File(path);
                 photoProfil = new FileInputStream(img);
             } else {
-                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
+                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 2 Mo");
             }
         }
 
@@ -212,7 +212,7 @@ public class InscriptionAdminController implements Initializable {
 
         File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
         if (selected_photo != null) {
-            if ((selected_photo.length() / 1024) / 1024 < 4.0) {
+            if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -221,7 +221,7 @@ public class InscriptionAdminController implements Initializable {
                 File img = new File(path);
                 this.PhotoPermis = new FileInputStream(img);
             } else {
-                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de permis avec une taille < 4 Mo");
+                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de permis avec une taille < 2 Mo");
             }
         }
     }

@@ -7,20 +7,30 @@ package Presentation;
 
 import Entities.Boutique;
 import Entities.Produit;
+import Entities.ProduitPanier;
 import Services.ProduitService;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -29,52 +39,71 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class ListProduitsController implements Initializable {
     @FXML
-    private TableView<Produit> tableStock;
-    @FXML
-    private TableColumn<Produit, String> columnRef;
-    @FXML
-    private TableColumn<Produit, String> columnLib;
-    @FXML
-    private TableColumn<Produit, String> columnDesc;
-    @FXML
-    private TableColumn<Produit, Float> columnPrix;
-    @FXML
-    private Button btnReload;
+    private ScrollPane listProduits;
+    List<Produit> produits=new ArrayList<Produit>();
+    GridPane gridPane= new GridPane();
+    Double scrollWidth=0.0;
+    
+    private void addToGrid(List<Parent> list, GridPane gridPane) {
+        int totalItems = list.size();
+        int totalLignes = (totalItems % 2 == 0) ? totalItems / 2 : (totalItems + 1) / 2;
+        int nbrItems = gridPane.getChildren().size();
+        int nbrRows = (nbrItems % 2 == 0) ? nbrItems / 2 : (nbrItems + 1) / 2;
 
+        if (nbrItems % 2 == 1) {// impaire
+            if (list.size() > 0) {
+                gridPane.add(list.get(0), nbrRows - 1,0);
+                list.remove(0);
+            }
+        }
+        //paire
+        for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
+//            for (int col = 0; col < 2; col++) {
+                if (list.size() > 0) {
+                    gridPane.add(list.get(0), ligne,0);
+                    list.remove(0);
+                } else {
+                    return;
+                }
+//            }
+        }
+
+    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<Produit> data;
-        data=FXCollections.observableArrayList();
-        ProduitService ps= new ProduitService();
-        Boutique bou = new Boutique();
-        List<Produit> LP=ps.listerProduitsBoutique(bou.getId());
-        System.out.println(LP.toString());
-        LP.stream().forEach((j)->{
-        data.add(j);
-        });
-        try{
-            columnRef.setCellValueFactory(new PropertyValueFactory<>("reference"));
-            columnLib.setCellValueFactory(new PropertyValueFactory<>("libelle"));
-            columnDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-            columnPrix.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        List<Parent> list = new ArrayList<Parent>();
+          try {
+            // TODO
+         
+//          //Jib liste de produits
+              ProduitService ps = new ProduitService();
+             produits.addAll(ps.listerProduits());
+            ProduitController.contenu = produits;
+            
+            for (int i = 0; i < produits.size(); i++) {
+                ProduitController.index = i;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Produit.fxml"));
+                Parent root = loader.load();
+                list.add(root);
+                
+            }
+            addToGrid(list, gridPane);
+            gridPane.setHgap(45);
+            gridPane.setVgap(20);
+            listProduits.setPannable(true);
+            listProduits.setContent(gridPane);
+            ProduitController.pc = this;
+
+        } catch (IOException ex) {
+            Logger.getLogger(ListProduitsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+
         
-        tableStock.setItems(data);
-        tableStock.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)->showProduitDetails(newValue));
     }    
 
-    @FXML
-    private void loadFromDB(ActionEvent event) {
-    }
-
-    private void showProduitDetails(Produit newValue) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }

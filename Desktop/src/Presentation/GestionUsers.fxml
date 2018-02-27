@@ -18,14 +18,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1140.0" styleClass="body" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.GestionUsersController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1140.0" style="-fx-background-color: white;" styleClass="body" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.GestionUsersController">
    <children>
-      <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="305.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="306.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/icons8_Search_48px_2.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="filter" layoutX="101.0" layoutY="15.0" maxWidth="219.0" minWidth="204.0" prefHeight="21.0" prefWidth="204.0" promptText="Rechercher">
+      <JFXTextField fx:id="filter" layoutX="98.0" layoutY="15.0" maxWidth="219.0" minWidth="204.0" prefHeight="21.0" prefWidth="204.0" promptText="Rechercher">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
@@ -93,12 +93,12 @@
                               <Font name="Segoe UI" size="15.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField id="6" fx:id="tel" labelFloat="true" layoutX="16.0" layoutY="321.0" maxWidth="200.0" minWidth="110.0" prefHeight="35.0" prefWidth="110.0" promptText="Télephone">
+                        <JFXTextField id="6" fx:id="tel" labelFloat="true" layoutX="16.0" layoutY="324.0" maxWidth="200.0" minWidth="110.0" prefHeight="35.0" prefWidth="110.0" promptText="Télephone">
                            <font>
                               <Font name="Segoe UI" size="15.0" />
                            </font>
                         </JFXTextField>
-                        <JFXDatePicker id="7" fx:id="date" defaultColor="#2c6aa8" layoutX="134.0" layoutY="317.0" prefHeight="40.0" prefWidth="180.0" promptText="Date de naissance">
+                        <JFXDatePicker id="7" fx:id="date" defaultColor="#2c6aa8" layoutX="136.0" layoutY="320.0" prefHeight="40.0" prefWidth="180.0" promptText="Date de naissance">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -129,19 +129,19 @@
                               <Image url="@../Images/user.png" />
                            </image>
                         </ImageView>
-                        <JFXTextField id="6" fx:id="type" disable="true" editable="false" labelFloat="true" layoutX="16.0" layoutY="375.0" maxWidth="200.0" minWidth="110.0" prefHeight="35.0" prefWidth="139.0" promptText="Type de compte">
+                        <JFXTextField id="6" fx:id="type" disable="true" editable="false" labelFloat="true" layoutX="19.0" layoutY="383.0" maxWidth="200.0" minWidth="110.0" prefHeight="35.0" prefWidth="148.0" promptText="Type de compte">
                            <font>
                               <Font name="Segoe UI" size="15.0" />
                            </font>
                         </JFXTextField>
-                        <JFXComboBox fx:id="etat" layoutX="172.0" layoutY="374.0" prefHeight="31.0" prefWidth="131.0" promptText="Etat de compte" />
+                        <JFXComboBox fx:id="etat" layoutX="177.0" layoutY="382.0" prefHeight="31.0" prefWidth="131.0" promptText="Etat de compte" />
                      </children>
                   </AnchorPane>
                </content>
           </Tab>
           <Tab fx:id="tabPermis" text="Permis">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab">
                      <children>
                         <ImageView fx:id="photoPermis" fitHeight="233.0" fitWidth="246.0" layoutX="201.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                            <image>

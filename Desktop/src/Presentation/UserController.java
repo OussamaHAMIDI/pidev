@@ -121,7 +121,7 @@ public class UserController implements Initializable {
         alert.show();
         alert.resultProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == ButtonType.OK) {
-                us.supprimerUser(u);
+                us.supprimerUser(u.getId());
                 supprimer.setVisible(false);
                 guc.setValues(new User(0, "", "", EtatUser.Active, TypeUser.Client, "", "", null, "Male", "", "", "", null, "", "", ""), "");
                 guc.disable(true);
