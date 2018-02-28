@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import jfxtras.labs.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -15,25 +16,32 @@
          <children>
             <Pane layoutX="14.0" layoutY="11.0" prefHeight="128.0" prefWidth="947.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
                <children>
-                  <Label fx:id="date" layoutX="105.0" layoutY="14.0" prefHeight="36.0" prefWidth="273.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Date" />
-                  <Pane prefHeight="128.0" prefWidth="92.0" style="-fx-background-color: #00C0EF;">
+                  <Label fx:id="date" layoutX="105.0" layoutY="5.0" prefHeight="30.0" prefWidth="273.0" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #73879C;" text="Date" />
+                  <Pane prefHeight="128.0" prefWidth="92.0" style="-fx-background-color: #4183d7;">
                      <children>
-                        <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="92.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="id" textAlignment="CENTER" />
+                        <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="92.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="id" textAlignment="CENTER" />
                      </children>
                   </Pane>
-                  <Label fx:id="description" layoutX="105.0" layoutY="50.0" prefHeight="70.0" prefWidth="832.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Description" />
+                  <TextFlow fx:id="descriptionT" layoutX="107.0" layoutY="33.0" lineSpacing="1.0" prefHeight="91.0" prefWidth="834.0" style="-fx-text-fill: #000000;">
+                     <children>
+                        <Text fx:id="description" fill="#73879c" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children></TextFlow>
                </children>
             </Pane>
          </children>
       </Pane>
       <Pane fx:id="buttons" layoutX="962.0" prefHeight="150.0" prefWidth="178.0">
          <children>
-             <JFXButton fx:id="buttonBP" buttonType="RAISED" layoutX="28.0" layoutY="21.0" onAction="#voirBP" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #00C0EF;" textFill="WHITE">
+             <JFXButton fx:id="buttonBP" layoutX="28.0" layoutY="21.0" onAction="#voirBP" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #4183d7;" textFill="WHITE">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="buttonU" buttonType="RAISED" layoutX="28.0" layoutY="60.0" onAction="#VoirU" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #00A65A;" text="Voir Utilisateur" textFill="WHITE">
+            <JFXButton fx:id="buttonU" layoutX="28.0" layoutY="60.0" onAction="#VoirU" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #26B99A;" text="Voir Utilisateur" textFill="WHITE">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
                </font>

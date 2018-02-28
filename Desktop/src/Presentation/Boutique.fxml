@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.Button?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.control.LocalDateTimeTextField?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.BoutiqueController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ececec; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.BoutiqueController">
    <children>
       <Label layoutX="170.0" layoutY="42.0" text="Créer votre boutique" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="27.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="btIdUser" layoutX="226.0" layoutY="109.0" maxWidth="149.0" minWidth="149.0" prefHeight="0.0" prefWidth="149.0" promptText="Identifiant " />
-      <JFXTextField fx:id="btNom" layoutX="226.0" layoutY="159.0" maxWidth="149.0" minWidth="149.0" prefHeight="0.0" prefWidth="149.0" promptText="Nom" />
-      <JFXTextField fx:id="btAdresse" layoutX="226.0" layoutY="258.0" onKeyTyped="#fromOnkeyTypedEvent" promptText="Adresse" />
-      <Button layoutX="161.0" layoutY="334.0" mnemonicParsing="false" onAction="#validerAction" prefHeight="25.0" prefWidth="96.0" text="Valider" />
-      <Button layoutX="351.0" layoutY="334.0" mnemonicParsing="false" onAction="#retourAction" prefHeight="25.0" prefWidth="96.0" text="Retour" />
-      <LocalDateTimeTextField fx:id="btDate" layoutX="232.0" layoutY="217.0" prefHeight="25.0" prefWidth="133.0" promptText="Date" />
-      <JFXTextField fx:id="longi" layoutX="170.0" layoutY="295.0" maxWidth="127.0" minWidth="127.0" prefHeight="25.0" prefWidth="127.0" visible="false" />
-      <JFXTextField fx:id="lat" layoutX="325.0" layoutY="295.0" visible="false" />
+      <JFXTextField fx:id="btNom" layoutX="108.0" layoutY="116.0" maxWidth="149.0" minWidth="149.0" prefHeight="0.0" prefWidth="149.0" promptText="Nom" />
+      <JFXTextField fx:id="btAdresse" layoutX="108.0" layoutY="225.0" onKeyTyped="#fromOnkeyTypedEvent" promptText="Adresse" />
+      <LocalDateTimeTextField fx:id="btDate" layoutX="116.0" layoutY="175.0" prefHeight="25.0" prefWidth="133.0" promptText="Date" />
+      <JFXTextField fx:id="longi" layoutX="14.0" layoutY="271.0" maxWidth="127.0" minWidth="127.0" prefHeight="25.0" prefWidth="127.0" visible="false" />
+      <JFXTextField fx:id="lat" layoutX="14.0" layoutY="302.0" visible="false" />
+      <ImageView fx:id="photo" fitHeight="97.0" fitWidth="133.0" layoutX="381.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/camera.png" />
+         </image></ImageView>
+      <JFXButton fx:id="modifierB" layoutX="148.0" layoutY="318.0" onAction="#validerAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Valider">
+         <graphic>
+            <FontAwesomeIconView fill="#fcf8f8" glyphName="CHECK" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="retour" accessibleRole="IMAGE_VIEW" layoutX="342.0" layoutY="318.0" onAction="#retourAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="  Retour">
+         <graphic>
+            <MaterialDesignIconView fill="WHITE" glyphName="times" size="16.0" text="" wrappingWidth="9.0" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="ajouterPhoto" layoutX="381.0" layoutY="225.0" onAction="#ajoutPhoto" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #3C8DBC;" text="Ajouter photo" textFill="WHITE">
+         <font>
+            <Font name="Roboto Medium" size="15.0" />
+         </font>
+      </JFXButton>
       
       
      
