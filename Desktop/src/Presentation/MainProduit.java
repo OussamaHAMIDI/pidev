@@ -24,11 +24,8 @@ public class MainProduit extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-<<<<<<< HEAD
+
         Parent root = FXMLLoader.load(getClass().getResource(("MenuProduits.fxml")));
-=======
-        Parent root = FXMLLoader.load(getClass().getResource(("AjouterProduit.fxml")));
->>>>>>> 864fbc9089767a627c77d40e77ea71ed5e0e580b
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
