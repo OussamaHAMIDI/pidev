@@ -4,6 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/UserController.java</file>
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/ModifierBoutiqueController.java</file>
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/MenuBoutiqueController.java</file>
@@ -19,6 +21,7 @@
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
         </group>
         <group>
+>>>>>>> d568479b7d0c30204da0c0ceda29ec857610e0c4
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Services/StockService.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/StockMain.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
@@ -28,6 +31,9 @@
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Utils/SmsSender.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListProduitsController.java</file>
             <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ListStockController.java</file>
+<<<<<<< HEAD
+        </group>
+=======
 =======
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/Presentation/BoutiqueMain.java</file>
             <file>file:/C:/Users/Azza/Documents/GitHub/pidev/Desktop/src/main/MainBoutique.java</file>
@@ -90,5 +96,6 @@
         </group>
 >>>>>>> ecc389bcd598fa940a028e569f7f6191131f032d
 >>>>>>> c542c14912a9631e67cdd94d8e49e6641f5f31eb
+>>>>>>> d568479b7d0c30204da0c0ceda29ec857610e0c4
     </open-files>
 </project-private>
