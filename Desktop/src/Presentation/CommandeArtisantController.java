@@ -117,7 +117,7 @@ for(ProduitPanier p: panier.getContenu())
             LigneCommandeArtisantController.pc = this;
 
         } catch (IOException ex) {
-            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CommandeArtisantController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }    

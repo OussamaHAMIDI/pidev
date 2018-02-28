@@ -104,9 +104,6 @@ public class ProduitService implements IProduit {
             ResultSet result = connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
-<<<<<<< HEAD
-                return produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_Boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
-=======
 
                 produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
                 return produit;
@@ -129,7 +126,7 @@ public class ProduitService implements IProduit {
 
                 produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), boutique,Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
                 return produit;
->>>>>>> 2d41aabe97338b218212547054d0ea82e6d7829f
+
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

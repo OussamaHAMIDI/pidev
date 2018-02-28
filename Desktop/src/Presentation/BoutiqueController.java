@@ -103,13 +103,7 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-<<<<<<< HEAD
-        mapView.addMapInializedListener(this);
-      
-      
-=======
 
->>>>>>> dfb97bb1e3e6a748c29acad49f7c1d87e1826e6d
         mapView.addMapInializedListener(this);
 
         mapView.addMapInializedListener(this);
