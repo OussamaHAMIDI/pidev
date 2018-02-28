@@ -58,6 +58,7 @@ public class UserController implements Initializable {
     static public int index;
     static public List<User> contenu;
     public static GestionUsersController guc;
+    
     private UserService us = new UserService();
 
     public void setValues(User u) {

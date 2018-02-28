@@ -134,7 +134,7 @@ public class GestionUsersController implements Initializable {
         }
 
         if (nbrItems % 2 == 1) {// impaire
-            if (list.size() > 0) {
+            if (parents.size() > 0) {
                 gridPane.add(parents.get(0), 1, nbrRows - 1);
                 parents.remove(0);
             }
@@ -186,6 +186,7 @@ public class GestionUsersController implements Initializable {
             prenom.setText(userSelected.getPrenom());
             adresse.setText(userSelected.getAdresse());
             tel.setText(userSelected.getTel());
+            
             if (userSelected.getSexe().equals("Male")) {
                 sexe.selectToggle(sexe.getToggles().get(0));
             } else {
@@ -352,6 +353,7 @@ public class GestionUsersController implements Initializable {
         disable(true);
         etat.setDisable(true);
         tabPermis.setDisable(true);
+        
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
 
         list = us.getUsers();

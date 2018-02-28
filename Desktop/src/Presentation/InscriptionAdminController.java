@@ -192,9 +192,9 @@ public class InscriptionAdminController implements Initializable {
                     }
                     Utils.showTrayNotification(NotificationType.CUSTOM, "Succés d'ajout", null, "L'utilisateur a été ajouté avec succés", img, 6000);
                     GestionUsersController.list.add(u);
-                    list = us.getUsers();
+                   // list = us.getUsers();
                     GestionUsersController.gridPane.getChildren().clear();
-                    guc.addToGrid(list);
+                    guc.addToGrid(us.getUsers());
 
                     Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     s.close();

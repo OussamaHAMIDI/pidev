@@ -74,14 +74,7 @@ GoogleMapView mapView = new GoogleMapView();
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-        
-        
-        
-        
-        
-         mapView.addMapInializedListener(this);
+        mapView.addMapInializedListener(this);
       
       
         mapView.addMapInializedListener(this);
