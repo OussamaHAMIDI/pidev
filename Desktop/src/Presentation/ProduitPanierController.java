@@ -39,6 +39,7 @@ public class ProduitPanierController implements Initializable {
     static public List<ProduitPanier> contenu;
     
     static public PanierController pc;
+    
     @FXML
     private AnchorPane contact;
     @FXML
@@ -81,7 +82,11 @@ public class ProduitPanierController implements Initializable {
         prix.setText(((Float)produit.getPrixVente()).toString());
         prixTotal.setText(((Float)produit.getPrixVente()).toString());
         quantite.setText(((Float)produit.getQuantiteVendue()).toString());
-       // image.setImage(new Image(produit.getPhoto()));
+       if(produit.getPhoto()!=null)
+       {
+           image.setImage(new Image(produit.getPhoto()));
+       }
+        
     }
 
     @FXML

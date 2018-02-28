@@ -8,8 +8,10 @@ package Presentation;
 import Entities.Boutique;
 import Entities.Panier;
 import Entities.ProduitPanier;
+import static Presentation.PaypalController.pc;
 import Services.PanierService;
 import Utils.Enumerations;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.net.URL;
@@ -23,16 +25,23 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 /**
  * FXML Controller class
@@ -42,8 +51,10 @@ import javafx.scene.layout.*;
 public class PanierController implements Initializable {
 
     Panier panier = new Panier();
-    
-    
+    Parent paypal;
+
+    PanierController.MyBrowser myBrowser;
+
     private Pane content;
 
     @FXML
@@ -55,25 +66,29 @@ public class PanierController implements Initializable {
     @FXML
     private Label totalTTC;
     private ScrollPane scrollPane;
-    
-        private AnchorPane anchorContent;
-     
-    
-        GridPane gridPane = new GridPane();
- Panier p = new Panier();
- Double scrollHeight =0.0;
+
+    private AnchorPane anchorContent;
+
+    GridPane gridPane = new GridPane();
+    Panier p = new Panier();
+    Double scrollHeight = 0.0;
     @FXML
     private ScrollPane contacts;
-     ObservableList<String> paiementList = FXCollections.observableArrayList("Espece", "Internet", "Cheque");
-     ObservableList<String> typeList = FXCollections.observableArrayList("Sur place", "A domicile", "Par poste");
+    ObservableList<String> paiementList = FXCollections.observableArrayList("Espece", "Internet", "Cheque");
+    ObservableList<String> typeList = FXCollections.observableArrayList("Sur place", "A domicile", "Par poste");
     @FXML
     private JFXComboBox<String> modeLivraison;
     @FXML
     private JFXComboBox<String> modePaiement;
+    @FXML
+    private AnchorPane origine;
+    @FXML
+    private JFXButton commander;
+
     /**
      * Initializes the controller class.
      */
-   private void addToGrid(List<Parent> list, GridPane gridPane) {
+    private void addToGrid(List<Parent> list, GridPane gridPane) {
         int totalItems = list.size();
         int totalLignes = (totalItems % 2 == 0) ? totalItems / 2 : (totalItems + 1) / 2;
         int nbrItems = gridPane.getChildren().size();
@@ -88,51 +103,55 @@ public class PanierController implements Initializable {
         //paire
         for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
 //            for (int col = 0; col < 2; col++) {
-                if (list.size() > 0) {
-                    gridPane.add(list.get(0), 0, ligne);
-                    list.remove(0);
-                } else {
-                    return;
-                }
+            if (list.size() > 0) {
+                gridPane.add(list.get(0), 0, ligne);
+                list.remove(0);
+            } else {
+                return;
+            }
 //            }
         }
 
     }
- 
-     @Override
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         List<Parent> list = new ArrayList<Parent>();
-        
+
         try {
             // TODO
-         
+
             panier.setContenu(new ArrayList<ProduitPanier>());
-            ProduitPanier pp = new ProduitPanier(1, 0, 22.321f, 1, "ref-art", "testArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
-            ProduitPanier pp2 = new ProduitPanier(1, 0, 22.321f, 22, "ref-a22222rt", "tes22222tArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
-            panier.getContenu().add(pp);
-            panier.getContenu().add(pp2);
-            panier.getContenu().add(pp);
-            panier.getContenu().add(pp);
-            panier.getContenu().add(pp2);
-            panier.getContenu().add(pp);
-            panier.getContenu().add(pp);
-            panier.getContenu().add(pp);
+//            ProduitPanier pp = new ProduitPanier(1, 0, 22.321f, 1, "ref-art", "testArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
+//            ProduitPanier pp2 = new ProduitPanier(1, 0, 22.321f, 22, "ref-a22222rt", "tes22222tArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
+//            panier.getContenu().add(pp);
+//            panier.getContenu().add(pp2);
+//            panier.getContenu().add(pp);
+//            panier.getContenu().add(pp);
+//            panier.getContenu().add(pp2);
+//            panier.getContenu().add(pp);
+//            panier.getContenu().add(pp);
+//            panier.getContenu().add(pp);
+//            
+PanierService ps = new PanierService();
+panier.setId(2);
+panier.setContenu(ps.rechercherProduitsPanier(2));
 //
-            Float total =0.0f;
+            Float total = 0.0f;
             ProduitPanierController.contenu = panier.getContenu();
-            
+
             for (int i = 0; i < panier.getContenu().size(); i++) {
                 ProduitPanierController.index = i;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ProduitPanier.fxml"));
                 Parent root = loader.load();
                 list.add(root);
-                total += panier.getContenu().get(i).getPrix()*panier.getContenu().get(i).getQuantiteVendue();
+                total += panier.getContenu().get(i).getPrix() * panier.getContenu().get(i).getQuantiteVendue();
             }
             prixArticles.setText(total.toString());
             totalTTC.setText(total.toString());
             addToGrid(list, gridPane);
-            gridPane.setHgap(45);
-            gridPane.setVgap(20);
+            gridPane.setHgap(0);
+            gridPane.setVgap(0);
             contacts.setPannable(true);
             contacts.setContent(gridPane);
             ProduitPanierController.pc = this;
@@ -146,59 +165,174 @@ public class PanierController implements Initializable {
 
     }
 
-    public void modifierContenu(ProduitPanier produit,ProduitPanier old)
-    {
+    public void modifierContenu(ProduitPanier produit, ProduitPanier old) {
         panier.getContenu().set(panier.getContenu().indexOf(old), produit);
 
     }
 
-    public void modifierTotaux(float prix)
-    {
-        Float v = (Float.parseFloat(prixArticles.getText())+prix);
+    public void modifierTotaux(float prix) {
+        Float v = (Float.parseFloat(prixArticles.getText()) + prix);
         prixArticles.setText(v.toString());
-        v = (Float.parseFloat(totalTTC.getText())+prix);
+        v = (Float.parseFloat(totalTTC.getText()) + prix);
         totalTTC.setText(v.toString());
     }
 
     @FXML
     private void modifierMode(ActionEvent event) {
-         Float value = Float.parseFloat(totalTTC.getText());
+        Float value = Float.parseFloat(totalTTC.getText());
         switch (modeLivraison.getValue()) {
-                case "Sur place":
-                    panier.setModeLivraison(Enumerations.ModeLivraison.SurPlace);
-                      if(prixLivraison.getText().equals("12.0"))
-                    {
-                         prixLivraison.setText("0.0");
+            case "Sur place":
+                panier.setModeLivraison(Enumerations.ModeLivraison.SurPlace);
+                if (prixLivraison.getText().equals("12.0")) {
+                    prixLivraison.setText("0.0");
                     value -= 12.0f;
                     totalTTC.setText(value.toString());
-                     panier.setFraisLivraison(0.0);
+                    panier.setFraisLivraison(0.0);
                     panier.setTotalTTC(value);
-                    }
-                      break;
-                case "A domicile":
-                    panier.setModeLivraison(Enumerations.ModeLivraison.Domicile);
-                    if(prixLivraison.getText().equals("0.0"))
-                    {
+                }
+                break;
+            case "A domicile":
+                panier.setModeLivraison(Enumerations.ModeLivraison.Domicile);
+                if (prixLivraison.getText().equals("0")) {
                     prixLivraison.setText("12.0");
-                    value += 12.0f;
-                    totalTTC.setText(value.toString());
-                     panier.setFraisLivraison(12.0);
-                    panier.setTotalTTC(value);
-                    }
-                    break;
-                case "Par poste":
-                if(prixLivraison.getText().equals("0.0"))
-                    {
-                         prixLivraison.setText("12.0");
                     value += 12.0f;
                     totalTTC.setText(value.toString());
                     panier.setFraisLivraison(12.0);
                     panier.setTotalTTC(value);
-                    }
-                  panier.setModeLivraison(Enumerations.ModeLivraison.Poste);
+                }
                 break;
-            }
+            case "Par poste":
+                if (prixLivraison.getText().equals("0")) {
+                    prixLivraison.setText("12.0");
+                    value += 12.0f;
+                    totalTTC.setText(value.toString());
+                    panier.setFraisLivraison(12.0);
+                    panier.setTotalTTC(value);
+                }
+                panier.setModeLivraison(Enumerations.ModeLivraison.Poste);
+                break;
+        }
     }
-    
 
+    @FXML
+    private void payerPanier(MouseEvent event) throws IOException {
+        PanierService ps = new PanierService();
+//        ps.miseAJourPanier(panier);
+//        for(ProduitPanier p : panier.getContenu())
+//        {
+//            ps.modifierProduitPanier(p, panier.getId());
+//        }
+        switch (modePaiement.getValue()) {
+            case "Espece":
+                //EnvoyerMail + diminuer stock
+                break;
+            case "Chaque":
+                //Envoyer mail + diminuer stock
+                break;
+            case "Internet":
+                myBrowser = new PanierController.MyBrowser(this);
+                myBrowser.setMinSize(1140, 720);
+                origine.getChildren().add(0, myBrowser);
+                myBrowser.toFront();
+                paypal = myBrowser;
+
+                break;
+        }
+    }
+
+    public void retourPanier() {
+        origine.getChildren().remove(paypal);
+    }
+
+    public int panierId() {
+        return panier.getId();
+    }
+
+    public void viderPanier() {
+        //Envoyer mail + diminuer stock
+        //Code pour vider le panier
+        gridPane.getChildren().removeAll(gridPane.getChildren());
+        prixArticles.setText("0.0");
+        totalTTC.setText("0.0");
+        modeLivraison.setValue("Sur place");
+        modePaiement.setItems(paiementList);
+        modePaiement.setValue("Espece");
+        origine.getChildren().remove(paypal);
+        panier = new Panier();
+    }
+
+    VBox vb = new VBox();
+
+    Label labelFromJavascript;
+
+    public class MyBrowser extends Region {
+
+        HBox toolbar;
+        VBox toolbox;
+        PanierController pc;
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+
+        public MyBrowser(PanierController ppc) {
+            pc = ppc;
+            final URL urlHello = getClass().getResource("http://127.0.0.1/Paypal/hello.html");
+            webEngine.load("http://127.0.0.1/Paypal/first.php?idpanier=2");
+            //webEngine.load("http://127.0.0.1/Paypal/first.php?idpanier=" + pc.panierId());
+            //webEngine.load("http://127.0.0.1/Paypal/failed.html");
+            //webEngine.load("http://127.0.0.1/Paypal/done.html");
+            webEngine.getLoadWorker().stateProperty().addListener(
+                    new ChangeListener<Worker.State>() {
+
+                @Override
+                public void changed(ObservableValue<? extends Worker.State> ov, Worker.State oldState, Worker.State newState) {
+                    if (newState == Worker.State.SUCCEEDED) {
+                        JSObject window = (JSObject) webEngine.executeScript("window");
+                        window.setMember("app", new JavaApplication(pc));
+                    }
+                }
+            });
+
+            JSObject window = (JSObject) webEngine.executeScript("window");
+            window.setMember("app", new JavaApplication(pc));
+
+            toolbox = new VBox();
+            labelFromJavascript = new Label();
+            toolbox.getChildren().addAll(labelFromJavascript);
+            labelFromJavascript.setText("Wait");
+
+            getChildren().add(toolbox);
+            getChildren().add(webView);
+
+        }
+
+        @Override
+        protected void layoutChildren() {
+            double w = getWidth();
+            double h = getHeight();
+            double toolboxHeight = toolbox.prefHeight(w);
+            layoutInArea(webView, 0, 0, w, h - toolboxHeight, 0, HPos.CENTER, VPos.CENTER);
+            layoutInArea(toolbox, 0, h - toolboxHeight, w, toolboxHeight, 0, HPos.CENTER, VPos.CENTER);
+        }
+
+    }
+
+    public class JavaApplication {
+
+      public  JavaApplication(PanierController pcc)
+        {
+            pc=pcc;
+        }
+        PanierController pc;
+        public void callFromJavascript(String msg) {
+            if (msg.equals("done")) {
+                //CallMainController bich tirja3 lil accueil
+                pc.viderPanier();
+            } else {
+                //CallMainController bich tirja3 lil panier
+                pc.retourPanier();
+            }
+            labelFromJavascript.setText("Click from Javascript: " + msg);
+
+        }
+    }
 }
