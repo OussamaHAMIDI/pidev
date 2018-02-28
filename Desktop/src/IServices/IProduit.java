@@ -9,6 +9,7 @@ import Entities.Boutique;
 import Entities.Produit;
 import java.util.List;
 import javafx.scene.control.ListCellBuilder;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -28,7 +29,7 @@ public interface IProduit {
 
     public List<Produit> listerProduitsBoutique(int idB);
     public List<Produit> listerProduits();
-    
+    public Image getPhoto(int idP);
     public String  getNextId();
     
 }

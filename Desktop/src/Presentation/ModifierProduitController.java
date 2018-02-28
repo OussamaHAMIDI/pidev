@@ -23,6 +23,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -30,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -66,32 +68,40 @@ public class ModifierProduitController implements Initializable {
     private ImageView photo;
     
     private FileInputStream photoProduit= null;
-    
+             ProduitService ps=new ProduitService();
+    public static ProduitController bc;
+    private Produit p;
     public static Produit selectedProduit = new Produit(106);
     @FXML
     private JFXButton Supprimer;
+    @FXML
+    private JFXButton retour;
     /**
      * Initializes the controller class.
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        ProduitService ps=new ProduitService();
-        selectedProduit=ps.chercherProduitParID(selectedProduit.getId());
-        
-        
-        reference.setText(selectedProduit.getReference());
-        libelle.setText(selectedProduit.getLibelle());
-        description.setText(selectedProduit.getDescription());
-        prix.setText(String.valueOf(selectedProduit.getPrix()));
-        taille.setText(selectedProduit.getTaille());
-        couleur.setText(selectedProduit.getCouleur());
-        texture.setText(selectedProduit.getTexture());
-        poids.setText(String.valueOf(selectedProduit.getPoids()));
-        if (selectedProduit.getPhoto()!=null) {
-            photo.setImage(new Image(selectedProduit.getPhoto()));
+
+          if (selectedProduit!=null){
+            p=selectedProduit;
+            
+        reference.setText(p.getReference());
+        libelle.setText(p.getLibelle());
+        description.setText(p.getDescription());
+        prix.setText(String.valueOf(p.getPrix()));
+        taille.setText(p.getTaille());
+        couleur.setText(p.getCouleur());
+        texture.setText(p.getTexture());
+        poids.setText(String.valueOf(p.getPoids()));
+        if (p.getPhoto()!=null) {
+            photo.setImage(ps.getPhoto(p.getId()));
         }
+        }
+       
+       // selectedProduit=ps.chercherProduitParID(selectedProduit.getId());
+        
+      
     }    
     @FXML
     public void modifierProduit (ActionEvent event)
@@ -100,9 +110,11 @@ public class ModifierProduitController implements Initializable {
         Boutique b = new Boutique();
         if(photoProduit!=null)
         {
-        selectedProduit.setPhoto(photoProduit);
+        p.setPhoto(photoProduit);
         }
-        ps.modifierProduit(new Produit(selectedProduit.getId(),reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, selectedProduit.getPhoto()));
+        ps.modifierProduit(new Produit(p.getId(),reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, p.getPhoto()));
+     Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{
@@ -134,7 +146,17 @@ public class ModifierProduitController implements Initializable {
     @FXML
     public void supprimerProduit (ActionEvent event)
     {
-        ProduitService ps=new ProduitService();
-        ps.supprimerProduit(selectedProduit.getId());
+      //  ProduitService ps=new ProduitService();
+        ps.supprimerProduit(p.getId());
+    }
+
+    @FXML
+    private void annuler(ActionEvent event) {
+         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
+    }
+
+    @FXML
+    private void payerPanier(MouseEvent event) {
     }
 }

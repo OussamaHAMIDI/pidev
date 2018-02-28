@@ -22,12 +22,14 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -62,6 +64,8 @@ public class AjouterProduitController implements Initializable {
     private JFXButton modifier;
     @FXML
     private JFXButton ajouter;
+    @FXML
+    private JFXButton retour;
     /**
      * Initializes the controller class.
      * @param url
@@ -101,5 +105,15 @@ public class AjouterProduitController implements Initializable {
             }
         }
 
+    }
+
+    @FXML
+    private void annuler(ActionEvent event) {
+         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
+    }
+
+    @FXML
+    private void payerPanier(MouseEvent event) {
     }
 }

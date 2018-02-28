@@ -45,7 +45,7 @@ import javafx.stage.StageStyle;
  *
  * @author oussamahamidi
  */
-public class ProduitController implements Initializable {
+public class ProduitLController implements Initializable {
     
     private Produit prod;
     static public int index;
@@ -57,8 +57,6 @@ public class ProduitController implements Initializable {
     private Label adresseB;
     private Label nomB;
     private Label dateB;
-    @FXML
-    private JFXButton supprimer;
     ProduitService ps= new ProduitService();
     @FXML
     private Circle circle;
@@ -69,9 +67,9 @@ public class ProduitController implements Initializable {
     @FXML
     private Label Description;
     @FXML
-    private JFXButton modifierP;
-    @FXML
     private Label reference;
+    @FXML
+    private JFXButton produitB;
             
 
      public AnchorPane getThis()
@@ -103,7 +101,7 @@ public class ProduitController implements Initializable {
      }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         prod = MenuProduitsController.list.get(index);
+         prod = ListProduitsController.produits.get(index);
         setValues(prod);
         
     }    
@@ -129,14 +127,7 @@ public class ProduitController implements Initializable {
         });
     }
 
-    private void modifierBoutique(ActionEvent event) throws IOException {
-        ModifierProduitController.bc=this;
-        ModifierProduitController.selectedProduit=prod;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Modification d'un produit ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
-    }
+  
 
     @FXML
     private void test(MouseEvent event) {
@@ -145,35 +136,11 @@ public class ProduitController implements Initializable {
 //        System.out.println(bou.toString() + index);
     }
 
-
     @FXML
-    private void supprimerProduit(ActionEvent event) {
-        
-        Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Suppression", null,
-                "Voulez-vous vraiment supprimer ce produit ?");
-        alert.show();
-        alert.resultProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == ButtonType.OK) {
-                 MenuBoutiqueController.list.remove(prod);
-                    contenu.remove(prod);
-//        GridPane parent = (GridPane)user.getParent();
-//        parent.getChildren().remove(user);
-
-                ps.supprimerProduit(prod.getId());
-                mc.updateItems("");
-                
-            }
-        });
+    private void ajouterPanier(ActionEvent event) {
     }
 
-    @FXML
-    private void modifierProduit(ActionEvent event) {
-         ModifierProduitController.bc=this;
-        ModifierProduitController.selectedProduit=prod;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Modification d'un produit ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
-    }
-    
+
+  
+
 }
