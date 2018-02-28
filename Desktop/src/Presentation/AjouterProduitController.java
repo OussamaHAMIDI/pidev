@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,12 +77,15 @@ public class AjouterProduitController implements Initializable {
     @FXML
     public void ajouterProduit (ActionEvent event) throws IOException
     {
-        ProduitService ps=new ProduitService();
+        if (controleDeSaisi()) {
+            ProduitService ps=new ProduitService();
         Boutique b = new Boutique();
         if(ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit)))
         {
             SmsSender ss = new SmsSender();
             ss.sendSms("ajout%20effectué", "54476969");
+        }
+            
         }
     }
     @FXML
@@ -115,5 +119,43 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void payerPanier(MouseEvent event) {
+    }
+    private boolean controleDeSaisi() {
+
+        if (reference.getText().isEmpty() || libelle.getText().isEmpty() || description.getText().isEmpty()
+                || prix.getText().isEmpty()) {
+            Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Veuillez bien remplir tous les champs !");
+            return false;
+        } else {
+
+            if (!Pattern.matches("^[a-zA-Z0-9]*$", reference.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez la reference ! ");
+                reference.requestFocus();
+                reference.selectEnd();
+                return false;
+            }
+
+            if (!Pattern.matches("^[\\p{L} .'-]+$", libelle.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le libelle du produit ! ");
+                libelle.requestFocus();
+                libelle.selectEnd();
+                return false;
+            }
+
+            if (!Pattern.matches("^[\\p{L} .'-]+$", description.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez la description du produit ! ");
+                description.requestFocus();
+                description.selectEnd();
+                return false;
+            }
+
+            if (!Pattern.matches("\\d*", prix.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
+                prix.requestFocus();
+                prix.selectEnd();
+                return false;
+            }
+        }
+        return true;
     }
 }
