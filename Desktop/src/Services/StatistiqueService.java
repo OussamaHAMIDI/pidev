@@ -97,6 +97,7 @@ public class StatistiqueService implements IStatistique {
     public List<Produit> getTopTenProduits() {
         ProduitService ps = new ProduitService();
         List<Produit> produits = ps.listerProduits();
+        System.out.println("blablabla");
         List<Produit> topTenProduits = new ArrayList<Produit>();
         EvaluationService es = new EvaluationService();
         Map<Float, ArrayList<Produit>> noteProduit = new TreeMap<Float, ArrayList<Produit>>(Collections.reverseOrder());
@@ -138,6 +139,7 @@ public class StatistiqueService implements IStatistique {
     public List<Boutique> getTopTenBoutiques() {
         BoutiqueService bs = new BoutiqueService();
         List<Boutique> boutiques = bs.lireBoutiques();
+        System.out.println("LA LISTE MEL CRUD TJI HAKKA === "+boutiques);
         List<Boutique> topTenBoutiques = new ArrayList<Boutique>();
         EvaluationService es = new EvaluationService();
         Map<Float, ArrayList<Boutique>> noteBoutique = new TreeMap<Float, ArrayList<Boutique>>(Collections.reverseOrder());

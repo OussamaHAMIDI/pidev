@@ -55,7 +55,7 @@ public class ReclamationAdmin2Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ReclamationService rs = new ReclamationService();
-
+        scrollReclamation.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         listeReclamations = rs.getAllReclamations();
         List<Parent> list = new ArrayList<Parent>();
         ReclamationItemController.listeReclamations = this.listeReclamations;

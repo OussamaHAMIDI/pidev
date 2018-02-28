@@ -140,8 +140,9 @@ public class BoutiqueService implements IBoutique {
                 user = us.getUserById(rs.getInt("id_user"));
 //           boutique = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"), lireProduitsParBoutique(rs.getString("nom")));
 //          boutique2 = new Boutique()     
-           boutique = new Boutique(idBoutique, rs.getDouble("longitude"), rs.getDouble("altitude"), user, rs.getString("nom"), rs.getString("adresse"), lireProduitsParBoutique(rs.getString("nom")),rs.getObject("date_creation", LocalDateTime.class));
-             boutique2 = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"));
+           boutique = new Boutique(idBoutique, rs.getDouble("longitude"), rs.getDouble("altitude"), user, rs.getString("nom"), rs.getString("adresse"), null,rs.getObject("date_creation", LocalDateTime.class));
+           boutique = remplirProduitsParBoutique(boutique);
+           boutique2 = new Boutique(idBoutique, user, rs.getString("nom"), rs.getString("adresse"));
 
                
             }
@@ -201,6 +202,7 @@ public class BoutiqueService implements IBoutique {
             String sql = "SELECT * FROM boutique order by date_creation desc";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            UserService us = new UserService();
             
             while (rs.next()) {
                Boutique b = new Boutique();
@@ -213,6 +215,7 @@ public class BoutiqueService implements IBoutique {
                 b.setLat(rs.getDouble("altitude"));
                 b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
                 b.setPhoto(rs.getBinaryStream("photo"));
+                b.setUser(us.getUserById(rs.getInt("id_user")));
                 boutiques.add(b);
             }
         } catch (SQLException e) {
@@ -248,8 +251,8 @@ public class BoutiqueService implements IBoutique {
             String sql = "SELECT p.id from produit p, boutique b WHERE p.id_boutique = b.id and b.nom = '" + nomBoutique + "'";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            ProduitService pService = new ProduitService();
             while (rs.next()) {
-                ProduitService pService = new ProduitService();
                 Produit p = pService.chercherProduitParID(rs.getInt("id"));
                 produits.add(p);
             }
@@ -276,6 +279,26 @@ public class BoutiqueService implements IBoutique {
             System.out.println("Echec lireProduitsParBoutique(Boutique)");
         }
         return produits;
+    }
+    
+    @Override
+    public Boutique remplirProduitsParBoutique(Boutique boutique) {
+
+        List<Produit> produits = new ArrayList<Produit>();
+        try {
+            String sql = "SELECT id FROM produit WHERE id_boutique = '" + boutique.getId() + "'";
+            ps = connexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProduitService pService = new ProduitService();
+                Produit p = pService.chercherProduitParID(boutique,rs.getInt("id"));
+                produits.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec lireProduitsParBoutique(Boutique)");
+        }
+        boutique.setListProduit(produits);
+        return boutique;
     }
 
     @Override

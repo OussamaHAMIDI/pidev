@@ -60,13 +60,22 @@ public class AccueilController implements Initializable {
     @FXML
     private MenuItem supprimerCompte;
     @FXML
-    private VBox sideBarAdmin;
+        private VBox sideBarAdmin;
     @FXML
     private AnchorPane menuBar;
 
     private UserService us = new UserService();
     public static User userConnected = null;
     AnchorPane users;
+    AnchorPane anchor;
+    @FXML
+    private JFXButton btnStats;
+    @FXML
+    private JFXButton btnReclamations;
+    @FXML
+    private JFXButton btnHistorique;
+    @FXML
+    private JFXButton btnBoutique;
 
     //Set selected node to a content holder
     private void setNode(Node node) {
@@ -169,7 +178,12 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void switchUsers(ActionEvent event) {
-        setNode(users);
+        try {
+            anchor = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
+            setNode(anchor);
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -186,6 +200,46 @@ public class AccueilController implements Initializable {
         if (userConnected == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Utils.getAnotherStage(loader, "Connexion").show();
+        }
+    }
+
+    @FXML
+    private void switchStats(ActionEvent event) {
+        try {
+            anchor = FXMLLoader.load(getClass().getResource("Statistique.fxml"));
+            setNode(anchor);
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void switchReclamations(ActionEvent event) {
+        try {
+            anchor = FXMLLoader.load(getClass().getResource("ReclamationAdmin2.fxml"));
+            setNode(anchor);
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void switchHistorique(ActionEvent event) {
+        try {
+            anchor = FXMLLoader.load(getClass().getResource("HistoriqueClient2.fxml"));
+            setNode(anchor);
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void switchBoutique(ActionEvent event) {
+        try {
+            anchor = FXMLLoader.load(getClass().getResource("MenuBoutique.fxml"));
+            setNode(anchor);
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

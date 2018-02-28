@@ -390,7 +390,7 @@ public class UserService implements IUser {
             if (rs.first()) {
 
                 photo = rs.getBinaryStream("photo_profil");
-                System.out.println("photo retrieved");
+               // System.out.println("photo retrieved");
             }
 
         } catch (SQLException ex) {

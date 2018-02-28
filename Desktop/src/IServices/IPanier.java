@@ -28,6 +28,10 @@ public interface IPanier {
     public int ajouterPanier(Panier produit);
     public int miseAJourPanier(Panier produit);
     public int supprimerPanier(Panier produit);
-    
-    
+    public String rechercherArtisantProduitPanier(int idproduit);
+    public List<ProduitPanier> rechercherCommandeArtisant(int userId);
+    public String rechercheClientPanier(int idpanier);
+    public void envoyerMailArtisant(Panier panier);
+    public void envoyerMailClient(Panier panier);
+ 
 }

@@ -395,5 +395,55 @@ public class EvaluationService implements IEvaluation {
         }
         return false;
     }
+    
+    @Override
+    public boolean peutEvaluer(User user,Boutique boutique){
+        try {
+            String req = "SELECT p.id FROM panier p , produit_panier pp, produit pr WHERE (p.id_user = '"+ user.getId() +"' ) and (pp.id_panier = p.id) and (pp.id_produit = pr.id) and (pr.id_boutique = '"+ boutique.getId()+"')";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println("User peuuuuuuuuuuuuuuuut evaluer");
+               return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("User ne peut pas Evaluer" + e);
+        }
+        return false;
+    }
+
+    @Override
+    public int getIdEvaluation(User user, Boutique boutique) {
+        try {
+            String req = "SELECT id FROM evaluation WHERE id_user = '" + user.getId() + "' and id_boutique = '" + boutique.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche id Evaluation B" + e);
+        }
+        return 0;
+    }
+
+    @Override
+    public int getIdEvaluation(User user, Produit produit) {
+        try {
+            String req = "SELECT id FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche id Evaluation P" + e);
+        }
+        return 0;
+    }
+    
+    
 
 }
