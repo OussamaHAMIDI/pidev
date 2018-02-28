@@ -14,12 +14,12 @@
    <children>
       <Pane fx:id="idDescription" prefHeight="150.0" prefWidth="840.0">
          <children>
-            <Pane layoutX="14.0" layoutY="11.0" prefHeight="128.0" prefWidth="947.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+            <Pane layoutX="14.0" layoutY="11.0" prefHeight="128.0" prefWidth="941.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 10;">
                <children>
                   <Label fx:id="date" layoutX="105.0" layoutY="5.0" prefHeight="30.0" prefWidth="273.0" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #73879C;" text="Date" />
-                  <Pane prefHeight="128.0" prefWidth="92.0" style="-fx-background-color: #4183d7;">
+                  <Pane prefHeight="128.0" prefWidth="92.0" style="-fx-background-color: #4183d7; -fx-background-radius: 3;">
                      <children>
-                        <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="92.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #ffffff;" text="id" textAlignment="CENTER" />
+                        <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" prefHeight="128.0" prefWidth="92.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #ffffff; -fx-background-radius: 3;" text="id" textAlignment="CENTER" />
                      </children>
                   </Pane>
                   <TextFlow fx:id="descriptionT" layoutX="107.0" layoutY="33.0" lineSpacing="1.0" prefHeight="91.0" prefWidth="834.0" style="-fx-text-fill: #000000;">
