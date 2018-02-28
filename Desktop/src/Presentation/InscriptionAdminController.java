@@ -6,7 +6,6 @@
 package Presentation;
 
 import Entities.User;
-import static Presentation.GestionUsersController.list;
 import Services.UserService;
 import Utils.Enumerations.*;
 import Utils.Utils;
