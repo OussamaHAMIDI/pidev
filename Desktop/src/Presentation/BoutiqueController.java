@@ -6,17 +6,10 @@
 package Presentation;
 
 import Entities.Boutique;
-import Entities.User;
-import static Presentation.MenuBoutiqueController.list;
-
-import Services.BoutiqueService;
-import Services.ProduitService;
 import Utils.Utils;
-import com.jfoenix.controls.JFXDatePicker;
-<<<<<<< HEAD
-=======
 
->>>>>>> a9e941526e5006ece8e556998f0cf5fe82df34cb
+
+
 import Services.BoutiqueService;
 import com.jfoenix.controls.JFXTextField;
 import com.lynden.gmapsfx.GoogleMapView;
@@ -48,11 +41,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -62,11 +52,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import jfxtras.scene.control.LocalDateTextField;
-<<<<<<< HEAD
-=======
-
->>>>>>> a9e941526e5006ece8e556998f0cf5fe82df34cb
 import jfxtras.scene.control.LocalDateTimeTextField;
 import org.controlsfx.control.textfield.TextFields;
 
