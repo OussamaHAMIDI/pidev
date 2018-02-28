@@ -20,13 +20,13 @@ import javafx.stage.Stage;
  *
  * @author monta
  */
-public class PanierMain extends Application {
+public class CommandeArtisantMain extends Application {
     
-    @Override
+     @Override
     public void start(Stage primaryStage) {
         try
         {
-        Parent root = FXMLLoader.load(getClass().getResource(("Panier.fxml")));
+        Parent root = FXMLLoader.load(getClass().getResource(("CommandeArtisant.fxml")));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -36,7 +36,6 @@ public class PanierMain extends Application {
             System.err.println("Erreur start : " + e.getMessage());
         }
     }
-
     /**
      * @param args the command line arguments
      */

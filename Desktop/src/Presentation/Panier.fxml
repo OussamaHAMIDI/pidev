@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.PanierController">
+<AnchorPane id="AnchorPane" fx:id="origine" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.PanierController">
    <children>
       <AnchorPane layoutX="869.0" prefHeight="606.0" prefWidth="270.0" style="-fx-background-color: white; -fx-background-radius: 3; -fx-border-color: #3C8DBC; -fx-border-radius: 3; -fx-border-width: 4 0 0 0; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-padding: 4;">
          <children>
@@ -49,7 +49,7 @@
                   <Font name="Roboto Medium" size="14.0" />
                </font>
             </Label>
-            <JFXButton layoutX="47.0" layoutY="546.0" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Commander" textFill="WHITE">
+            <JFXButton fx:id="commander" layoutX="47.0" layoutY="546.0" onMouseClicked="#payerPanier" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Commander" textFill="WHITE">
                <font>
                   <Font name="Roboto Medium" size="15.0" />
                </font>
