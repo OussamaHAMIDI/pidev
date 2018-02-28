@@ -21,11 +21,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  * FXML Controller class
@@ -44,8 +47,6 @@ public class ReclamationItemController implements Initializable {
     @FXML
     private Pane idDescription;
     @FXML
-    private Label description;
-    @FXML
     private Label id;
     @FXML
     private Pane buttons;
@@ -57,6 +58,10 @@ public class ReclamationItemController implements Initializable {
     private JFXButton supprimerR;
     @FXML
     private Label date;
+    @FXML
+    private TextFlow descriptionT;
+    @FXML
+    private Text description;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

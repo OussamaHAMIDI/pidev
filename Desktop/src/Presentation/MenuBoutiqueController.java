@@ -232,10 +232,14 @@ public class MenuBoutiqueController implements Initializable {
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
             System.out.println("EXISTE DEJA ====> update");
+            warning.setText("Votre Evaluation a été modifiée");
+            warning.setVisible(true);
         }
         else{
             es.ajouterEvaluation(e); 
             System.out.println("new new Add");
+            warning.setVisible(true);
+            warning.setText("Votre Evaluation a été enregistrée");
         }       
     }
 
@@ -261,6 +265,9 @@ public class MenuBoutiqueController implements Initializable {
             Reclamation r = new Reclamation(u,boutiqueSelected,reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
+            warning.setText("Votre reclamation a été enregistrée");
+            warning.setVisible(true);
+            
         }
     }
 
