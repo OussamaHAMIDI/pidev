@@ -33,7 +33,9 @@ public class UserMain extends Application {
     public void start(Stage stage) {
         try {
 
+
             Parent root = FXMLLoader.load(getClass().getResource("Accueil.fxml"));
+
 
             stage.setTitle("Login");
             

@@ -220,4 +220,13 @@ public class Panier {
         }
         return true;
     }
+    public String genererMailBody()
+    {
+        String body ="";
+        for(ProduitPanier p : this.contenu)
+        {
+            body += "<tr><td>" + p.reference +"</td>"+"<td>" + p.libelle +"</td>"+"<td>" + p.getQuantiteVendue() +"</td>"+"<td>" + p.getPrixVente()*p.getQuantiteVendue() +"</td></tr>";
+        }
+        return body;
+    }
 }

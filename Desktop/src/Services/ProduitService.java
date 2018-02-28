@@ -126,6 +126,7 @@ public class ProduitService implements IProduit {
 
                 produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), boutique,Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
                 return produit;
+
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);

@@ -2,15 +2,15 @@
 .root{}
 
 .nav-bar{
-    -fx-background-image: url('../Images/sidebar.jpg');
+    /*-fx-background-image: url('../Images/sidebar.jpg');*/
     -fx-background-position: center center;
     -fx-background-size: cover;
     -fx-margin-top:0;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
 }
 
 .nav-button:hover{
-    -fx-background-color:#cccccc;
+    -fx-background-color:#f4f4f4;
 }
 
 .body{

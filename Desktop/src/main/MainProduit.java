@@ -28,6 +28,7 @@ public class MainProduit {
     final static String user = "root";
     final static String password = "";
     
+
     public static void main(String[] args) throws IOException {
 
 //    Produit p = new Produit(0,"", "azzzz", "", 100, "54", "fsgd", "sgg", 0, null, null, null);
