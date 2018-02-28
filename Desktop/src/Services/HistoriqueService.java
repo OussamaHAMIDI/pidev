@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,15 +34,15 @@ public class HistoriqueService implements IHistorique {
 
     @Override
     public List<Panier> getHistoriqueUser(User user) {
-        List<Panier> paniers = null;
+        List<Panier> paniers = new ArrayList<Panier>();
+        PanierService ps = new PanierService();
         try {
-            ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM panier WHERE id_user = '" + user.getId() + " and statut ='" + StatusPanier.Valide.toString() + "'");
+            ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                    .executeQuery("SELECT * FROM panier WHERE id_user = '" + user.getId() + "' and statut = 'Valide' ");
             while (rs.next()) {
-                UserService us = new UserService();
-                PanierService ps = new PanierService();
+                UserService userGetter = new UserService();
                 paniers.add(new Panier(rs.getInt("id"),
-                        us.getUserById(rs.getInt("id_user")),
+                    userGetter.getUserById(rs.getInt("id_user")),
                         rs.getObject("date_creation", LocalDateTime.class),
                         rs.getObject("date_livraison", LocalDateTime.class),
                         rs.getDouble("total_ttc"),

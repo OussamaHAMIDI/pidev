@@ -35,6 +35,16 @@ public class Reclamation {
         this.dateCreation = dateCreation;
         this.type = type;
     }
+    
+    public Reclamation(Reclamation reclamation){
+        this.id = reclamation.getId();
+        this.user = reclamation.getUser();
+        this.boutique = reclamation.getBoutique();
+        this.produit = reclamation.getProduit();
+        this.dateCreation = reclamation.getDateCreation();
+        this.type = reclamation.getType();
+        this.description = reclamation.getDescription();
+    }
 
     public Reclamation(int id, User user, Produit produit, String description, LocalDateTime dateCreation, TypeReclamation type) {
         this.id = id;

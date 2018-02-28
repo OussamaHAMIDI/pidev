@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ModifierBoutiqueController">
+   <children>
+      <Label layoutX="145.0" layoutY="40.0" text="Modifier la boutique">
+         <font>
+            <Font name="System Bold Italic" size="22.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="nomBoutique" layoutX="123.0" layoutY="119.0" maxWidth="255.0" minWidth="197.0" prefHeight="31.0" prefWidth="255.0" promptText="Veuillez entrez le nouveau nom" />
+      <JFXTextField fx:id="adresseBoutique" layoutX="123.0" layoutY="166.0" maxWidth="255.0" minWidth="197.0" prefHeight="31.0" prefWidth="255.0" promptText="Veuillez entrez la nouvelle adresse" />
+      <JFXButton fx:id="photo" layoutX="285.0" layoutY="239.0" onAction="#changerPhoto" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #3C8DBC;" text="Changer photo" textFill="WHITE" />
+      <ImageView fx:id="photoB" fitHeight="97.0" fitWidth="133.0" layoutX="108.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/camera.png" />
+         </image></ImageView>
+      <JFXButton layoutX="125.0" layoutY="313.0" onAction="#modifierBoutique" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Valider">
+         <graphic>
+            <FontAwesomeIconView fill="#fcf8f8" glyphName="CHECK" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="retour" accessibleRole="IMAGE_VIEW" layoutX="290.0" layoutY="313.0" onAction="#annuler" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="  Retour">
+         <graphic>
+            <MaterialDesignIconView fill="WHITE" glyphName="times" size="16.0" text="" wrappingWidth="9.0" />
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

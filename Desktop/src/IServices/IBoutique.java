@@ -7,7 +7,10 @@ package IServices;
 
 import Entities.Boutique;
 import Entities.Produit;
+import Entities.User;
+import java.io.InputStream;
 import java.util.List;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -15,7 +18,7 @@ import java.util.List;
  */
 public interface IBoutique {
 
-    public void ajouterBoutique(Boutique boutique);
+    public void ajouterBoutique(Boutique boutique,int idUser);
 
     public void ajouterProduit(int idProduit, int idBoutique);
     
@@ -25,21 +28,25 @@ public interface IBoutique {
     
     public void supprimerBoutique(Boutique boutique);
 
-    public Boutique chercherBoutiqueParNom(String nom);
+   public Boutique chercherBoutiqueParNom(String nom);
     
-    public List<Boutique> chercherBoutiquesParNom(String nom);
+    //public List<Boutique> chercherBoutiquesParNom(String nom);
 
     public Boutique chercherBoutiqueParID(int idBoutique);
+    public InputStream getPhotoBoutique(int idB);
+    public Image getPhoto(int idB);
 
-    public List<Produit> lireProduitsParBoutique(int idBoutique);
+   // public List<Produit> lireProduitsParBoutique(int idBoutique);
     
     public List<Produit> lireProduitsParBoutique(Boutique boutique);
+    
+    public Boutique remplirProduitsParBoutique(Boutique boutique);
 
     public List<Produit> lireProduitsParBoutique(String nomBoutique);
 
     public List<Boutique> lireBoutiques();
     
-    public void modifierBoutique(Boutique boutique,String nom,String adresse);
+    public void modifierBoutique(Boutique boutique);
     
     public void modifierNomBoutique(Boutique boutique,String nom);
     
@@ -49,4 +56,6 @@ public interface IBoutique {
 
 //     public Boutique chercherBoutiqueParProduit (Produit produit);
 //     public void modifierBoutique(Boutique boutique);
+     
+     public List<Boutique> lireBoutique(User user);
 }

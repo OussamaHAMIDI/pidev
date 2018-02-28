@@ -6,6 +6,11 @@
 package Presentation;
 
 import Entities.Evaluation;
+import Entities.Produit;
+import Entities.User;
+import Services.EvaluationService;
+import Services.ProduitService;
+import Services.UserService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -30,31 +35,48 @@ public class EvaluationController implements Initializable {
     private Label note;
     @FXML
     private Button evaluer;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        evaluation.setPartialRating(true);
+        EvaluationService es = new EvaluationService();
+        UserService us = new UserService();
+        User u = us.getUserById(29);
+        ProduitService ps = new ProduitService();
+        Produit p = ps.chercherProduitParID(29);
+        System.out.println(p);
+        evaluation.setRating(es.getNoteProduit(p));
+        if (es.peutEvaluer(u, p)) {
+            evaluation.setDisable(false);
+        }
+        else {
+            evaluation.setDisable(true);
+        }
+        evaluation.setPartialRating(false);
         evaluation.setMax(5);
         //evaluation.setUpdateOnHover(true);
+
         evaluation.ratingProperty().addListener(new ChangeListener<Number>() {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                
+
+                Evaluation e = new Evaluation(u, p, newValue.floatValue());
+                es.ajouterEvaluation(e);
                 note.setText("Votre evaluation : " + newValue.toString());
-                
+
             }
-        });  
-    }   
-    
+        });
+    }
+
     @FXML
     private void evaluer(ActionEvent event) {
-        
+
         Evaluation e = new Evaluation();
-        e.setNote((float)evaluation.getRating());
+        e.setNote((float) evaluation.getRating());
         System.out.println(e.getNote());
     }
-    
+
 }

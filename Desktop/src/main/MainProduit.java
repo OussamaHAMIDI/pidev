@@ -8,6 +8,8 @@ package main;
 import Entities.Boutique;
 import Entities.Produit;
 import Services.ProduitService;
+import Utils.SmsSender;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -26,6 +28,7 @@ public class MainProduit {
     final static String user = "root";
     final static String password = "";
     
+<<<<<<< HEAD
     public static void main(String[] args) {
 
     
@@ -34,9 +37,23 @@ public class MainProduit {
         Produit p = new Produit("azerty", "azerty", "azert", 1.0f, "azerty" , "azerty", "azerty", 2.2f, b, LocalDateTime.MAX, null);
 
     
+=======
+    public static void main(String[] args) throws IOException {
+
+//    Produit p = new Produit(0,"", "azzzz", "", 100, "54", "fsgd", "sgg", 0, null, null, null);
     
-    ProduitService ps = new ProduitService();
-    ps.ajouterProduit(p);
+        Boutique b = new Boutique();
+        b.setId(10);
+        Produit p = new Produit("ttttt", "tttt", "ttt", 1.0f, "ttttt" , "tttt", "tttt", 2.2f, b, LocalDateTime.MAX, null);
+
+>>>>>>> 2d41aabe97338b218212547054d0ea82e6d7829f
+    
+        ProduitService ps = new ProduitService();
+        if(ps.ajouterProduit(p))
+        {
+            SmsSender ss = new SmsSender();
+            ss.sendSms("ajout%20effectué", "54476969");
+        }
     
    
 }

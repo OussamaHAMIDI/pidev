@@ -2,6 +2,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://javafx.com/javafx/8.0.141" uri="www.oracle.com/technetwork/java/javase/overview/index.html"/>
+=======
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://javafx.com/javafx/8.0.141" uri="www.oracle.com/technetwork/java/javase/overview/index.html"/>
     <system systemId="http://javafx.com/javafx/8" uri="www.oracle.com/technetwork/java/javase/overview/index.html"/>
 =======
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -9,4 +14,5 @@
     <system systemId="http://javafx.com/javafx/8.0.141" uri="www.oracle.com/technetwork/java/javase/overview/index.html"/>
     <system systemId="http://javafx.com/javafx/8.0.40" uri="www.oracle.com/technetwork/java/javase/overview/index.html"/>
 >>>>>>> 8858ead19622c628a6e7d5a389751cc5ce9f2363
+>>>>>>> 83748a129083bdc33afdf08631cd522045911ba8
 </catalog>

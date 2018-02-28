@@ -5,6 +5,7 @@
  */
 package IServices;
 
+import Entities.Boutique;
 import Entities.Produit;
 import java.util.List;
 import javafx.scene.control.ListCellBuilder;
@@ -22,6 +23,8 @@ public interface IProduit {
     public boolean modifierProduit(Produit p);
 
     public Produit chercherProduitParID(int id);
+    
+    public Produit chercherProduitParID(Boutique boutique, int id);
 
     public List<Produit> listerProduitsBoutique(int idB);
     public List<Produit> listerProduits();

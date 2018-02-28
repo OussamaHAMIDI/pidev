@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="230.0" prefWidth="400.0" style="-fx-border-radius: 5 5 5 5; -fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ProduitController">
+   <children>
+      <ImageView fx:id="photoProduit" fitHeight="125.0" fitWidth="125.0" layoutX="264.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="nomProduit" fill="#180279" layoutX="87.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NomProduit" textAlignment="CENTER" wrappingWidth="127.0">
+         <font>
+            <Font name="FontAwesome Regular" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="descProduit" fill="#575757" layoutX="47.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="202.21875">
+         <font>
+            <Font name="FontAwesome Regular" size="13.0" />
+         </font></Text>
+      <Text fx:id="prix" fill="#225beb" layoutX="133.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix">
+         <font>
+            <Font name="FontAwesome Regular" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="reference" layoutX="14.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ref" />
+   </children>
+</AnchorPane>
