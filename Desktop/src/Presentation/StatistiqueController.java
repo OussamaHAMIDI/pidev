@@ -95,7 +95,7 @@ public class StatistiqueController implements Initializable {
         XYChart.Series setP = new XYChart.Series<>();
         for (Produit p : topTenProduits) {
             if (es.produitHasNote(p)) {
-                setP.getData().add(new XYChart.Data(p.getId() + ":"+p.getReference(), es.getNoteProduit(p)));
+                setP.getData().add(new XYChart.Data(/*p.getId() + ":"+*/p.getReference(), es.getNoteProduit(p)));
             }
         }
         barChartp.getData().addAll(setP);

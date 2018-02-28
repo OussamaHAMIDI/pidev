@@ -202,6 +202,7 @@ public class BoutiqueService implements IBoutique {
             String sql = "SELECT * FROM boutique order by date_creation desc";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            UserService us = new UserService();
             
             while (rs.next()) {
                Boutique b = new Boutique();
@@ -214,6 +215,7 @@ public class BoutiqueService implements IBoutique {
                 b.setLat(rs.getDouble("altitude"));
                 b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
                 b.setPhoto(rs.getBinaryStream("photo"));
+                b.setUser(us.getUserById(rs.getInt("id_user")));
                 boutiques.add(b);
             }
         } catch (SQLException e) {

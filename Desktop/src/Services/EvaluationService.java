@@ -413,4 +413,37 @@ public class EvaluationService implements IEvaluation {
         return false;
     }
 
+    @Override
+    public int getIdEvaluation(User user, Boutique boutique) {
+        try {
+            String req = "SELECT id FROM evaluation WHERE id_user = '" + user.getId() + "' and id_boutique = '" + boutique.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche id Evaluation B" + e);
+        }
+        return 0;
+    }
+
+    @Override
+    public int getIdEvaluation(User user, Produit produit) {
+        try {
+            String req = "SELECT id FROM evaluation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getId() + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Echec de recherche id Evaluation P" + e);
+        }
+        return 0;
+    }
+    
+    
+
 }

@@ -75,18 +75,18 @@ public class StatistiqueArtisanController implements Initializable {
         }
         
         XYChart.Series seriesP = new XYChart.Series();
-        seriesP.getData().add(new XYChart.Data("Janvier", ss.getQuantiteProduitsVendusParMois(lb,"-01-")));
-        seriesP.getData().add(new XYChart.Data("Février", ss.getQuantiteProduitsVendusParMois(lb,"-02-")));
-        seriesP.getData().add(new XYChart.Data("Mars", ss.getQuantiteProduitsVendusParMois(lb,"-03-")));
-        seriesP.getData().add(new XYChart.Data("Avril", ss.getQuantiteProduitsVendusParMois(lb,"-04-")));
+        seriesP.getData().add(new XYChart.Data("Jan", ss.getQuantiteProduitsVendusParMois(lb,"-01-")));
+        seriesP.getData().add(new XYChart.Data("Fév", ss.getQuantiteProduitsVendusParMois(lb,"-02-")));
+        seriesP.getData().add(new XYChart.Data("Mar", ss.getQuantiteProduitsVendusParMois(lb,"-03-")));
+        seriesP.getData().add(new XYChart.Data("Avr", ss.getQuantiteProduitsVendusParMois(lb,"-04-")));
         seriesP.getData().add(new XYChart.Data("Mai", ss.getQuantiteProduitsVendusParMois(lb,"-05-")));
-        seriesP.getData().add(new XYChart.Data("Juin", ss.getQuantiteProduitsVendusParMois(lb,"-06-")));
-        seriesP.getData().add(new XYChart.Data("Juillet", ss.getQuantiteProduitsVendusParMois(lb,"-07-")));
-        seriesP.getData().add(new XYChart.Data("Août", ss.getQuantiteProduitsVendusParMois(lb,"-08-")));
-        seriesP.getData().add(new XYChart.Data("Septembre", ss.getQuantiteProduitsVendusParMois(lb,"-09-")));
-        seriesP.getData().add(new XYChart.Data("Octobre", ss.getQuantiteProduitsVendusParMois(lb,"-10-")));
-        seriesP.getData().add(new XYChart.Data("Novembre", ss.getQuantiteProduitsVendusParMois(lb,"-11-")));
-        seriesP.getData().add(new XYChart.Data("Décembre", ss.getQuantiteProduitsVendusParMois(lb,"-12-")));
+        seriesP.getData().add(new XYChart.Data("Jun", ss.getQuantiteProduitsVendusParMois(lb,"-06-")));
+        seriesP.getData().add(new XYChart.Data("Jul", ss.getQuantiteProduitsVendusParMois(lb,"-07-")));
+        seriesP.getData().add(new XYChart.Data("Aoû", ss.getQuantiteProduitsVendusParMois(lb,"-08-")));
+        seriesP.getData().add(new XYChart.Data("Sep", ss.getQuantiteProduitsVendusParMois(lb,"-09-")));
+        seriesP.getData().add(new XYChart.Data("Oct", ss.getQuantiteProduitsVendusParMois(lb,"-10-")));
+        seriesP.getData().add(new XYChart.Data("Nov", ss.getQuantiteProduitsVendusParMois(lb,"-11-")));
+        seriesP.getData().add(new XYChart.Data("Déc", ss.getQuantiteProduitsVendusParMois(lb,"-12-")));
         lineChart.getData().addAll(seriesP);
         
         

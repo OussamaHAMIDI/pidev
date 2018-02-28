@@ -6,10 +6,17 @@
 package Presentation;
 
 import Entities.Boutique;
+import Entities.Evaluation;
+import Entities.Reclamation;
+import Entities.User;
 import Services.BoutiqueService;
+import Services.EvaluationService;
+import Services.ReclamationService;
+import Services.UserService;
 import Utils.NavigatorData;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +27,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +43,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.Rating;
 
 /**
  * FXML Controller class
@@ -69,6 +79,20 @@ public class MenuBoutiqueController implements Initializable {
     BoutiqueService bs = new BoutiqueService();
     @FXML
     private ImageView photo;
+    @FXML
+    private Rating evaluation;
+    EvaluationService es = new EvaluationService();
+    ReclamationService rs = new ReclamationService();
+    UserService us = new UserService();
+    User u = us.getUserById(2);
+    @FXML
+    private JFXButton reclamationB;
+    @FXML
+    private JFXTextArea reclamation;
+    @FXML
+    private JFXButton validation;
+    @FXML
+    private Label warning;
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
@@ -106,14 +130,20 @@ public class MenuBoutiqueController implements Initializable {
         }
     }
 
-    public void setValues(Boutique boutiqueSelected) {
-        if (boutiqueSelected != null) {
-            NomB.setText(boutiqueSelected.getNom());
-            idB.setText(String.valueOf(boutiqueSelected.getId()));
-            adresseB.setText(boutiqueSelected.getAdresse());
-            dateB.setText(boutiqueSelected.getDateCreation().toString().replace("T", " "));
-
-            photo.setImage(bs.getPhoto(boutiqueSelected.getId()));
+    public void setValues(Boutique boutiqueSelectede) {
+        if (boutiqueSelectede != null) {
+            NomB.setText(boutiqueSelectede.getNom());
+            idB.setText(String.valueOf(boutiqueSelectede.getId()));
+            adresseB.setText(boutiqueSelectede.getAdresse());
+            dateB.setText(boutiqueSelectede.getDateCreation().toString().replace("T", " "));
+            evaluation.setRating(es.getNoteBoutique(boutiqueSelectede));
+            System.out.println("NOTE ===== "+es.getNoteBoutique(boutiqueSelectede)+boutiqueSelectede);
+            if(es.peutEvaluer(u,boutiqueSelectede)){
+                evaluation.setDisable(false);
+            }else{
+                evaluation.setDisable(true);
+            }
+            photo.setImage(bs.getPhoto(boutiqueSelectede.getId()));
         }
     }
 
@@ -133,6 +163,11 @@ public class MenuBoutiqueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        evaluation.setRating(0);
+        evaluation.setDisable(true);
+        reclamation.setVisible(false);
+        warning.setVisible(false);
+        validation.setVisible(false);
         gridPane = new GridPane();
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = bs.lireBoutiques();
@@ -143,6 +178,7 @@ public class MenuBoutiqueController implements Initializable {
         gridPane.setVgap(25);
         boutiques.setPannable(true);
         boutiques.setContent(gridPane);
+        
 
     }
 
@@ -186,6 +222,46 @@ public class MenuBoutiqueController implements Initializable {
 
     @FXML
     private void rechercheBoutique(MouseEvent event) {
+    }
+
+    @FXML
+    private void evaluer(MouseEvent event) {
+        Evaluation e = new Evaluation(u, boutiqueSelected, (float)evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(u,boutiqueSelected);
+        if(idEvaluation !=0){
+            e.setId(idEvaluation);
+            es.modifierEvaluation(e);
+            System.out.println("EXISTE DEJA ====> update");
+        }
+        else{
+            es.ajouterEvaluation(e); 
+            System.out.println("new new Add");
+        }       
+    }
+
+    @FXML
+    private void afficherReclamationArea(ActionEvent event) {
+        reclamationB.setVisible(false);
+        reclamation.setVisible(true);
+        validation.setVisible(true);
+        warning.setVisible(false);
+        
+    }
+
+    @FXML
+    private void reclamer(ActionEvent event) {
+        reclamation.setVisible(false);
+        validation.setVisible(false);
+        reclamationB.setVisible(true);
+        if(reclamation.getText().equals("")){
+            warning.setVisible(true);
+            warning.setText("Veuillez taper votre réclamation");
+        } else {
+            warning.setVisible(false);
+            Reclamation r = new Reclamation(u,boutiqueSelected,reclamation.getText());
+            rs.ajouterReclamation(r);
+            reclamation.setText("");
+        }
     }
 
 }
