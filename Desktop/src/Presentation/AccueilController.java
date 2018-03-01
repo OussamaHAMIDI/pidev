@@ -71,6 +71,8 @@ public class AccueilController implements Initializable {
     private VBox sideBarClient;
     @FXML
     private VBox sideBarVisiteur;
+    @FXML
+    private JFXButton panier;
 
     //Set selected node to a content holder
     private void setNode(String nomFichierFxml) {
@@ -110,31 +112,38 @@ public class AccueilController implements Initializable {
                     sideBarArtisan.setVisible(false);
                     sideBarClient.setVisible(false);
                     sideBarVisiteur.setVisible(false);
+                    panier.setVisible(false);
+                    setNode("Statistique");
                     break;
                 case Artisan:
                     sideBarAdmin.setVisible(false);
                     sideBarArtisan.setVisible(true);
                     sideBarClient.setVisible(false);
                     sideBarVisiteur.setVisible(false);
+                    panier.setVisible(false);
+                    setNode("StatistiqueArtisan");
                     break;
                 case Client:
                     sideBarAdmin.setVisible(false);
                     sideBarArtisan.setVisible(false);
                     sideBarClient.setVisible(true);
                     sideBarVisiteur.setVisible(false);
+                    panier.setVisible(true);
+                    setNode("MenuProduits");
                     break;
             }
         } else {
             btn_logout.setVisible(false);
             btn_user.setVisible(false);
             btn_login.setVisible(true);
+            panier.setVisible(false);
             username.setText("Bienvenue visiteur");
 
             sideBarAdmin.setVisible(false);
             sideBarArtisan.setVisible(false);
             sideBarClient.setVisible(false);
             sideBarVisiteur.setVisible(true);
-
+           
             setNode("MenuProduits");
         }
     }
@@ -172,12 +181,10 @@ public class AccueilController implements Initializable {
             });
 
         });
-        
+
         setAccueil();
 
     }
-
-   
 
     @FXML
     private void logout(ActionEvent event) {
@@ -194,6 +201,7 @@ public class AccueilController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Utils.getAnotherStage(loader, "Connexion").show();
         }
+        setAccueil();
     }
 
     @FXML
@@ -208,7 +216,7 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void switchBoutiqueArtisan(ActionEvent event) {
-          setNode("MenuBoutique");
+        setNode("MenuBoutique");
     }
 
     @FXML
@@ -227,13 +235,8 @@ public class AccueilController implements Initializable {
     }
 
     @FXML
-    private void switchHistoriqueClient(ActionEvent event) {
-         setNode("Panier");
-    }
-
-    @FXML
     private void switchAccueilAdmin(ActionEvent event) {
-         setNode("Statistique");
+        setNode("Statistique");
     }
 
     @FXML
@@ -248,27 +251,32 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void switchBoutiquesAdmin(ActionEvent event) {
-         setNode("MenuBoutique");
+        setNode("MenuBoutique");
     }
 
     @FXML
     private void switchReclamationsAdmin(ActionEvent event) {
-         setNode("ReclamationAdmin2");
+        setNode("ReclamationAdmin2");
     }
 
     @FXML
     private void switchAccueilVisiteur(ActionEvent event) {
-         setNode("MenuProduits");
+        setNode("MenuProduits");
     }
 
     @FXML
     private void switchProduitsVisiteur(ActionEvent event) {
-         setNode("MenuProduits");
+        setNode("MenuProduits");
     }
 
     @FXML
     private void switchBoutiquesVisiteur(ActionEvent event) {
         setNode("MenuBoutique");
+    }
+
+    @FXML
+    private void afficherPanier(MouseEvent event) {
+        setNode("Panier");
     }
 
 }

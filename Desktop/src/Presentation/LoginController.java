@@ -78,7 +78,7 @@ public class LoginController implements Initializable {
         exit.setCursor(Cursor.HAND);
 
         username.setText("HamdiMegdiche");
-        password.setText("25111995");
+        password.setText("test");
     }
 
     @FXML
@@ -102,7 +102,6 @@ public class LoginController implements Initializable {
             }
 
             if (u != null) {
-                System.out.println(u.getUserName());
                 String pswHashed = Utils.hashPassword(password_text, u.getSalt());
 
                 if (pswHashed.equals(u.getMdp())) {
