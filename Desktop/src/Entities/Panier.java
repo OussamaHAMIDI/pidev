@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
  *
@@ -228,5 +229,12 @@ public class Panier {
             body += "<tr><td>" + p.reference +"</td>"+"<td>" + p.libelle +"</td>"+"<td>" + p.getQuantiteVendue() +"</td>"+"<td>" + p.getPrixVente()*p.getQuantiteVendue() +"</td></tr>";
         }
         return body;
+    }
+    
+    public boolean generatePDF()
+    {
+        PDDocument myPdf = new PDDocument();
+        //PDPage page = doc.getPage(1);
+        return true;
     }
 }

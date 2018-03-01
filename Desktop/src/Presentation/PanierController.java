@@ -42,6 +42,7 @@ import javafx.scene.layout.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
  * FXML Controller class
@@ -217,6 +218,8 @@ panier.setContenu(ps.rechercherProduitsPanier(2));
     @FXML
     private void payerPanier(MouseEvent event) throws IOException {
         PanierService ps = new PanierService();
+        
+        
 //        ps.miseAJourPanier(panier);
 //        for(ProduitPanier p : panier.getContenu())
 //        {

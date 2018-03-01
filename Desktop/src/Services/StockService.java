@@ -38,7 +38,7 @@ public class StockService implements IServices.IStock{
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 stock.getIds().add(rs.getInt("id_Produit"));
-                stock.getQuantites().add(rs.getInt("quantite"));
+                stock.getQuantites().add(rs.getInt("quantitee"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +51,7 @@ public class StockService implements IServices.IStock{
     public Stock modifierStock(int idProduit, Stock stock, int qte) 
     {
         try {
-            String req = "UPDATE stock SET  quantite=quantite + (?) WHERE id_Boutique=? and id_Produit=?";
+            String req = "UPDATE stock SET  quantitee=quantitee + (?) WHERE id_Boutique=? and id_Produit=?";
             ps = connexion.prepareStatement(req);
             ps.setInt(1, qte);
             ps.setInt(2, stock.getIdBoutique());
