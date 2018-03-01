@@ -70,6 +70,8 @@ public class ProduitLController implements Initializable {
     private Label reference;
     @FXML
     private JFXButton produitB;
+    @FXML
+    private JFXButton show;
             
 
      public AnchorPane getThis()
@@ -138,6 +140,15 @@ public class ProduitLController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
+    }
+
+    @FXML
+    private void showProduit(ActionEvent event) {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
+      
+        AjouterProduitController.voirProd = prod;
+        AjouterProduitController.voir = true;
+        Utils.getAnotherStage(loader, "voir produit ").show();
     }
 
 
