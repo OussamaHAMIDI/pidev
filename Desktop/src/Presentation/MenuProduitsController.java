@@ -218,7 +218,7 @@ public class MenuProduitsController implements Initializable {
     private void ajouterBoutique(MouseEvent event) {
         AjouterProduitController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Ajout d'un produits ");
+        Stage s = Utils.getAnotherStage(loader, "Ajout d'un produit ");
         s.initStyle(StageStyle.UNDECORATED);
         s.show();
     }

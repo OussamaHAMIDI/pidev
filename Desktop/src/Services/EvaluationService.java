@@ -402,7 +402,7 @@ public class EvaluationService implements IEvaluation {
             String req = "SELECT p.id FROM panier p , produit_panier pp, produit pr WHERE (p.id_user = '"+ user.getId() +"' ) and (pp.id_panier = p.id) and (pp.id_produit = pr.id) and (pr.id_boutique = '"+ boutique.getId()+"')";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next()){
                 System.out.println("User peuuuuuuuuuuuuuuuut evaluer");
                return true;
             }
