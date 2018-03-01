@@ -6,6 +6,7 @@
 package Presentation;
 
 import Entities.ProduitPanier;
+import Services.ProduitService;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -16,12 +17,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 
 /**
@@ -62,7 +67,9 @@ public class ProduitPanierController implements Initializable {
     private ImageView image;
     @FXML
     private Label prixTotal;
-
+    ProduitService ps = new ProduitService();
+    @FXML
+    private Circle circle;
     /**
      * Initializes the controller class.
      */
@@ -82,10 +89,18 @@ public class ProduitPanierController implements Initializable {
         prix.setText(((Float)produit.getPrixVente()).toString());
         prixTotal.setText(((Float)produit.getPrixVente()).toString());
         quantite.setText(((Float)produit.getQuantiteVendue()).toString());
-       if(produit.getPhoto()!=null)
-       {
-           image.setImage(new Image(produit.getPhoto()));
-       }
+       circle.setStroke(Color.SEAGREEN);
+        circle.setFill(Color.SNOW);
+        circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
+        Image img = ps.getPhoto(produit.getId());
+        if (img != null) {
+            try {
+                circle.setFill(new ImagePattern(img));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
         
     }
 
