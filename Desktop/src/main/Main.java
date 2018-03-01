@@ -31,12 +31,21 @@ public class Main {
 
         ProduitService ps= new ProduitService();
 
-        
+        PanierService pps = new PanierService();
         
         UserService us = new UserService();
      
+        BoutiqueService bs = new BoutiqueService();
         
-
+        Boutique testBoutique = new Boutique();
+        User testUser = new User();
+        Panier testPanier = new Panier();
+        testBoutique = bs.chercherBoutiqueParID(94);
+       testPanier = pps.rechercherPanierById(3);
+        testUser = us.getUserById(5);
+        
+ testBoutique.toString();
+ 
     }
 
 }

@@ -80,9 +80,11 @@ public class AjouterProduitController implements Initializable {
         Boutique b = new Boutique();
         if(ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit)))
         {
-            SmsSender ss = new SmsSender();
-            ss.sendSms("ajout%20effectué", "54476969");
+//            SmsSender ss = new SmsSender();
+//            ss.sendSms("ajout%20effectué", "54476969");
         }
+         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{

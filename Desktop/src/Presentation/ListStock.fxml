@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ListStockController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ListStockController">
    <children>
       <TableView fx:id="tableStock" fixedCellSize="0.0" layoutX="15.0" layoutY="14.0" prefHeight="313.0" prefWidth="570.0">
         <columns>
@@ -16,7 +16,7 @@
             <TableColumn fx:id="columnQte" minWidth="0.0" prefWidth="129.0" text="Quantité" />
         </columns>
       </TableView>
-      <Label layoutX="146.0" layoutY="354.0" text="Quantité" />
+      <Label layoutX="97.0" layoutY="354.0" text="Quantité a modifier:" />
       <JFXTextField fx:id="test" labelFloat="true" layoutX="228.0" layoutY="349.0" prefHeight="27.0" prefWidth="61.0" />
       <JFXButton fx:id="modifier" layoutX="380.0" layoutY="349.0" onAction="#modifierStock" text="Modifier" />
    </children>
