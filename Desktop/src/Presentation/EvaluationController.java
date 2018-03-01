@@ -43,9 +43,9 @@ public class EvaluationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         EvaluationService es = new EvaluationService();
         UserService us = new UserService();
-        User u = us.getUserById(29);
+        User u = us.getUserById(5);
         ProduitService ps = new ProduitService();
-        Produit p = ps.chercherProduitParID(29);
+        Produit p = ps.chercherProduitParID(113);
         System.out.println(p);
         evaluation.setRating(es.getNoteProduit(p));
         if (es.peutEvaluer(u, p)) {

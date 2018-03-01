@@ -6,9 +6,11 @@
 package Presentation;
 
 import Entities.Reclamation;
+import Services.ProduitService;
 import Services.ReclamationService;
 import Utils.Enumerations;
 import Utils.Enumerations.TypeReclamation;
+import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +31,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -78,16 +82,24 @@ public class ReclamationItemController implements Initializable {
     }    
 
     private void redirectProduit() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("Evaluation.fxml"));
-        ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
+        ProduitService ps = new ProduitService();
+        AjouterProduitController.voirProd=ps.chercherProduitParID(r.getProduit().getId());
+        AjouterProduitController.voir=true;
+        Stage s = Utils.getAnotherStage(loader, "voir produit ");
+        s.initStyle(StageStyle.UNDECORATED);
+        s.show();
+        //ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
         
     }
     private void redirectBoutique() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("Evaluation.fxml"));
+        ShowBoutiqueController.boutiqueSelected = r.getBoutique();
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("ShowBoutique.fxml"));
         ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
     }
     private void redirectUser() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("Evaluation.fxml"));
+        ShowUserController.selectedUser = r.getUser();
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("ShowUser.fxml"));
         ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
     }
 

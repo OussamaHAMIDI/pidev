@@ -16,5 +16,6 @@ public interface IStock {
     
     public Stock getStock (int idBoutique);
     public Stock modifierStock(int idProduit, Stock stock, int qte);
-    
+    public void modifierStock(int idProduit, int qte) ;
+    public int stockProduit(int idProduit);
 }

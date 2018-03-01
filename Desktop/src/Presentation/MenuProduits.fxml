@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuProduitsController">
+   <children>
+      <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="41.0" layoutY="12.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #162E3B; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Produit" />
+            <Label fx:id="libelle" alignment="TOP_LEFT" layoutX="41.0" layoutY="176.0" prefHeight="43.0" prefWidth="189.0" text="Libelle:" wrapText="true">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="prix" layoutX="41.0" layoutY="254.0" prefHeight="20.0" prefWidth="189.0" text="prix:">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="description" alignment="TOP_LEFT" layoutX="41.0" layoutY="288.0" prefHeight="84.0" prefWidth="189.0" text="Description:" wrapText="true">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="reference" layoutX="41.0" layoutY="221.0" prefHeight="20.0" prefWidth="189.0" text="Reference:">
+               <font>
+                  <Font name="Roboto Medium" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="35.0" layoutY="175.0" prefWidth="200.0" />
+            <Separator layoutX="35.0" layoutY="220.0" prefWidth="200.0" />
+            <Separator layoutX="35.0" layoutY="253.0" prefWidth="200.0" />
+            <Separator layoutX="36.0" layoutY="287.0" prefWidth="200.0" />
+            <FontAwesomeIconView fill="#f5efef" glyphName="MAP" layoutX="67.0" layoutY="392.0" />
+            <JFXButton fx:id="produitB" layoutX="48.0" layoutY="419.0" onAction="#ajouterPanier" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Ajouter au panier" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <FontAwesomeIconView fill="#eee9e9" glyphName="PLUS" layoutX="58.0" layoutY="440.0" />
+            <ImageView fx:id="photo" fitHeight="131.0" fitWidth="162.0" layoutX="54.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
+            <Rating fx:id="evaluation" layoutX="48.0" layoutY="378.0" onMouseClicked="#evaluer" />
+            <JFXButton fx:id="reclamationB" layoutX="48.0" layoutY="463.0" onAction="#afficherReclamationArea" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Reclamer produit" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXTextArea fx:id="reclamation" layoutX="41.0" layoutY="498.0" prefHeight="100.0" prefWidth="189.0" style="-fx-background-color: #ffffff;" />
+            <JFXButton fx:id="validation" layoutX="48.0" layoutY="463.0" onAction="#reclamer" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #26B99A;" text="Valider" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="warning" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="533.0" prefHeight="30.0" prefWidth="244.0" style="-fx-text-fill: #; -fx-font-size: 15;" text="warning" textAlignment="JUSTIFY" textFill="#c33232" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="202.0" layoutY="14.0" prefHeight="606.0" prefWidth="869.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fx:id="produits" layoutX="8.0" layoutY="14.0" prefHeight="538.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </ScrollPane>
+            <JFXButton layoutX="608.0" layoutY="7.0" onMouseClicked="#ajouterBoutique" prefHeight="48.0" prefWidth="53.0" ripplerFill="#00000086" styleClass="nav-button" stylesheets="@style.css" text=" ">
+               <font>
+                  <Font size="1.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons8_Add_New_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fitHeight="35.0" fitWidth="32.0" layoutX="532.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons8_Search_48px_2.png" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="filter" layoutX="328.0" layoutY="16.0" maxWidth="219.0" minWidth="204.0" prefHeight="21.0" prefWidth="204.0" promptText="Rechercher">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

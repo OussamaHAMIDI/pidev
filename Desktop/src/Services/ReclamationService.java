@@ -284,9 +284,9 @@ public class ReclamationService implements IReclamation {
                     System.out.println("reclamation trouvée " + reclamation);
                 }
                 else {
-                    //ProduitService ps = new ProduitService();
-                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
-                    //reclamation.setProduit(produit); //en attente de jappa
+                    ProduitService ps = new ProduitService();
+                    Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    reclamation.setProduit(produit); //en attente de jappa
                     reclamation.setBoutique(null);
                     reclamation.setType(TypeReclamation.Produit);
                 }
@@ -321,9 +321,9 @@ public class ReclamationService implements IReclamation {
                     System.out.println("reclamation trouvée " + reclamation);
                 }
                 else {
-                    //ProduitService ps = new ProduitService();
-                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
-                    //reclamation.setProduit(produit); //en attente de jappa
+                    ProduitService ps = new ProduitService();
+                    Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    reclamation.setProduit(produit); //en attente de jappa
                     reclamation.setBoutique(null);
                     reclamation.setType(TypeReclamation.Produit);
                 }

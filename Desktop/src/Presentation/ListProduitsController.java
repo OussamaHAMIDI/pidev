@@ -40,7 +40,7 @@ import javafx.scene.layout.GridPane;
 public class ListProduitsController implements Initializable {
     @FXML
     private ScrollPane listProduits;
-    List<Produit> produits=new ArrayList<Produit>();
+   public static List<Produit> produits=new ArrayList<Produit>();
     GridPane gridPane= new GridPane();
     Double scrollWidth=0.0;
     
@@ -81,11 +81,11 @@ public class ListProduitsController implements Initializable {
 //          //Jib liste de produits
               ProduitService ps = new ProduitService();
              produits.addAll(ps.listerProduits());
-            ProduitController.contenu = produits;
+            ProduitLController.contenu = produits;
             
             for (int i = 0; i < produits.size(); i++) {
-                ProduitController.index = i;
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Produit.fxml"));
+                ProduitLController.index = i;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ProduitL.fxml"));
                 Parent root = loader.load();
                 list.add(root);
                 
@@ -95,7 +95,7 @@ public class ListProduitsController implements Initializable {
             gridPane.setVgap(20);
             listProduits.setPannable(true);
             listProduits.setContent(gridPane);
-            ProduitController.pc = this;
+            ProduitController.lp = this;
 
         } catch (IOException ex) {
             Logger.getLogger(ListProduitsController.class.getName()).log(Level.SEVERE, null, ex);

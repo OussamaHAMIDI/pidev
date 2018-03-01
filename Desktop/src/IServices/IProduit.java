@@ -7,8 +7,9 @@ package IServices;
 
 import Entities.Boutique;
 import Entities.Produit;
+import java.io.InputStream;
 import java.util.List;
-import javafx.scene.control.ListCellBuilder;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -19,16 +20,21 @@ public interface IProduit {
     public boolean ajouterProduit(Produit p);
 
     public boolean supprimerProduit(int id);
-    
+
     public boolean modifierProduit(Produit p);
 
     public Produit chercherProduitParID(int id);
-    
+
     public Produit chercherProduitParID(Boutique boutique, int id);
 
     public List<Produit> listerProduitsBoutique(int idB);
+
     public List<Produit> listerProduits();
-    
-    public String  getNextId();
-    
+
+    public Image getPhoto(int idP);
+
+    public InputStream getPhotoProduit(int idP);
+
+    public String getNextId();
+
 }
