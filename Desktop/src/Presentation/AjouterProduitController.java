@@ -41,6 +41,7 @@ import javax.imageio.ImageIO;
  * @author oussamahamidi
  */
 public class AjouterProduitController implements Initializable {
+
     @FXML
     private TextField reference;
     @FXML
@@ -61,41 +62,41 @@ public class AjouterProduitController implements Initializable {
     private Button ajouterPhoto;
     @FXML
     private ImageView photo;
-    private FileInputStream photoProduit= null;
+    private FileInputStream photoProduit = null;
     private JFXButton modifier;
     @FXML
     private JFXButton ajouter;
     @FXML
     private JFXButton retour;
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
+    }
+
     @FXML
-    public void ajouterProduit (ActionEvent event) throws IOException
-    {
+    public void ajouterProduit(ActionEvent event) throws IOException {
         if (controleDeSaisi()) {
-            ProduitService ps=new ProduitService();
-        Boutique b = new Boutique();
-        if(ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit)))
-        {
+            ProduitService ps = new ProduitService();
+            Boutique b = new Boutique();
+            if (ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(), Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit))) {
 //            SmsSender ss = new SmsSender();
 //            ss.sendSms("ajout%20effectué", "54476969");
+            }
+
+            Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            s.close();
+
         }
-<<<<<<< HEAD
-         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        s.close();
-=======
-            
-        }
->>>>>>> 47be0352d00e4cf021c56fa70e17926277f3cb3c
     }
+
     @FXML
-    void uploadPhoto(ActionEvent event) throws IOException{
-      FileChooser file = new FileChooser(); //pour choisir la photo
+    void uploadPhoto(ActionEvent event) throws IOException {
+        FileChooser file = new FileChooser(); //pour choisir la photo
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo du produit");
 
@@ -118,13 +119,14 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void annuler(ActionEvent event) {
-         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
     }
 
     @FXML
     private void payerPanier(MouseEvent event) {
     }
+
     private boolean controleDeSaisi() {
 
         if (reference.getText().isEmpty() || libelle.getText().isEmpty() || description.getText().isEmpty()
