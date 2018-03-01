@@ -85,7 +85,7 @@
                   <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </ScrollPane>
-            <JFXButton layoutX="608.0" layoutY="7.0" onMouseClicked="#ajouterBoutique" prefHeight="48.0" prefWidth="53.0" ripplerFill="#00000086" styleClass="nav-button" stylesheets="@style.css" text=" ">
+            <JFXButton fx:id="ajouterB" layoutX="608.0" layoutY="7.0" onMouseClicked="#ajouterBoutique" prefHeight="48.0" prefWidth="53.0" ripplerFill="#00000086" styleClass="nav-button" stylesheets="@style.css" text=" ">
                <font>
                   <Font size="1.0" />
                </font>
@@ -93,7 +93,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
-                  <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ajouter" disable="true" fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/icons8_Add_New_48px.png" />
                      </image>
