@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1345.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
    <children>
-      <AnchorPane fx:id="menuBar" prefHeight="80.0" prefWidth="1140.0" style="-fx-background-color: white;" stylesheets="@style.css" AnchorPane.leftAnchor="200.0">
+      <AnchorPane fx:id="menuBar" prefHeight="80.0" prefWidth="1140.0" style="-fx-background-color: white;" stylesheets="@style.css" AnchorPane.leftAnchor="205.0">
          <children>
             <Label fx:id="username" layoutX="14.0" layoutY="15.0" prefHeight="55.0" prefWidth="866.0" style="-fx-text-fill: #545454;" styleClass="body" stylesheets="@style.css" text="Bienvenue ">
                <padding>
@@ -85,7 +74,7 @@
             </MenuButton>
          </children>
       </AnchorPane>
-      <VBox fx:id="sideBarAdmin" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="sideBarAdmin" prefHeight="600.0" prefWidth="205.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="88.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -96,16 +85,16 @@
                </VBox.margin>
             </ImageView>
             <Pane prefHeight="28.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
-            <JFXButton fx:id="btnHome" prefHeight="60.0" prefWidth="170.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Home" textFill="#545454">
+            <JFXButton fx:id="btnStats" onAction="#switchStats" prefHeight="60.0" prefWidth="180.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Accueil" textFill="#545454">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
-               <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </VBox.margin>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -114,25 +103,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnUsers" layoutX="10.0" layoutY="193.0" onAction="#switchUsers" prefHeight="60.0" prefWidth="170.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Utilisateurs" textFill="#545454">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </VBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/user_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton prefHeight="60.0" prefWidth="170.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+            <JFXButton prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -140,7 +111,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
+                  <Insets left="12.0" top="10.0" />
                </VBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -150,12 +121,12 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnBoutique" onAction="#switchBoutique" prefHeight="60.0" prefWidth="170.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
+            <JFXButton fx:id="btnBoutique" onAction="#switchBoutique" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
+                  <Insets left="12.0" top="10.0" />
                </VBox.margin>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -168,25 +139,25 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnStats" onAction="#switchStats" prefHeight="60.0" prefWidth="170.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Statistiques" textFill="#545454">
+            <JFXButton fx:id="btnUsers" layoutX="10.0" layoutY="193.0" onAction="#switchUsers" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Utilisateurs" textFill="#545454">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </VBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/stats_icon.png" />
+                        <Image url="@../Images/user_icon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnReclamations" onAction="#switchReclamations" prefHeight="60.0" prefWidth="170.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Reclamations" textFill="#545454">
+            <JFXButton fx:id="btnReclamations" onAction="#switchReclamations" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Reclamations" textFill="#545454">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -194,7 +165,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
+                  <Insets left="12.0" top="10.0" />
                </VBox.margin>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -204,7 +175,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnHistorique" onAction="#switchHistorique" prefHeight="60.0" prefWidth="170.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Historiques" textFill="#545454">
+            <JFXButton fx:id="btnHistorique" onAction="#switchHistorique" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Historiques" textFill="#545454">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -219,11 +190,11 @@
                   </ImageView>
                </graphic>
                <VBox.margin>
-                  <Insets left="15.0" top="10.0" />
+                  <Insets left="12.0" top="10.0" />
                </VBox.margin>
             </JFXButton>
          </children>
       </VBox>
-      <AnchorPane fx:id="holderPane" layoutX="200.0" layoutY="80.0" prefHeight="600.0" prefWidth="1140.0" styleClass="body" stylesheets="@style.css" />
+      <AnchorPane fx:id="holderPane" layoutX="205.0" layoutY="80.0" prefHeight="600.0" prefWidth="1140.0" styleClass="body" stylesheets="@style.css" />
    </children>
 </AnchorPane>

@@ -72,6 +72,7 @@ public class MenuProduitsController implements Initializable {
     ReclamationService rs = new ReclamationService();
     
     UserService us = new UserService();
+    
     User u = us.getUserById(2);
     
     @FXML
@@ -145,12 +146,20 @@ public class MenuProduitsController implements Initializable {
             description.setText(produitSelected.getDescription());
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
+<<<<<<< HEAD
+            if(es.peutEvaluer(u,produitSelected)){
+                evaluation.setDisable(false);
+            }else{
+                evaluation.setDisable(true);
+            }
+=======
            
 //            if(es.peutEvaluer(u,produitSelected)){
 //                evaluation.setDisable(false);
 //            }else{
 //                evaluation.setDisable(true);
 //            }
+>>>>>>> b3f833b622ebf0363a0f11fa91faffbd948f7caf
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }
@@ -173,6 +182,9 @@ public class MenuProduitsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if(AccueilController.userConnected.getType() == TypeUser.Administrateur){
+            
+        }
         evaluation.setRating(0);
         evaluation.setDisable(true);
         reclamation.setVisible(false);
@@ -251,9 +263,7 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
+        
     }
 
-    @FXML
-    private void rechercheProduit(MouseEvent event) {
-    }
 }
