@@ -9,6 +9,7 @@ import Entities.Boutique;
 import Entities.Produit;
 import Entities.ProduitPanier;
 import Services.ProduitService;
+import Services.StatistiqueService;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -79,8 +80,8 @@ public class ListProduitsController implements Initializable {
             // TODO
          
 //          //Jib liste de produits
-              ProduitService ps = new ProduitService();
-             produits.addAll(ps.listerProduits());
+              StatistiqueService ss = new StatistiqueService();
+             produits.addAll(ss.getTopTenProduits());
             ProduitLController.contenu = produits;
             
             for (int i = 0; i < produits.size(); i++) {

@@ -367,27 +367,6 @@ public class GestionUsersController implements Initializable {
 
         users.setPannable(true);
         users.setContent(gridPane);
-//        users.vvalueProperty().addListener(new ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                if (newValue.doubleValue() == users.getVmax()) {
-//                    System.out.println("AT BOTTOM");
-//                     load more items
-//                    List<Parent> list2 = parents;
-//                    for (int i = 0; i < list.size(); i++) {
-//                        try {
-//                            FXMLLoader loader = new FXMLLoader(getClass().getResource("User.fxml"));
-//                            Parent root = loader.load();
-//                            list2.add(root);
-//                        } catch (IOException ex) {
-//                            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }
-//                    addToGrid(parents, gridPane);
-//                }
-//            }
-//        }
-//        );
     }
 
     @FXML
