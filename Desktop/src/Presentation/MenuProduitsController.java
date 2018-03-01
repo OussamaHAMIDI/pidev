@@ -161,11 +161,14 @@ public class MenuProduitsController implements Initializable {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);
                 validation.setVisible(true);
+                warning.setVisible(true);
             } else {
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);
-                validation.setVisible(true);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);
+                validation.setVisible(false);
+                warning.setVisible(false);
             }
+            
 
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
@@ -209,12 +212,12 @@ public class MenuProduitsController implements Initializable {
                 ajouterB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 evaluation.setDisable(true);
-                warning.setVisible(true);
-                validation.setVisible(true);
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);//text area
+                warning.setVisible(false);
+                validation.setVisible(false);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);//text area
                 produitB.setVisible(false);
-                 ajouterB.setDisable(false);
+                ajouterB.setDisable(false);
                 ajouterB.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 evaluation.setDisable(false);

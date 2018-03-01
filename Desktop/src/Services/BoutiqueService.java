@@ -422,14 +422,13 @@ public class BoutiqueService implements IBoutique {
             while (rs.next()) {
                 Boutique b = new Boutique();
                 b.setId(rs.getInt("id"));
-               // b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
-                //b.setListProduit(lireProduitsParBoutique(rs.getInt("id")));
                 b.setNom(rs.getString("nom"));
                 b.setAdresse(rs.getString("adresse"));
                 b.setLong(rs.getDouble("longitude"));
                 b.setLat(rs.getDouble("altitude"));
                 b.setUser(user);
                 b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
+                b = remplirProduitsParBoutique(b);
                 boutiques.add(b);
             }
         } catch (SQLException e) {

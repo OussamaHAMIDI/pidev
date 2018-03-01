@@ -152,10 +152,12 @@ public class MenuBoutiqueController implements Initializable {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);
                 validation.setVisible(true);
+                warning.setVisible(true);
             } else {
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);
-                validation.setVisible(true);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);
+                validation.setVisible(false);
+                warning.setVisible(false);
             }
             photo.setImage(bs.getPhoto(boutiqueSelectede.getId()));
         }
@@ -177,8 +179,6 @@ public class MenuBoutiqueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ReclamationService rs = new ReclamationService();
-        EvaluationService es = new EvaluationService();
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
                 separateur.setVisible(true);
@@ -193,10 +193,10 @@ public class MenuBoutiqueController implements Initializable {
                 separateur.setVisible(false);
                 idB.setVisible(false);
                 evaluation.setDisable(true);
-                warning.setVisible(true);
-                validation.setVisible(true);
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);//text area
+                warning.setVisible(false);
+                validation.setVisible(false);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);//text area
                 addBoutique.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 separateur.setVisible(false);
@@ -221,7 +221,7 @@ public class MenuBoutiqueController implements Initializable {
 
         evaluation.setRating(0);
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
-        list = bs.lireBoutiques();
+        list = bs.lireBoutique(AccueilController.userConnected);
         UneBoutiqueArtisanController.contenu = list;
         UneBoutiqueArtisanController.mc = this;
         
