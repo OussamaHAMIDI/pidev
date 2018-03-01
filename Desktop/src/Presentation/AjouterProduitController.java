@@ -79,7 +79,10 @@ public class AjouterProduitController implements Initializable {
     }
 
     @FXML
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1422c7a2a030ad8a584d4e608b2b014a333b9941
     public void ajouterProduit (ActionEvent event) throws IOException
     {
         ProduitService ps=new ProduitService();
@@ -94,12 +97,18 @@ public class AjouterProduitController implements Initializable {
             ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
 //            SmsSender ss = new SmsSender();
 //            ss.sendSms("ajout%20effectué", "54476969");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1422c7a2a030ad8a584d4e608b2b014a333b9941
             Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
             s.close();
 
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1422c7a2a030ad8a584d4e608b2b014a333b9941
     }
 
     @FXML
