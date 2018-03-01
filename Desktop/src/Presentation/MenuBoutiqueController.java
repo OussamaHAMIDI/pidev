@@ -164,7 +164,7 @@ public class MenuBoutiqueController implements Initializable {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
                 evaluation.setDisable(true);
                 warning.setVisible(false);
-                validation.setVisible(true);
+                validation.setVisible(false);
                 reclamationB.setVisible(false);
                 addBoutique.setVisible(true);
                 reclamation.setVisible(false);//text area
@@ -202,7 +202,6 @@ public class MenuBoutiqueController implements Initializable {
         gridPane.setVgap(25);
         boutiques.setPannable(true);
         boutiques.setContent(gridPane);
-
     }
 
     @FXML
@@ -217,7 +216,10 @@ public class MenuBoutiqueController implements Initializable {
             NavigatorData.getInstance().setAdr(B.getAdresse());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BoutiqueMap.fxml"));
-            Utils.getAnotherStage(loader, "La position de la boutique sur la carte").show();
+            Stage s = Utils.getAnotherStage(loader, "La position de la boutique sur la carte");
+            s.initStyle(StageStyle.DECORATED);
+            s.setResizable(true);
+            s.show();
         }
     }
 

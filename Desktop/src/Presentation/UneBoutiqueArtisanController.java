@@ -94,7 +94,7 @@ public class UneBoutiqueArtisanController implements Initializable {
                 gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
-                partagerB.setVisible(false);
+                partagerB.setVisible(false);           
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 gris.setVisible(true);
                 supprimer.setVisible(true);
