@@ -104,8 +104,8 @@ public class PanierService implements IPanier {
 
     @Override
     public int miseAJourPanier(Panier panier) {
-        String req = "UPDATE panier SET id_user ='?',date_creation ='?',date_livraison ='?',total_ttc ='?',frais_livraison ='?',statut ='?',mode_paiement ='?',est_livre ='?',est_paye ='?'"
-                + " WHERE id='?'";
+        String req = "UPDATE panier SET id_user =?,date_creation =?,date_livraison =?,total_ttc =?,frais_livraison =?,statut =?,mode_paiement =?,est_livre =?,est_paye =?"
+                + " WHERE id=?";
 
         try {
             String addMode = "";
@@ -122,7 +122,7 @@ public class PanierService implements IPanier {
             ps.setObject(3, panier.getDateLivraison());
             ps.setDouble(4, panier.getTotalTTC());
             ps.setDouble(5, panier.getFraisLivraison());
-            ps.setString(6, addMode);
+            ps.setString(6, panier.getStatus().toString());
             ps.setString(7, panier.getModePaiement().toString());
             ps.setBoolean(8, panier.isEstLivre());
             ps.setBoolean(9, panier.isEstPaye());
@@ -221,12 +221,12 @@ public class PanierService implements IPanier {
 
     @Override
     public int modifierProduitPanier(ProduitPanier produit, int idPanier) {
-        String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantite_Vendu=?,poids_Vendu=?,prix_Vendu=? where id_panier=? and id_produit=?";
+        String req = "UPDATE produit_panier SET reference=?,libelle=?,description=?,prix=?,taille=?,couleur=?,texture=?,poids=?,quantite_Vendu=?,poids_Vendu=?,prix_Vente=? where id_panier=? and id_produit=?";
         try {
             ps = connexion.prepareStatement(req);
 
-            ps.setInt(13, idPanier);
-            ps.setInt(14, produit.getId());
+            ps.setInt(12, idPanier);
+            ps.setInt(13, produit.getId());
             ps.setString(1, produit.getReference());
             ps.setString(2, produit.getLibelle());
             ps.setString(3, produit.getDescription());
