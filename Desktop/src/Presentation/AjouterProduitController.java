@@ -79,6 +79,7 @@ public class AjouterProduitController implements Initializable {
     }
 
     @FXML
+<<<<<<< HEAD
     public void ajouterProduit(ActionEvent event) throws IOException {
         if (controleDeSaisi()) {
             ProduitService ps = new ProduitService();
@@ -88,10 +89,30 @@ public class AjouterProduitController implements Initializable {
 //            ss.sendSms("ajout%20effectué", "54476969");
             }
 
+=======
+    public void ajouterProduit (ActionEvent event) throws IOException
+    {
+        ProduitService ps=new ProduitService();
+        Boutique b = new Boutique();
+        if(controleDeSaisi())
+        {
+            if (taille.getText()=="") {taille.setText("");}
+            if (couleur.getText()=="") {couleur.setText("");}
+            if (texture.getText()=="") {texture.setText("");}
+            if (poids.getText().equals("")) {poids.setText("0.0");}
+            String t = poids.getText();
+            ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
+//            SmsSender ss = new SmsSender();
+//            ss.sendSms("ajout%20effectué", "54476969");
+>>>>>>> 65e07aabefca322f99e909bc2c035dd9d9a0e654
             Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
             s.close();
 
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 65e07aabefca322f99e909bc2c035dd9d9a0e654
     }
 
     @FXML
@@ -149,7 +170,7 @@ public class AjouterProduitController implements Initializable {
                 return false;
             }
 
-            if (!Pattern.matches("^[\\p{L} .'-]+$", description.getText())) {
+            if (!Pattern.matches("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", description.getText())) {
                 Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez la description du produit ! ");
                 description.requestFocus();
                 description.selectEnd();
