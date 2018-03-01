@@ -234,7 +234,7 @@ public class Panier {
     public boolean generatePDF()
     {
         PDDocument myPdf = new PDDocument();
-       // PDPage page = doc.getPage(1);
+        //PDPage page = doc.getPage(1);
         return true;
     }
 }
