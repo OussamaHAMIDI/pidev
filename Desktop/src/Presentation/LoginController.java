@@ -28,7 +28,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -103,11 +102,13 @@ public class LoginController implements Initializable {
             }
 
             if (u != null) {
+                System.out.println(u.getUserName());
                 String pswHashed = Utils.hashPassword(password_text, u.getSalt());
+
                 if (pswHashed.equals(u.getMdp())) {
-
+                   
                     if (u.getEtat() == EtatUser.Active || u.getEtat() == EtatUser.Disconnected || u.getEtat() == EtatUser.Connected) {
-
+                        
                         Utils.showTrayNotification(NotificationType.NOTICE, "Connexion établie", u.getType().toString(), "Bienvenue " + u.getNom() + " "
                                 + u.getPrenom(), u.getPhoto(), 5000);
 
@@ -136,7 +137,7 @@ public class LoginController implements Initializable {
                                     if (u.getToken().equals(tf_code.getText().trim())) {
                                         us.modifierEtatUser(u.getId(), EtatUser.Active);
                                         Utils.showTrayNotification(NotificationType.NOTICE, "Vous êtes confirmé", u.getType().toString(), "Veuillez-vous connecter",
-                                                 u.getPhoto(), 5000);
+                                                u.getPhoto(), 5000);
                                     }
                                 }
                             });
@@ -172,6 +173,9 @@ public class LoginController implements Initializable {
                             }
                         });
                     }
+                } else {
+                    Utils.showAlert(Alert.AlertType.ERROR, "Erreur de connexion", null, "Username et/ou mot de passe invalide(s)");
+                    username.requestFocus();
                 }
             } else {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur de connexion", null, "Username et/ou mot de passe invalide(s)");

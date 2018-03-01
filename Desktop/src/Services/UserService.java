@@ -52,7 +52,7 @@ public class UserService implements IUser {
             ps.setString(2, u.getUserName());
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getEmail());
-            ps.setInt(5, 1); // pas sur de la valeur !!*****************************
+            ps.setInt(5, 1); 
             ps.setString(6, u.getMdp());
             ps.setString(7, "a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
             ps.setString(8, u.getType().toString());
@@ -71,14 +71,13 @@ public class UserService implements IUser {
 
             ps.setString(18, u.getSalt());
             ps.executeUpdate();
-            System.out.println("Ajout User réussi");
+            // System.out.println("Ajout User réussi");
             return true;
         } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Ajout User echoué");
             return false;
         }
-        // }
 
     }
 
@@ -96,7 +95,7 @@ public class UserService implements IUser {
             ps.setString(1, etat.toString());
             ps.setInt(2, idUser);
             ps.executeUpdate();
-            System.out.println("User updated to " + etat);
+           // System.out.println("User updated to " + etat);
 
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class
@@ -112,7 +111,7 @@ public class UserService implements IUser {
             ps = connexion.prepareStatement(req);
             ps.setString(1, code);
             ps.executeUpdate();
-            System.out.println("token changé avec succes");
+            //System.out.println("token changé avec succes");
             return true;
         } catch (SQLException ex) {
             System.out.println("erreur changement token");
@@ -151,7 +150,7 @@ public class UserService implements IUser {
             ps.setString(1, mdp);
             ps.setString(2, salt);
             ps.executeUpdate();
-            System.out.println("mot de passe changé avec succes");
+//            System.out.println("mot de passe changé avec succes");
             return true;
 
         } catch (SQLException ex) {
@@ -187,11 +186,11 @@ public class UserService implements IUser {
                 id = rs.getInt("id");
             }
             if (nb > 1) {
-                System.out.println("Il y'a plus qu'un user ayant ces informations !");
+//                System.out.println("Il y'a plus qu'un user ayant ces informations !");
                 return id;
             }
             if (nb < 1) {
-                System.out.println("Il y'a pas de user ayant ces informations !");
+//                System.out.println("Il y'a pas de user ayant ces informations !");
                 return id;
             }
             return id; // nb == 1
@@ -219,7 +218,7 @@ public class UserService implements IUser {
                         Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
                         rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
                         rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
-                System.out.println("User retrieved");
+//                System.out.println("User retrieved");
             }
 
         } catch (SQLException ex) {
@@ -244,7 +243,7 @@ public class UserService implements IUser {
                         Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), rs.getString("email"),
                         rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
                         rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
-                System.out.println("User retrieved");
+//                System.out.println("User retrieved");
             }
 
         } catch (SQLException ex) {
@@ -268,7 +267,7 @@ public class UserService implements IUser {
                         Utils.getLocalDate(rs.getString("date_naissance")), rs.getString("sexe"), email,
                         rs.getString("adresse"), rs.getString("tel"), Utils.getLocalDateTime(rs.getString("last_login")),
                         rs.getString("salt"), rs.getString("roles"), rs.getString("confirmation_token"), rs.getBinaryStream("photo_profil"));
-                System.out.println("User retrieved");
+//                System.out.println("User retrieved");
             }
 
         } catch (SQLException ex) {
@@ -293,7 +292,7 @@ public class UserService implements IUser {
         } catch (SQLException ex) {
             Logger.getLogger(ProduitService.class
                     .getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Echec get Next ID ");
+//            System.out.println("Echec get Next ID ");
         }
         return nextid;
     }
@@ -318,7 +317,7 @@ public class UserService implements IUser {
                 ps.setString(6, null);
             }
 
-            ps.setString(7,"a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
+            ps.setString(7, "a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
             ps.setString(8, u.getType().toString());
             ps.setString(9, u.getEtat().toString());
             ps.setString(10, u.getAdresse());
@@ -332,7 +331,7 @@ public class UserService implements IUser {
             ps.setBlob(17, u.getPhoto());
 
             ps.executeUpdate();
-            System.out.println("Modification User " + u.getUserName() + " réussie");
+//            System.out.println("Modification User " + u.getUserName() + " réussie");
             return true;
 
         } catch (SQLException ex) {
@@ -341,7 +340,6 @@ public class UserService implements IUser {
             return false;
         }
     }
-
 
     @Override
     public List<User> getUsers() {
@@ -374,7 +372,7 @@ public class UserService implements IUser {
 //        u.setEtat(EtatUser.Deleted);
 //        u.setEmail(u.getEmail() + u.getId());
 //        u.setUserName(u.getUserName() + u.getId());
-     modifierEtatUser(idUser, EtatUser.Deleted);
+        modifierEtatUser(idUser, EtatUser.Deleted);
 //        if (!us.modifierUser(u)) {
 //            System.out.println("Suppression User echouée");
 //        }
@@ -390,7 +388,7 @@ public class UserService implements IUser {
             if (rs.first()) {
 
                 photo = rs.getBinaryStream("photo_profil");
-               // System.out.println("photo retrieved");
+                // System.out.println("photo retrieved");
             }
 
         } catch (SQLException ex) {
@@ -424,13 +422,13 @@ public class UserService implements IUser {
     }
 
     @Override
-    public boolean addPhotoArtisan(int idArtisan,InputStream photo) {
+    public boolean addPhotoArtisan(int idArtisan, InputStream photo) {
         try {
             String req = "UPDATE `user` SET `photo_permis`=? WHERE id = '" + idArtisan + "'";
             ps = connexion.prepareStatement(req);
             ps.setBlob(1, photo);
             ps.executeUpdate();
-            System.out.println("Modification photo artisan réussie");
+//            System.out.println("Modification photo artisan réussie");
             return true;
 
         } catch (SQLException ex) {
@@ -444,7 +442,7 @@ public class UserService implements IUser {
     public Image getPhotoArtisan(int idArtisan) {
         InputStream permis = null;
         try {
-           
+
             String req = "SELECT photo_permis FROM `user` WHERE id = '" + idArtisan + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();

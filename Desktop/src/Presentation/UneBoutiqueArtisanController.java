@@ -6,6 +6,7 @@
 package Presentation;
 
 import Entities.Boutique;
+import static Presentation.MenuBoutiqueController.boutiqueSelected;
 import Services.BoutiqueService;
 import Utils.Utils;
 import Utils.Enumerations.*;
@@ -30,6 +31,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -65,6 +67,8 @@ public class UneBoutiqueArtisanController implements Initializable {
     private Circle circle;
 
     BoutiqueService bs = new BoutiqueService();
+    @FXML
+    private Pane gris;
 
     public AnchorPane getThis() {
         return boutique;
@@ -88,22 +92,20 @@ public class UneBoutiqueArtisanController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
-                partagerB.setVisible(false);
+                partagerB.setVisible(false);           
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
-                partagerB.setVisible(false);
+                partagerB.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
-                supprimer.setVisible(true);
-                modifierB.setVisible(true);
-                partagerB.setVisible(false);
+                gris.setVisible(false);
             }
         } else {//visiteur
-            supprimer.setVisible(true);
-            modifierB.setVisible(true);
-            partagerB.setVisible(false);
+            gris.setVisible(false);
         }
         bou = MenuBoutiqueController.list.get(index);
         setValues(bou);
@@ -143,20 +145,22 @@ public class UneBoutiqueArtisanController implements Initializable {
         Boutique B = new Boutique();
 
         BoutiqueService bt = new BoutiqueService();
-        B = bt.chercherBoutiqueParID(B.getId());
 
-        String accessToken = "EAACEdEose0cBALnh8FXxkOGAmDxrhvukgahtLksbuUITg8vydx3NFcBjAQnZBcXNFjmTIyFMIisUrB2gKFwSbzjYnnuMkOLySiQJRWe2kkXxlwZAbmYlkvZBKduoPXPqrhwWsgdfn9ivXJY4SweyM0ZBH2XZBZANgJNHLH3LaLMibaUhKejQdlA5H9taDsrQYZD";
+        B = bt.chercherBoutiqueParID(bou.getId());
+
+        String accessToken = "EAACEdEose0cBABMNP3nEnlZC7y6mhexfCK1EiX5jQjvRlsXZB8x7HfE6efHK0zwJt4ZCwQgiKQ2JgF0eiTheReTnhNfrukJhO8AvEw8cCLo5jWwZAUdOf863gY79BMeRe2I1nH7PUYdxFKf3sxyWIhYyS4ZAQqxqrc7RqjAdrxt3M1PNCadYdUIf2R60IjO3xu8iQeupt4QZDZD";
         Scanner s = new Scanner(System.in);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
         FacebookType response = fbClient.publish("me/feed", FacebookType.class,
-                Parameter.with("message", "Boutique" + B.getNom() + " at" + B.getAdresse()),
+                Parameter.with("message", "Boutique " + B.getNom() + " à l'adresse" + B.getAdresse()),
                 Parameter.with("link", "http://127.168.0.1/"));
         System.out.println("fb.com/" + response.getId());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("success");
-        alert.setContentText("Votre annonce à été publié");
+        alert.setContentText("Votre annonce à été publiée");
         alert.showAndWait();
 
     }
+
 
 }

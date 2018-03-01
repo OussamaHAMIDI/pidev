@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -114,7 +115,28 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
 
     @FXML
     private void validerAction(ActionEvent event) {
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        if (btNom.getText().isEmpty())
+        {
+            alert.setHeaderText("Veuillez saisir le nom de votre boutique");
+            alert.show();
+        }
+        else if (btAdresse.getText().isEmpty())
+        {
+            alert.setHeaderText("Veuillez saisir l'adresse de votre boutique");
+            alert.show();
+        }
+          else if (btDate.getText().isEmpty())
+        {
+            alert.setHeaderText("Veuillez saisir la date création de votre boutique");
+            alert.show();
+//        }else if(btDate.getText().compareTo(LocalDate.now()) <0){
+//            Alert alertt = new Alert(Alert.AlertType.ERROR);
+//        alertt.setHeaderText(null);
+//        alertt.setContentText("Vous devez choisir une date supérieure ou égale à la date d'aujoud'hui");
+//        alertt.showAndWait();
 
+        }else{
         BoutiqueService bs = new BoutiqueService();
         Boutique boutique = new Boutique();
 //        boutique.setIDUser(Integer.parseInt(btIdUser.getText()));
@@ -139,7 +161,7 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
         if (AccueilController.userConnected != null) {
             bs.ajouterBoutique(boutique, AccueilController.userConnected.getId());
         }
-
+        }
     }
 
     @FXML
