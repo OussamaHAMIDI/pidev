@@ -10,18 +10,22 @@ import Utils.Enumerations;
 import Utils.Enumerations.ModeLivraison;
 import Utils.Enumerations.ModePaiement;
 import Utils.Enumerations.StatusPanier;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  *
  * @author monta
  */
 public class Panier {
-
 
     private int id;
     private User user;
@@ -48,15 +52,15 @@ public class Panier {
         this.estLivre = estLivre;
         this.estPaye = estPaye;
         this.contenu = contenu;
-      this.modeLivraison = ModeLivraison.valueOf(modeLivraison);
+        this.modeLivraison = ModeLivraison.valueOf(modeLivraison.replace(" ", ""));
     }
 
     public Panier(User user, LocalDateTime dateCreation) {
         this.user = user;
         this.dateCreation = dateCreation;
         this.status = StatusPanier.Temporelle;
-        this.modeLivraison = ModeLivraison.SurPlace;
-        
+        this.modeLivraison = ModeLivraison.Surplace;
+
     }
 
     public Panier() {
@@ -69,8 +73,6 @@ public class Panier {
     public void setModeLivraison(ModeLivraison modeLivraison) {
         this.modeLivraison = modeLivraison;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -152,7 +154,7 @@ public class Panier {
         this.estPaye = estPaye;
     }
 
-        public List<ProduitPanier> getContenu() {
+    public List<ProduitPanier> getContenu() {
         return contenu;
     }
 
@@ -221,20 +223,56 @@ public class Panier {
         }
         return true;
     }
-    public String genererMailBody()
-    {
-        String body ="";
-        for(ProduitPanier p : this.contenu)
-        {
-            body += "<tr><td>" + p.reference +"</td>"+"<td>" + p.libelle +"</td>"+"<td>" + p.getQuantiteVendue() +"</td>"+"<td>" + p.getPrixVente()*p.getQuantiteVendue() +"</td></tr>";
+
+    public String genererMailBody() {
+        String body = "";
+        for (ProduitPanier p : this.contenu) {
+            body += "<tr><td>" + p.reference + "</td>" + "<td>" + p.libelle + "</td>" + "<td>" + p.getQuantiteVendue() + "</td>" + "<td>" + p.getPrixVente() * p.getQuantiteVendue() + "</td></tr>";
         }
         return body;
     }
-    
-    public boolean generatePDF()
-    {
-        PDDocument myPdf = new PDDocument();
-        //PDPage page = doc.getPage(1);
+
+    public boolean generatePDF() {
+        try {
+            PDDocument myPdf = new PDDocument();
+            PDPage page = new PDPage();
+            myPdf.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(myPdf, page);
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.TIMES_ROMAN, 36);
+            contentStream.setLeading(14.5f);
+
+            contentStream.newLineAtOffset(25, 700);
+            contentStream.showText("                       Commande");
+            contentStream.newLine();
+            contentStream.newLine();
+            contentStream.newLine();
+            contentStream.showText(this.dateCreation.toString().replace("T", " "));
+            contentStream.newLine();
+            contentStream.newLine();
+            contentStream.newLine();
+            contentStream.setFont(PDType1Font.TIMES_ROMAN, 14);
+            contentStream.showText("Au nom de :" + this.user.getNom() + " " + this.user.getPrenom());
+            contentStream.newLine();
+            contentStream.newLine();
+            contentStream.newLine();
+            contentStream.showText("_______________________________________________________________________________________________________________");
+
+            for (ProduitPanier p : this.contenu) {
+                contentStream.newLine();
+                contentStream.newLine();
+                contentStream.showText("Reference : " + p.reference + " Libelle :" + p.libelle + " quantité:" + p.getQuantiteVendue() + " prix :" + p.getPrixVente() + " Total :" + p.getPrixVente() * p.getQuantiteVendue() + "  Boutique : " + p.boutique.getNom());
+                contentStream.newLine();
+                contentStream.showText("_______________________________________________________________________________________________________________");
+            }
+            contentStream.endText();
+            contentStream.close();
+            myPdf.save(System.getProperty("user.home") + "/Desktop"+ this.id + ".pdf");
+            myPdf.close();
+        } catch (IOException e) {
+            System.out.println(e);
+            return false;
+        }
         return true;
     }
 }
