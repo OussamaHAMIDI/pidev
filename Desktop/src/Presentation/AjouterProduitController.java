@@ -85,10 +85,7 @@ public class AjouterProduitController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-         if(voir==true)
-            {
-            ProduitService ps = new ProduitService();
+          ProduitService ps = new ProduitService();
             reference.setText(voirProd.getReference());
             libelle.setText(voirProd.getLibelle());
             description.setText(voirProd.getDescription());
@@ -100,29 +97,32 @@ public class AjouterProduitController implements Initializable {
             if (voirProd.getPhoto() != null) {
                 photo.setImage(ps.getPhoto(voirProd.getId()));
             }
-            reference.setDisable(true);
-            libelle.setDisable(true);
-            description.setDisable(true);
-            prix.setDisable(true);
-            taille.setDisable(true);
-            couleur.setDisable(true);
-            texture.setDisable(true);
-            poids.setDisable(true);
+         if(voir==true)
+            {
+          
+ reference.setEditable(false);
+            libelle.setEditable(false);
+            description.setEditable(false);
+            prix.setEditable(false);
+            taille.setEditable(false);
+            couleur.setEditable(false);
+            texture.setEditable(false);
+            poids.setEditable(false);
+
             ajouterPhoto.setVisible(false);
             ajouter.setVisible(false);
             }
             else
             {
-
-             reference.setDisable(false);
-            libelle.setDisable(false);
-            description.setDisable(false);
-            prix.setDisable(false);
-            taille.setDisable(false);
-            couleur.setDisable(false);
-            texture.setDisable(false);
-            poids.setDisable(false);
-
+            reference.setEditable(true);
+            libelle.setEditable(true);
+            description.setEditable(true);
+            prix.setEditable(true);
+            taille.setEditable(true);
+            couleur.setEditable(true);
+            texture.setEditable(true);
+            poids.setEditable(true);
+            
             ajouter.setVisible(true);
             ajouterPhoto.setVisible(true);
             }

@@ -105,10 +105,6 @@ public class UserController implements Initializable {
         GestionUsersController.userSelected = u;
         guc.setValues(u, "Informations compte");
         guc.voir();
-
-        ShowUserController.selectedUser = u;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowUser.fxml"));
-        Utils.getAnotherStage(loader, "Inscription").show();
     }
 
     @FXML

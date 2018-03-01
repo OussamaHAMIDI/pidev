@@ -7,6 +7,7 @@ package Presentation;
 
 import Entities.Produit;
 import Services.ProduitService;
+import Utils.Enumerations.*;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -24,11 +25,10 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -44,9 +44,7 @@ public class ProduitController implements Initializable {
     static public ListProduitsController lp;
     @FXML
     private AnchorPane produit;
-    private Label adresseB;
-    private Label nomB;
-    private Label dateB;
+
     @FXML
     private JFXButton supprimer;
 
@@ -64,6 +62,10 @@ public class ProduitController implements Initializable {
     private Label reference;
 
     ProduitService ps = new ProduitService();
+    @FXML
+    private JFXButton ajouterPanier;
+    @FXML
+    private Pane gris;
 
     public AnchorPane getThis() {
         return produit;
@@ -93,9 +95,28 @@ public class ProduitController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (AccueilController.userConnected != null) {
+            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                gris.setVisible(true);
+                supprimer.setVisible(true);
+                modifierP.setVisible(true);
+                ajouterPanier.setVisible(false);
+            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                gris.setVisible(true);
+                supprimer.setVisible(true);
+                modifierP.setVisible(true);
+                ajouterPanier.setVisible(false);
+            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                gris.setVisible(true);
+                supprimer.setVisible(false);
+                modifierP.setVisible(false);
+                ajouterPanier.setVisible(true);
+            }
+        } else {//visiteur
+            gris.setVisible(false);
+        }
         prod = MenuProduitsController.list.get(index);
         setValues(prod);
-
     }
 
     private void supprimerBoutique(ActionEvent event) {
@@ -107,12 +128,8 @@ public class ProduitController implements Initializable {
             if (newValue == ButtonType.OK) {
                 MenuProduitsController.list.remove(prod);
                 contenu.remove(prod);
-//        GridPane parent = (GridPane)user.getParent();
-//        parent.getChildren().remove(user);
-
                 ps.supprimerProduit(prod.getId());
                 mc.updateItems("");
-
             }
         });
     }
@@ -121,16 +138,12 @@ public class ProduitController implements Initializable {
         ModifierProduitController.bc = this;
         ModifierProduitController.selectedProduit = prod;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Modification d'un produit ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
-        //prod = ModifierProduitController.selectedProduit;
+        Utils.getAnotherStage(loader, "Modification d'un produit ").show();
     }
 
     @FXML
     private void test(MouseEvent event) {
-        
-       mc.produitSelected=prod;
+        mc.produitSelected = prod;
         mc.setValues(prod);
     }
 
@@ -144,12 +157,8 @@ public class ProduitController implements Initializable {
             if (newValue == ButtonType.OK) {
                 MenuProduitsController.list.remove(prod);
                 contenu.remove(prod);
-//        GridPane parent = (GridPane)user.getParent();
-//        parent.getChildren().remove(user);
-
                 ps.supprimerProduit(prod.getId());
                 mc.updateItems("");
-
             }
         });
     }
@@ -159,9 +168,12 @@ public class ProduitController implements Initializable {
         ModifierProduitController.bc = this;
         ModifierProduitController.selectedProduit = prod;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Modification d'un produit ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
+        Utils.getAnotherStage(loader, "Modification d'un produit ").show();
+    }
+
+    @FXML
+    private void ajouterPanier(ActionEvent event) {
+        //For jappa :D
     }
 
 }
