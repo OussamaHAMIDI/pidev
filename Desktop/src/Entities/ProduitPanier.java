@@ -62,6 +62,24 @@ public class ProduitPanier extends Produit
         this.livree = livree;
     }
     
+    public ProduitPanier(Produit p)
+    {
+       this.id=p.id;
+       this.boutique=p.boutique;
+       this.idBoutique=p.idBoutique;
+       this.couleur = p.couleur;
+       this.description = p.description;
+       this.dateAjout = p.dateAjout;
+       this.libelle = p.libelle;
+       this.reference = p.reference;
+       this.prix = p.prix;
+       this.taille = p.taille;
+       this.texture =p.texture;
+       this.prixVente=p.prix;
+       this.quantiteVendue =1;
+       this.poidsVendu=0;
+    }
+    
 
     
     

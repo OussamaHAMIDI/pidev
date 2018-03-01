@@ -131,7 +131,18 @@ public class ProduitService implements IProduit {
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
 
-                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), boutique,Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
+                produit = new Produit(result.getInt("id"),
+                        result.getString("reference"),
+                        result.getString("libelle"),
+                        result.getString("description"),
+                        result.getFloat("prix"),
+                        result.getString("taille"),
+                        result.getString("couleur"),
+                        result.getString("texture"),
+                        result.getFloat("poids"),
+                        boutique,
+                        Utils.Utils.getLocalDateTime(result.getString("date_creation")),
+                        result.getBinaryStream("photo"));
                 return produit;
 
             }
@@ -149,6 +160,7 @@ public class ProduitService implements IProduit {
             String req = "SELECT * FROM produit WHERE id_boutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
+             BoutiqueService bs= new BoutiqueService();
             Produit p = new Produit();
             while (rs.next()) {
                 p.setId(rs.getInt("id"));
@@ -161,6 +173,7 @@ public class ProduitService implements IProduit {
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
                 p.setPhoto(rs.getBinaryStream("photo"));
+                p.setBoutique(bs.chercherBoutiqueParID(rs.getInt("id_boutique")));
                 produits.add(p);
             }
         } catch (SQLException ex) {
@@ -194,6 +207,7 @@ public class ProduitService implements IProduit {
         try {
             String req = "SELECT * FROM produit";
             ps = connexion.prepareStatement(req);
+            BoutiqueService bs= new BoutiqueService();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Produit p = new Produit();
@@ -207,6 +221,7 @@ public class ProduitService implements IProduit {
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
                 p.setPhoto(rs.getBinaryStream("photo"));
+                 p.setBoutique(bs.chercherBoutiqueParID(rs.getInt("id_boutique")));
                 produits.add(p);
             }
         } catch (SQLException ex) {

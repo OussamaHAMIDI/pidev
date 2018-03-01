@@ -54,26 +54,26 @@ import org.apache.pdfbox.pdmodel.PDDocument;
  * @author monta
  */
 public class PanierController implements Initializable {
-
+    
     Panier panier = new Panier();
     Parent paypal;
-
+    
     PanierController.MyBrowser myBrowser;
-
+    
     private Pane content;
-
+    
     @FXML
     private Label prixArticles;
-
+    
     @FXML
     private Label prixLivraison;
-
+    
     @FXML
     private Label totalTTC;
     private ScrollPane scrollPane;
-
+    
     private AnchorPane anchorContent;
-
+    
     GridPane gridPane = new GridPane();
     Panier p = new Panier();
     Double scrollHeight = 0.0;
@@ -98,7 +98,7 @@ public class PanierController implements Initializable {
         int totalLignes = (totalItems % 2 == 0) ? totalItems / 2 : (totalItems + 1) / 2;
         int nbrItems = gridPane.getChildren().size();
         int nbrRows = (nbrItems % 2 == 0) ? nbrItems / 2 : (nbrItems + 1) / 2;
-
+        
         if (nbrItems % 2 == 1) {// impaire
             if (list.size() > 0) {
                 gridPane.add(list.get(0), 0, nbrRows - 1);
@@ -116,30 +116,30 @@ public class PanierController implements Initializable {
             }
 //            }
         }
-
+        
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         List<Parent> list = new ArrayList<Parent>();
-
+        
         try {
             // TODO
 
             // panier.setContenu(new ArrayList<ProduitPanier>());
-            PanierService ps = new PanierService();
-            panier = ps.rechercherPanierById(3);
+            AccueilController.monPanier.recalculer();
+            panier = AccueilController.monPanier;
             //panier.setContenu(ps.rechercherProduitsPanier(3));
 //
             Float total = 0.0f;
             ProduitPanierController.contenu = panier.getContenu();
-
+            
             for (int i = 0; i < panier.getContenu().size(); i++) {
                 ProduitPanierController.index = i;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ProduitPanier.fxml"));
                 Parent root = loader.load();
                 list.add(root);
-                total += panier.getContenu().get(i).getPrix() * panier.getContenu().get(i).getQuantiteVendue();
+                total += panier.getContenu().get(i).getPrixVente() * panier.getContenu().get(i).getQuantiteVendue();
             }
             prixArticles.setText(total.toString());
             totalTTC.setText(total.toString());
@@ -156,23 +156,23 @@ public class PanierController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(PanierController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     public void modifierContenu(ProduitPanier produit, ProduitPanier old) {
         panier.getContenu().set(panier.getContenu().indexOf(old), produit);
-
+        
     }
-
+    
     public void modifierTotaux(float prix) {
         Float v = (Float.parseFloat(prixArticles.getText()) + prix);
         prixArticles.setText(v.toString());
-
+        
         v = (Float.parseFloat(totalTTC.getText()) + prix);
         totalTTC.setText(v.toString());
         panier.setTotalTTC(v);
     }
-
+    
     @FXML
     private void modifierMode(ActionEvent event) {
         Float value = Float.parseFloat(totalTTC.getText());
@@ -209,19 +209,21 @@ public class PanierController implements Initializable {
                 break;
         }
     }
-
+    
     @FXML
     private void payerPanier(MouseEvent event) throws IOException {
         PanierService ps = new PanierService();
         if (verif()) {
             StockService ss = new StockService();
-
-            ps.miseAJourPanier(panier);
+            panier.setStatus(Enumerations.StatusPanier.Valide);
+            panier.setId(ps.getNextId());
+            ps.ajouterPanier(panier);
+            
             for (ProduitPanier p : panier.getContenu()) {
                 ss.modifierStock(p.getId(), (int) p.getQuantiteVendue() * -1);
                 ps.modifierProduitPanier(p, panier.getId());
             }
-
+            
             Float v = (Float.parseFloat(totalTTC.getText()));
             panier.setTotalTTC(v);
             v = (Float.parseFloat(prixLivraison.getText()));
@@ -243,14 +245,14 @@ public class PanierController implements Initializable {
                     paypal = myBrowser;
                     break;
             }
-            Utils.Utils.sendMail(panier.getUser().getEmail(), panier.genererMailBody(),"","Client");
+            Utils.Utils.sendMail(panier.getUser().getEmail(), panier.genererMailBody(), "", "Client");
             List<ProduitPanier> temp = panier.getContenu();
+            
             Map<Boutique, List<ProduitPanier>> map = temp.stream().collect(Collectors.groupingBy(ProduitPanier::getBoutique));
             map.forEach((b, p) -> {
                 Panier tmp = new Panier();
                 tmp.setContenu(p);
-              //  System.out.println(b.getUser().getEmail());
-                Utils.Utils.sendMail(b.getUser().getEmail(), tmp.genererMailBody(), panier.getUser().getNom() + " " + panier.getUser().getPrenom(),"Artisan");
+                Utils.Utils.sendMail(b.getUser().getEmail(), tmp.genererMailBody(), panier.getUser().getNom() + " " + panier.getUser().getPrenom(), "Artisan");
             });
             panier.generatePDF();
             viderPanier();
@@ -258,7 +260,7 @@ public class PanierController implements Initializable {
             //sms.sendSms("", "");
         }
     }
-
+    
     public boolean verif() {
         StockService ss = new StockService();
         for (ProduitPanier p : panier.getContenu()) {
@@ -270,17 +272,17 @@ public class PanierController implements Initializable {
         }
         return true;
     }
-
+    
     public void retourPanier() {
         origine.getChildren().remove(paypal);
     }
-
+    
     public int panierId() {
         return panier.getId();
     }
-
+    
     public void viderPanier() {
-
+        
         gridPane.getChildren().removeAll(gridPane.getChildren());
         prixArticles.setText("0.0");
         totalTTC.setText("0.0");
@@ -290,29 +292,29 @@ public class PanierController implements Initializable {
         origine.getChildren().remove(paypal);
         panier = new Panier();
     }
-
+    
     VBox vb = new VBox();
-
+    
     Label labelFromJavascript;
-
+    
     public class MyBrowser extends Region {
-
+        
         HBox toolbar;
         VBox toolbox;
         PanierController pc;
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-
+        
         public MyBrowser(PanierController ppc) {
             pc = ppc;
             final URL urlHello = getClass().getResource("http://127.0.0.1/Paypal/hello.html");
-            webEngine.load("http://127.0.0.1/Paypal/first.php?idpanier=2");
+            webEngine.load("http://127.0.0.1/Paypal/first.php?idpanier="+pc.panier.getId());
             //webEngine.load("http://127.0.0.1/Paypal/first.php?idpanier=" + pc.panierId());
             //webEngine.load("http://127.0.0.1/Paypal/failed.html");
             //webEngine.load("http://127.0.0.1/Paypal/done.html");
             webEngine.getLoadWorker().stateProperty().addListener(
                     new ChangeListener<Worker.State>() {
-
+                
                 @Override
                 public void changed(ObservableValue<? extends Worker.State> ov, Worker.State oldState, Worker.State newState) {
                     if (newState == Worker.State.SUCCEEDED) {
@@ -321,20 +323,20 @@ public class PanierController implements Initializable {
                     }
                 }
             });
-
+            
             JSObject window = (JSObject) webEngine.executeScript("window");
             window.setMember("app", new JavaApplication(pc));
-
+            
             toolbox = new VBox();
             labelFromJavascript = new Label();
             toolbox.getChildren().addAll(labelFromJavascript);
             labelFromJavascript.setText("Wait");
-
+            
             getChildren().add(toolbox);
             getChildren().add(webView);
-
+            
         }
-
+        
         @Override
         protected void layoutChildren() {
             double w = getWidth();
@@ -343,16 +345,16 @@ public class PanierController implements Initializable {
             layoutInArea(webView, 0, 0, w, h - toolboxHeight, 0, HPos.CENTER, VPos.CENTER);
             layoutInArea(toolbox, 0, h - toolboxHeight, w, toolboxHeight, 0, HPos.CENTER, VPos.CENTER);
         }
-
+        
     }
-
+    
     public class JavaApplication {
-
+        
         public JavaApplication(PanierController pcc) {
             pc = pcc;
         }
         PanierController pc;
-
+        
         public void callFromJavascript(String msg) {
             if (msg.equals("done")) {
                 //CallMainController bich tirja3 lil accueil
@@ -362,7 +364,7 @@ public class PanierController implements Initializable {
                 pc.retourPanier();
             }
             labelFromJavascript.setText("Click from Javascript: " + msg);
-
+            
         }
     }
 }

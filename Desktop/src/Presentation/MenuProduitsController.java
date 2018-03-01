@@ -8,6 +8,7 @@ package Presentation;
 import Entities.Boutique;
 import Entities.Evaluation;
 import Entities.Produit;
+import Entities.ProduitPanier;
 import Entities.Reclamation;
 import Entities.User;
 import Services.EvaluationService;
@@ -156,6 +157,15 @@ public class MenuProduitsController implements Initializable {
                 evaluation.setDisable(false);
             } else {
                 evaluation.setDisable(true);
+            }
+            if (rs.peutReclamer(AccueilController.userConnected, produitSelected)){
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);
+                validation.setVisible(true);
+            } else {
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);
+                validation.setVisible(true);
             }
 
             photo.setImage(ps.getPhoto(produitSelected.getId()));
@@ -306,13 +316,15 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
-
+AccueilController.monPanier.getContenu().add(new ProduitPanier(produitSelected));
+AccueilController.monPanier.recalculer();
     }
 
     @FXML
     private void closeClicked(MouseEvent event) {
         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
+        boutique=null;
     }
 
 }
