@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ public class Stock {
 
     public Stock(int idBoutique) {
         this.idBoutique = idBoutique;
+        this.ids = new ArrayList<Integer>();
+         this.quantites = new ArrayList<Integer>();
     }
 
     public int getIdBoutique() {

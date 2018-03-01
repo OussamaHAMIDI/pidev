@@ -19,10 +19,12 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -30,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -66,32 +69,40 @@ public class ModifierProduitController implements Initializable {
     private ImageView photo;
     
     private FileInputStream photoProduit= null;
-    
+             ProduitService ps=new ProduitService();
+    public static ProduitController bc;
+    private Produit p;
     public static Produit selectedProduit = new Produit(106);
     @FXML
     private JFXButton Supprimer;
+    @FXML
+    private JFXButton retour;
     /**
      * Initializes the controller class.
      * @param url
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        ProduitService ps=new ProduitService();
-        selectedProduit=ps.chercherProduitParID(selectedProduit.getId());
-        
-        
-        reference.setText(selectedProduit.getReference());
-        libelle.setText(selectedProduit.getLibelle());
-        description.setText(selectedProduit.getDescription());
-        prix.setText(String.valueOf(selectedProduit.getPrix()));
-        taille.setText(selectedProduit.getTaille());
-        couleur.setText(selectedProduit.getCouleur());
-        texture.setText(selectedProduit.getTexture());
-        poids.setText(String.valueOf(selectedProduit.getPoids()));
-        if (selectedProduit.getPhoto()!=null) {
-            photo.setImage(new Image(selectedProduit.getPhoto()));
+
+          if (selectedProduit!=null){
+            p=selectedProduit;
+            
+        reference.setText(p.getReference());
+        libelle.setText(p.getLibelle());
+        description.setText(p.getDescription());
+        prix.setText(String.valueOf(p.getPrix()));
+        taille.setText(p.getTaille());
+        couleur.setText(p.getCouleur());
+        texture.setText(p.getTexture());
+        poids.setText(String.valueOf(p.getPoids()));
+        if (p.getPhoto()!=null) {
+            photo.setImage(ps.getPhoto(p.getId()));
         }
+        }
+       
+       // selectedProduit=ps.chercherProduitParID(selectedProduit.getId());
+        
+      
     }    
     @FXML
     public void modifierProduit (ActionEvent event)
@@ -100,9 +111,17 @@ public class ModifierProduitController implements Initializable {
         Boutique b = new Boutique();
         if(photoProduit!=null)
         {
-        selectedProduit.setPhoto(photoProduit);
+        p.setPhoto(photoProduit);
         }
-        ps.modifierProduit(new Produit(selectedProduit.getId(),reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, selectedProduit.getPhoto()));
+        if (controleDeSaisi()) {
+            if (taille.getText()=="") {taille.setText("");}
+            if (couleur.getText()=="") {couleur.setText("");}
+            if (texture.getText()=="") {texture.setText("");}
+            if (poids.getText().equals("")) {poids.setText("0.0");}
+            ps.modifierProduit(new Produit(p.getId(),reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, p.getPhoto()));
+            Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            s.close();
+        }
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{
@@ -134,7 +153,55 @@ public class ModifierProduitController implements Initializable {
     @FXML
     public void supprimerProduit (ActionEvent event)
     {
-        ProduitService ps=new ProduitService();
-        ps.supprimerProduit(selectedProduit.getId());
+      //  ProduitService ps=new ProduitService();
+        ps.supprimerProduit(p.getId());
+    }
+
+    @FXML
+    private void annuler(ActionEvent event) {
+         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
+    }
+
+    @FXML
+    private void payerPanier(MouseEvent event) {
+    }
+    private boolean controleDeSaisi() {
+
+        if (reference.getText().isEmpty() || libelle.getText().isEmpty() || description.getText().isEmpty()
+                || prix.getText().isEmpty()) {
+            Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Veuillez bien remplir tous les champs !");
+            return false;
+        } else {
+
+            if (!Pattern.matches("^[a-zA-Z0-9]*$", reference.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez la reference ! ");
+                reference.requestFocus();
+                reference.selectEnd();
+                return false;
+            }
+
+            if (!Pattern.matches("^[\\p{L} .'-]+$", libelle.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le libelle du produit ! ");
+                libelle.requestFocus();
+                libelle.selectEnd();
+                return false;
+            }
+
+            if (!Pattern.matches("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", description.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez la description du produit ! ");
+                description.requestFocus();
+                description.selectEnd();
+                return false;
+            }
+
+            if (!Pattern.matches("\\d*", prix.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
+                prix.requestFocus();
+                prix.selectEnd();
+                return false;
+            }
+        }
+        return true;
     }
 }

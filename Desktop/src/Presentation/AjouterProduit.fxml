@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AjouterProduitController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #3C8DBC;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AjouterProduitController">
    <children>
       <ImageView fx:id="photo" fitHeight="103.0" fitWidth="122.0" layoutX="438.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
       <JFXTextField fx:id="reference" labelFloat="true" layoutX="43.0" layoutY="52.0" prefHeight="30.0" prefWidth="240.0" promptText="Reference" />
@@ -21,6 +21,18 @@
       <JFXTextField fx:id="texture" labelFloat="true" layoutX="318.0" layoutY="230.0" prefHeight="30.0" prefWidth="240.0" promptText="Texture" />
       <JFXTextField fx:id="poids" labelFloat="true" layoutX="43.0" layoutY="292.0" prefHeight="30.0" prefWidth="240.0" promptText="Poids" />
       <JFXButton fx:id="ajouterPhoto" layoutX="325.0" layoutY="294.0" onAction="#uploadPhoto" text="Ajouter photo" />
-      <JFXButton fx:id="ajouter" layoutX="102.0" layoutY="352.0" onAction="#ajouterProduit" prefHeight="27.0" prefWidth="122.0" text="Ajouter" />
+      <JFXButton fx:id="retour" layoutX="306.0" layoutY="351.0" onAction="#annuler" onMouseClicked="#payerPanier" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #3C8DBC;" text="Annuler" textFill="WHITE">
+         <font>
+            <Font name="Roboto Medium" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="ajouter" layoutX="173.0" layoutY="351.0" onAction="#ajouterProduit" prefHeight="32.0" prefWidth="100.0" ripplerFill="#dbceced0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Ajouter">
+         <graphic>
+            <FontAwesomeIconView fill="#fcf8f8" glyphName="PENCIL" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

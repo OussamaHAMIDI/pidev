@@ -9,6 +9,9 @@ import DataStorage.MyDB;
 import Entities.Boutique;
 import IServices.IProduit;
 import Entities.Produit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -209,6 +213,26 @@ public class ProduitService implements IProduit {
         }
         return produits;
     }
+ @Override
+    public Image getPhoto(int idB) {
+        InputStream photo = null;
+        try {
+            photo = new FileInputStream("src/Images/camera.png");
+            String req = "SELECT photo FROM `produit` WHERE id = '" + idB + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                photo = rs.getBinaryStream("photo");
+                //System.out.println("photo retrieved");
+            }
+            return new Image(photo);
 
+        } catch (SQLException | FileNotFoundException ex) {
+            Logger.getLogger(BoutiqueService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get photo");
+
+        }
+        return new Image(photo);
+    }
 
 }

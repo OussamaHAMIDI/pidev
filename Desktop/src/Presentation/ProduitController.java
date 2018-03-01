@@ -5,16 +5,40 @@
  */
 package Presentation;
 
+import Entities.Boutique;
 import Entities.Produit;
 import Entities.ProduitPanier;
+import Services.BoutiqueService;
+import Services.ProduitService;
+import Utils.Utils;
+import com.jfoenix.controls.JFXButton;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.types.FacebookType;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -22,38 +46,134 @@ import javafx.scene.text.Text;
  * @author oussamahamidi
  */
 public class ProduitController implements Initializable {
-    @FXML
-    private ImageView photoProduit;
-    @FXML
-    private Text nomProduit;
-    @FXML
-    private Text descProduit;
-    @FXML
-    private Text prix;
     
-    Produit produit;
-    Produit old;
+    private Produit prod;
     static public int index;
     static public List<Produit> contenu;
-    
-    static public ListProduitsController pc;
+    static public MenuProduitsController mc;
+     static public ListProduitsController lp;
     @FXML
-    private Text reference;
-    /**
-     * Initializes the controller class.
-     */
+    private AnchorPane produit;
+    private Label adresseB;
+    private Label nomB;
+    private Label dateB;
+    @FXML
+    private JFXButton supprimer;
+    ProduitService ps= new ProduitService();
+    @FXML
+    private Circle circle;
+    @FXML
+    private Label prix;
+    @FXML
+    private Label libelle;
+    @FXML
+    private Label Description;
+    @FXML
+    private JFXButton modifierP;
+    @FXML
+    private Label reference;
+            
+
+     public AnchorPane getThis()
+    {
+        return produit;
+    }
+     public void setValues(Produit b){
+         libelle.setText(prod.getLibelle());
+        Description.setText(prod.getDescription());
+          reference.setText(prod.getReference());
+          Float prixprod = prod.getPrix();
+          
+        prix.setText(prixprod.toString());
+        circle.setStroke(Color.SEAGREEN);
+        circle.setFill(Color.SNOW);
+        circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
+        Image img = ps.getPhoto(prod.getId());
+        if (img != null) {
+            try
+            {
+                circle.setFill(new ImagePattern(img));
+            }
+            catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
+     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        produit = contenu.get(index);
-        old=produit;
-        nomProduit.setText(produit.getLibelle());
-        reference.setText(produit.getReference());
-        descProduit.setText(produit.getDescription());
-        prix.setText(Float.toString(produit.getPrix()));
-if(produit.getPhoto()!=null)
-        photoProduit.setImage(new Image(produit.getPhoto()));
-        
+         prod = MenuProduitsController.list.get(index);
+        setValues(prod);
         
     }    
+
+    private void supprimerBoutique(ActionEvent event) {
+         
+    
+
+        Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Suppression", null,
+                "Voulez-vous vraiment supprimer cette boutique ?");
+        alert.show();
+        alert.resultProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == ButtonType.OK) {
+                 MenuProduitsController.list.remove(prod);
+                    contenu.remove(prod);
+//        GridPane parent = (GridPane)user.getParent();
+//        parent.getChildren().remove(user);
+
+                ps.supprimerProduit(prod.getId());
+                mc.updateItems("");
+                
+            }
+        });
+    }
+
+    private void modifierBoutique(ActionEvent event) throws IOException {
+        ModifierProduitController.bc=this;
+        ModifierProduitController.selectedProduit=prod;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
+        Stage s = Utils.getAnotherStage(loader, "Modification d'un produit ");
+        s.initStyle(StageStyle.UNDECORATED);
+        s.show();
+    }
+
+    @FXML
+    private void test(MouseEvent event) {
+        mc.produitSelected = prod;
+        mc.setValues(prod);
+//        System.out.println(bou.toString() + index);
+    }
+
+
+    @FXML
+    private void supprimerProduit(ActionEvent event) {
+        
+        Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Suppression", null,
+                "Voulez-vous vraiment supprimer ce produit ?");
+        alert.show();
+        alert.resultProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == ButtonType.OK) {
+                 MenuBoutiqueController.list.remove(prod);
+                    contenu.remove(prod);
+//        GridPane parent = (GridPane)user.getParent();
+//        parent.getChildren().remove(user);
+
+                ps.supprimerProduit(prod.getId());
+                mc.updateItems("");
+                
+            }
+        });
+    }
+
+    @FXML
+    private void modifierProduit(ActionEvent event) {
+         ModifierProduitController.bc=this;
+        ModifierProduitController.selectedProduit=prod;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
+        Stage s = Utils.getAnotherStage(loader, "Modification d'un produit ");
+        s.initStyle(StageStyle.UNDECORATED);
+        s.show();
+    }
     
 }

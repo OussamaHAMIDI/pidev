@@ -36,18 +36,20 @@ public class ListStockController implements Initializable {
     @FXML
     private TableView<affichage> tableStock;
     @FXML
-    private TableColumn<StockService, String> columnRef;
+    private TableColumn<affichage, String> columnRef;
     @FXML
-    private TableColumn<StockService, String> columnLib;
+    private TableColumn<affichage, String> columnLib;
     @FXML
-    private TableColumn<StockService, Integer> columnQte;
-    @FXML
-    private TableColumn<StockService, Integer> columnPrix;
+    private TableColumn<affichage, Integer> columnQte;
+
     @FXML
     private JFXTextField test;
     @FXML
     private JFXButton modifier;
-
+    StockService ss= new StockService();
+    ProduitService ps = new ProduitService();
+     Stock MS = new Stock();
+     affichage selected = new affichage();
     /**
      * Initializes the controller class.
      */
@@ -55,33 +57,32 @@ public class ListStockController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<affichage> data;
         data=FXCollections.observableArrayList();
-        StockService ss= new StockService();
-        ProduitService ps = new ProduitService();
+        
         Boutique bou = new Boutique();
-        bou.setId(1);
-        Stock MS=ss.getStock(bou.getId());
-        Stock MS2 = new Stock();
+        bou.setId(94);
         
-//        List<Integer> ids = MS.getIds();
-//        List<Integer> quantites = MS.getQuantites();
-//        List<String> libelles = new ArrayList<String>();
+        MS=ss.getStock(bou.getId());
+
+        List<Integer> ids = MS.getIds();
+        List<Integer> quantites = MS.getQuantites();
+        List<String> libelles = new ArrayList<String>();
         List<affichage> aff = new ArrayList<affichage>();
-//        for(Integer i : ids)
-//        {
-//            libelles.add(ps.chercherProduitParID(i).getLibelle());
-//        }
-//        for(int i=0;i<ids.size();i++)
-//        {
-//            aff.add(new affichage(
-//                    ids.get(i).toString(),
-//                    libelles.get(i),
-//                    quantites.get(i)
-//            ));
-//        }
-        
-        aff.add(new affichage("1","test 1",3));
-        aff.add(new affichage("2","test 2",6));
-        aff.add(new affichage("3","test 3",69));
+        for(Integer i : ids)
+        {
+            libelles.add(ps.chercherProduitParID(i).getLibelle());
+        }
+        for(int i=0;i<ids.size();i++)
+        {
+            aff.add(new affichage(
+                    ids.get(i).toString(),
+                    libelles.get(i),
+                    quantites.get(i)
+            ));
+        }
+//        
+//        aff.add(new affichage("1","test 1",3));
+//        aff.add(new affichage("2","test 2",6));
+//        aff.add(new affichage("3","test 3",69));
         
         aff.forEach(
                 (a)->{
@@ -102,7 +103,7 @@ public class ListStockController implements Initializable {
             columnRef.setCellValueFactory(new PropertyValueFactory<>("id"));
             columnLib.setCellValueFactory(new PropertyValueFactory<>("libelle"));
             columnQte.setCellValueFactory(new PropertyValueFactory<>("quantite"));
-            columnPrix.setCellValueFactory(new PropertyValueFactory<>("prix"));
+         
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -113,11 +114,16 @@ public class ListStockController implements Initializable {
     }
     private void test(affichage a)
     {
-    test.setText(a.quantite.toString());
+    test.setText("0");
+    selected = a;
     }
 
     @FXML
     private void modifierStock(ActionEvent event) {
+        ss.modifierStock(Integer.valueOf(selected.getId()), MS, Integer.valueOf(test.getText()));
+        tableStock.getSelectionModel().getSelectedItem().quantite = tableStock.getSelectionModel().getSelectedItem().quantite + Integer.valueOf(test.getText());
+        tableStock.refresh();
+        
     }
     
     public class affichage {
@@ -125,9 +131,36 @@ public class ListStockController implements Initializable {
         public String libelle;
         public Integer quantite;
 
+         public affichage() {
+
+        }
         public affichage(String id, String libelle, int quantite) {
             this.id = id;
             this.libelle = libelle;
+            this.quantite = quantite;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getLibelle() {
+            return libelle;
+        }
+
+        public void setLibelle(String libelle) {
+            this.libelle = libelle;
+        }
+
+        public Integer getQuantite() {
+            return quantite;
+        }
+
+        public void setQuantite(Integer quantite) {
             this.quantite = quantite;
         }
         
