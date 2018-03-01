@@ -25,6 +25,12 @@
                </font>
             </JFXButton>
             <FontAwesomeIconView fill="#eee9e9" glyphName="PLUS" layoutX="210.0" layoutY="31.0" />
+            <JFXButton fx:id="show" layoutX="14.0" layoutY="11.0" onAction="#showProduit" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #3C8DBC;" text="       Voir" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+            </JFXButton>
+            <FontAwesomeIconView fill="#eee9e9" glyphName="EYE" layoutX="28.0" layoutY="30.0" wrappingWidth="12.000001966953278" />
          </children>
       </Pane>
       <FontAwesomeIconView glyphName="MONEY" layoutX="14.0" layoutY="169.0" wrappingWidth="12.0" />
