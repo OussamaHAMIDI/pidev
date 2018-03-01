@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 02f0425d1a555d2410264e60a6dec64972164f3c
+>>>>>>> 0189863a6d6f8ee4ac3fb09ae1712bd44a25acc8
+>>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
@@ -14,7 +24,15 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane id="AnchorPane" maxHeight="690.0" maxWidth="1340.0" prefHeight="690.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+=======
+<<<<<<< HEAD
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+=======
+<<<<<<< HEAD
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+>>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa
    <children>
       <AnchorPane fx:id="menuBar" layoutX="200.0" prefHeight="90.0" prefWidth="1140.0" style="-fx-background-color: white;" stylesheets="@style.css" AnchorPane.leftAnchor="200.0">
          <children>
@@ -207,7 +225,51 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+<<<<<<< HEAD
             <JFXButton onAction="#switchHistoriqueClient" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Historiques" textFill="#545454">
+=======
+         </children>
+      </VBox>
+<<<<<<< HEAD
+      <AnchorPane fx:id="holderPane" layoutX="200.0" layoutY="80.0" prefHeight="600.0" prefWidth="1140.0" styleClass="body" stylesheets="@style.css" />
+      <VBox fx:id="sideBarAdmin1" layoutX="10.0" layoutY="10.0" prefHeight="680.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css">
+=======
+      <AnchorPane fx:id="holderPane" layoutX="205.0" layoutY="80.0" prefHeight="600.0" prefWidth="1140.0" styleClass="body" stylesheets="@style.css" />
+   </children>
+</AnchorPane>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+>>>>>>> 0189863a6d6f8ee4ac3fb09ae1712bd44a25acc8
+   <children>
+      <AnchorPane fx:id="menuBar" prefHeight="80.0" prefWidth="1140.0" style="-fx-background-color: white;" stylesheets="@style.css" AnchorPane.leftAnchor="200.0">
+         <children>
+            <Label fx:id="username" layoutX="14.0" layoutY="15.0" prefHeight="55.0" prefWidth="866.0" style="-fx-text-fill: #545454;" styleClass="body" stylesheets="@style.css" text="Bienvenue ">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="38.0" />
+               </font>
+            </Label>
+            
+            <JFXButton fx:id="btn_logout" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="980.0" layoutY="25.0" onAction="#logout" prefHeight="34.0" prefWidth="135.0" ripplerFill="#ff3333c5" styleClass="nav-button" stylesheets="@style.css" text="Déconnexion" textFill="#3c3838">
+>>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -256,7 +318,15 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+<<<<<<< HEAD
             <JFXButton layoutX="10.0" layoutY="193.0" onAction="#switchUsersAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Utilisateurs" textFill="#545454">
+=======
+<<<<<<< HEAD
+            <JFXButton onAction="#switchProduits" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+=======
+<<<<<<< HEAD
+            <JFXButton fx:id="btnUsers1" layoutX="10.0" layoutY="193.0" onAction="#switchUsers" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Utilisateurs" textFill="#545454">
+>>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -270,11 +340,17 @@
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/user_icon.png" />
+<<<<<<< HEAD
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
             <JFXButton onAction="#switchProduitsAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+=======
+=======
+            <JFXButton prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+>>>>>>> 0189863a6d6f8ee4ac3fb09ae1712bd44a25acc8
+>>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -399,3 +475,11 @@
       </VBox>
    </children>
 </AnchorPane>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> bcb7d72b65b52ecd809030bac392fbeee1432d7b
+>>>>>>> 02f0425d1a555d2410264e60a6dec64972164f3c
+>>>>>>> 0189863a6d6f8ee4ac3fb09ae1712bd44a25acc8
+>>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa

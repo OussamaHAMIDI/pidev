@@ -98,6 +98,10 @@ public class MenuProduitsController implements Initializable {
     private ScrollPane produits;
     @FXML
     private ImageView close;
+    @FXML
+    private ImageView ajouter;
+    @FXML
+    private JFXButton ajouterB;
 
     public void addToGrid(List<Produit> list) {
         int totalItems = list.size();
@@ -192,6 +196,8 @@ public class MenuProduitsController implements Initializable {
                 reclamationB.setVisible(false);
                 reclamation.setVisible(false);//text area
                 produitB.setVisible(false);
+                 ajouterB.setDisable(true);
+                ajouterB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 evaluation.setDisable(true);
                 warning.setVisible(true);
@@ -199,6 +205,8 @@ public class MenuProduitsController implements Initializable {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
                 produitB.setVisible(false);
+                 ajouterB.setDisable(false);
+                ajouterB.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 evaluation.setDisable(false);
                 warning.setVisible(true);
@@ -206,6 +214,8 @@ public class MenuProduitsController implements Initializable {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
                 produitB.setVisible(true);
+                ajouterB.setDisable(true);
+                ajouterB.setVisible(false);
             }
         } else {//visiteur
             evaluation.setDisable(true);
@@ -214,6 +224,8 @@ public class MenuProduitsController implements Initializable {
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
             produitB.setVisible(false);
+            ajouterB.setDisable(true);
+            ajouterB.setVisible(false);
         }
         close.setVisible(false);
         validation.setVisible(false);
