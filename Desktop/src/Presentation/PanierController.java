@@ -20,9 +20,11 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -124,7 +126,7 @@ public class PanierController implements Initializable {
         try {
             // TODO
 
-           // panier.setContenu(new ArrayList<ProduitPanier>());
+            // panier.setContenu(new ArrayList<ProduitPanier>());
             PanierService ps = new PanierService();
             panier = ps.rechercherPanierById(3);
             //panier.setContenu(ps.rechercherProduitsPanier(3));
@@ -165,7 +167,7 @@ public class PanierController implements Initializable {
     public void modifierTotaux(float prix) {
         Float v = (Float.parseFloat(prixArticles.getText()) + prix);
         prixArticles.setText(v.toString());
-        
+
         v = (Float.parseFloat(totalTTC.getText()) + prix);
         totalTTC.setText(v.toString());
         panier.setTotalTTC(v);
@@ -211,61 +213,64 @@ public class PanierController implements Initializable {
     @FXML
     private void payerPanier(MouseEvent event) throws IOException {
         PanierService ps = new PanierService();
-        if(verif())
-        {
- StockService ss = new StockService();
+        if (verif()) {
+            StockService ss = new StockService();
 
-        ps.miseAJourPanier(panier);
-        for(ProduitPanier p : panier.getContenu())
-        {
-            ss.modifierStock(p.getId(),(int)p.getQuantiteVendue()*-1);  
-            ps.modifierProduitPanier(p, panier.getId());
-        }
-        
-       Float v = (Float.parseFloat(totalTTC.getText()));
-        panier.setTotalTTC(v);
-      v   = (Float.parseFloat(prixLivraison.getText()));
-      panier.setFraisLivraison(v);
-        switch (modePaiement.getValue()) {
-            case "Espece":
-                //EnvoyerMail
-                
-                break;
-            case "Chaque":
-                //Envoyer mail
-              
-               
-                break;
-            case "Internet":
-                myBrowser = new PanierController.MyBrowser(this);
-                myBrowser.setMinSize(1140, 720);
-                origine.getChildren().add(0, myBrowser);
-                myBrowser.toFront();
-                paypal = myBrowser;
-                break;
-        }
-         panier.generatePDF();
-          viderPanier();
-                     SmsSender sms = new SmsSender();
-                //sms.sendSms("", "");
+            ps.miseAJourPanier(panier);
+            for (ProduitPanier p : panier.getContenu()) {
+                ss.modifierStock(p.getId(), (int) p.getQuantiteVendue() * -1);
+                ps.modifierProduitPanier(p, panier.getId());
+            }
+
+            Float v = (Float.parseFloat(totalTTC.getText()));
+            panier.setTotalTTC(v);
+            v = (Float.parseFloat(prixLivraison.getText()));
+            panier.setFraisLivraison(v);
+            switch (modePaiement.getValue()) {
+                case "Espece":
+                    //EnvoyerMail
+
+                    break;
+                case "Chaque":
+                    //Envoyer mail
+
+                    break;
+                case "Internet":
+                    myBrowser = new PanierController.MyBrowser(this);
+                    myBrowser.setMinSize(1140, 720);
+                    origine.getChildren().add(0, myBrowser);
+                    myBrowser.toFront();
+                    paypal = myBrowser;
+                    break;
+            }
+            Utils.Utils.sendMail(panier.getUser().getEmail(), panier.genererMailBody(),"","Client");
+            List<ProduitPanier> temp = panier.getContenu();
+            Map<Boutique, List<ProduitPanier>> map = temp.stream().collect(Collectors.groupingBy(ProduitPanier::getBoutique));
+            map.forEach((b, p) -> {
+                Panier tmp = new Panier();
+                tmp.setContenu(p);
+              //  System.out.println(b.getUser().getEmail());
+                Utils.Utils.sendMail(b.getUser().getEmail(), tmp.genererMailBody(), panier.getUser().getNom() + " " + panier.getUser().getPrenom(),"Artisan");
+            });
+            panier.generatePDF();
+            viderPanier();
+            SmsSender sms = new SmsSender();
+            //sms.sendSms("", "");
         }
     }
 
-    
-    public boolean verif()
-    {
+    public boolean verif() {
         StockService ss = new StockService();
-        for(ProduitPanier p : panier.getContenu())
-        {
+        for (ProduitPanier p : panier.getContenu()) {
             int etat = ss.stockProduit(p.getId());
-            if(etat<p.getQuantiteVendue())
-            {
-                Utils.Utils.showAlert(Alert.AlertType.ERROR, "Stock indisponible", "Stock indisponible", "Le produit " +p.getLibelle()+ " n'a que " + etat + " en stock");
+            if (etat < p.getQuantiteVendue()) {
+                Utils.Utils.showAlert(Alert.AlertType.ERROR, "Stock indisponible", "Stock indisponible", "Le produit " + p.getLibelle() + " n'a que " + etat + " en stock");
                 return false;
             }
         }
         return true;
     }
+
     public void retourPanier() {
         origine.getChildren().remove(paypal);
     }

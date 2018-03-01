@@ -158,8 +158,9 @@ public class PanierService implements IPanier {
 
         try {
             ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                    .executeQuery("SELECT * FROM produit_panier WHERE id_panier = '" + panierId + "'");
+                    .executeQuery("SELECT produit_panier.*,id_boutique FROM produit_panier,produit WHERE produit_panier.id_produit=produit.id and produit_panier.id_panier='" + panierId + "'");
             ProduitService ps = new ProduitService();
+            BoutiqueService bs = new BoutiqueService();
             Boutique b = new Boutique();
             while (rs.next()) {
                 ProduitPanier x = new ProduitPanier(rs.getBoolean("livree"),
@@ -175,7 +176,7 @@ public class PanierService implements IPanier {
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                        new Boutique(),
+                       bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
                         //ps.chercherProduitParID(rs.getInt("id_produit")).getBoutique(),
                         Utils.Utils.getLocalDateTime(rs.getString("date_ajout")),
                         ps.chercherProduitParID(rs.getInt("id_produit")).getPhoto()

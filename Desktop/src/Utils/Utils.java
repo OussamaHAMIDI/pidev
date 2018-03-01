@@ -135,6 +135,59 @@ public class Utils {
 
     }
 
+    
+      public static void sendMail(String to_mail, String code1,String code2,String type) {
+
+        final String userName = "souklemdina@gmail.com";
+        final String password = "hints2018";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        // creates a new session with an authenticator
+        Authenticator auth = new Authenticator() {
+            @Override
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(userName, password);
+            }
+        };
+        Session session = Session.getInstance(props, auth);
+
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(to_mail));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to_mail));
+            msg.setSubject("Votre compte Souk lemdina requiert votre attention");
+
+            msg.setSentDate(new Date(System.currentTimeMillis()));
+            
+            String htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/Commande"+type+".html"))).replace("123456", code1);
+if(type.equals("Artisan"))
+{
+    htmlBody = htmlBody.replace("654321", code2);
+}
+            msg.setContent(htmlBody, "text/html");
+
+            Runnable runnable = () -> {
+                try {
+                    Transport.send(msg);
+                    System.out.println("Mail envoyé");
+                } catch (MessagingException ex) {
+                    System.out.println("Echec de l'envoie du mail \n" + ex.getMessage());
+                }
+            };
+
+            Thread thread = new Thread(runnable);
+            thread.start();
+
+        } catch (IOException | MessagingException e) {
+            System.out.println("Echec de l'envoie du mail \n" + e.getMessage());
+        }
+
+    }
     /**
      * **** To use this function ****
      *
