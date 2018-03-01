@@ -157,6 +157,15 @@ public class MenuProduitsController implements Initializable {
             } else {
                 evaluation.setDisable(true);
             }
+            if (rs.peutReclamer(AccueilController.userConnected, produitSelected)){
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);
+                validation.setVisible(true);
+            } else {
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);
+                validation.setVisible(true);
+            }
 
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
