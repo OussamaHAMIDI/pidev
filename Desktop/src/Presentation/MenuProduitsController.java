@@ -202,7 +202,7 @@ public class MenuProduitsController implements Initializable {
             }
         } else {//visiteur
             addProduct.setVisible(false);
-            evaluation.setDisable(false);
+            evaluation.setDisable(true);
             produitB.setVisible(false);
             warning.setVisible(false);
             validation.setVisible(false);
