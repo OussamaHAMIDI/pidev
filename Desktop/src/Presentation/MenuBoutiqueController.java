@@ -37,6 +37,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -91,6 +92,8 @@ public class MenuBoutiqueController implements Initializable {
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
     BoutiqueService bs = new BoutiqueService();
+    @FXML
+    private AnchorPane contenu;
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
@@ -222,8 +225,15 @@ public class MenuBoutiqueController implements Initializable {
     }
 
     @FXML
-    private void afficherProduit(ActionEvent event) {
-        //For jappa
+    private void afficherProduit(ActionEvent event) throws IOException {
+        if(boutiqueSelected!=null)
+        {
+            MenuProduitsController.boutique=boutiqueSelected;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuProduits.fxml"));
+            Utils.getAnotherStage(loader, "Menu produits ").show();
+
+        }
+        
     }
 
     @FXML

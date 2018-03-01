@@ -5,6 +5,7 @@
  */
 package Presentation;
 
+import Entities.Boutique;
 import Entities.Evaluation;
 import Entities.Produit;
 import Entities.Reclamation;
@@ -31,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -60,6 +62,7 @@ public class MenuProduitsController implements Initializable {
     public static List<Produit> list;
     public static ProduitController pc;
     public static Produit produitSelected;
+    public static Boutique boutique;
 
     private FileInputStream photoProfil = null;
 
@@ -93,6 +96,8 @@ public class MenuProduitsController implements Initializable {
     private Label reference;
     @FXML
     private ScrollPane produits;
+    @FXML
+    private ImageView close;
 
     public void addToGrid(List<Produit> list) {
         int totalItems = list.size();
@@ -166,7 +171,13 @@ public class MenuProduitsController implements Initializable {
             gridPane.getChildren().clear();
             addToGrid(list);
         } else {
-            list = ps.listerProduits();
+            if (boutique != null) {
+
+                list = boutique.getListProduit();
+            } else {
+                list = ps.listerProduits();
+            }
+
             gridPane.getChildren().clear();
             addToGrid(list);
         }
@@ -185,18 +196,21 @@ public class MenuProduitsController implements Initializable {
                 validation.setVisible(true);
                 reclamationB.setVisible(false);
                 reclamation.setVisible(false);//text area
+                produitB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 evaluation.setDisable(true);
                 warning.setVisible(true);
                 validation.setVisible(true);
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
+                produitB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 evaluation.setDisable(false);
                 warning.setVisible(true);
                 validation.setVisible(true);
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
+                produitB.setVisible(true);
             }
         } else {//visiteur
             evaluation.setDisable(true);
@@ -204,11 +218,19 @@ public class MenuProduitsController implements Initializable {
             validation.setVisible(false);
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
+            produitB.setVisible(false);
         }
+        close.setVisible(false);
         validation.setVisible(false);
         gridPane = new GridPane();
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
-        list = ps.listerProduits();
+        if (boutique != null) {
+            close.setVisible(true);
+            list = boutique.getListProduit();
+        } else {
+            list = ps.listerProduits();
+        }
+
         ProduitController.contenu = list;
         ProduitController.mc = this;
         addToGrid(list);
@@ -278,6 +300,12 @@ public class MenuProduitsController implements Initializable {
     @FXML
     private void ajouterPanier(ActionEvent event) {
 
+    }
+
+    @FXML
+    private void closeClicked(MouseEvent event) {
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
 
 }
