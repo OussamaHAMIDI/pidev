@@ -14,6 +14,7 @@ import Services.EvaluationService;
 import Services.ReclamationService;
 import Services.UserService;
 import Utils.NavigatorData;
+import Utils.Enumerations.*;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -81,7 +82,9 @@ public class MenuBoutiqueController implements Initializable {
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
+    
     User u = us.getUserById(2);
+    
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -134,7 +137,6 @@ public class MenuBoutiqueController implements Initializable {
             adresseB.setText(boutiqueSelectede.getAdresse());
             dateB.setText(boutiqueSelectede.getDateCreation().toString().replace("T", " "));
             evaluation.setRating(es.getNoteBoutique(boutiqueSelectede));
-            System.out.println("NOTE ===== "+es.getNoteBoutique(boutiqueSelectede)+boutiqueSelectede);
             if(es.peutEvaluer(u,boutiqueSelectede)){
                 evaluation.setDisable(false);
             }else{
@@ -160,12 +162,36 @@ public class MenuBoutiqueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (AccueilController.userConnected != null) {
+            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                evaluation.setDisable(true);
+                warning.setVisible(false);
+                validation.setVisible(true);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                evaluation.setDisable(true);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                evaluation.setDisable(false);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+            }
+        } else {//visiteur
+            evaluation.setDisable(true);
+            warning.setVisible(false);
+            validation.setVisible(false);
+            reclamationB.setVisible(false);
+            reclamation.setVisible(false);//text area
+        }
+
         evaluation.setRating(0);
-        evaluation.setDisable(true);
-        reclamation.setVisible(false);
-        warning.setVisible(false);
-        validation.setVisible(false);
-        gridPane = new GridPane();
+        
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = bs.lireBoutiques();
         UneBoutiqueArtisanController.contenu = list;
