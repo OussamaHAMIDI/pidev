@@ -81,20 +81,19 @@ public class AjouterProduitController implements Initializable {
         Boutique b = new Boutique();
         if(controleDeSaisi())
         {
-<<<<<<< HEAD
+            if (taille.getText()=="") {taille.setText("");}
+            if (couleur.getText()=="") {couleur.setText("");}
+            if (texture.getText()=="") {texture.setText("");}
+            if (poids.getText().equals("")) {poids.setText("0.0");}
+            String t = poids.getText();
             ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
-=======
 //            SmsSender ss = new SmsSender();
 //            ss.sendSms("ajout%20effectué", "54476969");
+            Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            s.close();
+
         }
-<<<<<<< HEAD
-         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        s.close();
-=======
-            
->>>>>>> 4c2844e2e28daf0892f0415b104800c3bb5c12b9
-        }
->>>>>>> 47be0352d00e4cf021c56fa70e17926277f3cb3c
+        
     }
     @FXML
     void uploadPhoto(ActionEvent event) throws IOException{
@@ -150,7 +149,7 @@ public class AjouterProduitController implements Initializable {
                 return false;
             }
 
-            if (!Pattern.matches("^[\\p{L} .'-]+$", description.getText())) {
+            if (!Pattern.matches("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", description.getText())) {
                 Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez la description du produit ! ");
                 description.requestFocus();
                 description.selectEnd();
