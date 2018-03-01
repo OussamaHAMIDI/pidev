@@ -135,6 +135,7 @@ public class MenuBoutiqueController implements Initializable {
             adresseB.setText(boutiqueSelectede.getAdresse());
             dateB.setText(boutiqueSelectede.getDateCreation().toString().replace("T", " "));
             evaluation.setRating(es.getNoteBoutique(boutiqueSelectede));
+            evaluation.setPartialRating(true);
             if (es.peutEvaluer(AccueilController.userConnected, boutiqueSelectede)) {
                 evaluation.setDisable(false);
             } else {
