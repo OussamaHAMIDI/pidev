@@ -357,6 +357,7 @@ public class PanierService implements IPanier {
             ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("Select * from produit_panier where produit_panier.id_produit in (Select produit.id from produit,boutique where produit.id_boutique=boutique.id and boutique.id_user='" + userId + "')");
             while (rs.next()) {
+                BoutiqueService bs = new BoutiqueService();
                 UserService userGetter = new UserService();
                 paniers.add(new ProduitPanier(rs.getBoolean("livree"),
                         rs.getFloat("quantite_vendu"),
@@ -371,7 +372,7 @@ public class PanierService implements IPanier {
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                        new Boutique(),
+                        bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
                         Utils.Utils.getLocalDateTime(rs.getString("date_ajout")), null
                 ));
             }
