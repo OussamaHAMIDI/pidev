@@ -49,6 +49,7 @@ public class ShowBoutiqueController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (boutiqueSelected != null) {
+            nom.setText(boutiqueSelected.getNom());
             adresse.setText(boutiqueSelected.getAdresse());
             date.setText(boutiqueSelected.getDateCreation().toString().replace("T", " "));
             evaluation.setRating(new EvaluationService().getNoteBoutique(boutiqueSelected));
