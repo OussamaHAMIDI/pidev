@@ -17,7 +17,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuProduitsController">
    <children>
-      <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label layoutX="41.0" layoutY="12.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #26B99A; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Produit">
                <font>
@@ -75,7 +75,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="202.0" layoutY="14.0" prefHeight="606.0" prefWidth="869.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="202.0" layoutY="14.0" prefHeight="606.0" prefWidth="869.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane fx:id="produits" layoutX="8.0" layoutY="14.0" prefHeight="538.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
               <content>

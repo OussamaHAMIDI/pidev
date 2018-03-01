@@ -59,7 +59,7 @@
                </cursor>
             </JFXButton>
             
-            <MenuButton fx:id="btn_user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" layoutX="882.0" layoutY="8.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="86.0" style="-fx-background-color: #f4f4f4;" stylesheets="@style.css" textFill="#ccbcbc8f">
+            <MenuButton fx:id="btn_user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" layoutX="882.0" layoutY="8.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="86.0" style="-fx-background-color: white;" stylesheets="@style.css" textFill="#ccbcbc8f">
               <items>
                 <MenuItem fx:id="infos" mnemonicParsing="false" text="Mes informations" />
                 <MenuItem fx:id="changerMdp" mnemonicParsing="false" text="Changer mot de passe" />
@@ -89,7 +89,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="holderPane" layoutX="200.0" layoutY="90.0" prefHeight="600.0" prefWidth="1140.0" styleClass="body" stylesheets="@style.css" />
+      <AnchorPane fx:id="holderPane" layoutX="200.0" layoutY="90.0" prefHeight="600.0" prefWidth="1140.0" style="-fx-background-color: white;" styleClass="body" stylesheets="@style.css" />
       <VBox fx:id="sideBarArtisan" prefHeight="690.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css" visible="false">
          <children>
             <ImageView fitHeight="120.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">

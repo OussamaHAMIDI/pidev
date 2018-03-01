@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import de.jensd.fx.glyphs.materialdesignicons.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import jfxtras.scene.control.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -20,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import jfxtras.scene.control.LocalDateTimeTextField?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #26B99A; -fx-border-radius: 3; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.BoutiqueController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #26B99A; -fx-border-radius: 3; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.BoutiqueController">
    <children>
       <Label layoutX="170.0" layoutY="42.0" text="Créer votre boutique" textAlignment="CENTER" textFill="#26b99a">
          <font>
@@ -36,14 +26,9 @@
          <image>
             <Image url="@../Images/camera.png" />
          </image></ImageView>
-      <JFXButton fx:id="modifierB" layoutX="148.0" layoutY="318.0" onAction="#validerAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Valider">
+      <JFXButton fx:id="modifierB" layoutX="474.0" layoutY="349.0" onAction="#validerAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Valider">
          <graphic>
             <FontAwesomeIconView fill="#fcf8f8" glyphName="CHECK" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="retour" accessibleRole="IMAGE_VIEW" layoutX="342.0" layoutY="318.0" onAction="#retourAction" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="  Retour">
-         <graphic>
-            <MaterialDesignIconView fill="WHITE" glyphName="times" size="16.0" text="" wrappingWidth="9.0" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="ajouterPhoto" layoutX="381.0" layoutY="225.0" onAction="#ajoutPhoto" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #3C8DBC;" text="Ajouter photo" textFill="WHITE">
@@ -51,6 +36,11 @@
             <Font name="Roboto Medium" size="15.0" />
          </font>
       </JFXButton>
+      <ImageView fx:id="close" fitHeight="27.0" fitWidth="30.0" layoutX="559.0" layoutY="14.0" onMouseClicked="#retourAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@../Images/exit_icon.png" />
+         </image>
+      </ImageView>
       
       
      

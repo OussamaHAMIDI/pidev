@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.controlsfx.control.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -25,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuBoutiqueController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuBoutiqueController">
    <children>
-      <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label layoutX="41.0" layoutY="23.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #26B99A; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Boutique" />
             <Label fx:id="idB" layoutX="41.0" layoutY="188.0" prefHeight="17.0" prefWidth="94.0" text="Id :">
@@ -82,7 +72,7 @@
             <Label fx:id="warning" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="533.0" prefHeight="30.0" prefWidth="244.0" style="-fx-text-fill: #; -fx-font-size: 15;" text="warning" textAlignment="JUSTIFY" textFill="#c33232" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="202.0" layoutY="14.0" prefHeight="606.0" prefWidth="869.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="202.0" layoutY="14.0" prefHeight="606.0" prefWidth="869.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane fx:id="boutiques" focusTraversable="false" layoutX="8.0" layoutY="14.0" prefHeight="538.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
               <content>
