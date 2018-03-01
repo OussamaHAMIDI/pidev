@@ -187,7 +187,7 @@ public class MenuBoutiqueController implements Initializable {
                 warning.setVisible(false);
                 validation.setVisible(false);
                 reclamationB.setVisible(false);
-                addBoutique.setVisible(true);
+                addBoutique.setVisible(false);
                 reclamation.setVisible(false);//text area
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 separateur.setVisible(false);
@@ -224,6 +224,8 @@ public class MenuBoutiqueController implements Initializable {
         list = bs.lireBoutiques();
         UneBoutiqueArtisanController.contenu = list;
         UneBoutiqueArtisanController.mc = this;
+        
+        gridPane.getChildren().clear();
         addToGrid(list);
         gridPane.setHgap(25);
         gridPane.setVgap(25);

@@ -25,6 +25,12 @@
             <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Utils/mail.html</file>
 =======
         <group>
+<<<<<<< HEAD
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/DataStorage/MyDB.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/MainProduit.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
+            <file>file:/Users/oussamahamidi/Desktop/pidev/pidev/Desktop/src/Presentation/ModifierProduitController.java</file>
+=======
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/PanierController.java</file>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/main/Main.java</file>
@@ -37,6 +43,7 @@
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/PanierService.java</file>
 >>>>>>> f22a6ed5ed977460d41f03154d4017926e02bda7
 >>>>>>> 56e3105e803957d850b10b3afb4d92aee0b30eef
+>>>>>>> ac8454b204ef58057a5afdfd3ad192cf46c3c608
         </group>
     </open-files>
 </project-private>
