@@ -8,6 +8,7 @@ package Presentation;
 import Entities.Boutique;
 import Entities.Evaluation;
 import Entities.Produit;
+import Entities.ProduitPanier;
 import Entities.Reclamation;
 import Entities.User;
 import Services.EvaluationService;
@@ -306,13 +307,15 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
-
+AccueilController.monPanier.getContenu().add(new ProduitPanier(produitSelected));
+AccueilController.monPanier.recalculer();
     }
 
     @FXML
     private void closeClicked(MouseEvent event) {
         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
+        boutique=null;
     }
 
 }

@@ -1,5 +1,7 @@
 package Presentation;
 
+import Entities.Panier;
+import Entities.ProduitPanier;
 import Entities.User;
 import Services.UserService;
 import Utils.Enumerations.*;
@@ -8,6 +10,8 @@ import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,6 +65,9 @@ public class AccueilController implements Initializable {
     private AnchorPane menuBar;
 
     private UserService us = new UserService();
+    
+    public static Panier monPanier;
+    
     public static User userConnected = null;
     AnchorPane users;
     AnchorPane anchor;
@@ -130,6 +137,11 @@ public class AccueilController implements Initializable {
                     sideBarVisiteur.setVisible(false);
                     panier.setVisible(true);
                     setNode("MenuProduits");
+                    monPanier.setDateCreation(LocalDateTime.now());
+                    monPanier.setUser(userConnected);
+                    monPanier.setDateLivraison(LocalDateTime.now());
+                    monPanier.setModePaiement(ModePaiement.Espece);
+                    monPanier.setModeLivraison(ModeLivraison.Surplace);
                     break;
             }
         } else {
@@ -151,6 +163,8 @@ public class AccueilController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        monPanier = new Panier();
+        monPanier.setContenu(new ArrayList<ProduitPanier>());
         LoginController.ac = this;
         infos.setOnAction(event -> {
             ModifierUserController.blur = holderPane;
