@@ -238,16 +238,12 @@ public class Utils {
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         stage.setTitle(title);
-        stage.setMaximized(false);
-        stage.setResizable(false);
 
         //stage.initStyle(StageStyle.DECORATED);
-       
         stage.initStyle(StageStyle.UNDECORATED);
-         stage.initStyle(StageStyle.TRANSPARENT);
-         
+        stage.initStyle(StageStyle.TRANSPARENT);
+
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(root);
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -256,22 +252,23 @@ public class Utils {
         mouseDrag md = new mouseDrag();
         md.setDragged(root, stage);
         stage.setScene(scene);
-
+        stage.setMaximized(false);
+        stage.setResizable(false);
         return stage;
     }
 
     public static boolean sendReclamationMail(Reclamation reclamation) {
         try {
             String host = "smtp.gmail.com";
-            String user = "souklemdina3a12@gmail.com";
+            String user = "souklemdina@gmail.com";
             String to;
             if (reclamation.getType() == TypeReclamation.Boutique) {
                 to = reclamation.getBoutique().getUser().getEmail();
             } else {
                 to = reclamation.getProduit().getBoutique().getUser().getEmail();
             }
-            String pass = "3A12SoukLemdina";
-            String from = "souklemdina3a12@gmail.com";
+            String pass = "hints2018";
+            String from = "souklemdina@gmail.com";
             String subject = "Reclamation";
             boolean sessionDebug = false;
 
@@ -303,17 +300,26 @@ public class Utils {
             }
 
             msg.setContent(htmlBody, "text/html");
-
             Transport transport = mailSession.getTransport("smtp");
             transport.connect(host, user, pass);
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-            System.out.println("mail envoyé");
+
+            Runnable runnable = () -> {
+                try {
+                    transport.sendMessage(msg, msg.getAllRecipients());
+                    transport.close();
+                    System.out.println("Mail reclamation envoyé");
+                } catch (MessagingException ex) {
+                    System.out.println("Echec de l'envoie du mail \n" + ex.getMessage());
+                }
+            };
+
+            Thread thread = new Thread(runnable);
+            thread.start();
             return true;
-        } catch (Exception ex) {
-            System.out.println(ex);
+
+        } catch (IOException | MessagingException e) {
+            System.out.println("Echec de l'envoie du mail \n" + e.getMessage());
             return false;
         }
     }
-
 }
