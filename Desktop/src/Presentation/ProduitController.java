@@ -25,6 +25,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -63,6 +64,8 @@ public class ProduitController implements Initializable {
     ProduitService ps = new ProduitService();
     @FXML
     private JFXButton ajouterPanier;
+    @FXML
+    private Pane gris;
 
     public AnchorPane getThis() {
         return produit;
@@ -94,22 +97,23 @@ public class ProduitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                  gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierP.setVisible(true);
                 ajouterPanier.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                  gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierP.setVisible(true);
                 ajouterPanier.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                  gris.setVisible(true);
                 supprimer.setVisible(false);
                 modifierP.setVisible(false);
                 ajouterPanier.setVisible(true);
             }
         } else {//visiteur
-            supprimer.setVisible(false);
-            modifierP.setVisible(false);
-            ajouterPanier.setVisible(false);
+            gris.setVisible(false);
         }
         prod = MenuProduitsController.list.get(index);
         setValues(prod);
