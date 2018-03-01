@@ -144,7 +144,7 @@ public class UneBoutiqueArtisanController implements Initializable {
         Boutique B = new Boutique();
 
         BoutiqueService bt = new BoutiqueService();
-        B = bt.chercherBoutiqueParID(B.getId());
+        B = bt.chercherBoutiqueParID(bou.getId());
 
         String accessToken = "EAACEdEose0cBALnh8FXxkOGAmDxrhvukgahtLksbuUITg8vydx3NFcBjAQnZBcXNFjmTIyFMIisUrB2gKFwSbzjYnnuMkOLySiQJRWe2kkXxlwZAbmYlkvZBKduoPXPqrhwWsgdfn9ivXJY4SweyM0ZBH2XZBZANgJNHLH3LaLMibaUhKejQdlA5H9taDsrQYZD";
         Scanner s = new Scanner(System.in);
