@@ -74,8 +74,6 @@ public class MenuProduitsController implements Initializable {
     
     UserService us = new UserService();
     
-    User u = us.getUserById(2);
-    
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -148,18 +146,11 @@ public class MenuProduitsController implements Initializable {
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
 
-            if(es.peutEvaluer(u,produitSelected)){
+            if(es.peutEvaluer(AccueilController.userConnected,produitSelected)){
                 evaluation.setDisable(false);
             }else{
                 evaluation.setDisable(true);
             }
-
-           
-//            if(es.peutEvaluer(u,produitSelected)){
-//                evaluation.setDisable(false);
-//            }else{
-//                evaluation.setDisable(true);
-//            }
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }
@@ -182,15 +173,34 @@ public class MenuProduitsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(AccueilController.userConnected.getType() == TypeUser.Administrateur){
-            
+      if (AccueilController.userConnected != null) {
+            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                evaluation.setDisable(true);
+                warning.setVisible(false);
+                validation.setVisible(true);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                evaluation.setDisable(true);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                evaluation.setDisable(false);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+            }
+        } else {//visiteur
+            evaluation.setDisable(true);
+            warning.setVisible(false);
+            validation.setVisible(false);
+            reclamationB.setVisible(false);
+            reclamation.setVisible(false);//text area
         }
         evaluation.setRating(0);
-        evaluation.setDisable(true);
-        reclamation.setVisible(false);
-        warning.setVisible(false);
-        validation.setVisible(false);
-        gridPane = new GridPane();
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = ps.listerProduits();
         ProduitController.contenu = list;
@@ -216,12 +226,11 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void evaluer(MouseEvent event) {
-        Evaluation e = new Evaluation(u, produitSelected, (float)evaluation.getRating());
-        int idEvaluation = es.getIdEvaluation(u,produitSelected);
+        Evaluation e = new Evaluation(AccueilController.userConnected, produitSelected, (float)evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(AccueilController.userConnected,produitSelected);
         if(idEvaluation !=0){
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
-            System.out.println("EXISTE DEJA ====> update");
             warning.setText("Votre Evaluation a été modifiée");
             warning.setVisible(true);
         }
@@ -252,7 +261,7 @@ public class MenuProduitsController implements Initializable {
             warning.setText("Veuillez taper votre réclamation");
         } else {
             warning.setVisible(false);
-            Reclamation r = new Reclamation(u,produitSelected,reclamation.getText());
+            Reclamation r = new Reclamation(AccueilController.userConnected,produitSelected,reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");

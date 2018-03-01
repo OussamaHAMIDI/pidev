@@ -8,6 +8,7 @@ package Presentation;
 import Entities.Boutique;
 import Services.BoutiqueService;
 import Utils.Utils;
+import Utils.Enumerations.*;
 import com.jfoenix.controls.JFXButton;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -32,8 +33,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -62,9 +61,10 @@ public class UneBoutiqueArtisanController implements Initializable {
     private Label userB;
     @FXML
     private JFXButton supprimer;
-    BoutiqueService bs = new BoutiqueService();
     @FXML
     private Circle circle;
+
+    BoutiqueService bs = new BoutiqueService();
 
     public AnchorPane getThis() {
         return boutique;
@@ -73,7 +73,6 @@ public class UneBoutiqueArtisanController implements Initializable {
     public void setValues(Boutique b) {
         dateB.setText(b.getDateCreation().toString().replace("T", " "));
         nomB.setText(b.getNom());
-
         adresseB.setText(b.getAdresse());
         circle.setStroke(Color.SEAGREEN);
         circle.setFill(Color.SNOW);
@@ -87,9 +86,27 @@ public class UneBoutiqueArtisanController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (AccueilController.userConnected != null) {
+            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                supprimer.setVisible(true);
+                modifierB.setVisible(true);
+                partagerB.setVisible(false);
+            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                supprimer.setVisible(true);
+                modifierB.setVisible(true);
+                partagerB.setVisible(false);
+            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                supprimer.setVisible(true);
+                modifierB.setVisible(true);
+                partagerB.setVisible(false);
+            }
+        } else {//visiteur
+            supprimer.setVisible(true);
+            modifierB.setVisible(true);
+            partagerB.setVisible(false);
+        }
         bou = MenuBoutiqueController.list.get(index);
         setValues(bou);
-
     }
 
     @FXML
@@ -101,12 +118,8 @@ public class UneBoutiqueArtisanController implements Initializable {
             if (newValue == ButtonType.OK) {
                 MenuBoutiqueController.list.remove(bou);
                 contenu.remove(bou);
-//        GridPane parent = (GridPane)user.getParent();
-//        parent.getChildren().remove(user);
-
                 bs.supprimerBoutique(bou);
                 mc.updateItems("");
-
             }
         });
     }
@@ -116,16 +129,13 @@ public class UneBoutiqueArtisanController implements Initializable {
         ModifierBoutiqueController.bc = this;
         ModifierBoutiqueController.boutiqueSelected = bou;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierBoutique.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Modification d'une boutique ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
+        Utils.getAnotherStage(loader, "Modification d'une boutique ").show();
     }
 
     @FXML
     private void test(MouseEvent event) {
         mc.boutiqueSelected = bou;
         mc.setValues(bou);
-//        System.out.println(bou.toString() + index);
     }
 
     @FXML

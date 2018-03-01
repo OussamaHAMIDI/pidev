@@ -92,8 +92,6 @@ public class MenuBoutiqueController implements Initializable {
     UserService us = new UserService();
     BoutiqueService bs = new BoutiqueService();
 
-    User u = us.getUserById(2);
-
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
         int nbrItems = gridPane.getChildren().size();
@@ -137,7 +135,7 @@ public class MenuBoutiqueController implements Initializable {
             adresseB.setText(boutiqueSelectede.getAdresse());
             dateB.setText(boutiqueSelectede.getDateCreation().toString().replace("T", " "));
             evaluation.setRating(es.getNoteBoutique(boutiqueSelectede));
-            if (es.peutEvaluer(u, boutiqueSelectede)) {
+            if (es.peutEvaluer(AccueilController.userConnected, boutiqueSelectede)) {
                 evaluation.setDisable(false);
             } else {
                 evaluation.setDisable(true);
@@ -195,7 +193,6 @@ public class MenuBoutiqueController implements Initializable {
         }
 
         evaluation.setRating(0);
-
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = bs.lireBoutiques();
         UneBoutiqueArtisanController.contenu = list;
@@ -214,55 +211,39 @@ public class MenuBoutiqueController implements Initializable {
         if (boutiqueSelected != null) {
             BoutiqueService bt = new BoutiqueService();
             B = bt.chercherBoutiqueParID(boutiqueSelected.getId());
-            //System.out.println(B.getLat() + "  " + B.getLong());
 
             NavigatorData.getInstance().setLat(B.getLat());
             NavigatorData.getInstance().setLong(B.getLong());
             NavigatorData.getInstance().setAdr(B.getAdresse());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BoutiqueMap.fxml"));
-            Stage s = Utils.getAnotherStage(loader, "La position de la boutique sur la carte");
-            s.initStyle(StageStyle.DECORATED);
-            s.show();
-
-//            Stage stage=new Stage();
-//            Parent root = FXMLLoader.load(getClass().getResource("BoutiqueMap.fxml"));
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
+            Utils.getAnotherStage(loader, "La position de la boutique sur la carte").show();
         }
     }
 
     @FXML
     private void afficherProduit(ActionEvent event) {
+        //For jappa
     }
 
     @FXML
     private void ajouterBoutique(MouseEvent event) {
         BoutiqueController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Boutique.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Ajout d'une boutique ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
-    }
-
-    @FXML
-    private void rechercheBoutique(MouseEvent event) {
+        Utils.getAnotherStage(loader, "Ajout d'une boutique ").show();
     }
 
     @FXML
     private void evaluer(MouseEvent event) {
-        Evaluation e = new Evaluation(u, boutiqueSelected, (float) evaluation.getRating());
-        int idEvaluation = es.getIdEvaluation(u, boutiqueSelected);
+        Evaluation e = new Evaluation(AccueilController.userConnected, boutiqueSelected, (float) evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(AccueilController.userConnected, boutiqueSelected);
         if (idEvaluation != 0) {
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
-            System.out.println("EXISTE DEJA ====> update");
             warning.setText("Votre Evaluation a été modifiée");
             warning.setVisible(true);
         } else {
             es.ajouterEvaluation(e);
-            System.out.println("new new Add");
             warning.setVisible(true);
             warning.setText("Votre Evaluation a été enregistrée");
         }
@@ -274,7 +255,6 @@ public class MenuBoutiqueController implements Initializable {
         reclamation.setVisible(true);
         validation.setVisible(true);
         warning.setVisible(false);
-
     }
 
     @FXML
@@ -287,7 +267,7 @@ public class MenuBoutiqueController implements Initializable {
             warning.setText("Veuillez taper votre réclamation");
         } else {
             warning.setVisible(false);
-            Reclamation r = new Reclamation(u, boutiqueSelected, reclamation.getText());
+            Reclamation r = new Reclamation(AccueilController.userConnected, boutiqueSelected, reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");
