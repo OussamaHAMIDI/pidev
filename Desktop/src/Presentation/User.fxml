@@ -58,7 +58,7 @@
          </graphic>
       </Label>
       <Circle fx:id="circle" fill="#e5e8eb" layoutX="314.0" layoutY="96.0" radius="65.0" stroke="#c3c3c3" strokeLineCap="ROUND" strokeType="INSIDE" />
-      <Pane layoutY="180.0" prefHeight="50.0" prefWidth="400.0" style="-fx-border-radius: 0 0 3 3; -fx-background-color: #E5E8EB; -fx-border-color: #C3C3C3; -fx-border-width: 1 0 0 0;">
+      <Pane layoutY="180.0" prefHeight="50.0" prefWidth="400.0" style="-fx-border-radius: 0 0 3 3; -fx-background-color: #E5E8EB; -fx-border-color: #C3C3C3; -fx-border-width: 1 0 0 0; -fx-background-radius: 0 0 10 10;">
          <children>
             <JFXButton alignment="CENTER" graphicTextGap="3.0" layoutX="325.0" layoutY="8.0" onMouseClicked="#voirUser" prefHeight="34.0" prefWidth="45.0" ripplerFill="#0000008d" style="-fx-background-color: #337AB7;" text=" ">
                <cursor>
