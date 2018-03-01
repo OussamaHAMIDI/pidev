@@ -66,25 +66,10 @@ public class MenuBoutiqueController implements Initializable {
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
-    
-    public static GridPane gridPane = new GridPane();
-    public static List<Boutique> list;
-    public static UneBoutiqueArtisanController bc;
-    public static Boutique boutiqueSelected;
-
-    private FileInputStream photoProfil = null;
-
-    BoutiqueService bs = new BoutiqueService();
     @FXML
     private ImageView photo;
     @FXML
     private Rating evaluation;
-    EvaluationService es = new EvaluationService();
-    ReclamationService rs = new ReclamationService();
-    UserService us = new UserService();
-    
-    User u = us.getUserById(2);
-    
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -93,6 +78,21 @@ public class MenuBoutiqueController implements Initializable {
     private JFXButton validation;
     @FXML
     private Label warning;
+    @FXML
+    private JFXButton addBoutique;
+
+    public static GridPane gridPane = new GridPane();
+    public static List<Boutique> list;
+    public static UneBoutiqueArtisanController bc;
+    public static Boutique boutiqueSelected;
+    private FileInputStream photoProfil = null;
+
+    EvaluationService es = new EvaluationService();
+    ReclamationService rs = new ReclamationService();
+    UserService us = new UserService();
+    BoutiqueService bs = new BoutiqueService();
+
+    User u = us.getUserById(2);
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
@@ -137,9 +137,9 @@ public class MenuBoutiqueController implements Initializable {
             adresseB.setText(boutiqueSelectede.getAdresse());
             dateB.setText(boutiqueSelectede.getDateCreation().toString().replace("T", " "));
             evaluation.setRating(es.getNoteBoutique(boutiqueSelectede));
-            if(es.peutEvaluer(u,boutiqueSelectede)){
+            if (es.peutEvaluer(u, boutiqueSelectede)) {
                 evaluation.setDisable(false);
-            }else{
+            } else {
                 evaluation.setDisable(true);
             }
             photo.setImage(bs.getPhoto(boutiqueSelectede.getId()));
@@ -168,6 +168,7 @@ public class MenuBoutiqueController implements Initializable {
                 warning.setVisible(false);
                 validation.setVisible(true);
                 reclamationB.setVisible(false);
+                addBoutique.setVisible(true);
                 reclamation.setVisible(false);//text area
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 evaluation.setDisable(true);
@@ -175,12 +176,14 @@ public class MenuBoutiqueController implements Initializable {
                 validation.setVisible(true);
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
+                addBoutique.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 evaluation.setDisable(false);
                 warning.setVisible(true);
                 validation.setVisible(true);
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
+                addBoutique.setVisible(false);
             }
         } else {//visiteur
             evaluation.setDisable(true);
@@ -188,10 +191,11 @@ public class MenuBoutiqueController implements Initializable {
             validation.setVisible(false);
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
+            addBoutique.setVisible(false);
         }
 
         evaluation.setRating(0);
-        
+
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = bs.lireBoutiques();
         UneBoutiqueArtisanController.contenu = list;
@@ -201,7 +205,6 @@ public class MenuBoutiqueController implements Initializable {
         gridPane.setVgap(25);
         boutiques.setPannable(true);
         boutiques.setContent(gridPane);
-        
 
     }
 
@@ -249,21 +252,20 @@ public class MenuBoutiqueController implements Initializable {
 
     @FXML
     private void evaluer(MouseEvent event) {
-        Evaluation e = new Evaluation(u, boutiqueSelected, (float)evaluation.getRating());
-        int idEvaluation = es.getIdEvaluation(u,boutiqueSelected);
-        if(idEvaluation !=0){
+        Evaluation e = new Evaluation(u, boutiqueSelected, (float) evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(u, boutiqueSelected);
+        if (idEvaluation != 0) {
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
             System.out.println("EXISTE DEJA ====> update");
             warning.setText("Votre Evaluation a été modifiée");
             warning.setVisible(true);
-        }
-        else{
-            es.ajouterEvaluation(e); 
+        } else {
+            es.ajouterEvaluation(e);
             System.out.println("new new Add");
             warning.setVisible(true);
             warning.setText("Votre Evaluation a été enregistrée");
-        }       
+        }
     }
 
     @FXML
@@ -272,7 +274,7 @@ public class MenuBoutiqueController implements Initializable {
         reclamation.setVisible(true);
         validation.setVisible(true);
         warning.setVisible(false);
-        
+
     }
 
     @FXML
@@ -280,17 +282,17 @@ public class MenuBoutiqueController implements Initializable {
         reclamation.setVisible(false);
         validation.setVisible(false);
         reclamationB.setVisible(true);
-        if(reclamation.getText().equals("")){
+        if (reclamation.getText().equals("")) {
             warning.setVisible(true);
             warning.setText("Veuillez taper votre réclamation");
         } else {
             warning.setVisible(false);
-            Reclamation r = new Reclamation(u,boutiqueSelected,reclamation.getText());
+            Reclamation r = new Reclamation(u, boutiqueSelected, reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");
             warning.setVisible(true);
-            
+
         }
     }
 
