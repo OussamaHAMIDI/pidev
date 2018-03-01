@@ -52,8 +52,7 @@ public class ModifierUserController implements Initializable {
 
     @FXML
     private JFXButton modifier;
-    @FXML
-    private JFXButton annuler;
+    
     @FXML
     private JFXTextField username;
     @FXML
@@ -170,9 +169,8 @@ public class ModifierUserController implements Initializable {
         }
     }
 
-    @FXML
     private void annulerClicked(ActionEvent event) {
-        Stage s = (Stage) annuler.getScene().getWindow();
+        Stage s = (Stage) close.getScene().getWindow();
         blur.setEffect(null);
         s.close();
     }
@@ -183,7 +181,7 @@ public class ModifierUserController implements Initializable {
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo de profil");
 
-        File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
+        File selected_photo = file.showOpenDialog((Stage) close.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
@@ -201,7 +199,7 @@ public class ModifierUserController implements Initializable {
 
     @FXML
     private void closeClicked(MouseEvent event) {
-        Stage s = (Stage) annuler.getScene().getWindow();
+        Stage s = (Stage) close.getScene().getWindow();
         blur.setEffect(null);
         s.close();
 

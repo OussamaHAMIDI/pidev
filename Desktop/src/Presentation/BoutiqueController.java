@@ -11,6 +11,7 @@ import Utils.Utils;
 
 
 import Services.BoutiqueService;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -49,6 +50,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -88,7 +90,9 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
     private ImageView photo;
     private FileInputStream photoBoutique = null;
     @FXML
-    private Button retour;
+    private JFXButton modifierB;
+    @FXML
+    private ImageView close;
 
     /**
      * Initializes the controller class.
@@ -164,11 +168,6 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
         }
     }
 
-    @FXML
-    private void retourAction(ActionEvent event) throws IOException {
-        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        s.close();
-    }
 
     @FXML
     private void fromOnkeyTypedEvent(KeyEvent event) {
@@ -230,7 +229,7 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo du produit");
 
-        File selected_photo = file.showOpenDialog((Stage) retour.getScene().getWindow());
+        File selected_photo = file.showOpenDialog((Stage) close.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
@@ -245,6 +244,12 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
             }
         }
 
+    }
+
+    @FXML
+    private void retourAction(MouseEvent event) {
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
 
 }
