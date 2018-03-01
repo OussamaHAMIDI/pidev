@@ -145,6 +145,15 @@ public class MenuProduitsController implements Initializable {
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
 
+<<<<<<< HEAD
+           
+//            if(es.peutEvaluer(u,produitSelected)){
+//                evaluation.setDisable(false);
+//            }else{
+//                evaluation.setDisable(true);
+//            }
+
+=======
             if (es.peutEvaluer(u, produitSelected)) {
                 evaluation.setDisable(false);
             } else {
@@ -155,6 +164,7 @@ public class MenuProduitsController implements Initializable {
             //            }else{
             //                evaluation.setDisable(true);
             //            } 
+>>>>>>> 396f61f6a9041e052d9105ab3fa827dd2b07aae0
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }
