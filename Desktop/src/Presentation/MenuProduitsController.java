@@ -149,11 +149,6 @@ public class MenuProduitsController implements Initializable {
                 evaluation.setDisable(true);
             }
 
-//            if(es.peutEvaluer(u,produitSelected)){
-//                evaluation.setDisable(false);
-//            }else{
-//                evaluation.setDisable(true);
-//            }
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }

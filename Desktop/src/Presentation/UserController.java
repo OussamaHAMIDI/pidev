@@ -92,7 +92,6 @@ public class UserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         u = GestionUsersController.list.get(index);
-        //GestionUsersController.userCont = this;
         setValues(u);
         if (u.getType() == TypeUser.Administrateur || u.getEtat() == EtatUser.Deleted) {
             supprimer.setVisible(false);
@@ -109,11 +108,6 @@ public class UserController implements Initializable {
 
     @FXML
     private void supprimerUser(MouseEvent event) {
-//        GestionUsersController.list.remove(u);
-//        contenu.remove(u);
-//        GridPane parent = (GridPane)user.getParent();
-//        parent.getChildren().remove(user);
-
         Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Suppression", null,
                 "Voulez-vous vraiment supprimer cet utilisateur ?\nIl ne pourra plus se connecter, mais vous pouvez rétablir son compte en modifiant son état ultérieurement.");
         alert.show();
