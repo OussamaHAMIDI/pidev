@@ -1,6 +1,5 @@
 package Presentation;
 
-import Entities.Boutique;
 import Entities.User;
 import Services.UserService;
 import Utils.Enumerations.*;
@@ -13,13 +12,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -59,7 +56,7 @@ public class AccueilController implements Initializable {
     @FXML
     private MenuItem supprimerCompte;
     @FXML
-        private VBox sideBarAdmin;
+    private VBox sideBarAdmin;
     @FXML
     private AnchorPane menuBar;
 
@@ -67,7 +64,7 @@ public class AccueilController implements Initializable {
     public static User userConnected = null;
     AnchorPane users;
     AnchorPane anchor;
-    
+
     @FXML
     private VBox sideBarArtisan;
     @FXML
@@ -75,14 +72,20 @@ public class AccueilController implements Initializable {
     @FXML
     private VBox sideBarVisiteur;
 
- 
-
     //Set selected node to a content holder
-    private void setNode(Node node) {
+    private void setNode(String nomFichierFxml) {
+
+        try {
+            anchor = FXMLLoader.load(getClass().getResource(nomFichierFxml + ".fxml"));
+
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         holderPane.getChildren().clear();
-        holderPane.getChildren().add((Node) node);
+        holderPane.getChildren().add(anchor);
         FadeTransition ft = new FadeTransition(Duration.millis(1500));
-        ft.setNode(node);
+        ft.setNode(anchor);
         ft.setFromValue(0.1);
         ft.setToValue(1);
         ft.setCycleCount(1);
@@ -104,19 +107,21 @@ public class AccueilController implements Initializable {
             switch (userConnected.getType()) {
                 case Administrateur:
                     sideBarAdmin.setVisible(true);
-
-                    try {
-                        users = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
-                        setNode(users);
-                    } catch (IOException ex) {
-                        Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    sideBarArtisan.setVisible(false);
+                    sideBarClient.setVisible(false);
+                    sideBarVisiteur.setVisible(false);
                     break;
                 case Artisan:
-
+                    sideBarAdmin.setVisible(false);
+                    sideBarArtisan.setVisible(true);
+                    sideBarClient.setVisible(false);
+                    sideBarVisiteur.setVisible(false);
                     break;
                 case Client:
-
+                    sideBarAdmin.setVisible(false);
+                    sideBarArtisan.setVisible(false);
+                    sideBarClient.setVisible(true);
+                    sideBarVisiteur.setVisible(false);
                     break;
             }
         } else {
@@ -124,10 +129,13 @@ public class AccueilController implements Initializable {
             btn_user.setVisible(false);
             btn_login.setVisible(true);
             username.setText("Bienvenue visiteur");
-            //charger le menu pour visiteur
-            sideBarAdmin.setVisible(true);
 
-            //set node home visiteur
+            sideBarAdmin.setVisible(false);
+            sideBarArtisan.setVisible(false);
+            sideBarClient.setVisible(false);
+            sideBarVisiteur.setVisible(true);
+
+            setNode("MenuProduits");
         }
     }
 
@@ -164,27 +172,12 @@ public class AccueilController implements Initializable {
             });
 
         });
-
-        try {
-            // GestionUsersController.list = new UserService().getUsers();
-
-            users = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
-            setNode(users);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         setAccueil();
 
     }
 
-    private void switchUsers(ActionEvent event) {
-        try {
-            anchor = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
-            setNode(anchor);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 
     @FXML
     private void logout(ActionEvent event) {
@@ -203,111 +196,79 @@ public class AccueilController implements Initializable {
         }
     }
 
-    private void switchStats(ActionEvent event) {
-        try {
-            anchor = FXMLLoader.load(getClass().getResource("Statistique.fxml"));
-            setNode(anchor);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void switchReclamations(ActionEvent event) {
-        try {
-            anchor = FXMLLoader.load(getClass().getResource("ReclamationAdmin2.fxml"));
-            setNode(anchor);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void switchHistorique(ActionEvent event) {
-        try {
-            anchor = FXMLLoader.load(getClass().getResource("HistoriqueClient2.fxml"));
-            setNode(anchor);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void switchBoutique(ActionEvent event) {
-        try {
-            anchor = FXMLLoader.load(getClass().getResource("MenuBoutique.fxml"));
-            setNode(anchor);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void switchProduits(ActionEvent event) {
-         try {
-             MenuProduitsController.boutique=null;
-            anchor = FXMLLoader.load(getClass().getResource("MenuProduits.fxml"));
-            setNode(anchor);
-        } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     @FXML
     private void switchAccueilArtisan(ActionEvent event) {
+        setNode("StatistiqueArtisan");
     }
 
     @FXML
     private void switchProduitsArtisan(ActionEvent event) {
+        setNode("MenuProduits");
     }
 
     @FXML
     private void switchBoutiqueArtisan(ActionEvent event) {
+          setNode("MenuBoutique");
     }
 
     @FXML
     private void switchAccueilClient(ActionEvent event) {
+        setNode("MenuProduits");
     }
 
     @FXML
     private void switchProduitsClient(ActionEvent event) {
+        setNode("MenuProduits");
     }
 
     @FXML
     private void switchBoutiquesClient(ActionEvent event) {
+        setNode("MenuBoutique");
     }
 
     @FXML
     private void switchHistoriqueClient(ActionEvent event) {
+         setNode("Panier");
     }
 
     @FXML
     private void switchAccueilAdmin(ActionEvent event) {
+         setNode("Statistique");
     }
 
     @FXML
     private void switchUsersAdmin(ActionEvent event) {
+        setNode("GestionUsers");
     }
 
     @FXML
     private void switchProduitsAdmin(ActionEvent event) {
+        setNode("MenuProduits");
     }
 
     @FXML
     private void switchBoutiquesAdmin(ActionEvent event) {
+         setNode("MenuBoutique");
     }
 
     @FXML
     private void switchReclamationsAdmin(ActionEvent event) {
+         setNode("ReclamationAdmin2");
     }
 
     @FXML
     private void switchAccueilVisiteur(ActionEvent event) {
+         setNode("MenuProduits");
     }
 
     @FXML
     private void switchProduitsVisiteur(ActionEvent event) {
+         setNode("MenuProduits");
     }
 
     @FXML
     private void switchBoutiquesVisiteur(ActionEvent event) {
+        setNode("MenuBoutique");
     }
-    
 
 }
