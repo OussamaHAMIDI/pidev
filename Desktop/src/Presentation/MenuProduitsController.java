@@ -49,14 +49,13 @@ import org.controlsfx.control.Rating;
 public class MenuProduitsController implements Initializable {
 
     Produit produit = new Produit();
-   
+
     @FXML
     private JFXButton produitB;
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
-    
-    
+
     public static GridPane gridPane = new GridPane();
     public static List<Produit> list;
     public static ProduitController pc;
@@ -71,9 +70,9 @@ public class MenuProduitsController implements Initializable {
     private Rating evaluation;
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
-    
+
     UserService us = new UserService();
-    
+
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -131,24 +130,20 @@ public class MenuProduitsController implements Initializable {
 
     public void setValues(Produit produitSelected) {
         if (produitSelected != null) {
-            if(produitSelected.getPoids()!=0)
-            {
-  libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getPoids());
+            if (produitSelected.getPoids() != 0) {
+                libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getPoids());
+            } else {
+                libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getTaille() + " " + produitSelected.getCouleur() + " " + produitSelected.getTexture());
             }
-            else
-            {
-                  libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getTaille() + " " + produitSelected.getCouleur() + " " + produitSelected.getTexture());
-            }
-          
-           
+
             reference.setText(produitSelected.getReference());
             description.setText(produitSelected.getDescription());
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
 
-            if(es.peutEvaluer(AccueilController.userConnected,produitSelected)){
+            if (es.peutEvaluer(AccueilController.userConnected, produitSelected)) {
                 evaluation.setDisable(false);
-            }else{
+            } else {
                 evaluation.setDisable(true);
             }
             photo.setImage(ps.getPhoto(produitSelected.getId()));
@@ -168,12 +163,13 @@ public class MenuProduitsController implements Initializable {
             addToGrid(list);
         }
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      if (AccueilController.userConnected != null) {
+        if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
                 evaluation.setDisable(true);
                 warning.setVisible(false);
@@ -204,42 +200,36 @@ public class MenuProduitsController implements Initializable {
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = ps.listerProduits();
         ProduitController.contenu = list;
-        ProduitController.mc=this;
+        ProduitController.mc = this;
         addToGrid(list);
         gridPane.setHgap(25);
         gridPane.setVgap(25);
         produits.setPannable(true);
         produits.setContent(gridPane);
-    }    
-  
-
+    }
 
     @FXML
     private void ajouterBoutique(MouseEvent event) {
         AjouterProduitController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Ajout d'un produits ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
+        Utils.getAnotherStage(loader, "Ajout d'un produits ").show();
     }
-
 
     @FXML
     private void evaluer(MouseEvent event) {
-        Evaluation e = new Evaluation(AccueilController.userConnected, produitSelected, (float)evaluation.getRating());
-        int idEvaluation = es.getIdEvaluation(AccueilController.userConnected,produitSelected);
-        if(idEvaluation !=0){
+        Evaluation e = new Evaluation(AccueilController.userConnected, produitSelected, (float) evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(AccueilController.userConnected, produitSelected);
+        if (idEvaluation != 0) {
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
             warning.setText("Votre Evaluation a été modifiée");
             warning.setVisible(true);
-        }
-        else{
-            es.ajouterEvaluation(e); 
+        } else {
+            es.ajouterEvaluation(e);
             System.out.println("new new Add");
             warning.setVisible(true);
             warning.setText("Votre Evaluation a été enregistrée");
-        }       
+        }
     }
 
     @FXML
@@ -248,7 +238,7 @@ public class MenuProduitsController implements Initializable {
         reclamation.setVisible(true);
         validation.setVisible(true);
         warning.setVisible(false);
-        
+
     }
 
     @FXML
@@ -256,23 +246,23 @@ public class MenuProduitsController implements Initializable {
         reclamation.setVisible(false);
         validation.setVisible(false);
         reclamationB.setVisible(true);
-        if(reclamation.getText().equals("")){
+        if (reclamation.getText().equals("")) {
             warning.setVisible(true);
             warning.setText("Veuillez taper votre réclamation");
         } else {
             warning.setVisible(false);
-            Reclamation r = new Reclamation(AccueilController.userConnected,produitSelected,reclamation.getText());
+            Reclamation r = new Reclamation(AccueilController.userConnected, produitSelected, reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");
             warning.setVisible(true);
-            
+
         }
     }
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
-        
+
     }
 
 }
