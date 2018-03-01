@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="490.0" prefWidth="882.0" style="-fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #3C8DBC;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ShowUserController">
+<AnchorPane prefHeight="490.0" prefWidth="880.0" style="-fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #26b99a; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ShowUserController">
    <children>
-      <Label fx:id="titre" layoutX="220.0" layoutY="14.0" prefHeight="74.0" prefWidth="547.0" text="Informations Administrateur" textFill="#e82932" wrapText="true">
+      <Label fx:id="titre" alignment="CENTER" contentDisplay="CENTER" layoutX="178.0" layoutY="15.0" prefHeight="74.0" prefWidth="547.0" text="Informations Administrateur" textAlignment="CENTER" textFill="#26b99a" wrapText="true">
          <font>
-            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+            <Font name="Calibri Bold" size="35.0" />
          </font>
       </Label>
       <JFXTextField fx:id="username" editable="false" labelFloat="true" layoutX="468.0" layoutY="107.0" maxWidth="385.0" minWidth="385.0" prefHeight="44.0" prefWidth="385.0" promptText="Nom d'utilisateur">

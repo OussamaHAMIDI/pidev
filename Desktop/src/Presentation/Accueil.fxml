@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -14,7 +23,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1345.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1345.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
    <children>
       <AnchorPane fx:id="menuBar" prefHeight="80.0" prefWidth="1140.0" style="-fx-background-color: white;" stylesheets="@style.css" AnchorPane.leftAnchor="205.0">
          <children>
@@ -59,7 +68,7 @@
                </cursor>
             </JFXButton>
             
-            <MenuButton fx:id="btn_user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" layoutX="890.0" layoutY="14.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="52.0" prefWidth="55.0">
+            <MenuButton fx:id="btn_user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" layoutX="890.0" layoutY="14.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="52.0" prefWidth="55.0" style="-fx-background-color: #ffffff;" textFill="#545454">
               <items>
                 <MenuItem fx:id="infos" mnemonicParsing="false" text="Mes informations" />
                 <MenuItem fx:id="changerMdp" mnemonicParsing="false" text="Changer mot de passe" />
@@ -87,7 +96,7 @@
             <Pane prefHeight="28.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
             <JFXButton fx:id="btnStats" onAction="#switchStats" prefHeight="60.0" prefWidth="180.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Accueil" textFill="#545454">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -105,7 +114,7 @@
             </JFXButton>
             <JFXButton prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -123,7 +132,7 @@
             </JFXButton>
             <JFXButton fx:id="btnBoutique" onAction="#switchBoutique" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets left="12.0" top="10.0" />
@@ -141,7 +150,7 @@
             </JFXButton>
             <JFXButton fx:id="btnUsers" layoutX="10.0" layoutY="193.0" onAction="#switchUsers" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Utilisateurs" textFill="#545454">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets left="12.0" top="10.0" />
@@ -159,7 +168,7 @@
             </JFXButton>
             <JFXButton fx:id="btnReclamations" onAction="#switchReclamations" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Reclamations" textFill="#545454">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -177,7 +186,7 @@
             </JFXButton>
             <JFXButton fx:id="btnHistorique" onAction="#switchHistorique" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Historiques" textFill="#545454">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />

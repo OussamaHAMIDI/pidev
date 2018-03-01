@@ -27,7 +27,7 @@
    <children>
       <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label layoutX="41.0" layoutY="23.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #162E3B; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Boutique" />
+            <Label layoutX="41.0" layoutY="23.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #26B99A; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Boutique" />
             <Label fx:id="idB" layoutX="41.0" layoutY="188.0" prefHeight="17.0" prefWidth="94.0" text="Id :">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
