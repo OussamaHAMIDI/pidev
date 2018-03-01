@@ -178,42 +178,44 @@ public class MenuProduitsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+        if (AccueilController.userConnected != null) {
+            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                addProduct.setVisible(false);
+                evaluation.setDisable(true);
+                produitB.setVisible(false);//ajouter au panier
+                warning.setVisible(false);
+                validation.setVisible(true);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                addProduct.setVisible(true);
+                evaluation.setDisable(true);
+                produitB.setVisible(false);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                addProduct.setVisible(false);
+                evaluation.setDisable(false);
+                produitB.setVisible(true);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+            }
+        } else {//visiteur
             addProduct.setVisible(false);
-            evaluation.setDisable(true);
+            evaluation.setDisable(false);
             produitB.setVisible(false);
-            validation.setVisible(false);
-            reclamationB.setVisible(false);
-            reclamation.setVisible(false);//text area
-        } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
-            addProduct.setVisible(true);
-            evaluation.setDisable(true);
-            produitB.setVisible(true);
-            validation.setVisible(true);
-            reclamationB.setVisible(true);
-            reclamation.setVisible(true);//text area
-        } else if(AccueilController.userConnected.getType() == TypeUser.Client){
-            addProduct.setVisible(false);
-            evaluation.setDisable(false);
-            produitB.setVisible(true);
-            validation.setVisible(true);
-            reclamationB.setVisible(true);
-            reclamation.setVisible(true);//text area
-        }else{//visiteur
-             addProduct.setVisible(false);
-            evaluation.setDisable(false);
-            produitB.setVisible(true);
+            warning.setVisible(false);
             validation.setVisible(false);
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
         }
 
         evaluation.setRating(0);
-        evaluation.setDisable(true);
-        reclamation.setVisible(false);
-        warning.setVisible(false);
-        validation.setVisible(false);
-        gridPane = new GridPane();
+        
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = ps.listerProduits();
         ProduitController.contenu = list;
