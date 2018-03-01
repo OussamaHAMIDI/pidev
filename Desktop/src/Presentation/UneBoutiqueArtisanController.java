@@ -22,9 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -44,7 +41,7 @@ import javafx.stage.StageStyle;
  * @author Azza
  */
 public class UneBoutiqueArtisanController implements Initializable {
-    
+
     private Boutique bou;
     static public int index;
     static public List<Boutique> contenu;
@@ -65,62 +62,59 @@ public class UneBoutiqueArtisanController implements Initializable {
     private Label userB;
     @FXML
     private JFXButton supprimer;
-    BoutiqueService bs= new BoutiqueService();
+    BoutiqueService bs = new BoutiqueService();
     @FXML
     private Circle circle;
-            
 
-     public AnchorPane getThis()
-    {
+    public AnchorPane getThis() {
         return boutique;
     }
-     public void setValues(Boutique b){
-         dateB.setText(bou.getDateCreation().toString().replace("T", " "));
-        nomB.setText(bou.getNom());
-        
-        adresseB.setText(bou.getAdresse());
+
+    public void setValues(Boutique b) {
+        dateB.setText(b.getDateCreation().toString().replace("T", " "));
+        nomB.setText(b.getNom());
+
+        adresseB.setText(b.getAdresse());
         circle.setStroke(Color.SEAGREEN);
         circle.setFill(Color.SNOW);
         circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
-        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
-        Image img = bs.getPhoto(bou.getId());
+        circle.setFill(new ImagePattern(new Image("Images/produit_icon.png")));
+        Image img = bs.getPhoto(b.getId());
         if (img != null) {
             circle.setFill(new ImagePattern(img));
         }
-     }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         bou = MenuBoutiqueController.list.get(index);
+        bou = MenuBoutiqueController.list.get(index);
         setValues(bou);
-        
-    }    
+
+    }
 
     @FXML
     private void supprimerBoutique(ActionEvent event) {
-         
-    
-
         Alert alert = Utils.getAlert(Alert.AlertType.CONFIRMATION, "Suppression", null,
                 "Voulez-vous vraiment supprimer cette boutique ?");
         alert.show();
         alert.resultProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == ButtonType.OK) {
-                 MenuBoutiqueController.list.remove(bou);
-                    contenu.remove(bou);
+                MenuBoutiqueController.list.remove(bou);
+                contenu.remove(bou);
 //        GridPane parent = (GridPane)user.getParent();
 //        parent.getChildren().remove(user);
 
                 bs.supprimerBoutique(bou);
                 mc.updateItems("");
-                
+
             }
         });
     }
 
     @FXML
     private void modifierBoutique(ActionEvent event) throws IOException {
-        ModifierBoutiqueController.bc=this;
-        ModifierBoutiqueController.boutiqueSelected=bou;
+        ModifierBoutiqueController.bc = this;
+        ModifierBoutiqueController.boutiqueSelected = bou;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierBoutique.fxml"));
         Stage s = Utils.getAnotherStage(loader, "Modification d'une boutique ");
         s.initStyle(StageStyle.UNDECORATED);
@@ -136,23 +130,23 @@ public class UneBoutiqueArtisanController implements Initializable {
 
     @FXML
     private void partagerBoutique(ActionEvent event) {
-        Boutique B=new Boutique();
-            
-            BoutiqueService bt=new BoutiqueService();
-            B=bt.chercherBoutiqueParID(B.getId());
-       
-               String accessToken = "EAACEdEose0cBALnh8FXxkOGAmDxrhvukgahtLksbuUITg8vydx3NFcBjAQnZBcXNFjmTIyFMIisUrB2gKFwSbzjYnnuMkOLySiQJRWe2kkXxlwZAbmYlkvZBKduoPXPqrhwWsgdfn9ivXJY4SweyM0ZBH2XZBZANgJNHLH3LaLMibaUhKejQdlA5H9taDsrQYZD";
-       Scanner s = new Scanner(System.in);
-        FacebookClient fbClient= new DefaultFacebookClient(accessToken);
-         FacebookType response = fbClient.publish("me/feed", FacebookType.class,
-                           Parameter.with("message", "Boutique"+B.getNom()+" at"+B.getAdresse()),
-                           Parameter.with("link", "http://127.168.0.1/"));
-         System.out.println("fb.com/"+response.getId());
+        Boutique B = new Boutique();
+
+        BoutiqueService bt = new BoutiqueService();
+        B = bt.chercherBoutiqueParID(B.getId());
+
+        String accessToken = "EAACEdEose0cBALnh8FXxkOGAmDxrhvukgahtLksbuUITg8vydx3NFcBjAQnZBcXNFjmTIyFMIisUrB2gKFwSbzjYnnuMkOLySiQJRWe2kkXxlwZAbmYlkvZBKduoPXPqrhwWsgdfn9ivXJY4SweyM0ZBH2XZBZANgJNHLH3LaLMibaUhKejQdlA5H9taDsrQYZD";
+        Scanner s = new Scanner(System.in);
+        FacebookClient fbClient = new DefaultFacebookClient(accessToken);
+        FacebookType response = fbClient.publish("me/feed", FacebookType.class,
+                Parameter.with("message", "Boutique" + B.getNom() + " at" + B.getAdresse()),
+                Parameter.with("link", "http://127.168.0.1/"));
+        System.out.println("fb.com/" + response.getId());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("success");
         alert.setContentText("Votre annonce à été publié");
         alert.showAndWait();
-        
+
     }
-    
+
 }

@@ -27,17 +27,13 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -69,6 +65,7 @@ public class MenuBoutiqueController implements Initializable {
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
+    
     public static GridPane gridPane = new GridPane();
     public static List<Boutique> list;
     public static UneBoutiqueArtisanController bc;
@@ -112,12 +109,12 @@ public class MenuBoutiqueController implements Initializable {
         }
 
         if (nbrItems % 2 == 1) {// impaire
-            if (list.size() > 0) {
+            if (parents.size() > 0) {
                 gridPane.add(parents.get(0), 1, nbrRows - 1);
                 parents.remove(0);
             }
         }
-        //paire // erreur affichage
+        //paire 
         for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
             for (int col = 0; col < 2; col++) {
                 if (parents.size() > 0) {

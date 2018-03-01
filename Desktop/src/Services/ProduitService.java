@@ -52,10 +52,13 @@ public class ProduitService implements IProduit {
             ps.setFloat(8, p.getPoids());
             ps.setString(9,LocalDateTime.now().toString());
             ps.setBinaryStream(10, p.getPhoto());
+            if (p.getPhoto()== null){
+                ps.setBinaryStream(10,new FileInputStream("src/Images/produit_icon.png"));
+            }
             ps.executeUpdate();
             System.out.println("Ajout effectué");
             return true;
-        } catch (SQLException ex) {
+        } catch (SQLException|FileNotFoundException ex) {
             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec d'ajout");
             return false;
@@ -205,7 +208,6 @@ public class ProduitService implements IProduit {
                 p.setPoids(rs.getFloat("poids"));
                 p.setPhoto(rs.getBinaryStream("photo"));
                 produits.add(p);
-                p= new Produit();
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,26 +215,47 @@ public class ProduitService implements IProduit {
         }
         return produits;
     }
- @Override
+
+    @Override
     public Image getPhoto(int idB) {
         InputStream photo = null;
         try {
-            photo = new FileInputStream("src/Images/camera.png");
+            photo = new FileInputStream("src/Images/produit_icon.png");
             String req = "SELECT photo FROM `produit` WHERE id = '" + idB + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 photo = rs.getBinaryStream("photo");
-                //System.out.println("photo retrieved");
             }
             return new Image(photo);
 
         } catch (SQLException | FileNotFoundException ex) {
-            Logger.getLogger(BoutiqueService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec get photo");
 
         }
         return new Image(photo);
+    }
+
+    @Override
+    public InputStream getPhotoProduit(int idP){
+        InputStream photo = null;
+        try {
+            String req = "SELECT photo FROM `produit` WHERE id = '" + idP + "'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+
+                photo = rs.getBinaryStream("photo");
+//                System.out.println("photo retrieved");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec get photo");
+
+        }
+        return photo;
     }
 
 }
