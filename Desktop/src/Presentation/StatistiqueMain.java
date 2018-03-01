@@ -26,8 +26,8 @@ public class StatistiqueMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         
-        Parent root = FXMLLoader.load(getClass().getResource(("Statistique.fxml")));
-        //Parent root = FXMLLoader.load(getClass().getResource(("StatistiqueArtisan.fxml")));
+        //Parent root = FXMLLoader.load(getClass().getResource(("Statistique.fxml")));
+        Parent root = FXMLLoader.load(getClass().getResource(("StatistiqueArtisan.fxml")));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

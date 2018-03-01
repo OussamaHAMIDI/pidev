@@ -33,5 +33,5 @@ public interface IPanier {
     public String rechercheClientPanier(int idpanier);
     public void envoyerMailArtisant(Panier panier);
     public void envoyerMailClient(Panier panier);
- 
+    public int getNextId();
 }

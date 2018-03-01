@@ -148,6 +148,15 @@ public class MenuBoutiqueController implements Initializable {
             } else {
                 evaluation.setDisable(true);
             }
+            if (rs.peutReclamer(AccueilController.userConnected, boutiqueSelectede)){
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);
+                validation.setVisible(true);
+            } else {
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);
+                validation.setVisible(true);
+            }
             photo.setImage(bs.getPhoto(boutiqueSelectede.getId()));
         }
     }
@@ -168,6 +177,8 @@ public class MenuBoutiqueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ReclamationService rs = new ReclamationService();
+        EvaluationService es = new EvaluationService();
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
                 separateur.setVisible(true);
@@ -176,7 +187,7 @@ public class MenuBoutiqueController implements Initializable {
                 warning.setVisible(false);
                 validation.setVisible(false);
                 reclamationB.setVisible(false);
-                addBoutique.setVisible(true);
+                addBoutique.setVisible(false);
                 reclamation.setVisible(false);//text area
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 separateur.setVisible(false);
@@ -213,6 +224,8 @@ public class MenuBoutiqueController implements Initializable {
         list = bs.lireBoutiques();
         UneBoutiqueArtisanController.contenu = list;
         UneBoutiqueArtisanController.mc = this;
+        
+        gridPane.getChildren().clear();
         addToGrid(list);
         gridPane.setHgap(25);
         gridPane.setVgap(25);

@@ -56,8 +56,7 @@ import tray.notification.NotificationType;
  */
 public class InscriptionController implements Initializable {
 
-    @FXML
-    private JFXButton annuler;
+
     @FXML
     private JFXTextField username;
     @FXML
@@ -143,7 +142,6 @@ public class InscriptionController implements Initializable {
 
     }
 
-    @FXML
     private void annulerClicked(ActionEvent event) {
         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
@@ -155,7 +153,7 @@ public class InscriptionController implements Initializable {
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo de profil");
 
-        File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
+        File selected_photo = file.showOpenDialog((Stage) close.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
@@ -225,7 +223,7 @@ public class InscriptionController implements Initializable {
         file.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp"));
         file.setTitle("Choisir une photo de permis");
 
-        File selected_photo = file.showOpenDialog((Stage) annuler.getScene().getWindow());
+        File selected_photo = file.showOpenDialog((Stage) close.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();

@@ -267,12 +267,21 @@ public class Panier {
             }
             contentStream.endText();
             contentStream.close();
-            myPdf.save(System.getProperty("user.home") + "/Desktop"+ this.id + ".pdf");
+           // System.out.println(System.getProperty("user.home") + "\\Desktop\\"+ this.id + ".pdf");
+            myPdf.save(System.getProperty("user.home") + "\\Desktop\\"+ this.id + ".pdf");
             myPdf.close();
         } catch (IOException e) {
             System.out.println(e);
             return false;
         }
         return true;
+    }
+    public void recalculer()
+    {
+        for(ProduitPanier p: this.contenu)
+        {
+            this.totalTTC += p.getPrixVente()*p.getQuantiteVendue();
+            
+        }
     }
 }

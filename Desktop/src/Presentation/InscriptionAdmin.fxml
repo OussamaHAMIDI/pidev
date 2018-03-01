@@ -19,17 +19,9 @@
 
 <AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionAdminController">
    <children>
-      <JFXButton layoutX="562.0" layoutY="496.0" onAction="#inscrireClicked" prefHeight="38.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
+      <JFXButton layoutX="728.0" layoutY="507.0" onAction="#inscrireClicked" prefHeight="21.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
          <font>
-            <Font name="Segoe UI" size="20.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
-      <JFXButton fx:id="annuler" layoutX="716.0" layoutY="495.0" onAction="#annulerClicked" prefHeight="27.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI" size="20.0" />
+            <Font name="Calibri" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -132,9 +124,9 @@
             <Image url="@../Images/icons8_Licence_100px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="close" fitHeight="67.0" fitWidth="69.0" layoutX="782.0" layoutY="18.0" onMouseClicked="#closeClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+      <ImageView fx:id="close" fitHeight="27.0" fitWidth="30.0" layoutX="842.0" layoutY="12.0" onMouseClicked="#closeClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
          <image>
-            <Image url="@../Images/close-button.png" />
+            <Image url="@../Images/exit_icon.png" />
          </image>
       </ImageView>
    </children>

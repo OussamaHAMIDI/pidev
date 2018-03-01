@@ -65,9 +65,8 @@ public class StatistiqueArtisanController implements Initializable {
         scrollStat.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         StatistiqueService ss = new StatistiqueService();
         BoutiqueService bs = new BoutiqueService();
-        UserService us = new UserService();
-        User u = us.getUserById(29);        
-        List<Boutique> lb = bs.lireBoutique(u);
+        UserService us = new UserService();       
+        List<Boutique> lb = bs.lireBoutique(AccueilController.userConnected);
         List<Produit> lp = new ArrayList<Produit>();
         for(Boutique b : lb){
             lp.addAll(bs.lireProduitsParBoutique(b));
