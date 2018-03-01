@@ -165,8 +165,10 @@ public class PanierController implements Initializable {
     public void modifierTotaux(float prix) {
         Float v = (Float.parseFloat(prixArticles.getText()) + prix);
         prixArticles.setText(v.toString());
+        
         v = (Float.parseFloat(totalTTC.getText()) + prix);
         totalTTC.setText(v.toString());
+        panier.setTotalTTC(v);
     }
 
     @FXML
@@ -216,18 +218,22 @@ public class PanierController implements Initializable {
         ps.miseAJourPanier(panier);
         for(ProduitPanier p : panier.getContenu())
         {
-            ss.modifierStock(p.getId(),(int)p.getQuantiteVendue());  
+            ss.modifierStock(p.getId(),(int)p.getQuantiteVendue()*-1);  
             ps.modifierProduitPanier(p, panier.getId());
         }
         
+       Float v = (Float.parseFloat(totalTTC.getText()));
+        panier.setTotalTTC(v);
+      v   = (Float.parseFloat(prixLivraison.getText()));
+      panier.setFraisLivraison(v);
         switch (modePaiement.getValue()) {
             case "Espece":
                 //EnvoyerMail
-                viderPanier();
+                
                 break;
             case "Chaque":
                 //Envoyer mail
-               viderPanier();
+              
                
                 break;
             case "Internet":
@@ -239,8 +245,9 @@ public class PanierController implements Initializable {
                 break;
         }
          panier.generatePDF();
+          viderPanier();
                      SmsSender sms = new SmsSender();
-                sms.sendSms("", "");
+                //sms.sendSms("", "");
         }
     }
 
@@ -253,7 +260,7 @@ public class PanierController implements Initializable {
             int etat = ss.stockProduit(p.getId());
             if(etat<p.getQuantiteVendue())
             {
-                Utils.Utils.getAlert(Alert.AlertType.ERROR, "Stock indisponible", "Stock indisponible", "Le produit " +p.getLibelle()+ " n'a que " + etat + " en stock");
+                Utils.Utils.showAlert(Alert.AlertType.ERROR, "Stock indisponible", "Stock indisponible", "Le produit " +p.getLibelle()+ " n'a que " + etat + " en stock");
                 return false;
             }
         }
