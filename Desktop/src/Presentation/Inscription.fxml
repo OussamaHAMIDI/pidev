@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: #ececec;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionController">
+<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionController">
    <children>
-      <JFXButton layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#177fffaa" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
+      <JFXButton layoutX="562.0" layoutY="496.0" onAction="#inscrireClicked" prefHeight="30.0" prefWidth="132.0" ripplerFill="#177fffaa" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -27,7 +27,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="annuler" layoutX="541.0" layoutY="490.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#177fffa9" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
+      <JFXButton fx:id="annuler" layoutX="716.0" layoutY="496.0" onAction="#annulerClicked" prefHeight="38.0" prefWidth="132.0" ripplerFill="#177fffa9" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -35,9 +35,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label fx:id="titre" layoutX="358.0" layoutY="14.0" prefHeight="74.0" prefWidth="219.0" text="Inscription" textFill="#e82932" wrapText="true">
+      <Label fx:id="titre" layoutX="358.0" layoutY="14.0" prefHeight="74.0" prefWidth="219.0" text="Inscription" textFill="#26b99a" wrapText="true">
          <font>
-            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+            <Font name="Calibri Bold" size="30.0" />
          </font>
       </Label>
       <JFXTextField fx:id="username" labelFloat="true" layoutX="468.0" layoutY="107.0" prefHeight="44.0" prefWidth="188.0" promptText="Nom d'utilisateur">
@@ -60,7 +60,7 @@
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="prenom" labelFloat="true" layoutX="256.0" layoutY="107.0" maxWidth="231.0" minWidth="185.0" prefHeight="44.0" prefWidth="185.0" promptText="Prénom">
+      <JFXTextField fx:id="prenom" labelFloat="true" layoutX="245.0" layoutY="107.0" maxWidth="231.0" minWidth="185.0" prefHeight="44.0" prefWidth="185.0" promptText="Prénom">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -75,7 +75,7 @@
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXDatePicker fx:id="date" layoutX="235.0" layoutY="261.0" prefHeight="40.0" prefWidth="219.0" promptText="Date de naissance" />
+      <JFXDatePicker fx:id="date" layoutX="213.0" layoutY="258.0" prefHeight="40.0" prefWidth="219.0" promptText="Date de naissance" />
       
 
 
@@ -86,7 +86,7 @@
 
       <JFXRadioButton layoutX="93.0" layoutY="403.0" selected="true" text="Male">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="Calibri Bold" size="17.0" />
          </font>
          <toggleGroup>
             <ToggleGroup fx:id="sexe" />
@@ -94,10 +94,10 @@
       </JFXRadioButton>
       <JFXRadioButton layoutX="239.0" layoutY="403.0" text="Femelle" toggleGroup="$sexe">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="Calibri Bold" size="17.0" />
          </font>
       </JFXRadioButton>
-      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo" textFill="WHITE">
+      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #4d4d4d;" text="Importer une photo" textFill="WHITE">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>
@@ -111,12 +111,12 @@
          </image>
       </ImageView>
       <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
-      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="S'incrire en tant que :">
+      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="S'incrire en tant que :" textFill="#4d4d4d">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="Bt_importerPermis" layoutX="477.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importerPermis" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo de permis de vente" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="Bt_importerPermis" layoutX="477.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importerPermis" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #4d4d4d;" text="Importer une photo de permis de vente" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>

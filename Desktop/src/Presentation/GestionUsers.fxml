@@ -35,9 +35,9 @@
             <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
          </padding>
       </ScrollPane>
-      <Label fx:id="labelCompte" layoutX="654.0" layoutY="5.0" prefHeight="56.0" prefWidth="365.0" text="Informations compte" textFill="#e82932">
+      <Label fx:id="labelCompte" layoutX="508.0" layoutY="5.0" prefHeight="56.0" prefWidth="365.0" text="Informations compte" textFill="#26b99a">
          <font>
-            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+            <Font name="Calibri Bold" size="37.0" />
          </font>
       </Label>
       <JFXButton layoutX="379.0" layoutY="4.0" onMouseClicked="#ajouterUser" prefHeight="48.0" prefWidth="53.0" ripplerFill="#00000086" styleClass="nav-button" stylesheets="@style.css" text=" ">
@@ -60,9 +60,9 @@
                <content>
                   <AnchorPane prefHeight="482.0" prefWidth="613.0">
                      <children>
-                        <JFXButton fx:id="modifier" layoutX="436.0" layoutY="426.0" onAction="#modifierClicked" prefHeight="35.0" prefWidth="123.0" ripplerFill="#3467cfaa" style="-fx-background-color: #4183d7;" text="Modifier" textFill="WHITE">
+                        <JFXButton fx:id="modifier" layoutX="436.0" layoutY="429.0" onAction="#modifierClicked" prefHeight="32.0" prefWidth="123.0" ripplerFill="#3467cfaa" style="-fx-background-color: #4183d7;" text="Modifier" textFill="WHITE">
                            <font>
-                              <Font name="Segoe UI Bold" size="15.0" />
+                              <Font name="Calibri" size="15.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -98,27 +98,27 @@
                               <Font name="Segoe UI" size="15.0" />
                            </font>
                         </JFXTextField>
-                        <JFXDatePicker id="7" fx:id="date" defaultColor="#2c6aa8" layoutX="136.0" layoutY="320.0" prefHeight="40.0" prefWidth="180.0" promptText="Date de naissance">
+                        <JFXDatePicker id="7" fx:id="date" defaultColor="#26b99a" layoutX="136.0" layoutY="320.0" prefHeight="40.0" prefWidth="180.0" promptText="Date de naissance">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXDatePicker>
-                        <JFXRadioButton id="10" layoutX="43.0" layoutY="433.0" selected="true" text="Male">
+                        <JFXRadioButton id="10" layoutX="43.0" layoutY="433.0" selected="true" text="Male" textFill="#4d4d4d">
                            <font>
-                              <Font name="System Bold Italic" size="15.0" />
+                              <Font name="Calibri Bold" size="16.0" />
                            </font>
                            <toggleGroup>
                               <ToggleGroup fx:id="sexe" />
                            </toggleGroup>
                         </JFXRadioButton>
-                        <JFXRadioButton id="11" layoutX="189.0" layoutY="433.0" text="Femelle" toggleGroup="$sexe">
+                        <JFXRadioButton id="11" layoutX="189.0" layoutY="433.0" text="Femelle" textFill="#4d4d4d" toggleGroup="$sexe">
                            <font>
-                              <Font name="System Bold Italic" size="15.0" />
+                              <Font name="Calibri Bold" size="16.0" />
                            </font>
                         </JFXRadioButton>
-                        <Button fx:id="Bt_importer" layoutX="385.0" layoutY="309.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="188.0" style="-fx-background-color: #18222c;" text="Changer photo de profil" textFill="WHITE">
+                        <Button fx:id="Bt_importer" layoutX="393.0" layoutY="309.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="35.0" prefWidth="170.0" style="-fx-background-color: #26B99A;" text="Changer photo de profil" textFill="WHITE">
                            <font>
-                              <Font size="12.0" />
+                              <Font name="Calibri" size="15.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -148,7 +148,7 @@
                               <Image url="@../Images/icons8_Licence_100px.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="confirmer" layoutX="230.0" layoutY="348.0" onAction="#confirmerClicked" prefHeight="53.0" prefWidth="191.0" ripplerFill="#3467cfaa" style="-fx-background-color: #4183d7;" text="Confirmer " textFill="WHITE">
+                        <JFXButton fx:id="confirmer" layoutX="242.0" layoutY="366.0" onAction="#confirmerClicked" prefHeight="35.0" prefWidth="179.0" ripplerFill="#3467cfaa" style="-fx-background-color: #4183d7;" text="Confirmer " textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Bold" size="15.0" />
                            </font>

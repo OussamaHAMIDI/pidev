@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: #ececec; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionAdminController">
+<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionAdminController">
    <children>
-      <JFXButton layoutX="201.0" layoutY="490.0" onAction="#inscrireClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
+      <JFXButton layoutX="562.0" layoutY="496.0" onAction="#inscrireClicked" prefHeight="38.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Ajouter" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -27,7 +27,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="annuler" layoutX="541.0" layoutY="490.0" onAction="#annulerClicked" prefHeight="44.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
+      <JFXButton fx:id="annuler" layoutX="716.0" layoutY="495.0" onAction="#annulerClicked" prefHeight="27.0" prefWidth="132.0" ripplerFill="#cdd6cbd1" style="-fx-background-color: #4183d7;" text="Annuler" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
@@ -35,9 +35,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label fx:id="titre" layoutX="280.0" layoutY="14.0" prefHeight="74.0" prefWidth="322.0" text="Ajout d'utilisateur" textFill="#e82932" wrapText="true">
+      <Label fx:id="titre" layoutX="290.0" layoutY="15.0" prefHeight="74.0" prefWidth="322.0" text="Ajout d'utilisateur" textFill="#26b99a" wrapText="true">
          <font>
-            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+            <Font name="Calibri Bold" size="30.0" />
          </font>
       </Label>
       <JFXTextField fx:id="username" labelFloat="true" layoutX="468.0" layoutY="107.0" prefHeight="44.0" prefWidth="188.0" promptText="Nom d'utilisateur">
@@ -70,12 +70,12 @@
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="tel" labelFloat="true" layoutX="22.0" layoutY="256.0" maxWidth="200.0" minWidth="178.0" prefHeight="44.0" prefWidth="178.0" promptText="Télephone">
+      <JFXTextField fx:id="tel" labelFloat="true" layoutX="24.0" layoutY="259.0" maxWidth="200.0" minWidth="178.0" prefHeight="44.0" prefWidth="178.0" promptText="Télephone">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXDatePicker fx:id="date" defaultColor="#0c2edad4" layoutX="235.0" layoutY="261.0" prefHeight="40.0" prefWidth="185.0" promptText="Date de naissance" />
+      <JFXDatePicker fx:id="date" defaultColor="#27b898" layoutX="235.0" layoutY="261.0" prefHeight="40.0" prefWidth="185.0" promptText="Date de naissance" />
       
 
 
@@ -87,20 +87,20 @@
      
 
 
-      <JFXRadioButton layoutX="93.0" layoutY="403.0" selected="true" text="Male">
+      <JFXRadioButton layoutX="93.0" layoutY="403.0" selected="true" text="Male" textFill="#4d4d4d">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="Calibri Bold" size="17.0" />
          </font>
          <toggleGroup>
             <ToggleGroup fx:id="sexe" />
          </toggleGroup>
       </JFXRadioButton>
-      <JFXRadioButton layoutX="239.0" layoutY="403.0" text="Femelle" toggleGroup="$sexe">
+      <JFXRadioButton layoutX="239.0" layoutY="403.0" text="Femelle" textFill="#4d4d4d" toggleGroup="$sexe">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="Calibri Bold" size="17.0" />
          </font>
       </JFXRadioButton>
-      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo de profil" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #4d4d4d;" text="Importer une photo de profil" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>
@@ -114,12 +114,12 @@
          </image>
       </ImageView>
       <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
-      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="Ajout en tant que :">
+      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="Ajout en tant que :" textFill="#4d4d4d">
          <font>
-            <Font name="System Bold Italic" size="18.0" />
+            <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="Bt_importerPermis" layoutX="477.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importerPermis" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #18222c;" text="Importer une photo de permis de vente" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Button fx:id="Bt_importerPermis" layoutX="477.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importerPermis" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #4d4d4d;" text="Importer une photo de permis de vente" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Maiandra GD" size="14.0" />
          </font>
