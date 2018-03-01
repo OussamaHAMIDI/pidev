@@ -10,6 +10,7 @@ import Entities.Produit;
 import Entities.Reclamation;
 import Entities.User;
 import Services.BoutiqueService;
+import Services.ProduitService;
 import Services.ReclamationService;
 import Services.UserService;
 import Utils.Enumerations;
@@ -41,8 +42,7 @@ public class MainReclamation {
         produits.add(p2);
         User user ;
         UserService us = new UserService();
-        user = us.getUserById(2);
-        user.setId(2);
+        user = us.getUserById(29);
         Boutique boutique = new Boutique(user,"Hellou",produits);
         boutique.setId(2);
         BoutiqueService bs = new BoutiqueService();
@@ -52,12 +52,17 @@ public class MainReclamation {
         //Reclamation r1 = new Reclamation(user, boutique,"maaasset");
         //Reclamation r2 = new Reclamation(user,p1,"hloww barcha");
         ReclamationService rs = new ReclamationService();
-
+        ProduitService ps = new ProduitService();
+        Boutique b = bs.chercherBoutiqueParID(2);
+        Produit p = ps.chercherProduitParID(2);
+        System.out.println(rs.peutReclamer(user, p));
         //boolean a = rs.ajouterReclamation(r1);
         //boolean b = rs.ajouterReclamation(r2);
-        List<Reclamation> hey = new ArrayList<Reclamation>();
-        hey = rs.getAllReclamations();
-        System.out.println(hey);
+//        List<Reclamation> hey = new ArrayList<Reclamation>();
+//        hey = rs.getAllReclamations();
+//        System.out.println(hey);
+        
+        
                 
                 
         
