@@ -95,12 +95,9 @@ public class MenuBoutiqueController implements Initializable {
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
     BoutiqueService bs = new BoutiqueService();
-<<<<<<< HEAD
     @FXML
     private AnchorPane contenu;
-=======
-    
->>>>>>> bcb7d72b65b52ecd809030bac392fbeee1432d7b
+
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
