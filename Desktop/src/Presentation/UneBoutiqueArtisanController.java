@@ -145,16 +145,12 @@ public class UneBoutiqueArtisanController implements Initializable {
         Boutique B = new Boutique();
 //         if (boutiqueSelected != null) {
         BoutiqueService bt = new BoutiqueService();
-<<<<<<< HEAD
-        B = bt.chercherBoutiqueParID(bou.getId());
-=======
-<<<<<<< HEAD
-        B = bt.chercherBoutiqueParID(bou.getId());
-=======
-        B = bt.chercherBoutiqueParID(boutiqueSelected.getId());
->>>>>>> bc42103907108a10f3656cc1529accbc34ed4ea3
->>>>>>> 95da78d8607b3a93208b80e1780fcf1fd82bd4cd
 
+        B = bt.chercherBoutiqueParID(bou.getId());
+
+        B = bt.chercherBoutiqueParID(bou.getId());
+
+        B = bt.chercherBoutiqueParID(boutiqueSelected.getId());
         String accessToken = "EAACEdEose0cBABMNP3nEnlZC7y6mhexfCK1EiX5jQjvRlsXZB8x7HfE6efHK0zwJt4ZCwQgiKQ2JgF0eiTheReTnhNfrukJhO8AvEw8cCLo5jWwZAUdOf863gY79BMeRe2I1nH7PUYdxFKf3sxyWIhYyS4ZAQqxqrc7RqjAdrxt3M1PNCadYdUIf2R60IjO3xu8iQeupt4QZDZD";
         Scanner s = new Scanner(System.in);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
