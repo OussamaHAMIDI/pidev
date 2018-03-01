@@ -50,7 +50,7 @@
                   <Font name="Roboto Medium" size="14.0" />
                </font>
             </Label>
-            <Separator layoutX="35.0" layoutY="187.0" prefWidth="200.0" />
+            <Separator fx:id="separateur" layoutX="35.0" layoutY="187.0" prefWidth="200.0" />
             <Separator layoutX="35.0" layoutY="220.0" prefWidth="200.0" />
             <Separator layoutX="35.0" layoutY="253.0" prefWidth="200.0" />
             <Separator layoutX="36.0" layoutY="287.0" prefWidth="200.0" />
