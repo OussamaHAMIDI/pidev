@@ -14,6 +14,7 @@ import Services.EvaluationService;
 import Services.ReclamationService;
 import Services.UserService;
 import Utils.NavigatorData;
+import Utils.Enumerations.*;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -27,19 +28,17 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
+import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -69,22 +68,10 @@ public class MenuBoutiqueController implements Initializable {
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
-    public static GridPane gridPane = new GridPane();
-    public static List<Boutique> list;
-    public static UneBoutiqueArtisanController bc;
-    public static Boutique boutiqueSelected;
-
-    private FileInputStream photoProfil = null;
-
-    BoutiqueService bs = new BoutiqueService();
     @FXML
     private ImageView photo;
     @FXML
     private Rating evaluation;
-    EvaluationService es = new EvaluationService();
-    ReclamationService rs = new ReclamationService();
-    UserService us = new UserService();
-    User u = us.getUserById(2);
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -93,6 +80,24 @@ public class MenuBoutiqueController implements Initializable {
     private JFXButton validation;
     @FXML
     private Label warning;
+    @FXML
+    private JFXButton addBoutique;
+    @FXML
+    private Separator separateur;
+    @FXML
+    private AnchorPane contenu; 
+    
+    public static GridPane gridPane = new GridPane();
+    public static List<Boutique> list;
+    public static UneBoutiqueArtisanController bc;
+    public static Boutique boutiqueSelected;
+    private FileInputStream photoProfil = null;
+    BoutiqueService bs = new BoutiqueService();
+
+    EvaluationService es = new EvaluationService();
+    ReclamationService rs = new ReclamationService();
+    UserService us = new UserService();
+
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
@@ -112,12 +117,12 @@ public class MenuBoutiqueController implements Initializable {
         }
 
         if (nbrItems % 2 == 1) {// impaire
-            if (list.size() > 0) {
+            if (parents.size() > 0) {
                 gridPane.add(parents.get(0), 1, nbrRows - 1);
                 parents.remove(0);
             }
         }
-        //paire // erreur affichage
+        //paire 
         for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
             for (int col = 0; col < 2; col++) {
                 if (parents.size() > 0) {
@@ -137,10 +142,10 @@ public class MenuBoutiqueController implements Initializable {
             adresseB.setText(boutiqueSelectede.getAdresse());
             dateB.setText(boutiqueSelectede.getDateCreation().toString().replace("T", " "));
             evaluation.setRating(es.getNoteBoutique(boutiqueSelectede));
-            System.out.println("NOTE ===== "+es.getNoteBoutique(boutiqueSelectede)+boutiqueSelectede);
-            if(es.peutEvaluer(u,boutiqueSelectede)){
+            evaluation.setPartialRating(true);
+            if (es.peutEvaluer(AccueilController.userConnected, boutiqueSelectede)) {
                 evaluation.setDisable(false);
-            }else{
+            } else {
                 evaluation.setDisable(true);
             }
             photo.setImage(bs.getPhoto(boutiqueSelectede.getId()));
@@ -163,12 +168,47 @@ public class MenuBoutiqueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (AccueilController.userConnected != null) {
+            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                separateur.setVisible(true);
+                idB.setVisible(true);
+                evaluation.setDisable(true);
+                warning.setVisible(false);
+                validation.setVisible(false);
+                reclamationB.setVisible(false);
+                addBoutique.setVisible(true);
+                reclamation.setVisible(false);//text area
+            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                separateur.setVisible(false);
+                idB.setVisible(false);
+                evaluation.setDisable(true);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+                addBoutique.setVisible(true);
+            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                separateur.setVisible(false);
+                idB.setVisible(false);
+                evaluation.setDisable(false);
+                warning.setVisible(true);
+                validation.setVisible(true);
+                reclamationB.setVisible(true);
+                reclamation.setVisible(true);//text area
+                addBoutique.setVisible(false);
+            }
+        } else {//visiteur
+            separateur.setVisible(false);
+            idB.setVisible(false);
+            evaluation.setDisable(true);
+            warning.setVisible(false);
+            validation.setVisible(false);
+            reclamationB.setVisible(false);
+            reclamation.setVisible(false);//text area
+            addBoutique.setVisible(false);
+        }
+
         evaluation.setRating(0);
-        evaluation.setDisable(true);
-        reclamation.setVisible(false);
-        warning.setVisible(false);
-        validation.setVisible(false);
-        gridPane = new GridPane();
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = bs.lireBoutiques();
         UneBoutiqueArtisanController.contenu = list;
@@ -178,8 +218,6 @@ public class MenuBoutiqueController implements Initializable {
         gridPane.setVgap(25);
         boutiques.setPannable(true);
         boutiques.setContent(gridPane);
-        
-
     }
 
     @FXML
@@ -188,7 +226,6 @@ public class MenuBoutiqueController implements Initializable {
         if (boutiqueSelected != null) {
             BoutiqueService bt = new BoutiqueService();
             B = bt.chercherBoutiqueParID(boutiqueSelected.getId());
-            //System.out.println(B.getLat() + "  " + B.getLong());
 
             NavigatorData.getInstance().setLat(B.getLat());
             NavigatorData.getInstance().setLong(B.getLong());
@@ -197,50 +234,44 @@ public class MenuBoutiqueController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BoutiqueMap.fxml"));
             Stage s = Utils.getAnotherStage(loader, "La position de la boutique sur la carte");
             s.initStyle(StageStyle.DECORATED);
+            s.setResizable(true);
             s.show();
-
-//            Stage stage=new Stage();
-//            Parent root = FXMLLoader.load(getClass().getResource("BoutiqueMap.fxml"));
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
         }
     }
 
     @FXML
-    private void afficherProduit(ActionEvent event) {
+    private void afficherProduit(ActionEvent event) throws IOException {
+        if(boutiqueSelected!=null)
+        {
+            MenuProduitsController.boutique=boutiqueSelected;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuProduits.fxml"));
+            Utils.getAnotherStage(loader, "Menu produits ").show();
+
+        }
+        
     }
 
     @FXML
     private void ajouterBoutique(MouseEvent event) {
         BoutiqueController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Boutique.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Ajout d'une boutique ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
-    }
-
-    @FXML
-    private void rechercheBoutique(MouseEvent event) {
+        Utils.getAnotherStage(loader, "Ajout d'une boutique ").show();
     }
 
     @FXML
     private void evaluer(MouseEvent event) {
-        Evaluation e = new Evaluation(u, boutiqueSelected, (float)evaluation.getRating());
-        int idEvaluation = es.getIdEvaluation(u,boutiqueSelected);
-        if(idEvaluation !=0){
+        Evaluation e = new Evaluation(AccueilController.userConnected, boutiqueSelected, (float) evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(AccueilController.userConnected, boutiqueSelected);
+        if (idEvaluation != 0) {
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
-            System.out.println("EXISTE DEJA ====> update");
             warning.setText("Votre Evaluation a été modifiée");
             warning.setVisible(true);
-        }
-        else{
-            es.ajouterEvaluation(e); 
-            System.out.println("new new Add");
+        } else {
+            es.ajouterEvaluation(e);
             warning.setVisible(true);
             warning.setText("Votre Evaluation a été enregistrée");
-        }       
+        }
     }
 
     @FXML
@@ -249,7 +280,6 @@ public class MenuBoutiqueController implements Initializable {
         reclamation.setVisible(true);
         validation.setVisible(true);
         warning.setVisible(false);
-        
     }
 
     @FXML
@@ -257,17 +287,17 @@ public class MenuBoutiqueController implements Initializable {
         reclamation.setVisible(false);
         validation.setVisible(false);
         reclamationB.setVisible(true);
-        if(reclamation.getText().equals("")){
+        if (reclamation.getText().equals("")) {
             warning.setVisible(true);
             warning.setText("Veuillez taper votre réclamation");
         } else {
             warning.setVisible(false);
-            Reclamation r = new Reclamation(u,boutiqueSelected,reclamation.getText());
+            Reclamation r = new Reclamation(AccueilController.userConnected, boutiqueSelected, reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");
             warning.setVisible(true);
-            
+
         }
     }
 

@@ -36,11 +36,11 @@ public class HistoriqueService implements IHistorique {
     public List<Panier> getHistoriqueUser(User user) {
         List<Panier> paniers = new ArrayList<Panier>();
         PanierService ps = new PanierService();
+        UserService userGetter = new UserService();
         try {
             ResultSet rs= this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("SELECT * FROM panier WHERE id_user = '" + user.getId() + "' and statut = 'Valide' ");
             while (rs.next()) {
-                UserService userGetter = new UserService();
                 paniers.add(new Panier(rs.getInt("id"),
                     userGetter.getUserById(rs.getInt("id_user")),
                         rs.getObject("date_creation", LocalDateTime.class),
@@ -53,6 +53,7 @@ public class HistoriqueService implements IHistorique {
                         rs.getBoolean("est_livre"),
                         rs.getBoolean("est_paye"),
                         ps.rechercherProduitsPanier(rs.getInt("id"))));
+                System.out.println(paniers);
             }
         } catch (SQLException e) {
             System.out.println("erreur" + e.getMessage());

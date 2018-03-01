@@ -216,6 +216,7 @@ public class BoutiqueService implements IBoutique {
                 b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
                 b.setPhoto(rs.getBinaryStream("photo"));
                 b.setUser(us.getUserById(rs.getInt("id_user")));
+                b = remplirProduitsParBoutique(b);
                 boutiques.add(b);
             }
         } catch (SQLException e) {

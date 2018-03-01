@@ -110,7 +110,6 @@
             <Image url="@../Images/user.png" />
          </image>
       </ImageView>
-      <Separator orientation="VERTICAL" prefHeight="200.0" />
       <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
       <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="S'incrire en tant que :">
          <font>
@@ -128,6 +127,11 @@
       <ImageView fx:id="photoPermis" fitHeight="133.0" fitWidth="150.0" layoutX="495.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/icons8_Licence_100px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="close" fitHeight="67.0" fitWidth="69.0" layoutX="782.0" layoutY="18.0" onMouseClicked="#closeClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@../Images/close-button.png" />
          </image>
       </ImageView>
    </children>

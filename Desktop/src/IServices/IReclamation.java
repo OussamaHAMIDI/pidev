@@ -38,6 +38,10 @@ public interface IReclamation {
     
     public List<Reclamation> getAllReclamations();
     
+    public boolean peutReclamer(User user,Boutique boutique);
+    
+    public boolean peutReclamer(User user, Produit produit);
+    
     
 }
 

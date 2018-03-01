@@ -95,7 +95,7 @@ public class ReclamationService implements IReclamation {
     @Override
     public boolean supprimerReclamation(Reclamation reclamation) {
 
-        String req = "Delete from reclamation where id='" + reclamation.getId() +  "'";
+        String req = "Delete from reclamation where id='" + reclamation.getId() + "'";
         try {
             ps = connexion.prepareStatement(req);
             //ps.setInt(1, reclamation.getId());
@@ -111,9 +111,9 @@ public class ReclamationService implements IReclamation {
 
     @Override
     public List<Reclamation> rechercherReclamationBoutique(Boutique boutique) {
-        
+
         List<Reclamation> reclamations = new ArrayList<>();
-        
+
         try {
             String req = "SELECT * FROM reclamation WHERE id_boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -133,16 +133,16 @@ public class ReclamationService implements IReclamation {
             }
             System.out.println("reclamation trouvée ");
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de reclamation"+e);
+            System.out.println("Echec de recherche de reclamation" + e);
         }
         return reclamations;
-    
+
     }
 
     @Override
     public List<Reclamation> rechercherReclamationProduit(Produit produit) {
         List<Reclamation> reclamations = new ArrayList<>();
-        
+
         try {
             String req = "SELECT * FROM reclamation WHERE id_produit = '" + produit.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -162,15 +162,15 @@ public class ReclamationService implements IReclamation {
             }
             System.out.println("reclamation trouvée ");
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de reclamation"+e);
+            System.out.println("Echec de recherche de reclamation" + e);
         }
         return reclamations;
     }
 
     @Override
     public List<Reclamation> rechercherReclamationUser(User user) {
-        
-        List<Reclamation> reclamations = new ArrayList<>();        
+
+        List<Reclamation> reclamations = new ArrayList<>();
         try {
             String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "'";
             ps = connexion.prepareStatement(req);
@@ -181,34 +181,33 @@ public class ReclamationService implements IReclamation {
                 reclamation.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
                 reclamation.setDescription(rs.getString("description"));
                 reclamation.setUser(user);
-                if(rs.getInt("id_boutique")!=0){
+                if (rs.getInt("id_boutique") != 0) {
                     BoutiqueService bs = new BoutiqueService();
                     Boutique boutique = bs.chercherBoutiqueParID(rs.getInt("id_boutique"));
                     reclamation.setBoutique(boutique);
                     reclamation.setProduit(null);
                     reclamation.setType(TypeReclamation.Boutique);
                     System.out.println("reclamation trouvée " + reclamation);
-                }
-                else {
+                } else {
                     //ProduitService ps = new ProduitService();
                     //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
                     //reclamation.setProduit(produit); //en attente de jappa
                     reclamation.setBoutique(null);
                     reclamation.setType(TypeReclamation.Produit);
                 }
-                
+
                 reclamations.add(reclamation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de reclamation"+e);
+            System.out.println("Echec de recherche de reclamation" + e);
         }
         return reclamations;
     }
 
     @Override
     public List<Reclamation> rechercherReclamationUserBoutique(User user, Boutique boutique) {
-        List<Reclamation> reclamations = new ArrayList<>();        
+        List<Reclamation> reclamations = new ArrayList<>();
         try {
             //String req = "SELECT * FROM reclamation WHERE id_user = " + user.getId() + " and id_boutique = " + boutique.getId() + " ";
             String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "' AND id_boutique = '" + boutique.getId() + "'";
@@ -226,17 +225,17 @@ public class ReclamationService implements IReclamation {
                 reclamation.setType(TypeReclamation.Boutique);
                 reclamations.add(reclamation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de reclamation"+e);
+            System.out.println("Echec de recherche de reclamation" + e);
         }
         return reclamations;
     }
 
     @Override
     public List<Reclamation> rechercherReclamationUserProduit(User user, Produit produit) {
-        
-        List<Reclamation> reclamations = new ArrayList<>();        
+
+        List<Reclamation> reclamations = new ArrayList<>();
         try {
             //String req = "SELECT * FROM reclamation WHERE id_user = " + user.getId() + " and id_boutique = " + boutique.getId() + " ";
             String req = "SELECT * FROM reclamation WHERE id_user = '" + user.getId() + "' AND id_produit = '" + produit.getId() + "'";
@@ -254,12 +253,12 @@ public class ReclamationService implements IReclamation {
                 reclamation.setType(TypeReclamation.Boutique);
                 reclamations.add(reclamation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de reclamation"+e);
+            System.out.println("Echec de recherche de reclamation" + e);
         }
         return reclamations;
-        
+
     }
 
     @Override
@@ -275,18 +274,17 @@ public class ReclamationService implements IReclamation {
                 reclamation.setDescription(rs.getString("description"));
                 UserService us = new UserService();
                 reclamation.setUser(us.getUserById(rs.getInt("id_user")));
-                if(rs.getInt("id_boutique")!=0){
+                if (rs.getInt("id_boutique") != 0) {
                     BoutiqueService bs = new BoutiqueService();
                     Boutique boutique = bs.chercherBoutiqueParID(rs.getInt("id_boutique"));
                     reclamation.setBoutique(boutique);
                     reclamation.setProduit(null);
                     reclamation.setType(TypeReclamation.Boutique);
                     System.out.println("reclamation trouvée " + reclamation);
-                }
-                else {
-                    //ProduitService ps = new ProduitService();
-                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
-                    //reclamation.setProduit(produit); //en attente de jappa
+                } else {
+                    ProduitService ps = new ProduitService();
+                    Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    reclamation.setProduit(produit); //en attente de jappa
                     reclamation.setBoutique(null);
                     reclamation.setType(TypeReclamation.Produit);
                 }
@@ -297,11 +295,10 @@ public class ReclamationService implements IReclamation {
         return reclamation;
     }
 
-    
     @Override
-    public List<Reclamation> getAllReclamations(){
-        
-        List<Reclamation> reclamations = new ArrayList<>();        
+    public List<Reclamation> getAllReclamations() {
+
+        List<Reclamation> reclamations = new ArrayList<>();
         try {
             String req = "SELECT * FROM reclamation ";
             ps = connexion.prepareStatement(req);
@@ -313,30 +310,92 @@ public class ReclamationService implements IReclamation {
                 reclamation.setDescription(rs.getString("description"));
                 UserService us = new UserService();
                 reclamation.setUser(us.getUserById(rs.getInt("id_user")));
-                if(rs.getInt("id_boutique")!=0){
+                if (rs.getInt("id_boutique") != 0) {
                     BoutiqueService bs = new BoutiqueService();
                     reclamation.setBoutique(bs.chercherBoutiqueParID(rs.getInt("id_boutique")));
                     reclamation.setProduit(null);
                     reclamation.setType(TypeReclamation.Boutique);
                     System.out.println("reclamation trouvée " + reclamation);
-                }
-                else {
-                    //ProduitService ps = new ProduitService();
-                    //Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
-                    //reclamation.setProduit(produit); //en attente de jappa
+                } else {
+                    ProduitService ps = new ProduitService();
+                    Produit produit = ps.chercherProduitParID(rs.getInt("id_produit"));
+                    reclamation.setProduit(produit); //en attente de jappa
                     reclamation.setBoutique(null);
                     reclamation.setType(TypeReclamation.Produit);
                 }
-                
+
                 reclamations.add(reclamation);
             }
-            
+
         } catch (SQLException e) {
-            System.out.println("Echec de recherche de reclamation"+e);
+            System.out.println("Echec de recherche de reclamation" + e);
         }
         return reclamations;
     }
 
-    
-    
+    @Override
+    public boolean peutReclamer(User user, Boutique boutique) {
+        if (user == null) {
+            System.out.println("USER NULL");
+            return false;
+        }
+        try {
+            String req = "SELECT id FROM user WHERE (type = 'Administrateur') and (id = '" + user.getId() + "')";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("Admin OUTTT");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("not administrateur" + e);
+        }
+        if (boutique != null) {
+            try {
+                String req = "SELECT id FROM boutique WHERE (id_user = '" + user.getId() + "') and (id = '" + boutique.getId() + "')";
+                ps = connexion.prepareStatement(req);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    System.out.println("Ok2 =1");
+                    return false;
+                }
+            } catch (SQLException e) {
+                System.out.println("ok2 =0" + e);
+            }
+        }
+        return true;
+
+    }
+
+    @Override
+    public boolean peutReclamer(User user, Produit produit) {
+        if (user == null) {
+            return false;
+        }
+        try {
+            String req = "SELECT id FROM user WHERE (type = 'Administrateur') and (id = '" + user.getId() + "')";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("Admin OUTTT");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("ex" + e);
+        }
+        if (produit != null) {
+            try {
+                String req = "SELECT p.id FROM boutique b ,produit p WHERE (b.id_user = '" + user.getId() + "') and (p.id = '" + produit.getId() + "') and (p.id_boutique = b.id)";
+                ps = connexion.prepareStatement(req);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return false;
+                }
+            } catch (SQLException e) {
+                System.out.println("ex" + e);
+            }
+        }
+        return true;
+    }
+
 }
