@@ -40,8 +40,6 @@ public class AccueilController implements Initializable {
 
     @FXML
     private AnchorPane holderPane;
-    @FXML
-    private JFXButton btnUsers;
 
     private AnchorPane menu;
     @FXML
@@ -71,13 +69,11 @@ public class AccueilController implements Initializable {
     AnchorPane anchor;
     
     @FXML
-    private JFXButton btnStats;
+    private VBox sideBarArtisan;
     @FXML
-    private JFXButton btnReclamations;
+    private VBox sideBarClient;
     @FXML
-    private JFXButton btnHistorique;
-    @FXML
-    private JFXButton btnBoutique;
+    private VBox sideBarVisiteur;
 
  
 
@@ -181,7 +177,6 @@ public class AccueilController implements Initializable {
 
     }
 
-    @FXML
     private void switchUsers(ActionEvent event) {
         try {
             anchor = FXMLLoader.load(getClass().getResource("GestionUsers.fxml"));
@@ -208,7 +203,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-    @FXML
     private void switchStats(ActionEvent event) {
         try {
             anchor = FXMLLoader.load(getClass().getResource("Statistique.fxml"));
@@ -218,7 +212,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-    @FXML
     private void switchReclamations(ActionEvent event) {
         try {
             anchor = FXMLLoader.load(getClass().getResource("ReclamationAdmin2.fxml"));
@@ -228,7 +221,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-    @FXML
     private void switchHistorique(ActionEvent event) {
         try {
             anchor = FXMLLoader.load(getClass().getResource("HistoriqueClient2.fxml"));
@@ -238,7 +230,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-    @FXML
     private void switchBoutique(ActionEvent event) {
         try {
             anchor = FXMLLoader.load(getClass().getResource("MenuBoutique.fxml"));
@@ -248,7 +239,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-    @FXML
     private void switchProduits(ActionEvent event) {
          try {
              MenuProduitsController.boutique=null;
@@ -257,6 +247,66 @@ public class AccueilController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void switchAccueilArtisan(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchProduitsArtisan(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchBoutiqueArtisan(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchAccueilClient(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchProduitsClient(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchBoutiquesClient(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchHistoriqueClient(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchAccueilAdmin(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchUsersAdmin(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchProduitsAdmin(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchBoutiquesAdmin(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchReclamationsAdmin(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchAccueilVisiteur(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchProduitsVisiteur(ActionEvent event) {
+    }
+
+    @FXML
+    private void switchBoutiquesVisiteur(ActionEvent event) {
     }
     
 
