@@ -6,6 +6,8 @@
 package Presentation;
 
 import Entities.Produit;
+import Entities.ProduitPanier;
+import static Presentation.MenuProduitsController.produitSelected;
 import Services.ProduitService;
 import Utils.Enumerations.*;
 import Utils.Utils;
@@ -173,7 +175,11 @@ public class ProduitController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
-        //For jappa :D
+        System.out.println(AccueilController.monPanier.getContenu().stream().noneMatch(p -> p.getId()==prod.getId()));
+      if (AccueilController.monPanier.getContenu().stream().noneMatch(p -> p.getId()==prod.getId())) {
+            AccueilController.monPanier.getContenu().add(new ProduitPanier(prod));
+            AccueilController.monPanier.recalculer();
+        }
     }
 
 }

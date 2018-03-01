@@ -8,7 +8,6 @@ package Presentation;
 import Entities.Boutique;
 import Entities.Produit;
 import Services.ProduitService;
-import Utils.SmsSender;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import java.awt.image.BufferedImage;
@@ -17,7 +16,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -85,11 +83,10 @@ public class AjouterProduitController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-          ProduitService ps = new ProduitService();
+        ProduitService ps = new ProduitService();
 
-         if(voir==true)
-            {
-                      reference.setText(voirProd.getReference());
+        if (voir == true) {
+            reference.setText(voirProd.getReference());
             libelle.setText(voirProd.getLibelle());
             description.setText(voirProd.getDescription());
             prix.setText(String.valueOf(voirProd.getPrix()));
@@ -100,7 +97,7 @@ public class AjouterProduitController implements Initializable {
             if (voirProd.getPhoto() != null) {
                 photo.setImage(ps.getPhoto(voirProd.getId()));
             }
- reference.setEditable(false);
+            reference.setEditable(false);
             libelle.setEditable(false);
             description.setEditable(false);
             prix.setEditable(false);
@@ -111,9 +108,7 @@ public class AjouterProduitController implements Initializable {
 
             ajouterPhoto.setVisible(false);
             ajouter.setVisible(false);
-            }
-            else
-            {
+        } else {
             reference.setEditable(true);
             libelle.setEditable(true);
             description.setEditable(true);
@@ -122,10 +117,10 @@ public class AjouterProduitController implements Initializable {
             couleur.setEditable(true);
             texture.setEditable(true);
             poids.setEditable(true);
-            
+
             ajouter.setVisible(true);
             ajouterPhoto.setVisible(true);
-            }
+        }
     }
 
     @FXML
@@ -146,7 +141,7 @@ public class AjouterProduitController implements Initializable {
                 poids.setText("0.0");
             }
             String t = poids.getText();
-            Produit p = new Produit(reference.getText(), libelle.getText(), description.getText(), Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), 
+            Produit p = new Produit(reference.getText(), libelle.getText(), description.getText(), Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(),
                     Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit);
             ps.ajouterProduit(p);
 //            SmsSender ss = new SmsSender();
@@ -191,7 +186,7 @@ public class AjouterProduitController implements Initializable {
     private void annuler(ActionEvent event) {
         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
-                voir=false;
+        voir = false;
     }
 
     @FXML
@@ -227,10 +222,16 @@ public class AjouterProduitController implements Initializable {
                 return false;
             }
 
-            if (!Pattern.matches("\\d*", prix.getText())) {
+            if (!Pattern.matches("(\\d+\\.\\d+)|(d+)", prix.getText())) {
                 Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
                 prix.requestFocus();
                 prix.selectEnd();
+                return false;
+            }
+             if (!Pattern.matches("(\\d+\\.\\d+)|(d+)", poids.getText())) {
+                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
+                poids.requestFocus();
+                poids.selectEnd();
                 return false;
             }
         }

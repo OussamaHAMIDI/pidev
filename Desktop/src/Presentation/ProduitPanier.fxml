@@ -50,7 +50,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Circle fill="#e5e8eb" layoutX="760.0" layoutY="104.0" radius="75.0" stroke="#c3c3c3" strokeType="INSIDE" />
+      <Circle fx:id="circle" fill="#e5e8eb" layoutX="760.0" layoutY="104.0" radius="75.0" stroke="#c3c3c3" strokeType="INSIDE" />
       <ImageView fx:id="image" fitHeight="120.0" fitWidth="120.0" layoutX="700.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/icons8_User_Male_104px.png" />

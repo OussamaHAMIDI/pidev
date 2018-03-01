@@ -82,34 +82,25 @@ public class UserMain extends Application {
 
     public static void showExceptionDialog(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-
         alert.setTitle("Exception Dialog");
         alert.setHeaderText("An error occurred:");
-
         String content = "Error: ";
         if (null != e) {
             content += e.toString() + "\n\n";
         }
-
         alert.setContentText(content);
-
         Exception ex = new Exception(e);
-
         //Create expandable Exception.
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         ex.printStackTrace(pw);
-
         String exceptionText = sw.toString();
-
         //Set up TextArea
         TextArea textArea = new TextArea(exceptionText);
         textArea.setEditable(false);
         textArea.setWrapText(true);
-
         textArea.setPrefHeight(600);
         textArea.setPrefWidth(800);
-
         //Définissez Exception extensible dans le volet de dialogue.
         alert.getDialogPane().setExpandableContent(textArea);
 

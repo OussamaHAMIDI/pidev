@@ -423,5 +423,25 @@ public class PanierService implements IPanier {
         //Envoyer mail
         panier.genererMailBody();
     }
+    
+      @Override
+    public int getNextId() {
+        int nextid = - 1;
+        try {
+            String req = "SHOW TABLE STATUS LIKE 'panier'";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nextid = rs.getInt("Auto_increment");
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitService.class
+                    .getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("Echec get Next ID ");
+        }
+        return nextid;
+    }
+
 
 }
