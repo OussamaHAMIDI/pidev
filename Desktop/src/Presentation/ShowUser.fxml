@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -9,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="490.0" prefWidth="882.0" style="-fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #3C8DBC;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ShowUserController">
+<AnchorPane prefHeight="490.0" prefWidth="882.0" style="-fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #3C8DBC;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ShowUserController">
    <children>
       <Label fx:id="titre" layoutX="220.0" layoutY="14.0" prefHeight="74.0" prefWidth="547.0" text="Informations Administrateur" textFill="#e82932" wrapText="true">
          <font>
@@ -73,7 +81,4 @@
          </font>
       </JFXTextField>
    </children>
-   <effect>
-      <DropShadow />
-   </effect>
 </AnchorPane>

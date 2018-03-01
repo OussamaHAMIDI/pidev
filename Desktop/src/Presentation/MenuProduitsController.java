@@ -13,6 +13,7 @@ import Services.EvaluationService;
 import Services.ProduitService;
 import Services.ReclamationService;
 import Services.UserService;
+import Utils.Enumerations.TypeUser;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -146,20 +147,19 @@ public class MenuProduitsController implements Initializable {
             description.setText(produitSelected.getDescription());
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
-<<<<<<< HEAD
+
             if(es.peutEvaluer(u,produitSelected)){
                 evaluation.setDisable(false);
             }else{
                 evaluation.setDisable(true);
             }
-=======
+
            
 //            if(es.peutEvaluer(u,produitSelected)){
 //                evaluation.setDisable(false);
 //            }else{
 //                evaluation.setDisable(true);
 //            }
->>>>>>> b3f833b622ebf0363a0f11fa91faffbd948f7caf
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }
