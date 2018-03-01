@@ -186,9 +186,23 @@ public class MenuProduitsController implements Initializable {
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
         } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
-            addProduct.setVisible(false);
+            addProduct.setVisible(true);
             evaluation.setDisable(true);
-            produitB.setVisible(false);
+            produitB.setVisible(true);
+            validation.setVisible(true);
+            reclamationB.setVisible(true);
+            reclamation.setVisible(true);//text area
+        } else if(AccueilController.userConnected.getType() == TypeUser.Client){
+            addProduct.setVisible(false);
+            evaluation.setDisable(false);
+            produitB.setVisible(true);
+            validation.setVisible(true);
+            reclamationB.setVisible(true);
+            reclamation.setVisible(true);//text area
+        }else{//visiteur
+             addProduct.setVisible(false);
+            evaluation.setDisable(false);
+            produitB.setVisible(true);
             validation.setVisible(false);
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
@@ -215,9 +229,7 @@ public class MenuProduitsController implements Initializable {
     private void ajouterBoutique(MouseEvent event) {
         AjouterProduitController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
-        Stage s = Utils.getAnotherStage(loader, "Ajout d'un produits ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
+        Utils.getAnotherStage(loader, "Ajout d'un produits ").show();
     }
 
     @FXML

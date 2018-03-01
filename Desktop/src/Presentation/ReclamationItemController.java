@@ -86,10 +86,7 @@ public class ReclamationItemController implements Initializable {
         ProduitService ps = new ProduitService();
         AjouterProduitController.voirProd = ps.chercherProduitParID(r.getProduit().getId());
         AjouterProduitController.voir = true;
-        Stage s = Utils.getAnotherStage(loader, "voir produit ");
-        s.initStyle(StageStyle.UNDECORATED);
-        s.show();
-        //ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
+        Utils.getAnotherStage(loader, "voir produit ").show();
 
     }
 
@@ -103,7 +100,7 @@ public class ReclamationItemController implements Initializable {
         ShowUserController.selectedUser = r.getUser();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowUser.fxml"));
         Utils.getAnotherStage(loader, "Informations utilisateur").show();
-        
+
     }
 
     @FXML
