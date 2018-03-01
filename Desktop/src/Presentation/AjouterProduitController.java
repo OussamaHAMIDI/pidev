@@ -100,28 +100,28 @@ public class AjouterProduitController implements Initializable {
             if (voirProd.getPhoto() != null) {
                 photo.setImage(ps.getPhoto(voirProd.getId()));
             }
-            reference.setDisable(true);
-            libelle.setDisable(true);
-            description.setDisable(true);
-            prix.setDisable(true);
-            taille.setDisable(true);
-            couleur.setDisable(true);
-            texture.setDisable(true);
-            poids.setDisable(true);
+            reference.setEditable(true);
+            libelle.setEditable(true);
+            description.setEditable(true);
+            prix.setEditable(true);
+            taille.setEditable(true);
+            couleur.setEditable(true);
+            texture.setEditable(true);
+            poids.setEditable(true);
             ajouterPhoto.setVisible(false);
             ajouter.setVisible(false);
             }
             else
             {
 
-             reference.setDisable(false);
-            libelle.setDisable(false);
-            description.setDisable(false);
-            prix.setDisable(false);
-            taille.setDisable(false);
-            couleur.setDisable(false);
-            texture.setDisable(false);
-            poids.setDisable(false);
+             reference.setEditable(false);
+            libelle.setEditable(false);
+            description.setEditable(false);
+            prix.setEditable(false);
+            taille.setEditable(false);
+            couleur.setEditable(false);
+            texture.setEditable(false);
+            poids.setEditable(false);
 
             ajouter.setVisible(true);
             ajouterPhoto.setVisible(true);
