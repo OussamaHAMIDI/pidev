@@ -90,17 +90,15 @@ public class MenuBoutiqueController implements Initializable {
     public static UneBoutiqueArtisanController bc;
     public static Boutique boutiqueSelected;
     private FileInputStream photoProfil = null;
+    BoutiqueService bs = new BoutiqueService();
 
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
-    BoutiqueService bs = new BoutiqueService();
-<<<<<<< HEAD
+
     @FXML
     private AnchorPane contenu;
-=======
-    
->>>>>>> bcb7d72b65b52ecd809030bac392fbeee1432d7b
+
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
