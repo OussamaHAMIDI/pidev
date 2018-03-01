@@ -155,6 +155,24 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <JFXButton onAction="#switchCommandesArtisan" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Commandes" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/boutique_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+            </JFXButton>
          </children>
       </VBox>
       <VBox fx:id="sideBarClient" prefHeight="690.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css">

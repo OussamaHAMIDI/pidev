@@ -292,4 +292,9 @@ public class AccueilController implements Initializable {
         setNode("Panier");
     }
 
+    @FXML
+    private void switchCommandesArtisan(ActionEvent event) {
+        setNode("CommandeArtisan");
+    }
+
 }
