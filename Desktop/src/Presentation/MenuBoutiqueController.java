@@ -84,6 +84,8 @@ public class MenuBoutiqueController implements Initializable {
     private JFXButton addBoutique;
     @FXML
     private Separator separateur;
+    @FXML
+    private AnchorPane contenu; 
     
     public static GridPane gridPane = new GridPane();
     public static List<Boutique> list;
@@ -95,17 +97,6 @@ public class MenuBoutiqueController implements Initializable {
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
-<<<<<<< HEAD
-    BoutiqueService bs = new BoutiqueService();
-=======
-<<<<<<< HEAD
-
-=======
-    BoutiqueService bs = new BoutiqueService();
->>>>>>> a504843b37fa9a17c2bf04c9442b49d9af2050db
-    @FXML
-    private AnchorPane contenu;
->>>>>>> 86468035be0b37a52643a7fce457aaa3780793aa
 
 
     public void addToGrid(List<Boutique> list) {
