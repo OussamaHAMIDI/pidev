@@ -77,15 +77,11 @@ public class AjouterProduitController implements Initializable {
     @FXML
     public void ajouterProduit (ActionEvent event) throws IOException
     {
-        if (controleDeSaisi()) {
-            ProduitService ps=new ProduitService();
+        ProduitService ps=new ProduitService();
         Boutique b = new Boutique();
-        if(ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit)))
+        if(controleDeSaisi())
         {
-            SmsSender ss = new SmsSender();
-            ss.sendSms("ajout%20effectué", "54476969");
-        }
-            
+            ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
         }
     }
     @FXML
