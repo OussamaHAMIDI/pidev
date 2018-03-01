@@ -91,10 +91,12 @@ public class UneBoutiqueArtisanController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
                 partagerB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
                 partagerB.setVisible(true);
