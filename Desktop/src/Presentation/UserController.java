@@ -58,7 +58,7 @@ public class UserController implements Initializable {
     static public int index;
     static public List<User> contenu;
     public static GestionUsersController guc;
-    
+
     private UserService us = new UserService();
 
     public void setValues(User u) {
@@ -84,8 +84,8 @@ public class UserController implements Initializable {
 
         if (u.getEtat() == EtatUser.Deleted) {
             supprimer.setVisible(false);
-        }else{
-             supprimer.setVisible(true);
+        } else {
+            supprimer.setVisible(true);
         }
     }
 
@@ -108,6 +108,10 @@ public class UserController implements Initializable {
         GestionUsersController.userSelected = u;
         guc.setValues(u, "Informations compte");
         guc.voir();
+
+        ShowUserController.selectedUser = u;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowUser.fxml"));
+        Utils.getAnotherStage(loader, "Inscription").show();
     }
 
     @FXML

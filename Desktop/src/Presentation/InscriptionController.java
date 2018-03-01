@@ -40,6 +40,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -82,8 +83,6 @@ public class InscriptionController implements Initializable {
     @FXML
     private ImageView photo;
     @FXML
-    private JFXButton inscrire;
-    @FXML
     private ImageView photoPermis;
 
     @FXML
@@ -98,6 +97,8 @@ public class InscriptionController implements Initializable {
     private UserService us = new UserService();
 
     ObservableList<String> typeList = FXCollections.observableArrayList("Client", "Artisan");
+    @FXML
+    private ImageView close;
 
     /**
      * Initializes the controller class.
@@ -186,7 +187,7 @@ public class InscriptionController implements Initializable {
                 if (type.getValue().equals("Artisan")) {
                     code = null;
                 }
-                
+
                 User u = new User(us.getNextId(), username.getText(), mdp, EtatUser.Pending, TypeUser.valueOf(type.getValue()), nom.getText(), prenom.getText(),
                         date.getValue(), sexe, email.getText(), adresse.getText(), tel.getText(),
                         null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
@@ -317,6 +318,12 @@ public class InscriptionController implements Initializable {
             }
         }
         return true;
+    }
+
+    @FXML
+    private void closeClicked(MouseEvent event) {
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
 
 }

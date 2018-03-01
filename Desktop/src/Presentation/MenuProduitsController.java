@@ -5,20 +5,14 @@
  */
 package Presentation;
 
-import Entities.Boutique;
 import Entities.Evaluation;
 import Entities.Produit;
 import Entities.Reclamation;
 import Entities.User;
-import static Presentation.MenuBoutiqueController.boutiqueSelected;
-import static Presentation.MenuBoutiqueController.gridPane;
-import static Presentation.MenuBoutiqueController.list;
-import Services.BoutiqueService;
 import Services.EvaluationService;
 import Services.ProduitService;
 import Services.ReclamationService;
 import Services.UserService;
-import Utils.NavigatorData;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -75,7 +69,9 @@ public class MenuProduitsController implements Initializable {
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
+    
     User u = us.getUserById(2);
+    
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -138,7 +134,6 @@ public class MenuProduitsController implements Initializable {
             description.setText(produitSelected.getDescription());
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
-            System.out.println("NOTE ===== "+es.getNoteProduit(produitSelected)+produitSelected);
             if(es.peutEvaluer(u,produitSelected)){
                 evaluation.setDisable(false);
             }else{
@@ -166,6 +161,9 @@ public class MenuProduitsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if(AccueilController.userConnected.getType() == TypeUser.Administrateur){
+            
+        }
         evaluation.setRating(0);
         evaluation.setDisable(true);
         reclamation.setVisible(false);
@@ -245,9 +243,7 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
+        
     }
 
-    @FXML
-    private void rechercheProduit(MouseEvent event) {
-    }
 }

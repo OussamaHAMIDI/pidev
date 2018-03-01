@@ -83,11 +83,13 @@ public class ReclamationItemController implements Initializable {
         
     }
     private void redirectBoutique() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("Evaluation.fxml"));
+        ShowBoutiqueController.boutiqueSelected = r.getBoutique();
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("ShowBoutique.fxml"));
         ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
     }
     private void redirectUser() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("Evaluation.fxml"));
+        ShowUserController.selectedUser = r.getUser();
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("ShowUser.fxml"));
         ReclamationAdmin2Controller.reclamationsChildren.setAll(pane);
     }
 
