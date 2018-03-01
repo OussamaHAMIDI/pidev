@@ -86,7 +86,10 @@ public class AjouterProduitController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
           ProduitService ps = new ProduitService();
-            reference.setText(voirProd.getReference());
+
+         if(voir==true)
+            {
+                      reference.setText(voirProd.getReference());
             libelle.setText(voirProd.getLibelle());
             description.setText(voirProd.getDescription());
             prix.setText(String.valueOf(voirProd.getPrix()));
@@ -97,9 +100,6 @@ public class AjouterProduitController implements Initializable {
             if (voirProd.getPhoto() != null) {
                 photo.setImage(ps.getPhoto(voirProd.getId()));
             }
-         if(voir==true)
-            {
-          
  reference.setEditable(false);
             libelle.setEditable(false);
             description.setEditable(false);

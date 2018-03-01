@@ -30,6 +30,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -65,6 +66,8 @@ public class UneBoutiqueArtisanController implements Initializable {
     private Circle circle;
 
     BoutiqueService bs = new BoutiqueService();
+    @FXML
+    private Pane gris;
 
     public AnchorPane getThis() {
         return boutique;
@@ -88,22 +91,20 @@ public class UneBoutiqueArtisanController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
                 partagerB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
-                partagerB.setVisible(false);
+                partagerB.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
-                supprimer.setVisible(true);
-                modifierB.setVisible(true);
-                partagerB.setVisible(false);
+                gris.setVisible(false);
             }
         } else {//visiteur
-            supprimer.setVisible(true);
-            modifierB.setVisible(true);
-            partagerB.setVisible(false);
+            gris.setVisible(false);
         }
         bou = MenuBoutiqueController.list.get(index);
         setValues(bou);
