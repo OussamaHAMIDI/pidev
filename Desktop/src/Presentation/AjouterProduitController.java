@@ -17,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javafx.embed.swing.SwingFXUtils;
@@ -69,6 +71,13 @@ public class AjouterProduitController implements Initializable {
     @FXML
     private JFXButton retour;
 
+    private Produit pro;
+    static public int index;
+    static public List<Produit> contenu;
+    static public MenuProduitsController mc;
+    public static boolean voir = false;
+    public static Produit voirProd;
+
     /**
      * Initializes the controller class.
      *
@@ -76,28 +85,81 @@ public class AjouterProduitController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+         if(voir==true)
+            {
+            ProduitService ps = new ProduitService();
+            reference.setText(voirProd.getReference());
+            libelle.setText(voirProd.getLibelle());
+            description.setText(voirProd.getDescription());
+            prix.setText(String.valueOf(voirProd.getPrix()));
+            taille.setText(voirProd.getTaille());
+            couleur.setText(voirProd.getCouleur());
+            texture.setText(voirProd.getTexture());
+            poids.setText(String.valueOf(voirProd.getPoids()));
+            if (voirProd.getPhoto() != null) {
+                photo.setImage(ps.getPhoto(voirProd.getId()));
+            }
+            reference.setDisable(true);
+            libelle.setDisable(true);
+            description.setDisable(true);
+            prix.setDisable(true);
+            taille.setDisable(true);
+            couleur.setDisable(true);
+            texture.setDisable(true);
+            poids.setDisable(true);
+            ajouterPhoto.setVisible(false);
+            ajouter.setVisible(false);
+            }
+            else
+            {
+
+             reference.setDisable(false);
+            libelle.setDisable(false);
+            description.setDisable(false);
+            prix.setDisable(false);
+            taille.setDisable(false);
+            couleur.setDisable(false);
+            texture.setDisable(false);
+            poids.setDisable(false);
+
+            ajouter.setVisible(true);
+            ajouterPhoto.setVisible(true);
+            }
     }
 
     @FXML
-    public void ajouterProduit (ActionEvent event) throws IOException
-    {
-        ProduitService ps=new ProduitService();
+    public void ajouterProduit(ActionEvent event) throws IOException {
+        ProduitService ps = new ProduitService();
         Boutique b = new Boutique();
-        if(controleDeSaisi())
-        {
-            if (taille.getText()=="") {taille.setText("");}
-            if (couleur.getText()=="") {couleur.setText("");}
-            if (texture.getText()=="") {texture.setText("");}
-            if (poids.getText().equals("")) {poids.setText("0.0");}
+        if (controleDeSaisi()) {
+            if (taille.getText().isEmpty()) {
+                taille.setText("");
+            }
+            if (couleur.getText().isEmpty()) {
+                couleur.setText("");
+            }
+            if (texture.getText().isEmpty()) {
+                texture.setText("");
+            }
+            if (poids.getText().isEmpty()) {
+                poids.setText("0.0");
+            }
             String t = poids.getText();
-            ps.ajouterProduit(new Produit(reference.getText(), libelle.getText(), description.getText(),Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit));
+            Produit p = new Produit(reference.getText(), libelle.getText(), description.getText(), Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(), 
+                    Float.parseFloat(poids.getText()), b, LocalDateTime.MAX, photoProduit);
+            ps.ajouterProduit(p);
 //            SmsSender ss = new SmsSender();
 //            ss.sendSms("ajout%20effectué", "54476969");
-   Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            MenuProduitsController.list.add(p);
+            mc.updateItems("");
+//            List<Produit> tmp = new ArrayList<Produit>();
+//            tmp.add(p);
+//            mc.addToGrid(tmp);
+            Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
             s.close();
 
-
-         
         }
 
     }
@@ -110,7 +172,7 @@ public class AjouterProduitController implements Initializable {
 
         File selected_photo = file.showOpenDialog((Stage) ajouter.getScene().getWindow());
         if (selected_photo != null) {
-            if ((selected_photo.length() / 1024) / 1024 < 4.0) {
+            if ((selected_photo.length() / 1024) / 1024 < 2.0) {
                 String path = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -119,7 +181,7 @@ public class AjouterProduitController implements Initializable {
                 File img = new File(path);
                 photoProduit = new FileInputStream(img);
             } else {
-                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
+                Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 2 Mo");
             }
         }
 
@@ -129,6 +191,7 @@ public class AjouterProduitController implements Initializable {
     private void annuler(ActionEvent event) {
         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
+                voir=false;
     }
 
     @FXML

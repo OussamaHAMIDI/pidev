@@ -54,9 +54,11 @@ public class MenuProduitsController implements Initializable {
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
+    
+    
     public static GridPane gridPane = new GridPane();
     public static List<Produit> list;
-    public static ProduitController bc;
+    public static ProduitController pc;
     public static Produit produitSelected;
 
     private FileInputStream photoProfil = null;
@@ -68,6 +70,7 @@ public class MenuProduitsController implements Initializable {
     private Rating evaluation;
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
+    
     UserService us = new UserService();
     
     User u = us.getUserById(2);
@@ -109,12 +112,12 @@ public class MenuProduitsController implements Initializable {
         }
 
         if (nbrItems % 2 == 1) {// impaire
-            if (list.size() > 0) {
+            if (parents.size() > 0) {
                 gridPane.add(parents.get(0), 1, nbrRows - 1);
                 parents.remove(0);
             }
         }
-        //paire // erreur affichage
+        //paire 
         for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
             for (int col = 0; col < 2; col++) {
                 if (parents.size() > 0) {
@@ -129,16 +132,34 @@ public class MenuProduitsController implements Initializable {
 
     public void setValues(Produit produitSelected) {
         if (produitSelected != null) {
-            libelle.setText(produitSelected.getLibelle());
+            if(produitSelected.getPoids()!=0)
+            {
+  libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getPoids());
+            }
+            else
+            {
+                  libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getTaille() + " " + produitSelected.getCouleur() + " " + produitSelected.getTexture());
+            }
+          
+           
             reference.setText(produitSelected.getReference());
             description.setText(produitSelected.getDescription());
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
+<<<<<<< HEAD
             if(es.peutEvaluer(u,produitSelected)){
                 evaluation.setDisable(false);
             }else{
                 evaluation.setDisable(true);
             }
+=======
+           
+//            if(es.peutEvaluer(u,produitSelected)){
+//                evaluation.setDisable(false);
+//            }else{
+//                evaluation.setDisable(true);
+//            }
+>>>>>>> b3f833b622ebf0363a0f11fa91faffbd948f7caf
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }
@@ -173,7 +194,6 @@ public class MenuProduitsController implements Initializable {
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = ps.listerProduits();
         ProduitController.contenu = list;
-        //UneBoutiqueArtisanController.mc = this;
         ProduitController.mc=this;
         addToGrid(list);
         gridPane.setHgap(25);
@@ -186,7 +206,7 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void ajouterBoutique(MouseEvent event) {
-        //BoutiqueController.mc = this;
+        AjouterProduitController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
         Stage s = Utils.getAnotherStage(loader, "Ajout d'un produits ");
         s.initStyle(StageStyle.UNDECORATED);

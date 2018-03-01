@@ -19,8 +19,8 @@
    <children>
       <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label layoutX="41.0" layoutY="23.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #162E3B; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Produit" />
-            <Label fx:id="libelle" layoutX="41.0" layoutY="188.0" prefHeight="17.0" prefWidth="94.0" text="Libelle:">
+            <Label layoutX="41.0" layoutY="12.0" prefHeight="17.0" prefWidth="189.0" style="-fx-text-fill: #162E3B; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;" text="Produit" />
+            <Label fx:id="libelle" alignment="TOP_LEFT" layoutX="41.0" layoutY="176.0" prefHeight="43.0" prefWidth="189.0" text="Libelle:" wrapText="true">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
                </font>
@@ -30,7 +30,7 @@
                   <Font name="Roboto Medium" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="description" alignment="TOP_LEFT" layoutX="41.0" layoutY="288.0" prefHeight="84.0" prefWidth="189.0" text="Description:">
+            <Label fx:id="description" alignment="TOP_LEFT" layoutX="41.0" layoutY="288.0" prefHeight="84.0" prefWidth="189.0" text="Description:" wrapText="true">
                <font>
                   <Font name="Roboto Medium" size="14.0" />
                </font>
@@ -40,7 +40,7 @@
                   <Font name="Roboto Medium" size="14.0" />
                </font>
             </Label>
-            <Separator layoutX="35.0" layoutY="187.0" prefWidth="200.0" />
+            <Separator layoutX="35.0" layoutY="175.0" prefWidth="200.0" />
             <Separator layoutX="35.0" layoutY="220.0" prefWidth="200.0" />
             <Separator layoutX="35.0" layoutY="253.0" prefWidth="200.0" />
             <Separator layoutX="36.0" layoutY="287.0" prefWidth="200.0" />
@@ -51,7 +51,7 @@
                </font>
             </JFXButton>
             <FontAwesomeIconView fill="#eee9e9" glyphName="PLUS" layoutX="58.0" layoutY="440.0" />
-            <ImageView fx:id="photo" fitHeight="131.0" fitWidth="162.0" layoutX="54.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="photo" fitHeight="131.0" fitWidth="162.0" layoutX="54.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
             <Rating fx:id="evaluation" layoutX="48.0" layoutY="378.0" onMouseClicked="#evaluer" />
             <JFXButton fx:id="reclamationB" layoutX="48.0" layoutY="463.0" onAction="#afficherReclamationArea" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3C8DBC;" text="Reclamer produit" textFill="WHITE">
                <font>
