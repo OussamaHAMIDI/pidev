@@ -10,19 +10,17 @@ package Utils;
  *
  * @author Hamdi
  */
-
 public class Enumerations {
-    
+
     /**
-     *  Enumeration pour l'état de user 
+     * Enumeration pour l'état de user
      */
-    public static enum EtatUser{
+    public static enum EtatUser {
 
         /**
          * En attente de confirmation par l'admin ou par mail
          */
         Pending,
-
         /**
          * Le compte User est activé / verifé
          */
@@ -31,7 +29,7 @@ public class Enumerations {
          * User est connecté
          */
         Connected,
-         /**
+        /**
          * User est deconnecté
          */
         Disconnected,
@@ -39,49 +37,49 @@ public class Enumerations {
          * Le compte user est supprimé
          */
         Deleted;
-        
+
     }
-    
+
     /**
-     *  Enumeration pour le type de user 
+     * Enumeration pour le type de user
      */
-    public static enum TypeUser{
+    public static enum TypeUser {
         Administrateur,
         Artisan,
         Client;
     }
-    
-     /**
-     *  Enumeration pour l'état d'une boutique 
+
+    /**
+     * Enumeration pour l'état d'une boutique
      */
-    public static enum EtatBoutique{
-        Opened,Closed;
+    public static enum EtatBoutique {
+        Opened, Closed;
     }
-    
-     public static enum ModePaiement{
+
+    public static enum ModePaiement {
         Cheque,
         Espece,
         Internet;
-       
+
     }
-     
-     public static enum ModeLivraison{
+
+    public static enum ModeLivraison {
         Domicile,
-        SurPlace,
+        Surplace,
         Poste;
     }
-      public static enum StatusPanier{
+
+    public static enum StatusPanier {
         Temporelle,
         Valide;
     }
-      
-      public static enum TypeReclamation{
-      Boutique,
-      Produit;
+
+    public static enum TypeReclamation {
+        Boutique,
+        Produit;
     }
-      
-      
-      public static enum TypeProduit{
+
+    public static enum TypeProduit {
         patisserie,
         cosmetique,
         decoration,

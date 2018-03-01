@@ -13,17 +13,13 @@ import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -58,7 +54,7 @@ public class UserController implements Initializable {
     static public int index;
     static public List<User> contenu;
     public static GestionUsersController guc;
-    
+
     private UserService us = new UserService();
 
     public void setValues(User u) {
@@ -84,8 +80,8 @@ public class UserController implements Initializable {
 
         if (u.getEtat() == EtatUser.Deleted) {
             supprimer.setVisible(false);
-        }else{
-             supprimer.setVisible(true);
+        } else {
+            supprimer.setVisible(true);
         }
     }
 

@@ -38,7 +38,7 @@ public class StockService implements IServices.IStock{
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 stock.getIds().add(rs.getInt("id_Produit"));
-                stock.getQuantites().add(rs.getInt("quantite"));
+                stock.getQuantites().add(rs.getInt("quantitee"));
             }
         } catch (SQLException ex) {
              Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +51,7 @@ public class StockService implements IServices.IStock{
     public Stock modifierStock(int idProduit, Stock stock, int qte) 
     {
         try {
-            String req = "UPDATE stock SET  quantite=quantite + (?) WHERE id_Boutique=? and id_Produit=?";
+            String req = "UPDATE stock SET  quantitee=quantitee + (?) WHERE id_Boutique=? and id_Produit=?";
             ps = connexion.prepareStatement(req);
             ps.setInt(1, qte);
             ps.setInt(2, stock.getIdBoutique());
@@ -66,6 +66,40 @@ public class StockService implements IServices.IStock{
             System.out.println("Echec de modification");
             return stock;
         }
+    }
+
+    @Override
+    public void modifierStock(int idProduit, int qte) {
+      try {
+            String req = "UPDATE stock SET  quantitee=quantitee + (?) WHERE id_Produit=?";
+            ps = connexion.prepareStatement(req);
+            ps.setInt(1, qte);
+            ps.setInt(2, idProduit);
+            ps.executeUpdate();
+            System.out.println("Modification effectuée");
+            
+           
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec de modification");
+            
+        }
+    }
+
+    @Override
+    public int stockProduit(int idProduit) {
+         try {
+            String req = "SELECT quantitee FROM stock WHERE id_produit = " + idProduit + "";
+            ps = connexion.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+           if (rs.first()) {
+               return rs.getInt("quantitee");
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Echec");
+        }
+        return 0;
     }
 
     
