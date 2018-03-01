@@ -381,6 +381,10 @@ public class EvaluationService implements IEvaluation {
     }
     @Override
     public boolean peutEvaluer(User user,Produit produit){
+        if(user==null)
+        {
+            return false;
+        }
         try {
             String req = "SELECT p.id FROM panier p , produit_panier pp WHERE (p.id_user = '" + user.getId() + "' ) and (pp.id_panier = p.id) and (pp.id_produit = '" + produit.getId()+ "' )";
             ps = connexion.prepareStatement(req);
@@ -398,6 +402,10 @@ public class EvaluationService implements IEvaluation {
     
     @Override
     public boolean peutEvaluer(User user,Boutique boutique){
+        if(user==null)
+        {
+            return false;
+        }
         try {
             String req = "SELECT p.id FROM panier p , produit_panier pp, produit pr WHERE (p.id_user = '"+ user.getId() +"' ) and (pp.id_panier = p.id) and (pp.id_produit = pr.id) and (pr.id_boutique = '"+ boutique.getId()+"')";
             ps = connexion.prepareStatement(req);
