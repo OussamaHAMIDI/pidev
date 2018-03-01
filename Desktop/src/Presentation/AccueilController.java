@@ -1,5 +1,6 @@
 package Presentation;
 
+import Entities.Boutique;
 import Entities.User;
 import Services.UserService;
 import Utils.Enumerations.*;
@@ -12,11 +13,13 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -35,8 +38,6 @@ import tray.notification.NotificationType;
 
 public class AccueilController implements Initializable {
 
-    @FXML
-    private JFXButton btnHome;
     @FXML
     private AnchorPane holderPane;
     @FXML
@@ -68,6 +69,7 @@ public class AccueilController implements Initializable {
     public static User userConnected = null;
     AnchorPane users;
     AnchorPane anchor;
+    
     @FXML
     private JFXButton btnStats;
     @FXML
@@ -76,6 +78,8 @@ public class AccueilController implements Initializable {
     private JFXButton btnHistorique;
     @FXML
     private JFXButton btnBoutique;
+
+ 
 
     //Set selected node to a content holder
     private void setNode(Node node) {
@@ -174,6 +178,7 @@ public class AccueilController implements Initializable {
             Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
         }
         setAccueil();
+
     }
 
     @FXML
@@ -242,5 +247,17 @@ public class AccueilController implements Initializable {
             Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void switchProduits(ActionEvent event) {
+         try {
+             MenuProduitsController.boutique=null;
+            anchor = FXMLLoader.load(getClass().getResource("MenuProduits.fxml"));
+            setNode(anchor);
+        } catch (IOException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
 }

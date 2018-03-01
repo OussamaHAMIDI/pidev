@@ -25,7 +25,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
+<<<<<<< HEAD
+<AnchorPane id="AnchorPane" fx:id="contenu" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuBoutiqueController">
+=======
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MenuBoutiqueController">
+>>>>>>> bcb7d72b65b52ecd809030bac392fbeee1432d7b
    <children>
       <AnchorPane layoutX="423.0" layoutY="115.0" prefHeight="606.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
