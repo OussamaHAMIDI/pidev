@@ -143,23 +143,23 @@ public class UneBoutiqueArtisanController implements Initializable {
     @FXML
     private void partagerBoutique(ActionEvent event) {
         Boutique B = new Boutique();
-         if (boutiqueSelected != null) {
+//         if (boutiqueSelected != null) {
         BoutiqueService bt = new BoutiqueService();
-        B = bt.chercherBoutiqueParID(boutiqueSelected.getId());
+        B = bt.chercherBoutiqueParID(bou.getId());
 
         String accessToken = "EAACEdEose0cBABMNP3nEnlZC7y6mhexfCK1EiX5jQjvRlsXZB8x7HfE6efHK0zwJt4ZCwQgiKQ2JgF0eiTheReTnhNfrukJhO8AvEw8cCLo5jWwZAUdOf863gY79BMeRe2I1nH7PUYdxFKf3sxyWIhYyS4ZAQqxqrc7RqjAdrxt3M1PNCadYdUIf2R60IjO3xu8iQeupt4QZDZD";
         Scanner s = new Scanner(System.in);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
         FacebookType response = fbClient.publish("me/feed", FacebookType.class,
-                Parameter.with("message", "Boutique" + B.getNom() + " at" + B.getAdresse()),
+                Parameter.with("message", "Boutique " + B.getNom() + " à l'adresse" + B.getAdresse()),
                 Parameter.with("link", "http://127.168.0.1/"));
         System.out.println("fb.com/" + response.getId());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("success");
-        alert.setContentText("Votre annonce à été publié");
+        alert.setContentText("Votre annonce à été publiée");
         alert.showAndWait();
 
     }
-    }
+//    }
 
 }

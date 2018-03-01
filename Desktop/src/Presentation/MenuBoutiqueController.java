@@ -35,6 +35,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -80,7 +81,9 @@ public class MenuBoutiqueController implements Initializable {
     private Label warning;
     @FXML
     private JFXButton addBoutique;
-
+    @FXML
+    private Separator separateur;
+    
     public static GridPane gridPane = new GridPane();
     public static List<Boutique> list;
     public static UneBoutiqueArtisanController bc;
@@ -91,6 +94,7 @@ public class MenuBoutiqueController implements Initializable {
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
     BoutiqueService bs = new BoutiqueService();
+    
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
@@ -162,6 +166,8 @@ public class MenuBoutiqueController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                separateur.setVisible(true);
+                idB.setVisible(true);
                 evaluation.setDisable(true);
                 warning.setVisible(false);
                 validation.setVisible(false);
@@ -169,6 +175,8 @@ public class MenuBoutiqueController implements Initializable {
                 addBoutique.setVisible(true);
                 reclamation.setVisible(false);//text area
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                separateur.setVisible(false);
+                idB.setVisible(false);
                 evaluation.setDisable(true);
                 warning.setVisible(true);
                 validation.setVisible(true);
@@ -176,6 +184,8 @@ public class MenuBoutiqueController implements Initializable {
                 reclamation.setVisible(true);//text area
                 addBoutique.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                separateur.setVisible(false);
+                idB.setVisible(false);
                 evaluation.setDisable(false);
                 warning.setVisible(true);
                 validation.setVisible(true);
@@ -184,6 +194,8 @@ public class MenuBoutiqueController implements Initializable {
                 addBoutique.setVisible(false);
             }
         } else {//visiteur
+            separateur.setVisible(false);
+            idB.setVisible(false);
             evaluation.setDisable(true);
             warning.setVisible(false);
             validation.setVisible(false);
