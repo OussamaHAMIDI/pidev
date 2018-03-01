@@ -135,7 +135,7 @@ public class AccueilController implements Initializable {
             sideBarClient.setVisible(false);
             sideBarVisiteur.setVisible(true);
 
-            setNode("MenuProduits");
+            setNode("AffichageProd");
         }
     }
 
