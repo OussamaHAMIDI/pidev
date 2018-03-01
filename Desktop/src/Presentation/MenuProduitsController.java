@@ -49,10 +49,14 @@ import org.controlsfx.control.Rating;
 public class MenuProduitsController implements Initializable {
 
     Produit produit = new Produit();
+   
+    @FXML
+    private JFXButton produitB;
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
-
+    
+    
     public static GridPane gridPane = new GridPane();
     public static List<Produit> list;
     public static ProduitController pc;
@@ -67,11 +71,11 @@ public class MenuProduitsController implements Initializable {
     private Rating evaluation;
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
-
+    
     UserService us = new UserService();
-
+    
     User u = us.getUserById(2);
-
+    
     @FXML
     private JFXButton reclamationB;
     @FXML
@@ -90,8 +94,6 @@ public class MenuProduitsController implements Initializable {
     private Label reference;
     @FXML
     private ScrollPane produits;
-    @FXML
-    private JFXButton addProduct;
 
     public void addToGrid(List<Produit> list) {
         int totalItems = list.size();
@@ -131,23 +133,33 @@ public class MenuProduitsController implements Initializable {
 
     public void setValues(Produit produitSelected) {
         if (produitSelected != null) {
-            if (produitSelected.getPoids() != 0) {
-                libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getPoids());
-            } else {
-                libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getTaille() + " " + produitSelected.getCouleur() + " " + produitSelected.getTexture());
+            if(produitSelected.getPoids()!=0)
+            {
+  libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getPoids());
             }
-
+            else
+            {
+                  libelle.setText(produitSelected.getLibelle() + " " + produitSelected.getTaille() + " " + produitSelected.getCouleur() + " " + produitSelected.getTexture());
+            }
+          
+           
             reference.setText(produitSelected.getReference());
             description.setText(produitSelected.getDescription());
             prix.setText(Float.toString(produitSelected.getPrix()));
             evaluation.setRating(es.getNoteProduit(produitSelected));
+
+            if(es.peutEvaluer(u,produitSelected)){
+                evaluation.setDisable(false);
+            }else{
+                evaluation.setDisable(true);
+            }
+
+           
 //            if(es.peutEvaluer(u,produitSelected)){
 //                evaluation.setDisable(false);
 //            }else{
 //                evaluation.setDisable(true);
 //            }
-
-
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
     }
@@ -165,80 +177,60 @@ public class MenuProduitsController implements Initializable {
             addToGrid(list);
         }
     }
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (AccueilController.userConnected != null) {
-            if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
-                addProduct.setVisible(false);
-                evaluation.setDisable(true);
-                warning.setVisible(false);
-                validation.setVisible(true);
-                reclamationB.setVisible(false);
-                reclamation.setVisible(false);//text area
-            } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
-                addProduct.setVisible(true);
-                evaluation.setDisable(true);
-                warning.setVisible(true);
-                validation.setVisible(true);
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);//text area
-            } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
-                addProduct.setVisible(false);
-                evaluation.setDisable(false);
-                warning.setVisible(true);
-                validation.setVisible(true);
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);//text area
-            }
-        } else {//visiteur
-            addProduct.setVisible(false);
-            evaluation.setDisable(true);
-            warning.setVisible(false);
-            validation.setVisible(false);
-            reclamationB.setVisible(false);
-            reclamation.setVisible(false);//text area
+        if(AccueilController.userConnected.getType() == TypeUser.Administrateur){
+            
         }
-
         evaluation.setRating(0);
-        
+        evaluation.setDisable(true);
+        reclamation.setVisible(false);
+        warning.setVisible(false);
+        validation.setVisible(false);
+        gridPane = new GridPane();
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         list = ps.listerProduits();
         ProduitController.contenu = list;
-        ProduitController.mc = this;
+        ProduitController.mc=this;
         addToGrid(list);
         gridPane.setHgap(25);
         gridPane.setVgap(25);
         produits.setPannable(true);
         produits.setContent(gridPane);
-    }
+    }    
+  
+
 
     @FXML
     private void ajouterBoutique(MouseEvent event) {
         AjouterProduitController.mc = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterProduit.fxml"));
-        Utils.getAnotherStage(loader, "Ajout d'un produits ").show();
+        Stage s = Utils.getAnotherStage(loader, "Ajout d'un produits ");
+        s.initStyle(StageStyle.UNDECORATED);
+        s.show();
     }
+
 
     @FXML
     private void evaluer(MouseEvent event) {
-        Evaluation e = new Evaluation(u, produitSelected, (float) evaluation.getRating());
-        int idEvaluation = es.getIdEvaluation(u, produitSelected);
-        if (idEvaluation != 0) {
+        Evaluation e = new Evaluation(u, produitSelected, (float)evaluation.getRating());
+        int idEvaluation = es.getIdEvaluation(u,produitSelected);
+        if(idEvaluation !=0){
             e.setId(idEvaluation);
             es.modifierEvaluation(e);
             System.out.println("EXISTE DEJA ====> update");
             warning.setText("Votre Evaluation a été modifiée");
             warning.setVisible(true);
-        } else {
-            es.ajouterEvaluation(e);
+        }
+        else{
+            es.ajouterEvaluation(e); 
             System.out.println("new new Add");
             warning.setVisible(true);
             warning.setText("Votre Evaluation a été enregistrée");
-        }
+        }       
     }
 
     @FXML
@@ -247,7 +239,7 @@ public class MenuProduitsController implements Initializable {
         reclamation.setVisible(true);
         validation.setVisible(true);
         warning.setVisible(false);
-
+        
     }
 
     @FXML
@@ -255,19 +247,23 @@ public class MenuProduitsController implements Initializable {
         reclamation.setVisible(false);
         validation.setVisible(false);
         reclamationB.setVisible(true);
-        if (reclamation.getText().equals("")) {
+        if(reclamation.getText().equals("")){
             warning.setVisible(true);
             warning.setText("Veuillez taper votre réclamation");
         } else {
             warning.setVisible(false);
-            Reclamation r = new Reclamation(u, produitSelected, reclamation.getText());
+            Reclamation r = new Reclamation(u,produitSelected,reclamation.getText());
             rs.ajouterReclamation(r);
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");
             warning.setVisible(true);
-
+            
         }
     }
 
+    @FXML
+    private void ajouterPanier(ActionEvent event) {
+        
+    }
 
 }

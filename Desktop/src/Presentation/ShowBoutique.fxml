@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -9,11 +17,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane prefHeight="417.0" prefWidth="596.0" style="-fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #3C8DBC;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ShowBoutiqueController">
+<AnchorPane prefHeight="417.0" prefWidth="596.0" style="-fx-padding: 4; -fx-border-width: 4 4 4 4; -fx-border-radius: 3; -fx-border-color: #26b99a; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ShowBoutiqueController">
    <children>
-      <Label fx:id="titre" layoutX="63.0" layoutY="20.0" prefHeight="74.0" prefWidth="393.0" text="Informations Boutique" textFill="#e82932" wrapText="true">
+      <Label fx:id="titre" layoutX="63.0" layoutY="20.0" prefHeight="74.0" prefWidth="393.0" text="Informations Boutique" textFill="#26b99a" wrapText="true">
          <font>
-            <Font name="Bookman Old Style Bold Italic" size="32.0" />
+            <Font name="Calibri Bold" size="30.0" />
          </font>
       </Label>
       <JFXTextField fx:id="nom" editable="false" labelFloat="true" layoutX="44.0" layoutY="141.0" maxWidth="385.0" minWidth="281.0" prefHeight="44.0" prefWidth="281.0" promptText="Nom boutique">
