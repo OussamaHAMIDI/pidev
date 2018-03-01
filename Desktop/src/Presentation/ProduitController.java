@@ -97,17 +97,17 @@ public class ProduitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
-                  gris.setVisible(true);
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierP.setVisible(true);
                 ajouterPanier.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
-                  gris.setVisible(true);
+                gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierP.setVisible(true);
                 ajouterPanier.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
-                  gris.setVisible(true);
+                gris.setVisible(true);
                 supprimer.setVisible(false);
                 modifierP.setVisible(false);
                 ajouterPanier.setVisible(true);
