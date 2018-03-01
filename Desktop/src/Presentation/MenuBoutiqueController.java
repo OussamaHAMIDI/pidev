@@ -95,11 +95,8 @@ public class MenuBoutiqueController implements Initializable {
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
-<<<<<<< HEAD
 
-=======
-    BoutiqueService bs = new BoutiqueService();
->>>>>>> a504843b37fa9a17c2bf04c9442b49d9af2050db
+   
     @FXML
     private AnchorPane contenu;
 
