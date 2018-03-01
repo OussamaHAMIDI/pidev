@@ -21,7 +21,7 @@
       <Label fx:id="Description" alignment="TOP_LEFT" layoutX="31.0" layoutY="87.0" prefHeight="63.0" prefWidth="202.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Description:" />
       <Pane layoutX="-1.0" layoutY="184.0" prefHeight="50.0" prefWidth="400.0" style="-fx-border-radius: 0 0 3 3; -fx-background-color: #E5E8EB; -fx-border-color: #C3C3C3; -fx-border-width: 1 0 0 0;" AnchorPane.leftAnchor="0.0">
          <children>
-            <JFXButton fx:id="supprimer" accessibleRole="IMAGE_VIEW" layoutX="50.0" layoutY="9.0" onAction="#supprimerProduit" prefHeight="32.0" prefWidth="110.0" ripplerFill="#dbceced0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text=" Supprimer">
+            <JFXButton fx:id="supprimer" accessibleRole="IMAGE_VIEW" layoutX="64.0" layoutY="9.0" onAction="#supprimerProduit" prefHeight="32.0" prefWidth="110.0" ripplerFill="#dbceced0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text=" Supprimer">
                <graphic>
                   <MaterialDesignIconView fill="WHITE" glyphName="DELETE" size="16.0" text="" wrappingWidth="9.0" />
                </graphic>
@@ -29,13 +29,21 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="modifierP" layoutX="247.0" layoutY="9.0" onAction="#modifierProduit" prefHeight="32.0" prefWidth="100.0" ripplerFill="#dbceced0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Modifier">
+            <JFXButton fx:id="modifierP" layoutX="239.0" layoutY="9.0" onAction="#modifierProduit" prefHeight="32.0" prefWidth="100.0" ripplerFill="#dbceced0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Modifier">
                <graphic>
                   <FontAwesomeIconView fill="#fcf8f8" glyphName="PENCIL" />
                </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+            </JFXButton>
+            <JFXButton fx:id="ajouterPanier" layoutX="113.0" layoutY="9.0" onAction="#ajouterPanier" prefHeight="32.0" prefWidth="159.0" style="-fx-background-color: #3C8DBC;" text="Ajouter au panier" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Medium" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#eee9e9" glyphName="PLUS" />
+               </graphic>
             </JFXButton>
          </children>
       </Pane>

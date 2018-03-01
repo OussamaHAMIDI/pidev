@@ -49,9 +49,6 @@ import org.controlsfx.control.Rating;
 public class MenuProduitsController implements Initializable {
 
     Produit produit = new Produit();
-
-    @FXML
-    private JFXButton produitB;
     private ScrollPane boutiques;
     @FXML
     private JFXTextField filter;
@@ -178,7 +175,6 @@ public class MenuProduitsController implements Initializable {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
                 addProduct.setVisible(false);
                 evaluation.setDisable(true);
-                produitB.setVisible(false);//ajouter au panier
                 warning.setVisible(false);
                 validation.setVisible(true);
                 reclamationB.setVisible(false);
@@ -186,7 +182,6 @@ public class MenuProduitsController implements Initializable {
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 addProduct.setVisible(true);
                 evaluation.setDisable(true);
-                produitB.setVisible(false);
                 warning.setVisible(true);
                 validation.setVisible(true);
                 reclamationB.setVisible(true);
@@ -194,7 +189,6 @@ public class MenuProduitsController implements Initializable {
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 addProduct.setVisible(false);
                 evaluation.setDisable(false);
-                produitB.setVisible(true);
                 warning.setVisible(true);
                 validation.setVisible(true);
                 reclamationB.setVisible(true);
@@ -203,7 +197,6 @@ public class MenuProduitsController implements Initializable {
         } else {//visiteur
             addProduct.setVisible(false);
             evaluation.setDisable(true);
-            produitB.setVisible(false);
             warning.setVisible(false);
             validation.setVisible(false);
             reclamationB.setVisible(false);
@@ -276,9 +269,5 @@ public class MenuProduitsController implements Initializable {
         }
     }
 
-    @FXML
-    private void ajouterPanier(ActionEvent event) {
-
-    }
 
 }

@@ -61,6 +61,8 @@ public class ProduitController implements Initializable {
     private Label reference;
 
     ProduitService ps = new ProduitService();
+    @FXML
+    private JFXButton ajouterPanier;
 
     public AnchorPane getThis() {
         return produit;
@@ -94,16 +96,20 @@ public class ProduitController implements Initializable {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
                 supprimer.setVisible(true);
                 modifierP.setVisible(true);
+                ajouterPanier.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 supprimer.setVisible(true);
                 modifierP.setVisible(true);
+                ajouterPanier.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 supprimer.setVisible(false);
                 modifierP.setVisible(false);
+                ajouterPanier.setVisible(true);
             }
         } else {//visiteur
             supprimer.setVisible(false);
             modifierP.setVisible(false);
+            ajouterPanier.setVisible(false);
         }
         prod = MenuProduitsController.list.get(index);
         setValues(prod);
@@ -159,6 +165,11 @@ public class ProduitController implements Initializable {
         ModifierProduitController.selectedProduit = prod;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifierProduit.fxml"));
         Utils.getAnotherStage(loader, "Modification d'un produit ").show();
+    }
+
+    @FXML
+    private void ajouterPanier(ActionEvent event) {
+        //For jappa :D
     }
 
 }
