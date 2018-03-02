@@ -69,7 +69,7 @@ public class UneBoutiqueArtisanController implements Initializable {
     BoutiqueService bs = new BoutiqueService();
     @FXML
     private Pane gris;
-
+    public boolean testBou=true;
     public AnchorPane getThis() {
         return boutique;
     }
@@ -107,7 +107,12 @@ public class UneBoutiqueArtisanController implements Initializable {
         } else {//visiteur
             gris.setVisible(false);
         }
-        bou = MenuBoutiqueController.list.get(index);
+        if (!testBou) {
+            bou = MenuBoutiqueController.list.get(index);
+        }
+        else {
+            bou=AffichageProdController.b.get(index);
+        }
         setValues(bou);
     }
 

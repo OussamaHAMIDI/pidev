@@ -155,13 +155,8 @@ public class AccueilController implements Initializable {
             sideBarArtisan.setVisible(false);
             sideBarClient.setVisible(false);
             sideBarVisiteur.setVisible(true);
-<<<<<<< HEAD
 
             setNode("AffichageProd");
-=======
-           
-            setNode("MenuProduits");
->>>>>>> 0097cc390d2b3a21b8e634898a0d8984b612b3e8
         }
     }
 

@@ -68,6 +68,8 @@ public class ProduitController implements Initializable {
     private JFXButton ajouterPanier;
     @FXML
     private Pane gris;
+    
+    public static boolean testProd=true;
 
     public AnchorPane getThis() {
         return produit;
@@ -117,7 +119,12 @@ public class ProduitController implements Initializable {
         } else {//visiteur
             gris.setVisible(false);
         }
-        prod = MenuProduitsController.list.get(index);
+        if (!testProd) {
+            prod = MenuProduitsController.list.get(index);
+        }
+        else {
+            prod=AffichageProdController.p.get(index);
+        }
         setValues(prod);
     }
 
