@@ -155,7 +155,10 @@ public class AccueilController implements Initializable {
             sideBarArtisan.setVisible(false);
             sideBarClient.setVisible(false);
             sideBarVisiteur.setVisible(true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 057af89bbe7f83f9445bb8a259f6216e5e00c754
             setNode("AffichageProd");
         }
     }
@@ -291,6 +294,11 @@ public class AccueilController implements Initializable {
     @FXML
     private void afficherPanier(MouseEvent event) {
         setNode("Panier");
+    }
+
+    @FXML
+    private void switchCommandesArtisan(ActionEvent event) {
+        setNode("CommandeArtisan");
     }
 
 }

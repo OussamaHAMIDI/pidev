@@ -182,8 +182,11 @@ public class ProduitController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
-     AccueilController.monPanier.getContenu().add(new ProduitPanier(prod));
-     AccueilController.monPanier.recalculer();
+        System.out.println(AccueilController.monPanier.getContenu().stream().noneMatch(p -> p.getId()==prod.getId()));
+      if (AccueilController.monPanier.getContenu().stream().noneMatch(p -> p.getId()==prod.getId())) {
+            AccueilController.monPanier.getContenu().add(new ProduitPanier(prod));
+            AccueilController.monPanier.recalculer();
+        }
     }
 
 }

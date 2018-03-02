@@ -158,15 +158,18 @@ public class MenuProduitsController implements Initializable {
             } else {
                 evaluation.setDisable(true);
             }
-            if (rs.peutReclamer(AccueilController.userConnected, produitSelected)){
+            if (rs.peutReclamer(AccueilController.userConnected, produitSelected)) {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);
                 validation.setVisible(true);
+                warning.setVisible(true);
             } else {
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);
-                validation.setVisible(true);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);
+                validation.setVisible(false);
+                warning.setVisible(false);
             }
+            
 
             photo.setImage(ps.getPhoto(produitSelected.getId()));
         }
@@ -206,16 +209,16 @@ public class MenuProduitsController implements Initializable {
                 reclamationB.setVisible(false);
                 reclamation.setVisible(false);//text area
                 produitB.setVisible(false);
-                 ajouterB.setDisable(true);
+                ajouterB.setDisable(true);
                 ajouterB.setVisible(false);
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 evaluation.setDisable(true);
-                warning.setVisible(true);
-                validation.setVisible(true);
-                reclamationB.setVisible(true);
-                reclamation.setVisible(true);//text area
+                warning.setVisible(false);
+                validation.setVisible(false);
+                reclamationB.setVisible(false);
+                reclamation.setVisible(false);//text area
                 produitB.setVisible(false);
-                 ajouterB.setDisable(false);
+                ajouterB.setDisable(false);
                 ajouterB.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 evaluation.setDisable(false);
@@ -316,15 +319,20 @@ public class MenuProduitsController implements Initializable {
 
     @FXML
     private void ajouterPanier(ActionEvent event) {
-AccueilController.monPanier.getContenu().add(new ProduitPanier(produitSelected));
-AccueilController.monPanier.recalculer();
+                System.out.println(AccueilController.monPanier.getContenu().stream().noneMatch(p -> p.getId()==produitSelected.getId()));
+
+       if (AccueilController.monPanier.getContenu().stream().noneMatch(p -> p.getId()==produitSelected.getId())) {
+            AccueilController.monPanier.getContenu().add(new ProduitPanier(produitSelected));
+            AccueilController.monPanier.recalculer();
+        }
+
     }
 
     @FXML
     private void closeClicked(MouseEvent event) {
         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
         s.close();
-        boutique=null;
+        boutique = null;
     }
 
 }
