@@ -297,4 +297,9 @@ public class AccueilController implements Initializable {
         setNode("CommandeArtisant");
     }
 
+    @FXML
+    private void switchHistoriqueClient(ActionEvent event) {
+        setNode("HistoriqueClient2");
+    }
+
 }

@@ -125,8 +125,10 @@ public class StatistiqueService implements IStatistique {
                 System.out.println("LA NOTE EST : " + cle);
                 System.out.println("LE PRODUIT EST : " + valeur);
                 for (Produit p : valeur) {
-                    j++;
+                    if(j<10){
+                        j++;
                     topTenProduits.add(p);
+                    }
                 }
             } else {
                 break;
@@ -144,6 +146,7 @@ public class StatistiqueService implements IStatistique {
         EvaluationService es = new EvaluationService();
         Map<Float, ArrayList<Boutique>> noteBoutique = new TreeMap<Float, ArrayList<Boutique>>(Collections.reverseOrder());
         Float note;
+        //map bout/note
         for (Boutique b : boutiques) {
             ArrayList<Boutique> btq = new ArrayList<Boutique>();
             note = es.getNoteBoutique(b);
@@ -167,8 +170,10 @@ public class StatistiqueService implements IStatistique {
                 System.out.println("LA NOTE EST : " + cle);
                 System.out.println("LA BOUTIQUE EST : " + valeur);
                 for (Boutique b : valeur) {
-                    j++;
-                    topTenBoutiques.add(b);
+                    if(j<10){
+                        j++;
+                        topTenBoutiques.add(b);
+                    }
                 }
             } else {
                 break;
@@ -340,8 +345,10 @@ public class StatistiqueService implements IStatistique {
                 System.out.println("LA NOTE EST : " + cle);
                 System.out.println("LE PRODUIT EST : " + valeur);
                 for (Produit p : valeur) {
-                    j++;
-                    topTenProduits.add(p);
+                    if(j<10){
+                        j++;
+                        topTenProduits.add(p); 
+                    }
                 }
             } else {
                 break;
