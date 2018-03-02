@@ -274,7 +274,7 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void switchAccueilVisiteur(ActionEvent event) {
-        setNode("MenuProduits");
+        setNode("AffichageProd");
     }
 
     @FXML
