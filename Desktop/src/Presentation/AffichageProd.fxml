@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,18 +9,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AffichageProdController">
    <children>
-      <ScrollPane fx:id="scrollProd" prefHeight="600.0" prefWidth="570.0">
+      <ScrollPane fx:id="scrollProd" layoutY="50.0" prefHeight="550.0" prefWidth="570.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>
+         <padding>
+            <Insets left="85.0" top="25.0" />
+         </padding>
       </ScrollPane>
-      <ScrollPane fx:id="scrollBout" layoutX="570.0" prefHeight="600.0" prefWidth="570.0">
+      <ScrollPane fx:id="scrollBout" layoutX="570.0" layoutY="50.0" prefHeight="550.0" prefWidth="570.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
          </content>
+         <padding>
+            <Insets left="85.0" top="25.0" />
+         </padding>
       </ScrollPane>
+      <Label layoutX="197.0" layoutY="21.0" text="Nos meilleurs produits" textAlignment="CENTER" textFill="#464444">
+         <font>
+            <Font name="FontAwesome Regular" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="767.0" layoutY="21.0" text="Nos meilleures boutiques" textAlignment="CENTER" textFill="#464444">
+         <font>
+            <Font name="FontAwesome Regular" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
