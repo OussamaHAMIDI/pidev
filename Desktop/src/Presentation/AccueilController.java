@@ -294,7 +294,7 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void switchCommandesArtisan(ActionEvent event) {
-        setNode("CommandeArtisan");
+        setNode("CommandeArtisant");
     }
 
 }

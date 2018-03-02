@@ -72,7 +72,7 @@ public class PanierService implements IPanier {
     @Override
     public int ajouterPanier(Panier panier) {
 
-        String req = "INSERT INTO panier (id_user,date_creation,date_livraison,total_ttc,frais_livraison,statut,mode_paiement,est_livre,est_paye) values "
+        String req = "INSERT INTO panier (id_user,date_creation,date_livraison,total_ttc,frais_livraison,statut,mode_paiement,est_livre,est_paye,mode_livraison) values "
                 + "(?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -93,6 +93,7 @@ public class PanierService implements IPanier {
             ps.setString(7, addMode);
             ps.setBoolean(8, panier.isEstLivre());
             ps.setBoolean(9, panier.isEstPaye());
+              ps.setString(10, panier.getModeLivraison().toString());
             ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
