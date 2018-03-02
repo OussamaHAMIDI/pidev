@@ -66,8 +66,6 @@ public class AjouterProduitController implements Initializable {
     private JFXButton modifier;
     @FXML
     private JFXButton ajouter;
-    @FXML
-    private JFXButton retour;
 
     private Produit pro;
     static public int index;
@@ -75,6 +73,8 @@ public class AjouterProduitController implements Initializable {
     static public MenuProduitsController mc;
     public static boolean voir = false;
     public static Produit voirProd;
+    @FXML
+    private ImageView close;
 
     /**
      * Initializes the controller class.
@@ -182,16 +182,7 @@ public class AjouterProduitController implements Initializable {
 
     }
 
-    @FXML
-    private void annuler(ActionEvent event) {
-        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        s.close();
-        voir = false;
-    }
 
-    @FXML
-    private void payerPanier(MouseEvent event) {
-    }
 
     private boolean controleDeSaisi() {
 
@@ -236,5 +227,12 @@ public class AjouterProduitController implements Initializable {
             }
         }
         return true;
+    }
+
+    @FXML
+    private void retourAction(MouseEvent event) {
+        Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
+        voir = false;
     }
 }
