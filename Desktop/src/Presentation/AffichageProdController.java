@@ -35,7 +35,9 @@ public class AffichageProdController implements Initializable {
     
     public static GridPane gridPaneProduit = null ;
     public static GridPane gridPaneBoutique = null ;
-
+    StatistiqueService ss = new StatistiqueService();
+    public static List<Produit> p = null;
+    public static List<Boutique> b = null;
     
     /**
      * Initializes the controller class.
@@ -48,9 +50,11 @@ public class AffichageProdController implements Initializable {
 
         for (int i = 0; i < list.size(); i++) {
             try {
+                ProduitController.testProd=true;
                 ProduitController.index = i;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Produit.fxml"));
                 Parent root = loader.load();
+                ProduitController.testProd=false;
                 parents.add(root);
             } catch (IOException ex) {
                 Logger.getLogger(GestionUsersController.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +70,7 @@ public class AffichageProdController implements Initializable {
         //paire
         for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
             //for (int col = 0; col < 2; col++) {
-            if (list.size() > 0) {
+            if (parents.size() > 0) {
                 gridPaneProduit.add(parents.get(0), 0, ligne);
                 parents.remove(0);
             } else {
@@ -102,7 +106,7 @@ public class AffichageProdController implements Initializable {
         //paire
         for (int ligne = nbrRows; ligne < nbrRows + totalItems; ligne++) {
             //for (int col = 0; col < 2; col++) {
-            if (list.size() > 0) {
+            if (parents.size() > 0) {
                 gridPaneBoutique.add(parents.get(0), 0, ligne);
                 parents.remove(0);
             } else {
@@ -116,9 +120,10 @@ public class AffichageProdController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        StatistiqueService ss = new StatistiqueService();
-        List<Produit> p = ss.getTopTenProduits();
-        List<Boutique> b = ss.getTopTenBoutiques();
+        b=ss.getTopTenBoutiques();
+        p=ss.getTopTenProduits();
+        gridPaneBoutique=new GridPane();
+        gridPaneProduit=new GridPane();
         ProduitController.contenu = p;
 //        ProduitController.mc = this;
         addToGridProduit(p);
