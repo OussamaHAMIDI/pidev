@@ -72,8 +72,8 @@ public class PanierService implements IPanier {
     @Override
     public int ajouterPanier(Panier panier) {
 
-        String req = "INSERT INTO panier (id_user,date_creation,date_livraison,total_ttc,frais_livraison,statut,mode_paiement,est_livre,est_paye) values "
-                + "(?,?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO panier (id_user,date_creation,date_livraison,total_ttc,frais_livraison,statut,mode_paiement,est_livre,est_paye,mode_livraison) values "
+                + "(?,?,?,?,?,?,?,?,?,?)";
 
         try {
             String addMode = "";
@@ -93,6 +93,7 @@ public class PanierService implements IPanier {
             ps.setString(7, addMode);
             ps.setBoolean(8, panier.isEstLivre());
             ps.setBoolean(9, panier.isEstPaye());
+            ps.setString(10, panier.getModeLivraison().toString());
             ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
@@ -176,7 +177,7 @@ public class PanierService implements IPanier {
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
-                       bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
+                        bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
                         //ps.chercherProduitParID(rs.getInt("id_produit")).getBoutique(),
                         Utils.Utils.getLocalDateTime(rs.getString("date_ajout")),
                         ps.chercherProduitParID(rs.getInt("id_produit")).getPhoto()
@@ -357,6 +358,7 @@ public class PanierService implements IPanier {
             ResultSet rs = this.connexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                     .executeQuery("Select * from produit_panier where produit_panier.id_produit in (Select produit.id from produit,boutique where produit.id_boutique=boutique.id and boutique.id_user='" + userId + "')");
             while (rs.next()) {
+                BoutiqueService bs = new BoutiqueService();
                 UserService userGetter = new UserService();
                 paniers.add(new ProduitPanier(rs.getBoolean("livree"),
                         rs.getFloat("quantite_vendu"),
@@ -371,6 +373,7 @@ public class PanierService implements IPanier {
                         rs.getString("couleur"),
                         rs.getString("texture"),
                         rs.getFloat("poids"),
+                        //bs.chercherBoutiqueParID(rs.getInt("id_boutique")),
                         new Boutique(),
                         Utils.Utils.getLocalDateTime(rs.getString("date_ajout")), null
                 ));
@@ -423,8 +426,8 @@ public class PanierService implements IPanier {
         //Envoyer mail
         panier.genererMailBody();
     }
-    
-      @Override
+
+    @Override
     public int getNextId() {
         int nextid = - 1;
         try {
@@ -442,6 +445,5 @@ public class PanierService implements IPanier {
         }
         return nextid;
     }
-
 
 }

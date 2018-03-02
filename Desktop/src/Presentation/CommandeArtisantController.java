@@ -79,22 +79,11 @@ public class CommandeArtisantController implements Initializable {
             // TODO
          
             panier.setContenu(new ArrayList<ProduitPanier>());
-//            ProduitPanier pp = new ProduitPanier(1, 0, 22.321f, 5, "ref-art", "testArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
-//            ProduitPanier pp2 = new ProduitPanier(1, 0, 22.321f, 5, "ref-a22222rt", "tes22222tArticle", "TESSSSSSSTTTTT AOEKFAEPFJAE PKAEO¨GAPGÄKGAEP¨GKAEP¨GKAE¨PG", 22.321f, "m", "bleu", "coton", 0.0f, new Boutique(), LocalDateTime.now(), null);
+
             PanierService ps = new PanierService();
-//            pp.setDescription(ps.rechercherArtisantProduitPanier(pp.getId()));
-//            pp2.setDescription(ps.rechercherArtisantProduitPanier(pp2.getId()));
-//            panier.getContenu().add(pp2);
-//            panier.getContenu().add(pp2);
-//            panier.getContenu().add(pp);
-//            panier.getContenu().add(pp2);
-//            panier.getContenu().add(pp2);
-//            panier.getContenu().add(pp);
-//            panier.getContenu().add(pp2);
-//            panier.getContenu().add(pp2);
-//panier = ps.rechercherPanierById(2);
+
 panier.setId(2);
-panier.setContenu(ps.rechercherCommandeArtisant(5));
+panier.setContenu(ps.rechercherCommandeArtisant(AccueilController.userConnected.getId()));
 for(ProduitPanier p: panier.getContenu())
 {
     p.setDescription(ps.rechercheClientPanier(panier.getId()));

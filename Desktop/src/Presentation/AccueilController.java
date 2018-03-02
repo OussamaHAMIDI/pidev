@@ -65,9 +65,9 @@ public class AccueilController implements Initializable {
     private AnchorPane menuBar;
 
     private UserService us = new UserService();
-    
+
     public static Panier monPanier;
-    
+
     public static User userConnected = null;
     AnchorPane users;
     AnchorPane anchor;
@@ -234,7 +234,7 @@ public class AccueilController implements Initializable {
 
     @FXML
     private void switchAccueilClient(ActionEvent event) {
-        setNode("MenuProduits");
+        setNode("AffichageProd");
     }
 
     @FXML
@@ -290,6 +290,11 @@ public class AccueilController implements Initializable {
     @FXML
     private void afficherPanier(MouseEvent event) {
         setNode("Panier");
+    }
+
+    @FXML
+    private void switchCommandesArtisan(ActionEvent event) {
+        setNode("CommandeArtisant");
     }
 
 }
