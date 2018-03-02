@@ -84,8 +84,6 @@ public class MenuBoutiqueController implements Initializable {
     private JFXButton addBoutique;
     @FXML
     private Separator separateur;
-    @FXML
-    private AnchorPane contenu; 
     
     public static GridPane gridPane = new GridPane();
     public static List<Boutique> list;
@@ -97,6 +95,8 @@ public class MenuBoutiqueController implements Initializable {
     EvaluationService es = new EvaluationService();
     ReclamationService rs = new ReclamationService();
     UserService us = new UserService();
+    @FXML
+    private JFXButton stock;
 
 
     public void addToGrid(List<Boutique> list) {
@@ -189,6 +189,8 @@ public class MenuBoutiqueController implements Initializable {
                 reclamationB.setVisible(false);
                 addBoutique.setVisible(false);
                 reclamation.setVisible(false);//text area
+                stock.setVisible(false);
+                  list = bs.lireBoutiques();
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 separateur.setVisible(false);
                 idB.setVisible(false);
@@ -198,6 +200,8 @@ public class MenuBoutiqueController implements Initializable {
                 reclamationB.setVisible(false);
                 reclamation.setVisible(false);//text area
                 addBoutique.setVisible(true);
+                 stock.setVisible(true);
+                   list = bs.lireBoutique(AccueilController.userConnected);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 separateur.setVisible(false);
                 idB.setVisible(false);
@@ -207,6 +211,8 @@ public class MenuBoutiqueController implements Initializable {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
                 addBoutique.setVisible(false);
+                 stock.setVisible(false);
+                   list = bs.lireBoutiques();
             }
         } else {//visiteur
             separateur.setVisible(false);
@@ -217,11 +223,12 @@ public class MenuBoutiqueController implements Initializable {
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
             addBoutique.setVisible(false);
+              list = bs.lireBoutiques();
+                      
         }
 
         evaluation.setRating(0);
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
-        list = bs.lireBoutique(AccueilController.userConnected);
         UneBoutiqueArtisanController.contenu = list;
         UneBoutiqueArtisanController.mc = this;
         
@@ -310,6 +317,17 @@ public class MenuBoutiqueController implements Initializable {
             reclamation.setText("");
             warning.setText("Votre reclamation a été enregistrée");
             warning.setVisible(true);
+
+        }
+    }
+
+    @FXML
+    private void gererStock(MouseEvent event) {
+          if(boutiqueSelected!=null)
+        {
+            MenuProduitsController.boutique=boutiqueSelected;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStock.fxml"));
+            Utils.getAnotherStage(loader, "Menu produits ").show();
 
         }
     }

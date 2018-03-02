@@ -22,10 +22,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -50,6 +54,8 @@ public class ListStockController implements Initializable {
     ProduitService ps = new ProduitService();
      Stock MS = new Stock();
      affichage selected = new affichage();
+    @FXML
+    private ImageView close;
     /**
      * Initializes the controller class.
      */
@@ -57,12 +63,8 @@ public class ListStockController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<affichage> data;
         data=FXCollections.observableArrayList();
+        MS=ss.getStock(MenuBoutiqueController.boutiqueSelected.getId());
         
-        Boutique bou = new Boutique();
-        bou.setId(94);
-        
-        MS=ss.getStock(bou.getId());
-
         List<Integer> ids = MS.getIds();
         List<Integer> quantites = MS.getQuantites();
         List<String> libelles = new ArrayList<String>();
@@ -124,6 +126,12 @@ public class ListStockController implements Initializable {
         tableStock.getSelectionModel().getSelectedItem().quantite = tableStock.getSelectionModel().getSelectedItem().quantite + Integer.valueOf(test.getText());
         tableStock.refresh();
         
+    }
+
+    @FXML
+    private void closeClicked(MouseEvent event) {
+         Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        s.close();
     }
     
     public class affichage {

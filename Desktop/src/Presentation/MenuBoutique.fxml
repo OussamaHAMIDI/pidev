@@ -107,6 +107,21 @@
                   <Font name="Segoe UI" size="15.0" />
                </font>
             </JFXTextField>
+            <JFXButton fx:id="stock" layoutX="664.0" layoutY="7.0" onMouseClicked="#gererStock" prefHeight="48.0" prefWidth="53.0" ripplerFill="#00000086" styleClass="nav-button" stylesheets="@style.css" text=" ">
+               <font>
+                  <Font size="1.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/gestion_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>
