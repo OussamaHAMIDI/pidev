@@ -1,0 +1,4 @@
+souk:
+    resource: "@SoukBundle/Resources/config/routing.yml"
+    prefix:   /
+
