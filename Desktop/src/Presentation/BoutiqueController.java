@@ -134,7 +134,7 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
         {
             alert.setHeaderText("Veuillez saisir la date création de votre boutique");
             alert.show();
-//        }else if(btDate.getText().compareTo(LocalDate.now()) <0){
+//        }else if(btDate.getDateTimeFormatter()> LocalDate.now()){
 //            Alert alertt = new Alert(Alert.AlertType.ERROR);
 //        alertt.setHeaderText(null);
 //        alertt.setContentText("Vous devez choisir une date supérieure ou égale à la date d'aujoud'hui");

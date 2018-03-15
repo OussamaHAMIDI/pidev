@@ -15,6 +15,7 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -70,6 +71,9 @@ public class UneBoutiqueArtisanController implements Initializable {
     @FXML
     private Pane gris;
     public boolean testBou=true;
+    @FXML
+    private FontAwesomeIconView userP;
+    
     public AnchorPane getThis() {
         return boutique;
     }
@@ -92,19 +96,29 @@ public class UneBoutiqueArtisanController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (AccueilController.userConnected != null) {
             if (AccueilController.userConnected.getType() == TypeUser.Administrateur) {
+                userB.setVisible(true);
+                userP.setVisible(true);
                 gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
                 partagerB.setVisible(false);           
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
+                 userB.setVisible(false);
+                userP.setVisible(false);
+
                 gris.setVisible(true);
                 supprimer.setVisible(true);
                 modifierB.setVisible(true);
                 partagerB.setVisible(true);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
+                 userB.setVisible(false);
+                userP.setVisible(false);
+
                 gris.setVisible(false);
             }
         } else {//visiteur
+             userB.setVisible(false);
+                userP.setVisible(false);
             gris.setVisible(false);
         }
         if (!testBou) {
@@ -153,7 +167,7 @@ public class UneBoutiqueArtisanController implements Initializable {
 
         B = bt.chercherBoutiqueParID(bou.getId());
 
-        String accessToken = "EAACEdEose0cBABMNP3nEnlZC7y6mhexfCK1EiX5jQjvRlsXZB8x7HfE6efHK0zwJt4ZCwQgiKQ2JgF0eiTheReTnhNfrukJhO8AvEw8cCLo5jWwZAUdOf863gY79BMeRe2I1nH7PUYdxFKf3sxyWIhYyS4ZAQqxqrc7RqjAdrxt3M1PNCadYdUIf2R60IjO3xu8iQeupt4QZDZD";
+        String accessToken = "EAACEdEose0cBAPa1dPYgDuF4KzAXyHZBaMa1JY9mfwICzu0JlNZBz4FgiB7R9jPYi6wCaXWf2woYq4T7oqSK796oXkM45E7h3AB5PkMbiPZBQyFNDSHYfrbMKQqZC19pLMPEbXZAWZBZCBLsAqepcZA2NvUQReuux1eEnGyoGEn2ZBkAdlJ2fR4Op6q11pZAsX3RY44EZAyK5zHbgZDZD";
         Scanner s = new Scanner(System.in);
         FacebookClient fbClient = new DefaultFacebookClient(accessToken);
         FacebookType response = fbClient.publish("me/feed", FacebookType.class,

@@ -60,7 +60,7 @@ public class HistoriqueClient2Controller implements Initializable {
         HistoriqueService hs = new HistoriqueService();
         UserService us = new UserService();
         System.out.println("initialized");
-        listePaniers = hs.getHistoriqueUser(us.getUserById(2));
+        listePaniers = hs.getHistoriqueUser(AccueilController.userConnected);
         System.out.println(listePaniers);
         //HistoriqueClientItemController.listePaniers = this.listePaniers;
         HistoriqueClientItemController.listePaniers = listePaniers;

@@ -121,6 +121,7 @@ public class AffichageProdController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         b=ss.getTopTenBoutiques();
+        System.out.println("TOP TEN BOUTIQUE ======" +b);
         p=ss.getTopTenProduits();
         gridPaneBoutique=new GridPane();
         gridPaneProduit=new GridPane();
