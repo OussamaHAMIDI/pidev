@@ -195,7 +195,7 @@ public class PanierService implements IPanier {
     @Override
     public int ajouterProduitPanier(ProduitPanier produit, int idPanier) {
 
-        String req = "INSERT INTO produit_panier (id_panier,id_produit,reference,libelle,description,prix,taille,couleur,texture,poids,quantite_vendu,poids_vendu,prix_vente) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO produit_panier (id_panier,id_produit,reference,libelle,description,prix,taille,couleur,texture,poids,quantite_vendu,poids_vendu,prix_vente,date_ajout) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = connexion.prepareStatement(req);
 
@@ -212,6 +212,7 @@ public class PanierService implements IPanier {
             ps.setFloat(11, produit.getQuantiteVendue());
             ps.setFloat(12, produit.getPoidsVendu());
             ps.setFloat(13, produit.getPrixVente());
+              ps.setObject(14, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             ps.executeUpdate();
             return 1;
         } catch (SQLException ex) {
