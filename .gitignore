@@ -9,6 +9,3 @@ WEB/var/
 !WEB/var/logs/.gitkeep
 !WEB/var/sessions/.gitkeep
 WEB/web/bundles/
-WEB/.idea/workspace.xml
-WEB/.idea/workspace.xml
-WEB/.idea/workspace.xml
