@@ -47,8 +47,13 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
+<<<<<<< HEAD
 #        mapping_types:
 #                  enum: string
+=======
+        mapping_types:
+                  enum: string
+>>>>>>> 03480bd1a312b6a85409a12157c116c9908f9edd
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
