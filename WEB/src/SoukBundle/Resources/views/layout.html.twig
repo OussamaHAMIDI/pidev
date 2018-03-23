@@ -152,12 +152,28 @@
 
 {% block javascripts %}
     <!-- jQuery Plugins -->
+
+    <script>
+    window.onscroll = function() {myFunction()};
+
+    var header = document.getElementById("navigation");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= 40) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
     <script src="{{ asset('js/nouislider.min.js') }}"></script>
     <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+
 {% endblock %}
 </body>
 </html>
