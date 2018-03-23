@@ -1,4 +1,6 @@
 souk:
-    resource: "@SoukBundle/Resources/config/routing.yml"
+#    resource: "@SoukBundle/Resources/config/routing.yml"
+    resource: "@SoukBundle/Controller/"
+    type:     annotation
     prefix:   /
 
