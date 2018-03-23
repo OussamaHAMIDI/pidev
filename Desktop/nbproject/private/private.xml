@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/MenuBoutiqueController.java</file>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Entities/Panier.java</file>
@@ -18,6 +19,21 @@
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/DataStorage/MyDB.java</file>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Services/HistoriqueService.java</file>
             <file>file:/C:/Users/monta/OneDrive/Documents/GitHub/pidev/Desktop/src/Presentation/HistoriqueClient2Controller.java</file>
+=======
+        <group name="test">
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/StatistiqueArtisanController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/AjouterProduitController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/InscriptionController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/DataStorage/MyDB.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/UserMain.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/UserController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Services/UserService.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/LoginController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/AccueilController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/MenuBoutiqueController.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Utils/Utils.java</file>
+            <file>file:/D:/9raya/ESPRIT/1%20ING/Semestre%202/PiDev/pidev/Desktop/src/Presentation/MenuProduitsController.java</file>
+>>>>>>> 830dad855855cb7f16a1b4af72190738a0f33c96
         </group>
     </open-files>
 </project-private>

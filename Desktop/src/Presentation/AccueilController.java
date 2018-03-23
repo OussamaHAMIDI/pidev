@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -93,7 +92,7 @@ public class AccueilController implements Initializable {
 
         holderPane.getChildren().clear();
         holderPane.getChildren().add(anchor);
-        FadeTransition ft = new FadeTransition(Duration.millis(1500));
+        FadeTransition ft = new FadeTransition(Duration.millis(1000));
         ft.setNode(anchor);
         ft.setFromValue(0.1);
         ft.setToValue(1);

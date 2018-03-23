@@ -1,4 +1,11 @@
-/Desktop/build/
-/Desktop/dist/
-/Desktop_1/nbproject/private/
-/Desktop_1/build/
+# Project java
+/Desktop/*
+
+WEB/vendor/
+
+WEB/build/
+WEB/var/
+!WEB/var/cache/.gitkeep
+!WEB/var/logs/.gitkeep
+!WEB/var/sessions/.gitkeep
+WEB/web/bundles/
