@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Stock" table="stock">
+    <indexes>
+      <index name="fk_boutique_id2" columns="id_boutique"/>
+      <index name="id_produit" columns="id_produit"/>
+    </indexes>
+    <id name="idProduit" type="integer" column="id_produit"/>
+    <id name="idBoutique" type="integer" column="id_boutique"/>
+    <field name="quantitee" type="decimal" column="quantitee" precision="7" scale="3" nullable="false"/>
+  </entity>
+</doctrine-mapping>
