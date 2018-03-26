@@ -1689,7 +1689,7 @@ textarea.input {
   width: 40px;
   height: 40px;
   background: #30323A;
-  z-index: 2;
+  z-index: 22;
 }
 
 .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
