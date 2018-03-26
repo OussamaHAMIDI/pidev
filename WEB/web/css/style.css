@@ -103,9 +103,10 @@ strong {
 ul, ol {
   margin: 0;
   padding: 0;
-  list-style: none
+  list-style: none;
+  cursor: pointer;
 }
-
+li { cursor: pointer; }
 hr {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -468,10 +469,22 @@ textarea.input {
 
 #navigation {
   background-color: #30323A;
+  position:fixed;
+  z-index:1;
+  width: 100%;
 }
 
 #navigation .container {
   position: relative;
+  z-index:2;
+}
+
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
 }
 
 /*----------------------------*\
@@ -498,15 +511,17 @@ textarea.input {
 }
 
 .category-nav .category-list {
-  position: absolute;
+  /*position: absolute;*/
   width: 270px;
   background-color: #FFF;
   border-left: 1px solid #DADADA;
   border-right: 1px solid #DADADA;
   border-bottom: 1px solid #DADADA;
-  z-index: 50;
+  /*z-index: 50;*/
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
+  position:fixed;
+  z-index:1;
 }
 
 .category-nav.show-on-click .category-list {
@@ -515,6 +530,8 @@ textarea.input {
   -webkit-transform: translate(0px, 15px);
   -ms-transform: translate(0px, 15px);
   transform: translate(0px, 15px);
+  position:fixed;
+  z-index:1;
 }
 
 .category-nav.show-on-click .category-list.open {
@@ -523,10 +540,13 @@ textarea.input {
   -webkit-transform: translate(0px, 0px);
   -ms-transform: translate(0px, 0px);
   transform: translate(0px, 0px);
+  position:fixed;
+  z-index:1;
 }
 
 .category-nav .category-list>li+li {
   border-top: 1px solid #DADADA;
+
 }
 
 .category-nav .category-list>li.dropdown>.dropdown-toggle>i {
@@ -538,6 +558,7 @@ textarea.input {
   display: block;
   padding: 15px;
   text-transform: uppercase;
+
 }
 
 .category-nav .category-list>li>a:hover, .category-nav .category-list>li>a:focus, .category-nav .category-list>li.dropdown.open>a {
@@ -700,13 +721,14 @@ textarea.input {
     transform: translateX(-100%);
     -webkit-transition: 0.5s all;
     transition: 0.5s all;
-    z-index: 990;
+    z-index: 1;
   }
   #responsive-nav.open {
     width: 100%;
     -webkit-transform: translateX(0%);
     -ms-transform: translateX(0%);
     transform: translateX(0%);
+
   }
   #responsive-nav .dropdown .custom-menu {
     display: none;
@@ -729,6 +751,8 @@ textarea.input {
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: calc(100vh - 100px);
+    position: fixed;
+    z-index: 1;
   }
   .category-nav .category-list.open, .menu-nav .menu-list.open {
     display: block;
@@ -828,41 +852,54 @@ textarea.input {
 .product .product-old-price {
   color: #F8694A;
   font-size: 70%;
+  /*position: relative;*/
+  z-index: 2;
 }
 
 .product .product-rating {
   display: inline-block;
+  /*position: relative;*/
+  z-index: 2;
 }
 
 .product .product-rating>i {
   color: #FFB656;
+  /*position: relative;*/
+  z-index: 2;
 }
 
 .product .product-rating>i.empty {
   color: #DADADA;
+  /*position: relative;*/
+  z-index: 2;
 }
 
 .product .product-label>span {
-  position: relative;
   display: inline-block;
   padding: 5px 15px;
   font-weight: 700;
   color: #FFF;
   background-color: #30323A;
-  z-index: 22;
+  /*position: relative;*/
+  /*z-index: 2;*/
 }
 
 .product .product-label>span.sale {
   background-color: #F8694A;
+  /*position: relative;*/
+  /*z-index: 2;*/
 }
 
 .product .product-countdown {
-  z-index: 22;
+  position: relative;
+  z-index: 2;
 }
 
 .product .product-countdown>li {
   display: inline-block;
   margin-right: -4px;
+  position: relative;
+  z-index: 2;
 }
 
 .product .product-countdown>li+li:before {
@@ -870,6 +907,8 @@ textarea.input {
   color: #FFF;
   background: #30323A;
   padding: 2px;
+  position: relative;
+  z-index: 2;
 }
 
 .product .product-countdown>li>span {
@@ -878,6 +917,8 @@ textarea.input {
   font-weight: 700;
   padding: 10px;
   background: #F8694A;
+  position: relative;
+  z-index: 2;
 }
 
 /*----------------------------*\
@@ -889,6 +930,8 @@ textarea.input {
   margin-bottom: 15px;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
+  /*position: relative;*/
+  /*z-index: 2;*/
 }
 
 .product.product-single:hover {
@@ -901,6 +944,7 @@ textarea.input {
 
 .product.product-single .product-thumb {
   position: relative;
+  /*z-index: 2;*/
   margin-bottom: 15px;
 }
 
@@ -918,7 +962,7 @@ textarea.input {
   background-color: #FFF;
   opacity: 0;
   visibility: hidden;
-  z-index: 0;
+  z-index: 22;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
 }
@@ -965,6 +1009,8 @@ textarea.input {
 
 .product.product-single .product-body {
   padding: 15px;
+  /*position: relative;*/
+  z-index: 2;
 }
 
 .product.product-single .product-price {
@@ -1643,7 +1689,7 @@ textarea.input {
   width: 40px;
   height: 40px;
   background: #30323A;
-  z-index: 22;
+  z-index: 2;
 }
 
 .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
@@ -1664,7 +1710,8 @@ textarea.input {
 
 .custom-nav .slick-prev, .custom-nav .slick-next {
   display: inline-block;
-  position: static;
+  position: relative;
+  z-index: 2;
   -webkit-transform: translate(0px, 0px);
   -ms-transform: translate(0px, 0px);
   transform: translate(0px, 0px);
