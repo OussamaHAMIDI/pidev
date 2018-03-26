@@ -3,7 +3,7 @@
 
   // NAVIGATION
   var responsiveNav = $('#responsive-nav'),
-    catToggle = $('#responsive-nav').find('.category-nav .category-header'),
+    catToggle = $('#responsive-nav .category-nav .category-header'),
     catList = $('#responsive-nav .category-nav .category-list'),
     menuToggle = $('#responsive-nav .menu-nav .menu-header'),
     menuList = $('#responsive-nav .menu-nav .menu-list');
@@ -94,9 +94,9 @@
           dots: false,
           arrows: true,
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
         }
-      }
+      },
     ]
   });
 
@@ -120,7 +120,7 @@
   });
 
   // PRODUCT ZOOM
-  $('#product-main-view').find('.product-view').zoom();
+  $('#product-main-view .product-view').zoom();
 
   // PRICE SLIDER
   var slider = document.getElementById('price-slider');

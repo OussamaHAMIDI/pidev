@@ -1,4 +1,3 @@
 souk_homepage:
     path:     /
     defaults: { _controller: SoukBundle:Default:index }
-
