@@ -1,6 +1,15 @@
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 souk:
 #    resource: "@SoukBundle/Resources/config/routing.yml"
     resource: "@SoukBundle/Controller/"
     type:     annotation
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix:   /
 

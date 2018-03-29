@@ -3,15 +3,17 @@
 namespace SoukBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
-/**
- * Boutique
- *
- * @ORM\Table(name="boutique", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
- * @ORM\Entity
- */
+
 class Boutique
 {
+    /**
+     * Boutique
+     *
+     * @ORM\Table(name="boutique", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+     * @ORM\Entity
+     */
     /**
      * @var integer
      *

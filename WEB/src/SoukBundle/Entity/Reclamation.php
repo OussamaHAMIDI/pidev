@@ -4,14 +4,15 @@ namespace SoukBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Reclamation
- *
- * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_produit", columns={"id_produit"}), @ORM\Index(name="id_boutique", columns={"id_boutique"})})
- * @ORM\Entity
- */
+
 class Reclamation
 {
+    /**
+     * Reclamation
+     *
+     * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_produit", columns={"id_produit"}), @ORM\Index(name="id_boutique", columns={"id_boutique"})})
+     * @ORM\Entity
+     */
     /**
      * @var integer
      *

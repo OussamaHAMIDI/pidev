@@ -4,14 +4,15 @@ namespace SoukBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Panier
- *
- * @ORM\Table(name="panier", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
- * @ORM\Entity
- */
+
 class Panier
 {
+    /**
+     * Panier
+     *
+     * @ORM\Table(name="panier", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+     * @ORM\Entity
+     */
     /**
      * @var integer
      *
