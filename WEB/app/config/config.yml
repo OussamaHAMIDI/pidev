@@ -4,6 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: "@SoukBundle/Resources/config/services.yml" }
     - { resource: "@UserBundle/Resources/config/services.yml" }
+    - { resource: "@TombolaBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -86,12 +87,12 @@ fos_user:
             email:
                 from_email:
                     address:        souklemdina@gmail.com
-                    sender_name:    Administrateur_SoukLemdina
+                    sender_name:    Administrateur SoukLemdina
     registration:
             email:
                 from_email:
                     address:        souklemdina@gmail.com
-                    sender_name:    Administrateur_SoukLemdina
+                    sender_name:    Administrateur SoukLemdina
     from_email:
                         address:        souklemdina@gmail.com
-                        sender_name:    Administrateur_SoukLemdina
+                        sender_name:    Administrateur SoukLemdina

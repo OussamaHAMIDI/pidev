@@ -164,8 +164,8 @@ public class InscriptionAdminController implements Initializable {
             if (type.getValue().equals("Artisan") && PhotoPermis == null) {
                 Utils.showAlert(Alert.AlertType.WARNING, "Informations manquantes", "Informations manquantes", "Veuillez importer un permis de vente");
             } else {
-                String salt = BCrypt.gensalt(4);
-                String mdp = Utils.hashPassword(password.getText(), salt);
+//              String mdp = Utils.hashPassword(password.getText(), salt);
+                String mdp = BCrypt.hashpw(password.getText(), BCrypt.gensalt(10));
                 String code = Utils.generateCode(6);
                 String sexe = ((RadioButton) this.sexe.getSelectedToggle()).getText();
 
@@ -175,7 +175,7 @@ public class InscriptionAdminController implements Initializable {
 
                 User u = new User(us.getNextId(), username.getText(), mdp, EtatUser.Active, TypeUser.valueOf(type.getValue()), nom.getText(), prenom.getText(),
                         date.getValue(), sexe, email.getText(), adresse.getText(), tel.getText(),
-                        null, salt, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
+                        null, null, "role va etre ajouter dans la methode ajouterUser", code, photoProfil);
 
                 if (us.ajouterUser(u)) {
 

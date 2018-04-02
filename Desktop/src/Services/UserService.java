@@ -45,16 +45,16 @@ public class UserService implements IUser {
     public boolean ajouterUser(User u) {
         try {
             String req = "INSERT INTO `user`(`username`, `username_canonical`, `email`, `email_canonical`, `enabled`,`password`, `roles`,`type` , "
-                    + "`etat` , `adresse`, `tel`, `nom`, `prenom`, `date_naissance`, `sexe`,`confirmation_token`,`photo_profil`,`salt`) "
+                    + "`etat` , `adresse`, `tel`, `nom`, `prenom`, `date_naissance`, `sexe`,`confirmation_token`,`photo_profil`) "
                     + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             ps = connexion.prepareStatement(req);
             ps.setString(1, u.getUserName());
             ps.setString(2, u.getUserName());
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getEmail());
-            ps.setInt(5, 1); 
+            ps.setInt(5, 0); 
             ps.setString(6, u.getMdp());
-            ps.setString(7, "a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
+            ps.setString(7, "a:1:{i:0;s:12:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
             ps.setString(8, u.getType().toString());
             ps.setString(9, u.getEtat().toString());
             ps.setString(10, u.getAdresse());
@@ -68,8 +68,6 @@ public class UserService implements IUser {
             if (u.getPhoto() == null) {
                 ps.setBinaryStream(17, new FileInputStream("src/Images/user.png"));
             }
-
-            ps.setString(18, u.getSalt());
             ps.executeUpdate();
             // System.out.println("Ajout User réussi");
             return true;
@@ -142,13 +140,11 @@ public class UserService implements IUser {
     @Override
     public boolean changerMdp(int idUser, String new_mdp) {
         try {
-            String salt = BCrypt.gensalt(4);
-            String mdp = Utils.hashPassword(new_mdp, salt);
+            String mdp = BCrypt.hashpw(new_mdp, BCrypt.gensalt(4)); // cost in security.yml
 
-            String req = "UPDATE user  SET password = ?  , salt = ? WHERE id = '" + idUser + "'";
+            String req = "UPDATE user  SET password = ?   WHERE id = '" + idUser + "'";
             ps = connexion.prepareStatement(req);
             ps.setString(1, mdp);
-            ps.setString(2, salt);
             ps.executeUpdate();
 //            System.out.println("mot de passe changé avec succes");
             return true;
@@ -302,7 +298,7 @@ public class UserService implements IUser {
         try {
             String req = "UPDATE `user` SET `username`=?,`username_canonical`=?,`email`=?,`email_canonical`=?"
                     + " , `password`=?,`last_login`= ? ,`roles`=?,`type`=?,`etat`= ?,`adresse`=?,`tel`=?,`nom`= ?,`prenom`=?"
-                    + ", `date_naissance`= ? ,`sexe`=?,`salt`=? ,`photo_profil`=? WHERE id = '" + u.getId() + "'";
+                    + ", `date_naissance`= ? ,`sexe`=?,`photo_profil`=? WHERE id = '" + u.getId() + "'";
             ps = connexion.prepareStatement(req);
             ps.setString(1, u.getUserName());
             ps.setString(2, u.getUserName());
@@ -317,7 +313,7 @@ public class UserService implements IUser {
                 ps.setString(6, null);
             }
 
-            ps.setString(7, "a:1:{i:0;s:11:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
+            ps.setString(7, "a:1:{i:0;s:12:\"ROLE_" + u.getType().toString().toUpperCase() + "\";}");
             ps.setString(8, u.getType().toString());
             ps.setString(9, u.getEtat().toString());
             ps.setString(10, u.getAdresse());
@@ -326,9 +322,7 @@ public class UserService implements IUser {
             ps.setString(13, u.getPrenom());
             ps.setString(14, u.getDateNaissance().format(DateTimeFormatter.ISO_LOCAL_DATE));
             ps.setString(15, u.getSexe());
-            ps.setString(16, u.getSalt());
-
-            ps.setBlob(17, u.getPhoto());
+            ps.setBlob(16, u.getPhoto());
 
             ps.executeUpdate();
 //            System.out.println("Modification User " + u.getUserName() + " réussie");
