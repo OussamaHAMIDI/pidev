@@ -3,16 +3,16 @@
 namespace TombolaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
+
 use Symfony\Component\Validator\Constraints\DateTime;
-use Symfony\Component\validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 
 /**
  * Tombola
  *
- * @ORM\Table(name="tombola", indexes={@ORM\Index(name="id_vendeur", columns={"id_vendeur"}), @ORM\Index(name="id_gagnant", columns={"id_gagnant"})})
- * @ORM\Entity(repositoryClass="GestionTombolaBundle\Repository\TombolaRepository")
+ * @ORM\Table(name="tombola", indexes={@ORM\Index(name="id_artisan", columns={"id_artisan"}), @ORM\Index(name="id_gagnant", columns={"id_gagnant"})})
+ * @ORM\Entity(repositoryClass="TombolaBundle\Repository\TombolaRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Tombola
@@ -20,11 +20,11 @@ class Tombola
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_tombola", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idTombola;
+    private $id;
 
     /**
      * @var string
@@ -40,12 +40,10 @@ class Tombola
      */
     private $description;
 
-
-
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_ajout", type="datetime", nullable=true)
+     * @ORM\Column(name="date_ajout", type="datetime", nullable=false)
      */
     private $dateAjout ;
 
@@ -60,9 +58,9 @@ class Tombola
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_gagnant", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="id_gagnant", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * })
      */
     private $idGagnant;
@@ -70,12 +68,12 @@ class Tombola
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_vendeur", referencedColumnName="id", nullable=true)
+     *   @ORM\JoinColumn(name="id_artisan", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * })
      */
-    private $idVendeur;
+    private $idArtisan;
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
@@ -87,17 +85,132 @@ class Tombola
     /**
      * @var \DateTime
      *
-     * @ORM\COlumn(name="updated_at",type="datetime", nullable=true)
+     * @ORM\COlumn(name="date_modification",type="datetime", nullable=true)
      */
-    private $updateAt;
+    private $dateModif;
 
     /**
-     * @ORM\PostLoad()
+     * @return int
      */
-    public function postLoad()
+    public function getId(): int
     {
-        $this->updateAt = new \DateTime();
+        return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getTitre(): string
+    {
+        return $this->titre;
+    }
+
+    /**
+     * @param string $titre
+     */
+    public function setTitre(string $titre): void
+    {
+        $this->titre = $titre;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateAjout(): \DateTime
+    {
+        return $this->dateAjout;
+    }
+
+    /**
+     * @param \DateTime $dateAjout
+     */
+    public function setDateAjout(\DateTime $dateAjout): void
+    {
+        $this->dateAjout = $dateAjout;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateTirage(): DateTime
+    {
+        return $this->dateTirage;
+    }
+
+    /**
+     * @param DateTime $dateTirage
+     */
+    public function setDateTirage(DateTime $dateTirage): void
+    {
+        $this->dateTirage = $dateTirage;
+    }
+
+    /**
+     * @return User
+     */
+    public function getIdGagnant(): User
+    {
+        return $this->idGagnant;
+    }
+
+    /**
+     * @param User $idGagnant
+     */
+    public function setIdGagnant(User $idGagnant): void
+    {
+        $this->idGagnant = $idGagnant;
+    }
+
+    /**
+     * @return User
+     */
+    public function getIdArtisan(): User
+    {
+        return $this->idArtisan;
+    }
+
+    /**
+     * @param User $idArtisan
+     */
+    public function setIdArtisan(User $idArtisan): void
+    {
+        $this->idArtisan = $idArtisan;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateModif(): \DateTime
+    {
+        return $this->dateModif;
+    }
+
+    /**
+     * @param \DateTime $dateModif
+     */
+    public function setDateModif(\DateTime $dateModif): void
+    {
+        $this->dateModif = $dateModif;
+    }
+
+
+
 
     /**
      * Tombola constructor.
@@ -106,123 +219,12 @@ class Tombola
     {
         $this->dateAjout = new \DateTime();
     }
-
-
     /**
-     * @return int
+     * @ORM\PostLoad()
      */
-    public function getIdTombola()
+    public function postLoad()
     {
-        return $this->idTombola;
-    }
-
-    /**
-     * @param int $idTombola
-     */
-    public function setIdTombola($idTombola)
-    {
-        $this->idTombola = $idTombola;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    /**
-     * @param string $titre
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-
-
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateAjout()
-    {
-        return $this->dateAjout;
-    }
-
-    /**
-     * @param \DateTime $dateAjout
-     */
-    public function setDateAjout($dateAjout)
-    {
-        $this->dateAjout = $dateAjout;
-    }
-
-
-
-    /**
-     * @return DateTime
-     */
-    public function getDateTirage()
-    {
-        return $this->dateTirage;
-    }
-
-    /**
-     * @param DateTime $dateTirage
-     */
-    public function setDateTirage($dateTirage)
-    {
-        $this->dateTirage = $dateTirage;
-    }
-
-    /**
-     * @return User
-     */
-    public function getIdGagnant()
-    {
-        return $this->idGagnant;
-    }
-
-    /**
-     * @param User $idGagnant
-     */
-    public function setIdGagnant($idGagnant)
-    {
-        $this->idGagnant = $idGagnant;
-    }
-
-    /**
-     * @return User
-     */
-    public function getIdVendeur()
-    {
-        return $this->idVendeur;
-    }
-
-    /**
-     * @param User $idVendeur
-     */
-    public function setIdVendeur($idVendeur)
-    {
-        $this->idVendeur = $idVendeur;
+        $this->updateAt = new \DateTime();
     }
 
     public function getUploadRootDir()
@@ -241,8 +243,8 @@ class Tombola
     }
 
     /**
-     * @ORM\Prepersist()
-     * @ORM\Preupdate()
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function preUpload()
     {
@@ -283,38 +285,5 @@ class Tombola
     {
         if (file_exists($this->tempFile)) unlink($this->tempFile);
     }
-
-    /**
-     * @return mixed
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param mixed $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
 
 }

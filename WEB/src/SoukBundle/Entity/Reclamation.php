@@ -3,6 +3,7 @@
 namespace SoukBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User as User;
 
 
 class Reclamation

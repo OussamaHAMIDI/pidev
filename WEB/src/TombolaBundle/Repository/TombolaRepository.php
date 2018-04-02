@@ -7,7 +7,7 @@
  * Time: 21:40
  */
 
-namespace GestionTombolaBundle\Repository;
+namespace TombolaBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
