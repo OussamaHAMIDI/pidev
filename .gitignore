@@ -5,6 +5,7 @@ WEB/vendor/
 WEB/.idea/
 WEB/build/
 WEB/var/
+!WEB/vendor/friendsofsymfony/.gitkeep
 !WEB/var/cache/.gitkeep
 !WEB/var/logs/.gitkeep
 !WEB/var/sessions/.gitkeep

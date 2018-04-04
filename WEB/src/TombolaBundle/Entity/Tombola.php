@@ -28,13 +28,24 @@ class Tombola
 
     /**
      * @var string
-     *
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "Titre doit contenir au moins  {{ limit }} characteres",
+     *      maxMessage = "Titre doit contenir au maximum{{ limit }} characteres"
+     * )
      * @ORM\Column(name="titre", type="string", length=100, nullable=false)
      */
     private $titre;
 
     /**
      * @var string
+     * * @Assert\Length(
+     *      min = 10,
+     *      max = 500,
+     *      minMessage = "Titre doit contenir au moins  {{ limit }} characteres",
+     *      maxMessage = "Titre doit contenir au maximum{{ limit }} characteres"
+     * )
      *
      * @ORM\Column(name="description", type="string", length=1000, nullable=false)
      */
@@ -49,7 +60,8 @@ class Tombola
 
     /**
      * @var DateTime
-     * @Assert\GreaterThan("today")
+     * @Assert\GreaterThan("today", message="Date tirage doit etre superieure à la date d'aujourd'hui")
+     * @Assert\LessThan("1 year", message="Date tirage doit pas exceder une année compté aujourd'hui")
      *
      * @ORM\Column(name="date_tirage", type="datetime", nullable=true)
      */
@@ -78,9 +90,9 @@ class Tombola
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
-    public $file;
+
 
     /**
      * @var \DateTime
@@ -100,7 +112,7 @@ class Tombola
     /**
      * @return string
      */
-    public function getTitre(): string
+    public function getTitre()
     {
         return $this->titre;
     }
@@ -116,7 +128,7 @@ class Tombola
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -124,7 +136,7 @@ class Tombola
     /**
      * @param string $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
@@ -132,7 +144,7 @@ class Tombola
     /**
      * @return \DateTime
      */
-    public function getDateAjout(): \DateTime
+    public function getDateAjout()
     {
         return $this->dateAjout;
     }
@@ -140,7 +152,7 @@ class Tombola
     /**
      * @param \DateTime $dateAjout
      */
-    public function setDateAjout(\DateTime $dateAjout): void
+    public function setDateAjout(\DateTime $dateAjout)
     {
         $this->dateAjout = $dateAjout;
     }
@@ -148,7 +160,7 @@ class Tombola
     /**
      * @return DateTime
      */
-    public function getDateTirage(): DateTime
+    public function getDateTirage()
     {
         return $this->dateTirage;
     }
@@ -156,7 +168,7 @@ class Tombola
     /**
      * @param DateTime $dateTirage
      */
-    public function setDateTirage(DateTime $dateTirage): void
+    public function setDateTirage($dateTirage)
     {
         $this->dateTirage = $dateTirage;
     }
@@ -188,7 +200,7 @@ class Tombola
     /**
      * @param User $idArtisan
      */
-    public function setIdArtisan(User $idArtisan): void
+    public function setIdArtisan(User $idArtisan)
     {
         $this->idArtisan = $idArtisan;
     }
@@ -196,7 +208,7 @@ class Tombola
     /**
      * @return \DateTime
      */
-    public function getDateModif(): \DateTime
+    public function getDateModif()
     {
         return $this->dateModif;
     }
@@ -204,12 +216,26 @@ class Tombola
     /**
      * @param \DateTime $dateModif
      */
-    public function setDateModif(\DateTime $dateModif): void
+    public function setDateModif(\DateTime $dateModif)
     {
         $this->dateModif = $dateModif;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
 
 
     /**
@@ -224,6 +250,7 @@ class Tombola
      */
     public function postLoad()
     {
+
         $this->updateAt = new \DateTime();
     }
 
@@ -241,6 +268,11 @@ class Tombola
     {
         return 'uploads/'.$this->path;
     }
+    /******************************************************************************************************************/
+
+    public $file;
+
+
 
     /**
      * @ORM\PrePersist()
@@ -249,8 +281,9 @@ class Tombola
     public function preUpload()
     {
         $this->tempFile = $this->getAbsolutePath();
-        $this->oldFile = $this->getPath();
+        $this->oldFile = $this->path;
         $this->updateAt = new \DateTime();
+
 
         if (null !== $this->file)
             $this->path = sha1(uniqid(mt_rand(),true)).'.'.$this->file->guessExtension();

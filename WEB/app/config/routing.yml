@@ -1,7 +1,7 @@
 tombola:
     resource: "@TombolaBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /tombola
 
 user:
     resource: "@UserBundle/Controller/"
