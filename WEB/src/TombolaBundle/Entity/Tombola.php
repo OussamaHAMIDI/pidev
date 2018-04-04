@@ -256,7 +256,7 @@ class Tombola
 
     public function getUploadRootDir()
     {
-        return __dir__.'/../../../web/uploads';
+        return dirname(__DIR__, 4).'/uploads';
     }
 
     public function getAbsolutePath()
