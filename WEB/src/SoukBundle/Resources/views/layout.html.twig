@@ -30,6 +30,9 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
+        <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -82,73 +85,77 @@
                             <div class="header-btns-icon">
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                                    <img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30$">
+                                    <img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">
 
                                 {% else %}
                                     <i class="fa fa-user-o"></i>
                                 {% endif %}
 
-
-
                             </div>
-                            <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                            <strong class="text-uppercase">Mon compte <i class="fa fa-caret-down"></i></strong><br>
                         </div>
-                        <a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+                        <a href="{{ path('fos_user_security_login') }}" class="text-uppercase" style="font-size: 11px">Login</a> /
+                        <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase" style="font-size: 11px">Register</a>
                         <ul class="custom-menu">
-                            <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                            <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                            <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                            <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i>Mon profil</a></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i>Déconnexion</a></li>
+                            {% else %}
+                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>  Connexion</a></li>
+                                <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-user-plus"></i>Creer un compte</a></li>
+
+                            {% endif %}
+
                         </ul>
                     </li>
                     <!-- /Account -->
+                    {% if (is_granted("ROLE_CLIENT")) %}
+                        <!-- Cart -->
+                        <li class="header-cart dropdown default-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span class="qty">3</span>
+                                </div>
+                                <strong class="text-uppercase">Mon panier:</strong>
+                                <br>
+                                <span>35.20$</span>
+                            </a>
+                            <div class="custom-menu">
+                                <div id="shopping-cart">
+                                    <div class="shopping-cart-list">
+                                        <div class="product product-widget">
+                                            <div class="product-thumb">
+                                                <img src="{{ asset('img/main-product01.jpg') }}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                        <div class="product product-widget">
+                                            <div class="product-thumb">
+                                                <img src="{{ asset('img/main-product01.jpg') }}" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="shopping-cart-btns">
+                                        <button class="main-btn">View Cart</button>
+                                        <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- /Cart -->
 
-                    <!-- Cart -->
-                    <li class="header-cart dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="qty">3</span>
-                            </div>
-                            <strong class="text-uppercase">My Cart:</strong>
-                            <br>
-                            <span>35.20$</span>
-                        </a>
-                        <div class="custom-menu">
-                            <div id="shopping-cart">
-                                <div class="shopping-cart-list">
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="{{ asset('img/main-product01.jpg') }}" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                            <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        </div>
-                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="{{ asset('img/main-product01.jpg') }}" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                            <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        </div>
-                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </div>
-                                <div class="shopping-cart-btns">
-                                    <button class="main-btn">View Cart</button>
-                                    <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- /Cart -->
+                    {% endif %}
 
                     <!-- Mobile nav toggle-->
                     <li class="nav-toggle">
@@ -452,6 +459,9 @@
     <script src="{{ asset('js/nouislider.min.js') }}"></script>
     <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <!-- DATE TIME PICKER DEPENDENCIES monent.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+    <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 
 {% endblock %}
 </body>

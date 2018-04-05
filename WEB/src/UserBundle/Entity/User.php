@@ -416,37 +416,21 @@ class User extends BaseUser
 
     public function getUploadRootDir()
     {
-        return __dir__.'/../../../web/uploads';
+        return dirname(__DIR__, 4).'/uploads';
     }
 
-    public function getAbsolutePath()
+    public function getAbsolutePathPhotoProfil()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+        return null === $this->pathPhotoProfil ? null : $this->getUploadRootDir().'/'.$this->pathPhotoProfil;
     }
 
     public function getAssetPath()
     {
-        return 'uploads/'.$this->path;
+        return 'uploads/'.$this->pathPhotoProfil;
     }
     /******************************************************************************************************************/
 
-    public $file;
-
-    /**
-     * @return string
-     */
-    public function getFile(): string
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param string $file
-     */
-    public function setFile(string $file): void
-    {
-        $this->file = $file;
-    }
+    private $fileProfil;
 
 
 
@@ -456,13 +440,13 @@ class User extends BaseUser
      */
     public function preUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
-        $this->oldFile = $this->path;
+        $this->tempFile = $this->getAbsolutePathPhotoProfil();
+        $this->oldFile = $this->pathPhotoProfil;
         $this->updateAt = new \DateTime();
 
 
-        if (null !== $this->file)
-            $this->path = sha1(uniqid(mt_rand(),true)).'.'.$this->getFile()->guessExtension();
+        if (null !== $this->fileProfil)
+            $this->pathPhotoProfil = sha1(uniqid(mt_rand(),true)).'.'.$this->fileProfil->guessExtension();
     }
 
     /**
@@ -471,9 +455,9 @@ class User extends BaseUser
      */
     public function upload()
     {
-        if (null !== $this->file) {
-            $this->file->move($this->getUploadRootDir(),$this->path);
-            unset($this->file);
+        if (null !== $this->fileProfil) {
+            $this->fileProfil->move($this->getUploadRootDir(),$this->pathPhotoProfil);
+            unset($this->fileProfil);
 
             if ($this->oldFile != null) unlink($this->tempFile);
         }
@@ -484,7 +468,7 @@ class User extends BaseUser
      */
     public function preRemoveUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
+        $this->tempFile = $this->getAbsolutePathPhotoProfil();
     }
 
     /**

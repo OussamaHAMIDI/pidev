@@ -28,7 +28,7 @@ class Tombola
 
     /**
      * @var string
-     * @Assert\Length(
+     * *@Assert\Length(
      *      min = 5,
      *      max = 50,
      *      minMessage = "Titre doit contenir au moins  {{ limit }} characteres",
@@ -41,10 +41,10 @@ class Tombola
     /**
      * @var string
      * * @Assert\Length(
-     *      min = 10,
+     *      min = 20,
      *      max = 500,
-     *      minMessage = "Titre doit contenir au moins  {{ limit }} characteres",
-     *      maxMessage = "Titre doit contenir au maximum{{ limit }} characteres"
+     *      minMessage = "Description doit contenir au moins  {{ limit }} characteres",
+     *      maxMessage = "Description doit contenir au maximum{{ limit }} characteres"
      * )
      *
      * @ORM\Column(name="description", type="string", length=1000, nullable=false)
@@ -61,7 +61,7 @@ class Tombola
     /**
      * @var DateTime
      * @Assert\GreaterThan("today", message="Date tirage doit etre superieure à la date d'aujourd'hui")
-     * @Assert\LessThan("1 year", message="Date tirage doit pas exceder une année compté aujourd'hui")
+     * @Assert\LessThan("1 year", message="Date tirage doit pas exceder une année compté d'aujourd'hui")
      *
      * @ORM\Column(name="date_tirage", type="datetime", nullable=true)
      */
@@ -87,8 +87,17 @@ class Tombola
      */
     private $idArtisan;
 
+//* @Assert\File(
+//*     mimeTypes={ "image/bmp","image/png" ,"image/jpeg" },
+//*      mimeTypesMessage="Le type du fichier est invalide {{type}}. Les types autorisés sont {{types}}."),
+//     *
+//     *     maxSize="1M",    maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
+//     *      La taille maximale autorisée est {{ limit }} {{ suffix }}"
+//    * )
+
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
+     * @Assert\Image()
      */
     private $path;
 

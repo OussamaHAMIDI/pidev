@@ -15,34 +15,43 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-1">
                     <div class="form-group" >
-                        {#<p>{{ form_errors(form) }}</p>#}
+                        {#{{ form_errors(form) }}#}
                         <form  method="post" enctype="multipart/form-data" id="ajout_tombola_form">
                             {{ form_start(form)}}
-                            {{ form_widget(form) }}
-                            {#<div class="form-group">#}
-                                {#<label for="name-login">Titre</label>#}
-                                {#{{ form_widget(form.titre, {'attr': {'class': 'form_titre'}}) }}#}
-                                {#<span id="titre_error"></span>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#<label for="name-login">Description</label>#}
-                                {#{{ form_widget(form.description, {'attr': {'class': 'form_description'}}) }}#}
-                                {#<span id="description_error"></span>#}
-                            {#</div>#}
+
+                            {{ form_row(form.titre) }}
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.dateTirage) }}
+
                             {#<div class="form-group">#}
                                 {#<label for="name-login">Date de tirage</label>#}
-                                {#{{ form_widget(form.dateTirage, {'attr': {'class': 'form_tirage'}}) }}#}
-                                {#{{ form_errors(form.dateTirage) }}#}
-                                {#<span id="tirage_error"></span>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#<label for="name-login">Image du tombola</label>#}
-                                {#{{ form_widget(form.file) }}#}
+                                {#<div class='input-group date' id='datetimepicker' >#}
+                                    {#{{ form_widget(form.dateTirage, {'attr': {'class': 'form_tirage'}}) }}#}
+                                    {#<span class="input-group-addon">#}
+                                        {#<span class="glyphicon glyphicon-calendar"></span>#}
+                                    {#</span>#}
+                                {#</div>#}
+                                {#<span style="color: #a94442" {{ form_errors(form.dateTirage) }} </span>#}
                             {#</div>#}
 
-                            <div class="form-group" >
-                                <input type="submit" class="primary-btn">
+
+                            {#{{ form_rest(form) }}#}
+
+
+                            <div class="form-group" id="1">
+                                <label for="name-login">Image du tombola</label>
+                                {#<input type="file" id="tombolabundle_tombola_file" name="tombolabundle_tombola[file]" required="required">#}
+                                {{ form_widget(form.file) }}
+                                <br>
+                                <img id="img" src="#" alt="Apercu de votre image" width="30%"/>
                             </div>
+
+                            <div class="form-group" >
+                                <input type="submit" class="primary-btn" id="submit">
+                            </div>
+
+
+
                             {{ form_end(form) }}
                         </form>
                     </div>
@@ -54,99 +63,37 @@
         <!-- /container -->
     </div>
 
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
-        $(function() {
-            console.log( "ready!" );
-            console.log( $("#tombolabundle_tombola_titre").value );
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-            $("#tombolabundle_tombola_dateTirage_date_month").value = 2;
-            $(".form_tirage").value = new Date();
-
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-        if(dd<10){
-            dd='0'+dd
-        }
-        if(mm<10){
-            mm='0'+mm
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
-        today = yyyy+'-'+mm+'-'+dd;
-            // $(".form_tirage").setAttribute("min", today);
-
+        $("#submit").click(function(){
+            alert($('input[type=file]').val());
         });
-    </script>
-    <script>
+
+        $("#tombolabundle_tombola_file").change(function(){
+            readURL(this);
+        });
+
+
         $(function () {
-
-            $(".titre_error").hide();
-            $(".description_error").hide();
-            $(".tirage_error").hide();
-
-            var error_titre =false;
-            var error_description =false;
-            var error_tirage =false;
-
-            $(".form_titre").focusout(function () {
-                check_titre();
+            $('#datetimepicker').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm:ss'
             });
-
-            $(".form_description").focusout(function () {
-                check_description();
-            });
-            $(".form_tirage").select(function () {
-                check_tirage();
-            });
-
-            function check_titre() {
-                var titre_length = $(".form_titre").val().length;
-
-                if(titre_length < 8 ) {
-                    $("#titre_error").html("minumum 8 lettres ! ");
-                    $("#titre_error").show();
-                    error_titre = true;
-                }
-                else {
-                    $("#titre_error").hide();
-                }
-            }
-
-            function check_description() {
-                var description_length = $(".form_description").val().length;
-
-                if(description_length < 20 ) {
-                    $("#description_error").html("minumum 20 lettres ! ");
-                    $("#description_error").show();
-                    error_description = true;
-                }
-                else {
-                    $("#description_error").hide();
-                }
-            }
-
-
-            function check_tirage() {
-                var date_tirage = $(".form_tirage").val().getDate();
-                console.log(date_tirage);
-                var current_date = new Date();
-                if(Date.parse(date_tirage)  < Date.parse(current_date) ) {
-                    $("#tirage_error").html("erreur date");
-                    $("#tirage_error").show();
-                    error_tirage = true;
-                }
-                else {
-                    $("#tirage_error").hide();
-                }
-            }
-
         });
     </script>
 
-
+    {% endblock javascripts %}
 
 {% endblock body %}
 

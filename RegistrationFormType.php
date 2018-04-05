@@ -66,7 +66,7 @@ class RegistrationFormType extends AbstractType
                 'class' => 'form-control')))
             ->add('dateNaissance', DateType::class, array('label' => 'Date De Naissance', 'attr' => array(
                 'class' => 'form-control'),
-                'html5' => true,
+                'html5' => true,'data' => new \DateTime('01/01/1995'),
                 'widget' => 'single_text'))
 
             ->add('sexe', ChoiceType::class, array(
