@@ -1,11 +1,12 @@
 # Project java
 /Desktop/*
 
-WEB/vendor/
+
 WEB/.idea/
 WEB/build/
 WEB/var/
-!WEB/var/cache/.gitkeep
-!WEB/var/logs/.gitkeep
-!WEB/var/sessions/.gitkeep
+
+!WEB/vendor/friendsofsymfony/.gitkeep
+
 WEB/web/bundles/
+WEB/vendor/*

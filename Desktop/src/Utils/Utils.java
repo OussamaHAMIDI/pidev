@@ -65,15 +65,6 @@ public class Utils {
         return saltStr;
     }
 
-    public static String hashPassword(String password_plaintext, String salt) {
-        int cost = 4;// cost (iterations) in fos bundle*********************
-        String digest = BCrypt.hashpw(password_plaintext, salt);
-        for (int i = 0; i < cost - 2; i++) {
-            digest = BCrypt.hashpw(password_plaintext, salt);
-        }
-        return digest;
-    }
-
     public static boolean verifEmail(String email) {
         boolean isValid = false;
         try {

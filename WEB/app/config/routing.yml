@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 boutique:
     resource: "@BoutiqueBundle/Controller/"
     type:     annotation
     prefix:   /
+=======
+tombola:
+    resource: "@TombolaBundle/Controller/"
+    type:     annotation
+    prefix:   /tombola
+>>>>>>> b8329328cacbfdd19a13864175397d6b54d9de04
 
 user:
     resource: "@UserBundle/Controller/"

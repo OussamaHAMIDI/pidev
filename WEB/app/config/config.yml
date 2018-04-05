@@ -3,8 +3,12 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SoukBundle/Resources/config/services.yml" }
+<<<<<<< HEAD
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
+=======
+    - { resource: "@TombolaBundle/Resources/config/services.yml" }
+>>>>>>> b8329328cacbfdd19a13864175397d6b54d9de04
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -37,6 +41,8 @@ framework:
 
 # Twig Configuration
 twig:
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
@@ -87,12 +93,12 @@ fos_user:
             email:
                 from_email:
                     address:        souklemdina@gmail.com
-                    sender_name:    Administrateur_SoukLemdina
+                    sender_name:    Administrateur SoukLemdina
     registration:
             email:
                 from_email:
                     address:        souklemdina@gmail.com
-                    sender_name:    Administrateur_SoukLemdina
+                    sender_name:    Administrateur SoukLemdina
     from_email:
                         address:        souklemdina@gmail.com
-                        sender_name:    Administrateur_SoukLemdina
+                        sender_name:    Administrateur SoukLemdina

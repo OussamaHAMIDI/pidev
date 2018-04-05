@@ -7,6 +7,7 @@ package Presentation;
 
 import Entities.User;
 import Services.UserService;
+import Utils.BCrypt;
 import Utils.Enumerations.EtatUser;
 import Utils.Enumerations.TypeUser;
 import Utils.Utils;
@@ -102,12 +103,10 @@ public class LoginController implements Initializable {
             }
 
             if (u != null) {
-                String pswHashed = Utils.hashPassword(password_text, u.getSalt());
+                if (BCrypt.checkpw(password_text, u.getMdp().replace("$2y$10$", "$2a$10$"))) {
 
-                if (pswHashed.equals(u.getMdp())) {
-                   
                     if (u.getEtat() == EtatUser.Active || u.getEtat() == EtatUser.Disconnected || u.getEtat() == EtatUser.Connected) {
-                        
+
                         Utils.showTrayNotification(NotificationType.NOTICE, "Connexion établie", u.getType().toString(), "Bienvenue " + u.getNom() + " "
                                 + u.getPrenom(), u.getPhoto(), 5000);
 

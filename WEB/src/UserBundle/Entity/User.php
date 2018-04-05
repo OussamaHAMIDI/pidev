@@ -5,11 +5,13 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="`user`", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="username_canonical", columns={"username_canonical"}), @ORM\UniqueConstraint(name="email", columns={"email"}), @ORM\UniqueConstraint(name="email_canonical", columns={"email_canonical"}), @ORM\UniqueConstraint(name="confirmation_token", columns={"confirmation_token"})})
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity
  */
 class User extends BaseUser
@@ -22,7 +24,6 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-
 
     /**
      * @var string
@@ -49,6 +50,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=15, nullable=false)
+     * @Assert\Type(
+     *     type= "integer",
+     *     message="Le numéro de telephone doit contenir 8 chiffres ou plus")
      */
     private $tel;
 
@@ -56,6 +60,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=100, nullable=false)
+     * @Assert\Regex(
+     *     pattern = "/^([a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+)$/i",
+     *     message="Votre nom ne peut pas contenir des chiffres")
      */
     private $nom;
 
@@ -63,6 +70,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
+     *  * @Assert\Regex(
+     *     pattern = "/^([a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+)|([a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+)$/i",
+     *     message="Votre prenom ne peut pas contenir des chiffres")
      */
     private $prenom;
 
@@ -70,6 +80,8 @@ class User extends BaseUser
      * @var \DateTime
      *
      * @ORM\Column(name="date_naissance", type="date", nullable=false)
+     * @Assert\LessThan("-17 years", message="Vous etes trop jeune")
+     * @Assert\GreaterThan("-100 years", message="Vous etes trop grand xD")
      */
     private $dateNaissance;
 
@@ -81,9 +93,9 @@ class User extends BaseUser
     private $sexe;
 
     /**
-     * @var string
+     * @var mixed
      *
-     * @ORM\Column(name="photo_profil", type="blob", length=16777215, nullable=true)
+     * @ORM\Column(name="photo_profil", type="blob", length=16777215, nullable=false)
      */
     private $photoProfil;
 
@@ -97,16 +109,20 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="path_photo_profil", type="string", length=180, nullable=true)
+     * @Assert\File( maxSize = "1024k", mimeTypesMessage = "Taille de l'image max < 1024 Ko")
+     * @ORM\Column(name="path_photo_profil", type="string", length=255, nullable=false)
      */
     private $pathPhotoProfil;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="path_photo_permis", type="string", length=180, nullable=true)
+     * @Assert\File( maxSize = "1024k", mimeTypesMessage = "Taille de l'image max < 1024 Ko")
+     * @ORM\Column(name="path_photo_permis", type="string", length=255, nullable=true)
      */
     private $pathPhotoPermis;
+
 
     /**
      * User constructor.
@@ -122,11 +138,9 @@ class User extends BaseUser
             $this->etat = "Pending";
         }
 
-        $this->enabled = true;
-
     }
 
-//
+
     /**
      * Get id
      *
@@ -339,71 +353,8 @@ class User extends BaseUser
         return $this->sexe;
     }
 
-    /**
-     * Set photoProfil
-     *
-     * @param string $photoProfil
-     *
-     * @return User
-     */
-    public function setPhotoProfil($photoProfil)
-    {
-        $this->photoProfil = $photoProfil;
-
-        return $this;
-    }
 
     /**
-     * Get photoProfil
-     *
-     * @return string
-     */
-    public function getPhotoProfil()
-    {
-        return $this->photoProfil;
-    }
-
-    /**
-     * Set photoPermis
-     *
-     * @param string $photoPermis
-     *
-     * @return User
-     */
-    public function setPhotoPermis($photoPermis)
-    {
-        $this->photoPermis = $photoPermis;
-
-        return $this;
-    }
-
-    /**
-     * Get photoPermis
-     *
-     * @return string
-     */
-    public function getPhotoPermis()
-    {
-        return $this->photoPermis;
-    }
-
-    /**
-     * Set pathPhotoProfil
-     *
-     * @param string $pathPhotoProfil
-     *
-     * @return User
-     */
-    public function setPathPhotoProfil($pathPhotoProfil)
-    {
-        $this->pathPhotoProfil = $pathPhotoProfil;
-
-        return $this;
-    }
-
-    /**
-     * Get pathPhotoProfil
-     *
      * @return string
      */
     public function getPathPhotoProfil()
@@ -412,26 +363,121 @@ class User extends BaseUser
     }
 
     /**
-     * Set pathPhotoPermis
-     *
-     * @param string $pathPhotoPermis
-     *
-     * @return User
+     * @param string $pathPhotoProfil
      */
-    public function setPathPhotoPermis($pathPhotoPermis)
+    public function setPathPhotoProfil(string $pathPhotoProfil)
     {
-        $this->pathPhotoPermis = $pathPhotoPermis;
-
-        return $this;
+        $this->pathPhotoProfil = $pathPhotoProfil;
     }
 
     /**
-     * Get pathPhotoPermis
-     *
      * @return string
      */
     public function getPathPhotoPermis()
     {
         return $this->pathPhotoPermis;
     }
+
+    /**
+     * @param string $pathPhotoPermis
+     */
+    public function setPathPhotoPermis(string $pathPhotoPermis): void
+    {
+        $this->pathPhotoPermis = $pathPhotoPermis;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoProfil()
+    {
+        return $this->photoProfil;
+    }
+
+    /**
+     * @param mixed $photoProfil
+     */
+    public function setPhotoProfil($photoProfil): void
+    {
+        $this->photoProfil = $photoProfil;
+    }
+
+
+
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+
+        $this->updateAt = new \DateTime();
+    }
+
+    public function getUploadRootDir()
+    {
+        return dirname(__DIR__, 4).'/uploads';
+    }
+
+    public function getAbsolutePathPhotoProfil()
+    {
+        return null === $this->pathPhotoProfil ? null : $this->getUploadRootDir().'/'.$this->pathPhotoProfil;
+    }
+
+    public function getAssetPath()
+    {
+        return 'uploads/'.$this->pathPhotoProfil;
+    }
+    /******************************************************************************************************************/
+
+    private $fileProfil;
+
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        $this->tempFile = $this->getAbsolutePathPhotoProfil();
+        $this->oldFile = $this->pathPhotoProfil;
+        $this->updateAt = new \DateTime();
+
+
+        if (null !== $this->fileProfil)
+            $this->pathPhotoProfil = sha1(uniqid(mt_rand(),true)).'.'.$this->fileProfil->guessExtension();
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null !== $this->fileProfil) {
+            $this->fileProfil->move($this->getUploadRootDir(),$this->pathPhotoProfil);
+            unset($this->fileProfil);
+
+            if ($this->oldFile != null) unlink($this->tempFile);
+        }
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        $this->tempFile = $this->getAbsolutePathPhotoProfil();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (file_exists($this->tempFile)) unlink($this->tempFile);
+    }
+
+
 }
