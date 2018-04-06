@@ -85,12 +85,12 @@ class RegistrationFormType extends AbstractType
 
             ->add('adresse', null, array('label' => 'Adresse', 'attr' => array(
                 'class' => 'form-control')))
-        ->add('tel', null, array('label' => 'Numéro de Téléphone', 'attr' => array(
-        'class' => 'form-control')))
-        ->add('pathPhotoProfil', FileType::class, array('required'=>true,'label' => 'Photo de profil','attr'   =>  array(
-            'class'   => 'form-control')))
-        ->add('pathPhotoPermis', FileType::class, array('required'=>false,'label' => 'Photo de permis','attr'   =>  array(
-        'class'   => 'form-control')));
+            ->add('tel', null, array('label' => 'Numéro de Téléphone', 'attr' => array(
+                'class' => 'form-control')))
+            ->add('pathPhotoProfil', FileType::class, array('required'=>true,'label' => 'Photo de profil','attr'   =>  array(
+                'class'   => 'form-control')))
+            ->add('pathPhotoPermis', FileType::class, array('required'=>false,'label' => 'Photo de permis','attr'   =>  array(
+                'class'   => 'form-control')));
     }
 
     /**

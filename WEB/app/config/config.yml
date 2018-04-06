@@ -3,8 +3,15 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SoukBundle/Resources/config/services.yml" }
+
+
+    - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
+
     - { resource: "@TombolaBundle/Resources/config/services.yml" }
     - { resource: "@ProduitBundle/Resources/config/services.yml" }
+
+    - { resource: "@ReclamationBundle/Resources/config/services.yml" }
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -72,7 +79,11 @@ swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
+<<<<<<< HEAD
     # auth_mode: '%mailer_auth_mode%'
+=======
+#    auth_mode: '%mailer_auth_mode%'
+>>>>>>> 2b4bb802c6cdc81c1ab467e44b187345fbd6d1e9
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl

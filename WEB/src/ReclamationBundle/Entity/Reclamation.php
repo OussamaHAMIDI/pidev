@@ -1,19 +1,22 @@
 <?php
 
-namespace SoukBundle\Entity;
+namespace ReclamationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User as User;
 
 
+/**
+ * Reclamation
+ *
+ * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_produit", columns={"id_produit"}), @ORM\Index(name="id_boutique", columns={"id_boutique"})})
+ * @ORM\Entity
+ */
+
 class Reclamation
 {
-    /**
-     * Reclamation
-     *
-     * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_produit", columns={"id_produit"}), @ORM\Index(name="id_boutique", columns={"id_boutique"})})
-     * @ORM\Entity
-     */
+
+
     /**
      * @var integer
      *
@@ -40,7 +43,7 @@ class Reclamation
     /**
      * @var Boutique
      *
-     * @ORM\ManyToOne(targetEntity="Boutique")
+     * @ORM\ManyToOne(targetEntity="SoukBundle\Entity\Boutique")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_boutique", referencedColumnName="id")
      * })
@@ -50,7 +53,7 @@ class Reclamation
     /**
      * @var Produit
      *
-     * @ORM\ManyToOne(targetEntity="Produit")
+     * @ORM\ManyToOne(targetEntity="SoukBundle\Entity\Produit")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_produit", referencedColumnName="id")
      * })
@@ -60,7 +63,7 @@ class Reclamation
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * })
