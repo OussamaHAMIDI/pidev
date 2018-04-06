@@ -3,8 +3,16 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SoukBundle/Resources/config/services.yml" }
+<<<<<<< HEAD
+    - { resource: "@UserBundle/Resources/config/services.yml" }
+    - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
+=======
     - { resource: "@TombolaBundle/Resources/config/services.yml" }
+<<<<<<< HEAD
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
+=======
+>>>>>>> b8329328cacbfdd19a13864175397d6b54d9de04
+>>>>>>> 837629ee8fb9df79aea9515483010cd8c3eeeaaa
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
