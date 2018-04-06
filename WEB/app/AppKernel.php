@@ -22,7 +22,15 @@ class AppKernel extends Kernel
             new BoutiqueBundle\BoutiqueBundle(),
 
             new TombolaBundle\TombolaBundle(),
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+            new ReclamationBundle\ReclamationBundle(),
+=======
+>>>>>>> b8329328cacbfdd19a13864175397d6b54d9de04
+>>>>>>> 837629ee8fb9df79aea9515483010cd8c3eeeaaa
+>>>>>>> 3a68fe4ba2bccc0920b92d049dad142e7c687edd
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

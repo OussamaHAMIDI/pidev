@@ -1,8 +1,24 @@
+<<<<<<< HEAD
 
 boutique:
     resource: "@BoutiqueBundle/Resources/config/routing.yml"
     prefix:   /boutique
 
+=======
+<<<<<<< HEAD
+reclamation:
+    resource: "@ReclamationBundle/Resources/config/routing.yml"
+    prefix:   /reclamation
+
+=======
+<<<<<<< HEAD
+boutique:
+    resource: "@BoutiqueBundle/Controller/"
+    type:     annotation
+    prefix:   /
+=======
+>>>>>>> 837629ee8fb9df79aea9515483010cd8c3eeeaaa
+>>>>>>> 3a68fe4ba2bccc0920b92d049dad142e7c687edd
 tombola:
     resource: "@TombolaBundle/Controller/"
     type:     annotation

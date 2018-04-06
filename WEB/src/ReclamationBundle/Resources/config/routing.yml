@@ -1,0 +1,7 @@
+reclamation_homepage:
+    path:     /
+    defaults: { _controller: ReclamationBundle:Default:index }
+
+reclamation_afficher:
+    path:     /afficher
+    defaults: { _controller: ReclamationBundle:Reclamation:afficherReclamation }
