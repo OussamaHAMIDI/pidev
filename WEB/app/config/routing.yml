@@ -1,3 +1,7 @@
+reclamation:
+    resource: "@ReclamationBundle/Resources/config/routing.yml"
+    prefix:   /reclamation
+
 tombola:
     resource: "@TombolaBundle/Controller/"
     type:     annotation

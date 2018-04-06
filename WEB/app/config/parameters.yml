@@ -9,5 +9,4 @@ parameters:
     mailer_host: smtp.gmail.com
     mailer_user: souklemdina@gmail.com
     mailer_password: hints2018
-    mailer_auth_mode: login
     secret: 8678c2591b3f6dd9c42a8cdaaae872f017f38905
