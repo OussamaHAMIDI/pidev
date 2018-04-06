@@ -19,11 +19,10 @@ class AppKernel extends Kernel
             new SoukBundle\SoukBundle(),
             new UserBundle\UserBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
-<<<<<<< HEAD
             new BoutiqueBundle\BoutiqueBundle(),
-=======
+
             new TombolaBundle\TombolaBundle(),
->>>>>>> b8329328cacbfdd19a13864175397d6b54d9de04
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
