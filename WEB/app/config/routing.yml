@@ -1,3 +1,8 @@
+produit:
+    resource: "@ProduitBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
 tombola:
     resource: "@TombolaBundle/Controller/"
     type:     annotation

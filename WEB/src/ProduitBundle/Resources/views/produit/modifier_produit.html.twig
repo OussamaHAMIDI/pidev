@@ -1,0 +1,17 @@
+{%extends '@Souk/layout.html.twig'%}
+{%block body %}
+    <center><h1>Modifier produit</h1></br>
+        <fieldset style="width: 50%">
+            <form method="POST">
+                Libelle: <input type="text" name="libelle" value="{{ produit.libelle }}"><br>
+                Description: <input type="text" name="description" value="{{ produit.description }}"><br>
+                Quantite: <input type="text" name="quantite" value="{{ produit.quantite }}"><br>
+                <select name="produit">
+
+                </select><br>
+                Prix: <input type="text" name="prix" value="{{ produit.prix }}"><br>
+                <input type="submit" value="Modifier">
+            </form>
+        </fieldset>
+    </center>
+{% endblock %}
