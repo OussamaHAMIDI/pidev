@@ -3,10 +3,10 @@
 namespace ReclamationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class ReclamationType extends AbstractType
 {
@@ -15,12 +15,11 @@ class ReclamationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('description',TextareaType::class,['attr' => ['rows' => '5','style' => 'resize:vertical']])
-            ->add('dateCreation',DateTimeType::class, array('required' => true,
-                'html5' => false,
-                'widget' => 'single_text',
-            ));
-    }/**
+        $builder
+            ->add('Description')
+            ->add('valider',SubmitType::class);
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -37,6 +36,4 @@ class ReclamationType extends AbstractType
     {
         return 'reclamationbundle_reclamation';
     }
-
-
 }

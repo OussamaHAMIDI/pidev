@@ -2,15 +2,49 @@
 
 namespace ReclamationBundle\Controller;
 use ReclamationBundle\Entity\Reclamation;
+use ReclamationBundle\Form\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class ReclamationController extends Controller
 {
-    public function afficherReclamationAction(Request $request){
-        $reclamation=new Reclamation();
-        $reclamation->setIdUser($this->getUser());
-        return $this->render("@Reclamation/Reclamation/reclamation.html.twig");
+
+
+    public function afficherReclamationAction()
+    {
+        $em= $this->getDoctrine()->getManager();
+        $reclamations=$em->getRepository("ReclamationBundle:Reclamation")->findAll();
+        return $this->render('@Reclamation/Reclamation/afficher_reclamation.html.twig', array(
+            "reclamations"=>$reclamations
+        ));
+    }
+
+    public function supprimerReclamationAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $boutique= $em->getRepository(Reclamation::class)->find($id);
+        $em->remove($boutique);
+        $em->flush();
+        return $this->redirectToRoute('afficher_reclamation');
+    }
+
+    public function ajouterReclamationAction(Request $request)
+    {
+
+        $reclamation = new Reclamation();
+        $form=$this->createForm(ReclamationType::class,$reclamation);
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            $em=$this->getDoctrine()->getManager();
+            $reclamation->setIdUser($this->container->get('security.token_storage')->getToken()->getUser());
+            $em->persist($reclamation);
+            $em->flush();
+//            return $this->redirectToRoute('afficher_boutique');
+        }
+        return $this->render('@Reclamation/Reclamation/ajouter_reclamation.html.twig', array(
+            "form"=>$form->createView()
+        ));
     }
 
     public function indexAction()
