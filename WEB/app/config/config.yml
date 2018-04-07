@@ -79,11 +79,11 @@ swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
-<<<<<<< HEAD
+
     # auth_mode: '%mailer_auth_mode%'
-=======
+
 #    auth_mode: '%mailer_auth_mode%'
->>>>>>> 2b4bb802c6cdc81c1ab467e44b187345fbd6d1e9
+
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl
