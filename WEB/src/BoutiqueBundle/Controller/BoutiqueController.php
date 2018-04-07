@@ -2,6 +2,7 @@
 
 namespace BoutiqueBundle\Controller;
 
+use BoutiqueBundle\Form\BoutiqueEditType;
 use BoutiqueBundle\Form\BoutiqueType;
 use BoutiqueBundle\Entity\Boutique;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,17 +40,15 @@ class BoutiqueController extends Controller
 
         $em=$this->getDoctrine()->getManager();
         $boutique=$em->getRepository("BoutiqueBundle:Boutique")->find($id);
-        if ($request->isMethod('POST'))
-        {
-
-            $boutique->setNom($request->get('nom'));
-            $boutique->setAdresse($request->get('adresse'));
-
+        $form=$this->createForm(BoutiqueEditType::class,$boutique);
+        $form->handleRequest($request);
+        if($form->isValid()) {
             $em->persist($boutique);
             $em->flush();
             return $this->redirectToRoute('afficher_boutique');
         }
         return $this->render('@Boutique/Boutique/modifier_Boutique.html.twig', array(
+            'form'=>$form->createView(),
             'boutique' => $boutique));
     }
 
