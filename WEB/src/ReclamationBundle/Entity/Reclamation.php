@@ -4,6 +4,8 @@ namespace ReclamationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User as User;
+//use BoutiqueBundle\Entity\Boutique as Boutique;
+//use ProduitBundle\Entity\Produit as Produit;
 
 
 /**
@@ -43,7 +45,7 @@ class Reclamation
     /**
      * @var Boutique
      *
-     * @ORM\ManyToOne(targetEntity="SoukBundle\Entity\Boutique")
+     * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_boutique", referencedColumnName="id")
      * })
@@ -53,7 +55,7 @@ class Reclamation
     /**
      * @var Produit
      *
-     * @ORM\ManyToOne(targetEntity="SoukBundle\Entity\Produit")
+     * @ORM\ManyToOne(targetEntity="ProduitBundle\Entity\Produit")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_produit", referencedColumnName="id")
      * })

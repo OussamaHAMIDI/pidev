@@ -15,7 +15,7 @@
             {{ r.dateCreation|date('d/m/y') }}
         </td>
         <td>
-            <a href="{{ path('supprimer_boutique',{'id':b.id}) }}">supprimer</a>
+            <a href="{{ path('supprimer_reclamation',{'id':r.id}) }}">supprimer</a>
         </td>
     </tr>
     {% endfor %}

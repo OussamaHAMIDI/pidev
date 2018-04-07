@@ -22,8 +22,8 @@ class ReclamationController extends Controller
     public function supprimerReclamationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $boutique= $em->getRepository(Reclamation::class)->find($id);
-        $em->remove($boutique);
+        $reclamation=$em->getRepository(Reclamation::class)->find($id);
+        $em->remove($reclamation);
         $em->flush();
         return $this->redirectToRoute('afficher_reclamation');
     }
@@ -40,7 +40,6 @@ class ReclamationController extends Controller
             $reclamation->setIdUser($this->container->get('security.token_storage')->getToken()->getUser());
             $em->persist($reclamation);
             $em->flush();
-//            return $this->redirectToRoute('afficher_boutique');
         }
         return $this->render('@Reclamation/Reclamation/ajouter_reclamation.html.twig', array(
             "form"=>$form->createView()
