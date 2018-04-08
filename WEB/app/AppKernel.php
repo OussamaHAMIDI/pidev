@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
             new TombolaBundle\TombolaBundle(),
+            new Ob\HighchartsBundle\ObHighchartsBundle()
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -35,7 +37,11 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
-
+    public function __construct($environment, $debug)
+    {
+        date_default_timezone_set( 'Africa/Tunis' );
+        parent::__construct($environment, $debug);
+    }
     public function getRootDir()
     {
         return __DIR__;

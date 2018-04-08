@@ -13,19 +13,19 @@ use UserBundle\Entity\User;
  */
 class TombolaParticipants
 {
-//    /**
-//     * @var integer
-//     *
-//     * @ORM\Column(name="id", type="integer", nullable=false)
-//     * @ORM\Id
-//     * @ORM\GeneratedValue(strategy="IDENTITY")
-//     */
-//    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
     /**
      * @var User
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_participant", referencedColumnName="id", onDelete="CASCADE")
@@ -36,7 +36,6 @@ class TombolaParticipants
     /**
      * @var Tombola
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="TombolaBundle\Entity\Tombola")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_tombola", referencedColumnName="id", onDelete="CASCADE")
@@ -59,21 +58,6 @@ class TombolaParticipants
         $this->dateInscri = new \DateTime();
     }
 
-    /**
-     * @return User
-     */
-    public function getIdGagnant(): User
-    {
-        return $this->idGagnant;
-    }
-
-    /**
-     * @param User $idGagnant
-     */
-    public function setIdGagnant(User $idGagnant): void
-    {
-        $this->idGagnant = $idGagnant;
-    }
 
     /**
      * @return Tombola
@@ -102,9 +86,28 @@ class TombolaParticipants
     /**
      * @param \DateTime $dateInscri
      */
-    public function setDateInscri(\DateTime $dateInscri): void
+    public function setDateInscri(\DateTime $dateInscri)
     {
         $this->dateInscri = $dateInscri;
     }
+
+    /**
+     * @return User
+     */
+    public function getIdParticipant(): User
+    {
+        return $this->idParticipant;
+    }
+
+    /**
+     * @param User $idParticipant
+     */
+    public function setIdParticipant(User $idParticipant): void
+    {
+        $this->idParticipant = $idParticipant;
+    }
+
+
+
 
 }

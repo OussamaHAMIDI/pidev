@@ -72,32 +72,34 @@ class Tombola
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_gagnant", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="id_artisan", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * })
      */
-    private $idGagnant;
+    private $idArtisan;
+
 
     /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_artisan", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="id_gagnant", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * })
      */
-    private $idArtisan;
+    private $idGagnant;
 
-//* @Assert\File(
-//*     mimeTypes={ "image/bmp","image/png" ,"image/jpeg" },
-//*      mimeTypesMessage="Le type du fichier est invalide {{type}}. Les types autorisés sont {{types}}."),
-//     *
-//     *     maxSize="1M",    maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
-//     *      La taille maximale autorisée est {{ limit }} {{ suffix }}"
-//    * )
+
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
-     * @Assert\Image()
+     *
+     *
+     *
+     * *@Assert\File(
+     *     maxSize="3M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpeg"},maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
+     *    La taille maximale autorisée est {{ limit }} {{ suffix }}"
+     * )
      */
     private $path;
 
@@ -129,7 +131,7 @@ class Tombola
     /**
      * @param string $titre
      */
-    public function setTitre(string $titre): void
+    public function setTitre(string $titre)
     {
         $this->titre = $titre;
     }
@@ -185,7 +187,7 @@ class Tombola
     /**
      * @return User
      */
-    public function getIdGagnant(): User
+    public function getIdGagnant()
     {
         return $this->idGagnant;
     }
@@ -193,7 +195,7 @@ class Tombola
     /**
      * @param User $idGagnant
      */
-    public function setIdGagnant(User $idGagnant): void
+    public function setIdGagnant(User $idGagnant)
     {
         $this->idGagnant = $idGagnant;
     }
@@ -201,7 +203,7 @@ class Tombola
     /**
      * @return User
      */
-    public function getIdArtisan(): User
+    public function getIdArtisan()
     {
         return $this->idArtisan;
     }
@@ -265,17 +267,21 @@ class Tombola
 
     public function getUploadRootDir()
     {
-        return dirname(__DIR__, 4).'/uploads';
+        return __dir__.'/../../../web/uploads';
+
+        //        return dirname(__DIR__, 4).'/uploads';
     }
 
     public function getAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->getPath();
     }
 
     public function getAssetPath()
     {
         return 'uploads/'.$this->path;
+
+//        return null === $this->path ? null : 'http://localhost/pidev/uploads/'.$this->path;
     }
     /******************************************************************************************************************/
 
