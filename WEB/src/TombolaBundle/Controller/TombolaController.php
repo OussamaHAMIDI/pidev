@@ -15,6 +15,7 @@ class TombolaController extends Controller
     /**
      * @Route("/ajouter", name="ajouter_tombola")
      */
+<<<<<<< HEAD
     public function ajouterTombolaAction(Request $request)
     {
         $tombola = new Tombola();
@@ -268,7 +269,27 @@ class TombolaController extends Controller
 
         return $this->redirectToRoute("detailsFront", array('id' => $tombola->getId()));
 
+=======
+    public function ajouterTombolaAction(Request $request){
+    $tombola=new Tombola();
+    $form=$this->createForm(TombolaType::class,$tombola);
+    $tombola->setIdArtisan($this->getUser());
+    //$form->handleRequest($request);
+    if($request->isMethod('post')){
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            $tombola = $form->getData();
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($tombola);
+            $em->flush();
+            echo "amboula tzedit";
+//                return $this->redirectToRoute("afficher_tombola_Profil");
+        }
+>>>>>>> 78be35e93fda9a1bcb3b5c7aa4b5006d1693e46b
     }
+    return $this->render("@Tombola/ajouterTombola.html.twig",array("form"=>$form->createView()));
+}
 }
 
 
