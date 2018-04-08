@@ -21,16 +21,10 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
-<<<<<<< HEAD
-            new Ob\HighchartsBundle\ObHighchartsBundle()
-
-=======
-
+            new Ob\HighchartsBundle\ObHighchartsBundle(),
             new \ReclamationBundle\ReclamationBundle(),
-
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
->>>>>>> 78be35e93fda9a1bcb3b5c7aa4b5006d1693e46b
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

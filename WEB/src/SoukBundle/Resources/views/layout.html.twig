@@ -248,14 +248,13 @@
                     {% if is_granted('ROLE_ARTISAN') %}
                         <li class="dropdown mega-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="true">Mes tombolas <i
-                                        class="fa fa-caret-down"></i></a>
+                               aria-expanded="true">Mes tombolas <i class="fa fa-caret-down"></i></a>
                             <div class="custom-menu col-md-8">
                                 {#<div class="row">#}
                                 <div class="col-md-8">
                                     <ul class="list-links">
                                         <li>
-                                            <h3 class="list-links-title">Categories</h3></li>
+                                            <h3 class="list-links-title"><a href="{{ path('afficherTombolasArtisan') }}">All</a></h3></li>
                                         <li><a href="{{ path('ajouter_tombola') }}">Ajout</a></li>
                                         <li><a href="{{ path('afficherTombolasArtisan') }}">Modification</a></li>
                                         <li><a href="{{ path('afficherTombolasArtisan') }}">Suppression</a></li>
@@ -268,6 +267,9 @@
                             </div>
                         </li>
 
+                    {% endif %}
+                    {% if is_granted('ROLE_CLIENT') %}
+                        <li><a href="{{ path('afficherTombolas') }}">Nos Tombola</a></li>
                     {% endif %}
                     <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown"
                                                                      aria-expanded="true">Men <i
@@ -347,7 +349,7 @@
     {#{% endfor %}#}
 {#{% endif %}#}
 
-<div class="section" style="padding: 20px;">
+<div class="section" style="padding: 80px;">
     <div class="container form-group">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">

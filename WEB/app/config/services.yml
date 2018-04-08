@@ -18,3 +18,7 @@ services:
     redirect.after.login:
         class:  UserBundle\Redirection\AfterLoginRedirection
         arguments:  ["@router"]
+
+#    redirect.after.logout:
+#        class: UserBundle\Redirection\AfterLogoutRedirection
+#        arguments: ["@router"]
