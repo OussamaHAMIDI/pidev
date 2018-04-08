@@ -3,16 +3,17 @@
 namespace SoukBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
-
+/**
+ * Panier
+ *
+ * @ORM\Table(name="panier", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+ * @ORM\Entity
+ */
 class Panier
 {
-    /**
-     * Panier
-     *
-     * @ORM\Table(name="panier", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
-     * @ORM\Entity
-     */
+
     /**
      * @var integer
      *
@@ -88,7 +89,7 @@ class Panier
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * })
