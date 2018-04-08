@@ -4,8 +4,8 @@ namespace ReclamationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User as User;
-//use BoutiqueBundle\Entity\Boutique as Boutique;
-//use ProduitBundle\Entity\Produit as Produit;
+use BoutiqueBundle\Entity\Boutique as Boutique;
+use ProduitBundle\Entity\Produit as Produit;
 
 
 /**

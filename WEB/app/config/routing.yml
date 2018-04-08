@@ -1,3 +1,7 @@
+evaluation:
+    resource: "@EvaluationBundle/Resources/config/routing.yml"
+    prefix:   /evaluation
+
 
 produit:
     resource: "@ProduitBundle/Resources/config/routing.yml"

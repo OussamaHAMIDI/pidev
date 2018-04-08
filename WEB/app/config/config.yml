@@ -11,6 +11,7 @@ imports:
     - { resource: "@ProduitBundle/Resources/config/services.yml" }
 
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
+    - { resource: "@EvaluationBundle/Resources/config/services.yml" }
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed

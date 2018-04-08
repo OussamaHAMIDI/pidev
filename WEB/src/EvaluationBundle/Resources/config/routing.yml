@@ -1,0 +1,7 @@
+reclamation_homepage:
+    path:     /
+    defaults: { _controller: EvaluationBundle:Default:index }
+
+afficher_evaluation:
+    path:     /afficher
+    defaults: { _controller: EvaluationBundle:Evaluation:afficherEvaluation }
