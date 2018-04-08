@@ -1,0 +1,66 @@
+{% extends "@Souk/layout.html.twig" %}
+
+
+{% block title %}
+    <div class="section-title">
+        <h2 class="title">
+            Historiques
+        </h2>
+    </div>
+{% endblock title %}
+
+{% block fos_user_content %}
+    <html>
+    <table>
+        <tr>
+            <th>Date de création</th>
+            <th>Date de livraison</th>
+            <th>Total ttc</th>
+            <th>Frais livraison</th>
+            <th>Mode de paiement</th>
+            <th>Mode de livraison</th>
+            <th>Details</th>
+        </tr>
+        hello
+        {{ historiques ? 'mawjoud' : 'null' }}
+
+        {% for h in historiques %}
+            <tr>
+                <td>
+                    {{ h.dateCreation|date('y/m/d') }}
+                </td>
+
+                <td>
+                    {{ h.dateCreation|date('y/m/d') }}
+                </td>
+
+                <td>
+                    {{ h.totalTtc }}
+                </td>
+
+
+                <td>
+                    {{ h.fraisLivraison }}
+                </td>
+
+                <td>
+                    {{ h.modePaiement }}
+                </td>
+
+                <td>
+                    {{ h.modeLivraison}}
+                </td>
+
+                <td>
+                    <a href="{{ path('afficher_historique_details',{'id':h.id}) }}">Afficher</a>
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+
+    </html>
+{% endblock fos_user_content %}

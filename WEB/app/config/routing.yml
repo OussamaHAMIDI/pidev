@@ -1,3 +1,7 @@
+historique:
+    resource: "@HistoriqueBundle/Resources/config/routing.yml"
+    prefix:   /historique
+
 evaluation:
     resource: "@EvaluationBundle/Resources/config/routing.yml"
     prefix:   /evaluation
