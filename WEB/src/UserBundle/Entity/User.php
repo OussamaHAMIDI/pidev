@@ -381,7 +381,7 @@ class User extends BaseUser
     /**
      * @param string $pathPhotoPermis
      */
-    public function setPathPhotoPermis(string $pathPhotoPermis): void
+    public function setPathPhotoPermis(string $pathPhotoPermis)
     {
         $this->pathPhotoPermis = $pathPhotoPermis;
     }
@@ -397,7 +397,7 @@ class User extends BaseUser
     /**
      * @param mixed $photoProfil
      */
-    public function setPhotoProfil($photoProfil): void
+    public function setPhotoProfil($photoProfil)
     {
         $this->photoProfil = $photoProfil;
     }

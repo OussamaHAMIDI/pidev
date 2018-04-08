@@ -74,18 +74,24 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
+        dql:
+            string_functions:
+                            MONTH: DoctrineExtensions\Query\Mysql\Month
 
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
+<<<<<<< HEAD
+#    auth_mode: '%mailer_auth_mode%'
+=======
 
     # auth_mode: '%mailer_auth_mode%'
 
 #    auth_mode: '%mailer_auth_mode%'
 
+>>>>>>> 78be35e93fda9a1bcb3b5c7aa4b5006d1693e46b
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl

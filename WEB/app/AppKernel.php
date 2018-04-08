@@ -21,12 +21,20 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
+<<<<<<< HEAD
+            new Ob\HighchartsBundle\ObHighchartsBundle()
+
+=======
 
             new \ReclamationBundle\ReclamationBundle(),
 
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
+<<<<<<< HEAD
             new HistoriqueBundle\HistoriqueBundle(),
+=======
+>>>>>>> 78be35e93fda9a1bcb3b5c7aa4b5006d1693e46b
+>>>>>>> a1fae56dc71285b30eec0b55357461a51d3edf72
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -42,7 +50,11 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
-
+    public function __construct($environment, $debug)
+    {
+        date_default_timezone_set( 'Africa/Tunis' );
+        parent::__construct($environment, $debug);
+    }
     public function getRootDir()
     {
         return __DIR__;

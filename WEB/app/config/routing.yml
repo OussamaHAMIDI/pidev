@@ -34,7 +34,7 @@ tombola:
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /user
 
 souk:
 #    resource: "@SoukBundle/Resources/config/routing.yml"

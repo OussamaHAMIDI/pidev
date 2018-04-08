@@ -12,7 +12,7 @@
 
     {% block stylesheets %}
         <!-- Google font -->
-        <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+        <link href="{{ asset('css/google-fonts.css') }}" rel="stylesheet">
 
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
@@ -27,10 +27,18 @@
         <!-- Font Awesome Icon -->
         <link type="text/css" rel="stylesheet" href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 
+        <!--  datetimepicker -->
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.css') }}"/>
+
+        <!--  confirm dialog -->
+        <link rel="stylesheet" href="{{ asset('css/jquery-confirm.min.css') }}">
+
+        <link href="{{ asset('css/jquery.classycountdown.css') }}" rel="stylesheet">
+
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
-        <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
 
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -47,7 +55,7 @@
 
 
 <body>
-
+{% block headerNav %}
 <!-- HEADER -->
 <header>
 
@@ -64,17 +72,17 @@
                 <!-- /Logo -->
 
                 <!-- Search -->
-                <div class="header-search">
-                    <form title="headher">
-                        <input class="input search-input" type="text" placeholder="Enter your keyword">
-                        <select class="input search-categories">
-                            <option value="0">All Categories</option>
-                            <option value="1">Category 01</option>
-                            <option value="1">Category 02</option>
-                        </select>
-                        <button class="search-btn"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
+                {#<div class="header-search">#}
+                {#<form title="headher">#}
+                {#<input class="input search-input" type="text" placeholder="Enter your keyword">#}
+                {#<select class="input search-categories">#}
+                {#<option value="0">All Categories</option>#}
+                {#<option value="1">Category 01</option>#}
+                {#<option value="1">Category 02</option>#}
+                {#</select>#}
+                {#<button class="search-btn"><i class="fa fa-search"></i></button>#}
+                {#</form>#}
+                {#</div>#}
                 <!-- /Search -->
             </div>
             <div class="pull-right">
@@ -94,15 +102,21 @@
                             </div>
                             <strong class="text-uppercase">Mon compte <i class="fa fa-caret-down"></i></strong><br>
                         </div>
-                        <a href="{{ path('fos_user_security_login') }}" class="text-uppercase" style="font-size: 11px">Login</a> /
-                        <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase" style="font-size: 11px">Register</a>
+                        <a href="{{ path('fos_user_security_login') }}" class="text-uppercase" style="font-size: 11px">Login</a>
+                        /
+                        <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase"
+                           style="font-size: 11px">Register</a>
                         <ul class="custom-menu">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i>Mon profil</a></li>
-                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i>Déconnexion</a></li>
+                                <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i>Mon profil</a>
+                                </li>
+                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i>Déconnexion</a>
+                                </li>
                             {% else %}
-                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>  Connexion</a></li>
-                                <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-user-plus"></i>Creer un compte</a></li>
+                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>
+                                        Connexion</a></li>
+                                <li><a href="{{ path('fos_user_registration_register') }}"><i
+                                                class="fa fa-user-plus"></i>Creer un compte</a></li>
 
                             {% endif %}
 
@@ -184,8 +198,9 @@
                 <ul class="menu-list">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Shop</a></li>
-                    <li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
-                                                          aria-expanded="true">Women <i
+                    <li class="dropdown mega-dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="true">Women <i
                                     class="fa fa-caret-down"></i></a>
                         <div class="custom-menu">
                             <div class="row">
@@ -201,6 +216,7 @@
                                     </ul>
                                     <hr class="hidden-md hidden-lg">
                                 </div>
+
                                 <div class="col-md-6">
                                     <ul class="list-links">
                                         <li>
@@ -228,6 +244,31 @@
                             </div>
                         </div>
                     </li>
+
+                    {% if is_granted('ROLE_ARTISAN') %}
+                        <li class="dropdown mega-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="true">Mes tombolas <i
+                                        class="fa fa-caret-down"></i></a>
+                            <div class="custom-menu col-md-8">
+                                {#<div class="row">#}
+                                <div class="col-md-8">
+                                    <ul class="list-links">
+                                        <li>
+                                            <h3 class="list-links-title">Categories</h3></li>
+                                        <li><a href="{{ path('ajouter_tombola') }}">Ajout</a></li>
+                                        <li><a href="{{ path('afficherTombolasArtisan') }}">Modification</a></li>
+                                        <li><a href="{{ path('afficherTombolasArtisan') }}">Suppression</a></li>
+                                    </ul>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+
+                                {#</div>#}
+
+                            </div>
+                        </li>
+
+                    {% endif %}
                     <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown"
                                                                      aria-expanded="true">Men <i
                                     class="fa fa-caret-down"></i></a>
@@ -284,28 +325,29 @@
     <!-- /container -->
 </div>
 
+{% endblock headerNav %}
+{#<div>#}
+    {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+        {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+        {#<a href="{{ path('fos_user_security_logout') }}">#}
+            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+        {#</a>#}
+    {#{% else %}#}
+        {#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+    {#{% endif %}#}
+{#</div>#}
 
-<div>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
-            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-        </a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-    {% endif %}
-</div>
+{#{% if app.request.hasPreviousSession %}#}
+    {#{% for type, messages in app.session.flashbag.all() %}#}
+        {#{% for message in messages %}#}
+            {#<div class="flash-{{ type }}">#}
+                {#{{ message }}#}
+            {#</div>#}
+        {#{% endfor %}#}
+    {#{% endfor %}#}
+{#{% endif %}#}
 
-{% if app.request.hasPreviousSession %}
-    {% for type, messages in app.session.flashbag.all() %}
-        {% for message in messages %}
-            <div class="flash-{{ type }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-{% endif %}
-<div class="section" style="padding: 60px;">
+<div class="section" style="padding: 20px;">
     <div class="container form-group">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -371,9 +413,11 @@
                     <div class="footer">
                         <h3 class="footer-header">Mon compte</h3>
                         <ul class="list-links">
-                            <li><a href="#">Mon compte</a></li>
+                            <li><a href="{{ path('fos_user_profile_show') }}">Mon profil</a></li>
                             <li><a href="#">Mon panier</a></li>
-                            <li><a href="#">Login</a></li>
+                            <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                            <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
                         </ul>
                     </div>
                 </div>
@@ -434,7 +478,7 @@
     <!-- /FOOTER -->
 {% endblock %}
 
-{% block javascripts %}
+{% block javascriptsDEFAULT_DONT_REDIFINE_IT %}
     <!-- jQuery Plugins -->
 
     <script>
@@ -460,9 +504,19 @@
     <script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <!-- DATE TIME PICKER DEPENDENCIES monent.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
-    <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script src="{{ asset('js/jquery-confirm.min.js') }}"></script>
+    {# COUNT DOWN PLUGIN#}
+    <script src="{{ asset('js/jquery.knob.js') }}"></script>
+    <script src="{{ asset('js/jquery.throttle.js') }}"></script>
+    <script src="{{ asset('js/jquery.classycountdown.js') }}"></script>
 
+
+
+{% endblock %}
+
+{% block javascripts %}
 {% endblock %}
 </body>
 </html>

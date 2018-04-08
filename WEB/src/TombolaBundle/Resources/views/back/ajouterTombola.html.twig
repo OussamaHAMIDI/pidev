@@ -12,38 +12,45 @@
                 </div>
             </div>
 
+
+
             <div class="row">
                 <div class="col-md-6 col-md-offset-1">
                     <div class="form-group" >
                         {#{{ form_errors(form) }}#}
-                        <form  method="post" enctype="multipart/form-data" id="ajout_tombola_form">
+                        <form  method="post" enctype="multipart/form-data" id="ajout_tombola_form" >
                             {{ form_start(form)}}
 
                             {{ form_row(form.titre) }}
                             {{ form_row(form.description) }}
-                            {{ form_row(form.dateTirage) }}
+                            {#{{ form_row(form.dateTirage) }}#}
 
-                            {#<div class="form-group">#}
-                                {#<label for="name-login">Date de tirage</label>#}
-                                {#<div class='input-group date' id='datetimepicker' >#}
-                                    {#{{ form_widget(form.dateTirage, {'attr': {'class': 'form_tirage'}}) }}#}
-                                    {#<span class="input-group-addon">#}
-                                        {#<span class="glyphicon glyphicon-calendar"></span>#}
-                                    {#</span>#}
-                                {#</div>#}
-                                {#<span style="color: #a94442" {{ form_errors(form.dateTirage) }} </span>#}
-                            {#</div>#}
+                            <div class="form-group">
+                                <label for="name-login">Date de tirage</label>
+                                <div class='input-group date' id='datetimepicker' >
+                                    {{ form_widget(form.dateTirage, {'attr': {'class': 'form_tirage'}}) }}
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <span style="color: #a94442" {{ form_errors(form.dateTirage) }} </span>
+                            </div>
 
 
                             {#{{ form_rest(form) }}#}
 
-
                             <div class="form-group" id="1">
-                                <label for="name-login">Image du tombola</label>
-                                {#<input type="file" id="tombolabundle_tombola_file" name="tombolabundle_tombola[file]" required="required">#}
-                                {{ form_widget(form.file) }}
-                                <br>
-                                <img id="img" src="#" alt="Apercu de votre image" width="30%"/>
+                                {#<label for="name-login">Image du tombola</label>#}
+                                {#{% if not path is empty %}#}
+                                     {#<input type="file" id="tombolabundle_tombola_file" name="tombolabundle_tombola[file]">#}
+                                     {#<br>#}
+                                    {#<img id="img" src="{{ path }}" alt="Apercu de votre image" width="30%"/>#}
+                                    {#{% else %}#}
+                                        {{ form_row(form.file) }}
+                                        <br>
+                                        <img id="img" src="{{ asset('uploads/' ~ path) }}" alt="Apercu de votre image" width="30%"/>
+                                {#{% endif %}#}
+
                             </div>
 
                             <div class="form-group" >
@@ -63,9 +70,8 @@
         <!-- /container -->
     </div>
 
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
+    {% block javascripts %}
+     <script type="text/javascript">
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -77,9 +83,9 @@
             }
         }
 
-        $("#submit").click(function(){
-            alert($('input[type=file]').val());
-        });
+        // $("#submit").click(function(){
+        //     alert($('input[type=file]').val());
+        // });
 
         $("#tombolabundle_tombola_file").change(function(){
             readURL(this);
