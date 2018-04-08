@@ -36,6 +36,17 @@ class TombolaRepository extends EntityRepository
         $query->execute();
     }
 
+    public function recherchebytitreFRONTAction($word,$id)
+    {
+        $qb= $this->getEntityManager()->createQueryBuilder();
+        $qb->select('p')
+            ->from('TombolaBundle:Tombola', 'p')
+            ->where('p.titre LIKE :word')->andWhere('p.idArtisan = :id')
+            ->setParameter('word', '%'.$word.'%')
+        ->setParameter('id',$id);
+        $q = $qb->getQuery();
+        return $q->execute();
+    }
     
     public function recherchebytitreAction($word)
 

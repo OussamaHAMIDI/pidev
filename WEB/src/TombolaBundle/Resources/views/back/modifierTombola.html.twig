@@ -1,0 +1,135 @@
+{%extends '@Souk/layout.html.twig'%}
+{%block body %}
+    <div class="section" style="padding: 30px;">
+        <div class="container form-group">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="section-title">
+                        <h2 class="title">
+                            Modifier Tombola
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="form-group" >
+                        {#{{ form_errors(form) }}#}
+                        <form  method="post" enctype="multipart/form-data" id="ajout_tombola_form">
+                            {{ form_start(form)}}
+
+                            {{ form_row(form.titre) }}
+                            {{ form_row(form.description) }}
+                            {#{{ form_row(form.dateTirage) }}#}
+
+                            <div class="form-group">
+                                <label for="name-login">Date de tirage</label>
+                                <div class='input-group date' id='datetimepicker' >
+                                    {{ form_widget(form.dateTirage, {'attr': {'class': 'form_tirage'}}) }}
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                                <span style="color: #a94442" {{ form_errors(form.dateTirage) }} </span>
+                            </div>
+
+
+                            {#{{ form_rest(form) }}#}
+
+                            <div class="form-group" id="1">
+                                        {{ form_row(form.file) }}
+                                        <br>
+                                {#{% endif %}#}
+
+                            </div>
+
+                            <div class="form-group" >
+                                <input type="submit" class="primary-btn" id="submit" value="Modifier">
+                            </div>
+
+                            {{ form_end(form) }}
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <img id="img" src="{{ asset('uploads/' ~ path) }}" alt="Apercu de votre image" width="100%" class="img-thumbnail
+                    img-rounded img-responsive"/>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div>
+
+    {% block javascripts %}
+     <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // $("#submit").click(function(){
+        //     alert($('input[type=file]').val());
+        // });
+
+        $("#tombolabundle_tombola_file").change(function(){
+            readURL(this);
+        });
+
+
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm:ss'
+            });
+        });
+    </script>
+        <script>
+            $('#submit').confirm({
+                title: 'Confirmation',
+                content: 'Voulez vous appliquer ces changements ?',
+                type: 'blue',
+                typeAnimated: true,
+                boxWidth: '300px',
+                theme: 'modern',
+                draggable: true,
+                useBootstrap: true,
+                backgroundDismiss: false,
+                backgroundDismissAnimation: 'glow',
+                buttons: {
+                    Oui: {
+                        text: 'Confirmer',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                            $.alert({
+                                title: 'Succes!',
+                                icon: 'glyphicon glyphicon-heart',
+                                content: 'Vos modifications sont effectués avec succés.'
+                            });
+                            // return true;
+                        }
+                    },
+                    Non: {
+                        text: 'Annuler',
+                        action: function () {
+                            // return false;
+                        }
+                    }
+                }
+            });
+
+
+        </script>
+
+    {% endblock javascripts %}
+
+{% endblock body %}
+

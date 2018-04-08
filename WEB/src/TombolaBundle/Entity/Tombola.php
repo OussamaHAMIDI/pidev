@@ -56,7 +56,7 @@ class Tombola
      *
      * @ORM\Column(name="date_ajout", type="datetime", nullable=false)
      */
-    private $dateAjout ;
+    private $dateAjout;
 
     /**
      * @var DateTime
@@ -89,7 +89,6 @@ class Tombola
     private $idGagnant;
 
 
-
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
      *
@@ -102,7 +101,6 @@ class Tombola
      * )
      */
     private $path;
-
 
 
     /**
@@ -256,20 +254,20 @@ class Tombola
     {
         $this->dateAjout = new \DateTime();
     }
+
     /**
      * @ORM\PostLoad()
      */
     public function postLoad()
     {
-
-        $this->updateAt = new \DateTime();
+        $this->dateModif = new \DateTime();
     }
 
     public function getUploadRootDir()
     {
-        return __dir__.'/../../../web/uploads';
-
-        //        return dirname(__DIR__, 4).'/uploads';
+        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+//        return __dir__.'/../../../web/uploads';
+//        return dirname(__DIR__, 4).'/uploads';
     }
 
     public function getAbsolutePath()
@@ -277,16 +275,8 @@ class Tombola
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->getPath();
     }
 
-    public function getAssetPath()
-    {
-        return 'uploads/'.$this->path;
-
-//        return null === $this->path ? null : 'http://localhost/pidev/uploads/'.$this->path;
-    }
-    /******************************************************************************************************************/
 
     public $file;
-
 
 
     /**
@@ -295,13 +285,20 @@ class Tombola
      */
     public function preUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
+        $t = $this->getAbsolutePath();
+
+        if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+            $this->tempFile = substr($t, strlen($this->getUploadRootDir())+1);
+        } else {
+            $this->tempFile = $this->getAbsolutePath();
+        }
         $this->oldFile = $this->path;
-        $this->updateAt = new \DateTime();
+        $this->dateModif = new \DateTime();
 
 
-        if (null !== $this->file)
-            $this->path = sha1(uniqid(mt_rand(),true)).'.'.$this->file->guessExtension();
+        if (null !== $this->file) {
+            $this->path = sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension();
+        }
     }
 
     /**
@@ -311,10 +308,12 @@ class Tombola
     public function upload()
     {
         if (null !== $this->file) {
-            $this->file->move($this->getUploadRootDir(),$this->path);
+            $this->file->move($this->getUploadRootDir(), $this->path);
             unset($this->file);
 
-            if ($this->oldFile != null) unlink($this->tempFile);
+            if ($this->oldFile != null) {
+                unlink($this->tempFile);
+            }
         }
     }
 
@@ -331,7 +330,9 @@ class Tombola
      */
     public function removeUpload()
     {
-        if (file_exists($this->tempFile)) unlink($this->tempFile);
+        if (file_exists($this->tempFile)) {
+            unlink($this->tempFile);
+        }
     }
 
 }

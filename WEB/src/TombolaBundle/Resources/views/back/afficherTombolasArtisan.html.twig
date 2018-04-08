@@ -64,6 +64,7 @@
                                             <th rowspan="1">Description</th>
                                             <th rowspan="1">Date du tirage</th>
                                             <th rowspan="1">Date d'ajout</th>
+                                            <th rowspan="1">Date Derniere modification</th>
                                             <th></th>
                                             <th >Opérations</th>
                                             <th></th>
@@ -74,9 +75,10 @@
                                             <tr>
                                                 <td> {{ tombola.titre }} </td>
 
-                                                <td> {{ tombola.description [0:30] }}{% if tombola.description|length > 30 %}...{% endif %}</td>
+                                                <td> {{ tombola.description [0:25] }}{% if tombola.description|length > 25 %}...{% endif %}</td>
                                                 <td> {{ tombola.dateTirage | date('d-m-Y H:m:s') }} </td>
                                                 <td> {{ tombola.dateAjout | date('d-m-Y H:m:s') }} </td>
+                                                <td> {{ tombola.dateModif | date('d-m-Y H:m:s') }} </td>
 
                                                 <td>
                                                     <button class="btn btn-info"><i class="fa fa-info-circle"></i><a
