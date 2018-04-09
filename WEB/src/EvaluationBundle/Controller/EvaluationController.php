@@ -17,15 +17,19 @@ class EvaluationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
             ->findBy(array('idBoutique' => $idBoutique));
-        $note = 0 ;
+        $note = 0;
         foreach ($evaluations as $e) {
-            $note= $note + $e->getNote();
+            $note = $note + $e->getNote();
         }
 
-        $count= $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $idBoutique));
-        var_dump($count);
-        $noteMoyenne=$note/$count;
-        $noteMoyenne=round($noteMoyenne);
+        $count = $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $idBoutique));
+//        var_dump($count);
+        if ($count) {
+            $noteMoyenne = $note / $count;
+            $noteMoyenne = round($noteMoyenne);
+        } else {
+            $noteMoyenne = 0;
+        }
         return $this->render('@Evaluation/Evaluation/evaluation.html.twig', array(
             "noteMoyenne" => $noteMoyenne
         ));
@@ -40,6 +44,40 @@ class EvaluationController extends Controller
         ));
     }
 
+    public function afficherTopTenBoutiquesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+//        $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
+//            ->findBy(array(), array('note' => 'desc'));
+        $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
+        //var_dump($boutiquesEvaluees);
+        //var_dump($evaluations);
+        $i = 0;
+        while ($i < 3) {
+            foreach ($boutiquesEvaluees as $b) {
+                $evaluation = new Evaluation();
+                $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
+                    ->findBy(array('idBoutique' => $b));
+                var_dump($b);
+                $note = 0;
+                foreach ($evaluations as $e) {
+                    $note = $note + $e->getNote();
+                }
+                $count = $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $b));
+                $noteMoyenne = $note / $count;
+                $noteMoyenne = round($noteMoyenne);
+                $evaluation->setNote($noteMoyenne);
+                $boutique = $em->getRepository('BoutiqueBundle:Boutique')->findOneBy(array('id' => $b));
+                $evaluation->setIdBoutique($boutique);
+                $topTen[$i] = $evaluation;
+                $i++;
+            }
+        }
+        return $this->render('@Evaluation/Evaluation/topTenBoutiques.html.twig', array(
+            "evaluations" => $topTen
+        ));
+    }
+
     public function ajouterEvaluationBoutiqueAction($note, $idBoutique)
     {
 
@@ -47,11 +85,11 @@ class EvaluationController extends Controller
         $ev = $em->getRepository("EvaluationBundle:Evaluation")
             ->findOneBy(array('idBoutique' => $idBoutique,
                 'idUser' => $this->container->get('security.token_storage')->getToken()->getUser()));
-        if($ev){
+        if ($ev) {
             $ev->setNote($note);
             $em->persist($ev);
             $em->flush();
-        }else{
+        } else {
             $evaluation = new Evaluation();
             $evaluation->setIdUser($this->container->get('security.token_storage')->getToken()->getUser());
             $evaluation->setNote($note);

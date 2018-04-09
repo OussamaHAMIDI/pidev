@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             new \ReclamationBundle\ReclamationBundle(),
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
-            new \HistoriqueBundle\HistoriqueBundle()
+            new \HistoriqueBundle\HistoriqueBundle(),
+            new StatistiqueBundle\StatistiqueBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

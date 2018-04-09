@@ -6,6 +6,10 @@ afficher_evaluation:
     path:     /afficher
     defaults: { _controller: EvaluationBundle:Evaluation:afficherEvaluation }
 
+topTenBoutiques:
+    path:     /topTenB
+    defaults: { _controller: EvaluationBundle:Evaluation:afficherTopTenBoutiques }
+
 ajouter_evaluationBoutique:
     path:     /ajouter/{note}/{idBoutique}
     defaults: { _controller: EvaluationBundle:Evaluation:ajouterEvaluationBoutique }
