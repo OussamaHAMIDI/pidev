@@ -42,10 +42,11 @@ class TombolaController extends Controller
     }
 
     /**
-     * @Route("/afficherTombolasArtisan", name="afficherTombolasArtisan")
+     * @Route("/afficherTombolas", name="afficherTombolasArtisan")
      */
     public function afficherTombolasArtisanAction()
     {
+
         $tombolas = $this->getDoctrine()->getManager()
             ->getRepository('TombolaBundle:Tombola')->findBy(array('idArtisan' => $this->getUser()));
 
@@ -92,7 +93,7 @@ class TombolaController extends Controller
     }
 
     /**
-     * @Route("/afficherTombolas", name="afficherTombolas")
+     * @Route("/afficherTombolasFront", name="afficherTombolas")
      */
     public function afficherTombolasAction()
     {
@@ -125,19 +126,16 @@ class TombolaController extends Controller
         $em->remove($part);
         $em->flush();
         // verif si user connected a deja participé
-        $deja = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:TombolaParticipants')->
-        dejaParticiperTombola($this->getUser()->getId());
+//        $deja = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:TombolaParticipants')->
+//        dejaParticiperTombola($this->getUser()->getId());
 
-        if (sizeof($deja) > 0) {
-            $participe = true;
-        } else {
-            $participe = false;
-        }
+//        if (sizeof($deja) > 0) {
+//            $participe = true;
+//        } else {
+//            $participe = false;
+//        }
 
-        return $this->redirectToRoute(
-            "detailsFront",
-            array('id' => $part->getIdTombola()->getId(), 'participe' => $participe)
-        );
+        return $this->redirectToRoute("detailsFront", array('id' => $part->getIdTombola()->getId()) );
     }
 
     /**
@@ -230,7 +228,7 @@ class TombolaController extends Controller
     public function detailsFrontTombolaAction($id)
     {
         if ($id === null) {
-            return $this->redirectToRoute("afficherTombolasArtisan");
+            return $this->redirectToRoute("afficherTombolas");
         }
 
         // verif si user connected a deja participé
