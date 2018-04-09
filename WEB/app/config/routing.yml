@@ -1,6 +1,6 @@
 statistique:
     resource: "@StatistiqueBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /statistique
 
 
 

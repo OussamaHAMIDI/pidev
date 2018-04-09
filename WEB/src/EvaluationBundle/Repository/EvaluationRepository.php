@@ -18,6 +18,7 @@ class EvaluationRepository extends EntityRepository
         $qb->select('IDENTITY(e.idBoutique)')
             ->from('EvaluationBundle:Evaluation', 'e')
             ->distinct('e.idBoutique')
+            ->setMaxResults(5)
             ->orderBy('e.note', 'DESC');
         $q = $qb->getQuery();
         return $q->execute();
