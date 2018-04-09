@@ -12,6 +12,7 @@ use ProduitBundle\Entity\Produit as Produit;
  * Evaluation
  *
  * @ORM\Table(name="evaluation", indexes={@ORM\Index(name="id_boutique", columns={"id_boutique"}), @ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_produit", columns={"id_produit"})})
+ * @ORM\Entity(repositoryClass="EvaluationBundle\Repository\EvaluationRepository")
  * @ORM\Entity
  */
 

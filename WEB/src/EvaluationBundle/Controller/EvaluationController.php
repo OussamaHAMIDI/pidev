@@ -17,20 +17,17 @@ class EvaluationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
             ->findBy(array('idBoutique' => $idBoutique));
-        $noteMoyenne = 0 ;
+        $note = 0 ;
         foreach ($evaluations as $e) {
-            $noteMoyenne = $noteMoyenne + $e->getNote();
+            $note= $note + $e->getNote();
         }
 
-        $count = $this->createQueryBuilder('e')
-            ->select('COUNT(e)')
-            ->where('e.id = :id')
-            ->setParameter('idBoutique', $idBoutique)
-            ->getQuery()
-            ->getSingleScalarResult();
-
+        $count= $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $idBoutique));
+        var_dump($count);
+        $noteMoyenne=$note/$count;
+        $noteMoyenne=round($noteMoyenne);
         return $this->render('@Evaluation/Evaluation/evaluation.html.twig', array(
-            "noteMoyenne" => $noteMoyenne/$count
+            "noteMoyenne" => $noteMoyenne
         ));
     }
 
