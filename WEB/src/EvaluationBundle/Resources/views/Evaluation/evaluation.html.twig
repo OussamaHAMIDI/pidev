@@ -1,0 +1,32 @@
+{% extends "@Souk/layout.html.twig" %}
+
+
+{% block title %}
+    <div class="section-title">
+        <h2 class="title">
+            Note Moyenne
+        </h2>
+    </div>
+{% endblock title %}
+
+{% block fos_user_content %}
+
+    {{ noteMoyenne }}
+    {% spaceless %}
+        <div class="product">
+            <div class="product-rating">
+                {% if (noteMoyenne)!=0 %}
+                    {% for i in 1..noteMoyenne %}
+                        <i class="fa fa-star"></i>
+                    {% endfor %}
+                {% endif %}
+                {% if (5 - noteMoyenne != 0 ) %}
+                    {% for j in 1..(5 - noteMoyenne) %}
+                        <i class="fa fa-star empty"></i>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% endspaceless %}
+
+{% endblock fos_user_content %}
