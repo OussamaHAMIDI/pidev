@@ -112,7 +112,7 @@ class TombolaController extends Controller
         $em->remove($tombola);
         $em->flush();
 
-        return $this->redirectToRoute("details", array('id' => $id));
+        return $this->redirectToRoute("afficherTombolasArtisan");
     }
 
     /**
