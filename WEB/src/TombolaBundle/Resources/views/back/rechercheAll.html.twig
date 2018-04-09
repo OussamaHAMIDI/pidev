@@ -11,7 +11,7 @@
                     <th rowspan="1">Date d'ajout</th>
                     <th rowspan="1">Date Derniere modification</th>
                     <th></th>
-                    <th >Opérations</th>
+                    <th>Opérations</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -26,16 +26,19 @@
                         <td> {{ tombola.dateModif | date('d-m-Y H:m:s') }} </td>
 
                         <td>
-                            <button class="btn btn-info"><i class="fa fa-info-circle"></i><a
-                                        href="{{ path('details',{id: tombola.id}) }}">
-                                    Détails</a></button>
+                            <a href="{{ path('details',{id: tombola.id}) }}">
+                                <button class="btn btn-info"><i class="fa fa-info-circle"></i>
+                                    Détails
+                                </button>
+                            </a>
                         </td>
 
                         <td>
-                            <button class="btn btn-warning"><i class="fa fa-pencil"></i><a
-                                        href="{{ path('modifier',{id: tombola.id}) }}">
-                                    Modifier</a>
-                            </button>
+                            <a href="{{ path('modifier',{id: tombola.id}) }}">
+                                <button class="btn btn-warning"><i class="fa fa-pencil"></i>
+                                    Modifier
+                                </button>
+                            </a>
                         </td>
                         <td>
                             <button class="btn btn-danger alert_supp"

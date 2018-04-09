@@ -67,8 +67,8 @@
                                 <div class="product-btns">
                                     <div class="pull-right">
                                         {% if app.user.type == 'Client' %}
-                                            {#{% if ('now -1 hour'|date('Y-m-d H:i:s')) < (tombola.dateTirage|date('Y-m-d H:i:s')) %}#}
-                                            {% if tombola.idGagnant is null %}
+                                            {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                                {#{% if tombola.idGagnant is null %}#}
                                                 {% if  participe == false %}
                                                     <button class="btn btn-warning" id="part"
                                                             href="{{ path('participer',{id: tombola.id}) }}">
@@ -101,12 +101,15 @@
 
                                             {% endif %}
                                         {% else %}
-                                            <br>
-                                            <p><strong>Veuillez vous connecter à un compte client pour pouvoir y participer </strong>
-                                                <a target="_blank" style="color: #229fac"
-                                                   href="{{ path('fos_user_security_login') }}">
-                                                    Se connecter</a>
-                                            </p>
+                                            {% if 'now'|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') and tombola.idGagnant is null %}
+                                                <br>
+                                                <p><strong>Veuillez vous connecter à un compte client pour pouvoir y
+                                                        participer </strong>
+                                                    <a target="_blank" style="color: #229fac"
+                                                       href="{{ path('fos_user_security_login') }}">
+                                                        Se connecter</a>
+                                                </p>
+                                            {% endif %}
                                         {% endif %}
 
                                     </div>

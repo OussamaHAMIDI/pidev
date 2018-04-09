@@ -140,7 +140,6 @@ class TombolaController extends Controller
         );
     }
 
-
     /**
      * @Route("/modifier/{id}", name="modifier")
      */
@@ -199,7 +198,6 @@ class TombolaController extends Controller
         );
     }
 
-
     /**
      * @Route("/rechercheAJAX", name="rechercheAJAX_tombola")
      */
@@ -225,7 +223,6 @@ class TombolaController extends Controller
         return $this->render("@Tombola/front/rechercheAll.html.twig", array('tombolas' => $tombolas));
 
     }
-
 
     /**
      * @Route("/detailFront/{id}", name="detailsFront")

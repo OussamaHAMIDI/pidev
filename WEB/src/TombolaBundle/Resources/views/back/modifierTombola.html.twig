@@ -73,6 +73,18 @@
         <script type="text/javascript">
             $("#erreurFile").hide();
 
+            Push.clear();
+            Push.create("Modification effectué!", {
+                body: "Cette tombola est modifié avec succès.",
+                icon: $('#img').prop('src'),
+                timeout: 2000,
+                onClick: function () {
+                    window.focus();
+                    this.close();
+                }
+            });
+
+
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -120,7 +132,9 @@
 
                 } else {
                     //many scripts
+
                     $(this).trigger('submit');
+
                 }
 
             });
