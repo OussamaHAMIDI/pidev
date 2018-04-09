@@ -22,15 +22,15 @@ class EvaluationController extends Controller
             $noteMoyenne = $noteMoyenne + $e->getNote();
         }
 
-//        $count = $this->createQueryBuilder('e')
-//            ->select('COUNT(e)')
-//            ->where('e.id = :id')
-//            ->setParameter('idBoutique', $idBoutique)
-//            ->getQuery()
-//            ->getSingleScalarResult();
+        $count = $this->createQueryBuilder('e')
+            ->select('COUNT(e)')
+            ->where('e.id = :id')
+            ->setParameter('idBoutique', $idBoutique)
+            ->getQuery()
+            ->getSingleScalarResult();
 
         return $this->render('@Evaluation/Evaluation/evaluation.html.twig', array(
-            "noteMoyenne" => $noteMoyenne
+            "noteMoyenne" => $noteMoyenne/$count
         ));
     }
 
@@ -48,7 +48,8 @@ class EvaluationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $ev = $em->getRepository("EvaluationBundle:Evaluation")
-            ->findOneBy(array('idBoutique' => $idBoutique, 'idUser' => $this->container->get('security.token_storage')->getToken()->getUser()));
+            ->findOneBy(array('idBoutique' => $idBoutique,
+                'idUser' => $this->container->get('security.token_storage')->getToken()->getUser()));
         if($ev){
             $ev->setNote($note);
             $em->persist($ev);
