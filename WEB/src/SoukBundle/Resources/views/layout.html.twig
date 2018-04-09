@@ -248,6 +248,26 @@
                     {% if is_granted('ROLE_ARTISAN') %}
                         <li class="dropdown mega-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
+                            <div class="custom-menu col-md-8">
+                                <div class="col-md-8">
+                                    <ul class="list-links">
+                                        <li>
+                                            <h3 class="list-links-title"><a href="{{ path('afficher_reclamation') }}">Liste des Reclamations</a></h3>
+                                        </li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Boutiques</a></li>
+                                    </ul>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+                            </div>
+                        </li>
+
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ARTISAN') %}
+                        <li class="dropdown mega-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="true">Mes tombolas <i class="fa fa-caret-down"></i></a>
                             <div class="custom-menu col-md-8">
                                 {#<div class="row">#}

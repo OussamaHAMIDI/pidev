@@ -5,3 +5,11 @@ reclamation_homepage:
 afficher_evaluation:
     path:     /afficher
     defaults: { _controller: EvaluationBundle:Evaluation:afficherEvaluation }
+
+ajouter_evaluationBoutique:
+    path:     /ajouter/{note}/{idBoutique}
+    defaults: { _controller: EvaluationBundle:Evaluation:ajouterEvaluationBoutique }
+
+evaluation:
+    path:     /evaluation/{idBoutique}
+    defaults: { _controller: EvaluationBundle:Evaluation:evaluation }

@@ -18,6 +18,11 @@ use ProduitBundle\Entity\Produit as Produit;
 class Evaluation
 {
 
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
+    }
+
     /**
      * @var integer
      *
@@ -37,7 +42,7 @@ class Evaluation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_creation", type="datetime", nullable=false)
+     * @ORM\Column(name="date_creation", type="datetime", nullable=true)
      */
     private $dateCreation;
 
