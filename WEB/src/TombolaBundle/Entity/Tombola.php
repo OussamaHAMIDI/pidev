@@ -225,7 +225,7 @@ class Tombola
     /**
      * @param \DateTime $dateModif
      */
-    public function setDateModif(\DateTime $dateModif)
+    public function setDateModif($dateModif)
     {
         $this->dateModif = $dateModif;
     }
@@ -255,13 +255,7 @@ class Tombola
         $this->dateAjout = new \DateTime();
     }
 
-    /**
-     * @ORM\PostLoad()
-     */
-    public function postLoad()
-    {
-        $this->dateModif = new \DateTime();
-    }
+
 
     public function getUploadRootDir()
     {
@@ -293,7 +287,7 @@ class Tombola
             $this->tempFile = $this->getAbsolutePath();
         }
         $this->oldFile = $this->path;
-        $this->dateModif = new \DateTime();
+//        $this->dateModif = new \DateTime();
 
 
         if (null !== $this->file) {

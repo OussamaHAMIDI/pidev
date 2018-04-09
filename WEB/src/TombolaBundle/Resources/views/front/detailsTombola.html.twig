@@ -63,7 +63,6 @@
                                     </center>
                                     <br>
                                 {% else %}
-                                    <p> amboula mazelit</p>
                                     <p><strong>Il vous reste : </strong></p>
                                     <div id="count" class="col-md-12"
                                          style="padding-top: 10px; padding-bottom: 25px"></div>
@@ -72,7 +71,6 @@
                                 <div class="product-btns">
                                     <div class="pull-right">
                                         {% if is_granted('ROLE_CLIENT') %}
-                                            <p> ena client</p>
                                             {% if 'now'|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') %}
                                                 <p> amboula mazelit</p>
                                                 {#{% if tombola.idGagnant is null %}#}
@@ -112,8 +110,6 @@
 
                                             {% endif %}
                                         {% else %}
-                                            <p> ena manich client</p>
-
                                             {% if 'now'|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') and tombola.idGagnant is null %}
                                                 <br>
                                                 <p><strong>Veuillez vous connecter à un compte client pour pouvoir y

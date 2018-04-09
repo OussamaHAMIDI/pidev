@@ -288,7 +288,7 @@
                         </li>
 
                     {% endif %}
-                    {% if is_granted('ROLE_CLIENT') %}
+                    {% if not is_granted('ROLE_ARTISAN') %}
                         <li><a href="{{ path('afficherTombolas') }}">Nos Tombola</a></li>
                     {% endif %}
                     <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown"
