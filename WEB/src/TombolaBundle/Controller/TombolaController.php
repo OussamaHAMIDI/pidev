@@ -135,7 +135,7 @@ class TombolaController extends Controller
 //            $participe = false;
 //        }
 
-        return $this->redirectToRoute("detailsFront", array('id' => $part->getIdTombola()->getId()) );
+        return $this->redirectToRoute("detailsFront", array('id' => $part->getIdTombola()->getId()));
     }
 
     /**
@@ -148,7 +148,7 @@ class TombolaController extends Controller
 
         $oldPath = $tombola->getPath();
 
-        $path =  $tombola->getUploadRootDir().'\\'.$tombola->getPath();
+        $path = $tombola->getUploadRootDir().'\\'.$tombola->getPath();
         $tombola->setPath($path);
 
         $form = $this->createForm(TombolaEditType::class, $tombola);
@@ -162,8 +162,10 @@ class TombolaController extends Controller
                 $tombola->setPath($oldPath);
             }
 
+            $tombola->setDateModif(new \DateTime());
             $em->persist($tombola);
             $em->flush();
+
             return $this->redirectToRoute("afficherTombolasArtisan");
         }
 
@@ -203,7 +205,10 @@ class TombolaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $searchParameter = $request->get('key');
-        $tombolas = $em->getRepository('TombolaBundle:Tombola')->recherchebytitreFRONTAction($searchParameter,$this->getUser()->getId());
+        $tombolas = $em->getRepository('TombolaBundle:Tombola')->recherchebytitreFRONTAction(
+            $searchParameter,
+            $this->getUser()->getId()
+        );
 
         return $this->render("@Tombola/back/rechercheAll.html.twig", array('tombolas' => $tombolas));
 
@@ -227,19 +232,22 @@ class TombolaController extends Controller
      */
     public function detailsFrontTombolaAction($id)
     {
-        if ($id === null) {
+        if ($id == null) {
             return $this->redirectToRoute("afficherTombolas");
         }
+        $participe = false;
+        if ($this->getUser() != null) {
+            // verif si user connected a deja participé
+            $deja = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:TombolaParticipants')->
+            dejaParticiperTombola($this->getUser()->getId());
 
-        // verif si user connected a deja participé
-        $deja = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:TombolaParticipants')->
-        dejaParticiperTombola($this->getUser()->getId());
-
-        if (sizeof($deja) > 0) {
-            $participe = true;
-        } else {
-            $participe = false;
+            if (sizeof($deja) > 0) {
+                $participe = true;
+            } else {
+                $participe = false;
+            }
         }
+
         $tombola = $this->getDoctrine()->getManager()
             ->getRepository('TombolaBundle:Tombola')->findOneBy(array('id' => $id));
 
@@ -277,6 +285,36 @@ class TombolaController extends Controller
         return $this->redirectToRoute("detailsFront", array('id' => $tombola->getId()));
 
     }
+
+
+    /**
+     * @Route("/lancerTirage/{id}", name="lancerTirage")
+     */
+    public function lancerTirageAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $tombola =$em->getRepository('TombolaBundle:Tombola')->findOneBy(array("id"=>$id));
+
+        $gagnant=$em->getRepository('TombolaBundle:TombolaParticipants')->Random_tombolaAction($tombola->getId());
+//        var_dump($randomPart);
+        $tombola->setIdGagnant($gagnant);
+//        $gagnant = $em->getRepository('UserBundle:User')->findOneBy(array('id'=>$randomPart->getIdParticipant()->getId()));
+
+        //envoyer un mail au gagnant
+        $contenu_mail= \Swift_Message::newInstance()
+            ->setSubject('Vous êtes le gagnant de la tombola')
+            ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
+            ->setTo($gagnant->getEmail())
+            ->setCharset('utf-8')
+            ->setContentType('text/html')
+            ->setBody($this->renderView('@Tombola/SwiftView/gagnant.html.twig'));
+
+//        $this->get('mailer')->send($contenu_mail);
+
+        $em->flush();
+        return $this->redirectToRoute("details", array('id' => $tombola->getId()));
+    }
+
 }
 
 
