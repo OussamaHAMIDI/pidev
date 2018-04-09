@@ -1,5 +1,5 @@
-{%extends '@Souk/layout.html.twig'%}
-{%block body %}
+{% extends '@Souk/layout.html.twig' %}
+{% block body %}
     <div class="section" style="padding: 30px;">
         <div class="container form-group">
             <div class="row">
@@ -13,13 +13,12 @@
             </div>
 
 
-
             <div class="row">
                 <div class="col-md-5 col-md-offset-1">
-                    <div class="form-group" >
+                    <div class="form-group">
                         {#{{ form_errors(form) }}#}
-                        <form  method="post" enctype="multipart/form-data" id="ajout_tombola_form">
-                            {{ form_start(form)}}
+                        <form method="post" enctype="multipart/form-data" id="form">
+                            {{ form_start(form) }}
 
                             {{ form_row(form.titre) }}
                             {{ form_row(form.description) }}
@@ -27,7 +26,7 @@
 
                             <div class="form-group">
                                 <label for="name-login">Date de tirage</label>
-                                <div class='input-group date' id='datetimepicker' >
+                                <div class='input-group date' id='datetimepicker'>
                                     {{ form_widget(form.dateTirage, {'attr': {'class': 'form_tirage'}}) }}
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
@@ -40,16 +39,22 @@
                             {#{{ form_rest(form) }}#}
 
                             <div class="form-group" id="1">
-                                        {{ form_row(form.file) }}
-                                        <br>
-                                {#{% endif %}#}
+                                {{ form_row(form.file) }}
+
+                                <span class="help-block" style="color: #a94442" id="erreurFile">
+                                         <ul class="list-unstyled" style="color: #a94442">
+                                             <li>
+                                                  <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                                        Taille image doit être < 2 Mo
+                                              </li>
+                                      </ul>
+                                </span>
 
                             </div>
 
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <input type="submit" class="primary-btn" id="submit" value="Modifier">
                             </div>
-
                             {{ form_end(form) }}
                         </form>
                     </div>
@@ -65,69 +70,103 @@
     </div>
 
     {% block javascripts %}
-     <script type="text/javascript">
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+        <script type="text/javascript">
+            $("#erreurFile").hide();
 
-                reader.onload = function (e) {
-                    $('#img').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#img').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-        }
-
-        // $("#submit").click(function(){
-        //     alert($('input[type=file]').val());
-        // });
-
-        $("#tombolabundle_tombola_file").change(function(){
-            readURL(this);
-        });
 
 
-        $(function () {
-            $('#datetimepicker').datetimepicker({
-                format: 'YYYY/MM/DD HH:mm:ss'
-            });
-        });
-    </script>
-        <script>
-            $('#submit').confirm({
-                title: 'Confirmation',
-                content: 'Voulez vous appliquer ces changements ?',
-                type: 'blue',
-                typeAnimated: true,
-                boxWidth: '300px',
-                theme: 'modern',
-                draggable: true,
-                useBootstrap: true,
-                backgroundDismiss: false,
-                backgroundDismissAnimation: 'glow',
-                buttons: {
-                    Oui: {
-                        text: 'Confirmer',
-                        btnClass: 'btn-blue',
-                        action: function () {
-                            $.alert({
-                                title: 'Succes!',
-                                icon: 'glyphicon glyphicon-heart',
-                                content: 'Vos modifications sont effectués avec succés.'
-                            });
-                            // return true;
-                        }
-                    },
-                    Non: {
-                        text: 'Annuler',
-                        action: function () {
-                            // return false;
-                        }
-                    }
+            // $("#submit").click(function(){
+            //     alert($('input[type=file]').val());
+            // });
+
+            $("#tombolabundle_tombola_file").attr('accept', 'image/*');
+
+            var fileSize = 0;
+            $("#tombolabundle_tombola_file").change(function () {
+                fileSize = this.files[0].size;
+                fileSize = fileSize / (1024 * 1024);
+                if (fileSize < 2) {
+                    $("#erreurFile").hide();
+                    readURL(this);
+                } else {
+                    $("#erreurFile").show();
+                    readURL(this);
                 }
             });
 
+            //  $("#submit").click(function(){
+            //
+            //     alert($('input[type=file]').val());
+            // });
 
+
+            $("#form").submit(function (e) {
+                if (fileSize > 2) {
+                    console.log('not valide');
+                    // alert( 'Verifier votre fichier.\nTaille maximale 2 Mo.');
+
+                    e.preventDefault();
+                    $("#erreurFile").show();
+                    return false;
+
+                } else {
+                    //many scripts
+                    $(this).trigger('submit');
+                }
+
+            });
+
+            // $('input[type=file]').change(function(){
+            //     readURL(this);
+            // });
+
+
+            $(function () {
+                $('#datetimepicker').datetimepicker({
+                    format: 'YYYY/MM/DD HH:mm:ss'
+                });
+            });
         </script>
+        {#<script>#}
+        {#$('#submit').confirm({#}
+        {#title: 'Confirmation',#}
+        {#content: 'Voulez vous appliquer ces changements ?',#}
+        {#type: 'blue',#}
+        {#typeAnimated: true,#}
+        {#boxWidth: '300px',#}
+        {#theme: 'modern',#}
+        {#draggable: true,#}
+        {#useBootstrap: true,#}
+        {#backgroundDismiss: false,#}
+        {#backgroundDismissAnimation: 'glow',#}
+        {#buttons: {#}
+        {#Oui: {#}
+        {#text: 'Confirmer',#}
+        {#btnClass: 'btn-blue',#}
+        {#action: function () {#}
+        {#console.log("dkhal");#}
+        {#$('#form').submit();#}
+        {#}#}
+        {#},#}
+        {#Non: {#}
+        {#text: 'Annuler',#}
+        {#action: function () {#}
+        {#}#}
+        {#}#}
+        {#}#}
+        {#});#}
+
+
+        {#</script>#}
 
     {% endblock javascripts %}
 

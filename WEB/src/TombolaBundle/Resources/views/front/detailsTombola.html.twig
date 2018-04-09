@@ -24,7 +24,8 @@
                         <div class="col-md-5">
                             <div id="product-main-view">
                                 <div class="product-view">
-                                    <img src="{{ asset('uploads/' ~ tombola.path) }}" alt="image du tombola">
+                                    <img src="{{ asset('uploads/' ~ tombola.path) }}" alt="image du tombola" class="img-thumbnail
+                    img-rounded img-responsive"/>
                                 </div>
                             </div>
 
@@ -99,7 +100,13 @@
                                                 </button>
 
                                             {% endif %}
-
+                                        {% else %}
+                                            <br>
+                                            <p><strong>Veuillez vous connecter à un compte client pour pouvoir y participer </strong>
+                                                <a target="_blank" style="color: #229fac"
+                                                   href="{{ path('fos_user_security_login') }}">
+                                                    Se connecter</a>
+                                            </p>
                                         {% endif %}
 
                                     </div>
