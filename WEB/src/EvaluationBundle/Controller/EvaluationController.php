@@ -53,25 +53,23 @@ class EvaluationController extends Controller
         //var_dump($boutiquesEvaluees);
         //var_dump($evaluations);
         $i = 0;
-        while ($i < 3) {
-            foreach ($boutiquesEvaluees as $b) {
-                $evaluation = new Evaluation();
-                $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
-                    ->findBy(array('idBoutique' => $b));
-                var_dump($b);
-                $note = 0;
-                foreach ($evaluations as $e) {
-                    $note = $note + $e->getNote();
-                }
-                $count = $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $b));
-                $noteMoyenne = $note / $count;
-                $noteMoyenne = round($noteMoyenne);
-                $evaluation->setNote($noteMoyenne);
-                $boutique = $em->getRepository('BoutiqueBundle:Boutique')->findOneBy(array('id' => $b));
-                $evaluation->setIdBoutique($boutique);
-                $topTen[$i] = $evaluation;
-                $i++;
+        foreach ($boutiquesEvaluees as $b) {
+            $evaluation = new Evaluation();
+            $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
+                ->findBy(array('idBoutique' => $b));
+            var_dump($b);
+            $note = 0;
+            foreach ($evaluations as $e) {
+                $note = $note + $e->getNote();
             }
+            $count = $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $b));
+            $noteMoyenne = $note / $count;
+            $noteMoyenne = round($noteMoyenne);
+            $evaluation->setNote($noteMoyenne);
+            $boutique = $em->getRepository('BoutiqueBundle:Boutique')->findOneBy(array('id' => $b));
+            $evaluation->setIdBoutique($boutique);
+            $topTen[$i] = $evaluation;
+            $i++;
         }
         return $this->render('@Evaluation/Evaluation/topTenBoutiques.html.twig', array(
             "evaluations" => $topTen

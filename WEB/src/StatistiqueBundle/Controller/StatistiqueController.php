@@ -5,7 +5,6 @@ namespace StatistiqueBundle\Controller;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use EvaluationBundle\Entity\Evaluation;
-use BoutiqueBundle\Entity\Boutique;
 
 class StatistiqueController extends Controller
 {
@@ -15,6 +14,7 @@ class StatistiqueController extends Controller
         $em = $this->getDoctrine()->getManager();
         $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
         $i = 0;
+        //var_dump($boutiquesEvaluees);
         foreach ($boutiquesEvaluees as $b) {
             $evaluation = new Evaluation();
             $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
@@ -57,6 +57,10 @@ class StatistiqueController extends Controller
         return $this->render('@Statistique/Statistique/afficherStatAdmin.html.twig', array(
             "evaluations" => $topTen, "chart" => $ob
         ));
+
+    }
+
+    public function peutEvaluer($idUser){
 
     }
 
