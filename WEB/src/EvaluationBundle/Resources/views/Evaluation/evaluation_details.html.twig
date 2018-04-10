@@ -1,0 +1,13 @@
+
+
+{% block rate %}
+
+    {% spaceless %}
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 1 , 'idBoutique': idBoutique}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 2 , 'idBoutique': idBoutique}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 3 , 'idBoutique': idBoutique}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 4 , 'idBoutique': idBoutique}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 5 , 'idBoutique': idBoutique}) }}"><i class="fa fa-star"></i></a>
+    {% endspaceless %}
+
+{% endblock rate %}

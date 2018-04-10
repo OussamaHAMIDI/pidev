@@ -87,17 +87,17 @@
                                             </div>
 
 
-
                                             <img src="{{ asset('uploads/images/' ~ boutique.pathPhoto) }}"
                                                  alt="image de la boutique">
                                         </div>
                                         <div class="product-body">
                                             <div class="product-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o empty"></i>
+                                                {% block rating %}
+                                                    {{ render(controller(
+                                                        'EvaluationBundle\\Controller\\EvaluationController::evaluationAction',
+                                                        { 'idBoutique': boutique.id }
+                                                    )) }}
+                                                {% endblock rating %}
                                             </div>
                                             <h2 class="product-name"><a href="#">{{ boutique.nom }}</a></h2>
                                             <h1 class="product-name"><a href="#">{{ boutique.adresse }}</a></h1>

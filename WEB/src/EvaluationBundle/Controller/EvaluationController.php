@@ -76,6 +76,12 @@ class EvaluationController extends Controller
         ));
     }
 
+    public function afficherEvaluerAction($idBoutique){
+        return $this->render('@Evaluation/Evaluation/evaluation_details.html.twig', array(
+            "idBoutique" => $idBoutique
+        ));
+    }
+
     public function ajouterEvaluationBoutiqueAction($note, $idBoutique)
     {
 
@@ -97,7 +103,7 @@ class EvaluationController extends Controller
             $em->flush();
         }
 
-        return $this->render('@Evaluation/Evaluation/ajouter_evaluationBoutique.html.twig');
+        return $this->redirectToRoute("details_boutique", array('id' => $idBoutique));
     }
 
 //    public function modifierEvaluationBoutiqueAction(Request $request, $note, $idBoutique)
