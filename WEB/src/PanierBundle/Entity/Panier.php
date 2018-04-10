@@ -1,8 +1,9 @@
 <?php
 
-namespace SoukBundle\Entity;
+namespace PanierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Entity\User;
 
 
 class Panier
@@ -13,6 +14,9 @@ class Panier
      * @ORM\Table(name="panier", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
      * @ORM\Entity
      */
+
+
+
     /**
      * @var integer
      *
@@ -88,13 +92,41 @@ class Panier
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * })
      */
     private $idUser;
 
+    /**
+     * Panier constructor.
+     * @param int $id
+     * @param \DateTime $dateCreation
+     * @param \DateTime $dateLivraison
+     * @param string $totalTtc
+     * @param string $fraisLivraison
+     * @param string $statut
+     * @param string $modePaiement
+     * @param string $modeLivraison
+     * @param bool $estLivre
+     * @param bool $estPaye
+     * @param User $idUser
+     */
+    public function __construct(int $id, \DateTime $dateCreation, \DateTime $dateLivraison, string $totalTtc, string $fraisLivraison, string $statut, string $modePaiement, string $modeLivraison, bool $estLivre, bool $estPaye, User $idUser)
+    {
+        $this->id = $id;
+        $this->dateCreation = $dateCreation;
+        $this->dateLivraison = $dateLivraison;
+        $this->totalTtc = $totalTtc;
+        $this->fraisLivraison = $fraisLivraison;
+        $this->statut = $statut;
+        $this->modePaiement = $modePaiement;
+        $this->modeLivraison = $modeLivraison;
+        $this->estLivre = $estLivre;
+        $this->estPaye = $estPaye;
+        $this->idUser = $idUser;
+    }
 
 
     /**
