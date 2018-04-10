@@ -29,4 +29,12 @@
         </div>
     {% endspaceless %}
 
+    {% spaceless %}
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 1 , 'idBoutique': 2}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 2 , 'idBoutique': 2}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 3 , 'idBoutique': 2}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 4 , 'idBoutique': 2}) }}"><i class="fa fa-star"></i></a>
+        <a href="{{ path('ajouter_evaluationBoutique',{'note': 5 , 'idBoutique': 2}) }}"><i class="fa fa-star"></i></a>
+    {% endspaceless %}
+
 {% endblock fos_user_content %}
