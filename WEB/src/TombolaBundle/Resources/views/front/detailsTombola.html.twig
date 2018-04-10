@@ -42,18 +42,22 @@
                                 </p>
                                 <p><strong>Date de tirage
                                         : </strong>Le {{ tombola.dateTirage |  date('d/m/Y \\à H\\h i\\m s\\s') }}</p>
-                                {% if tombola.idGagnant is not null %}
+                                {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+
                                     <center>
                                         <h1 align='center' class='product-name'
-                                            style='color: red;font-family: Andalus;font-style: italic'>
+                                            style='color: red;font-family: Andalus'>
                                             C'est fini le tirage est CLOTURÉ</h1>
-                                        <span style="background-color: #2ecc71;font-size: 20px">Le gangant
-                                            {% if tombola.idGagnant.id==app.user.id %}
-                                            c'est : Vous !!</span>
-                                        {% else %}
-                                            est :   <a target="_blank" style="color: #229fac"
-                                                       href="{{ path('fos_user_profile_show',{id: tombola.idGagnant.id}) }}">
-                                            {{ tombola.idGagnant.nom }}  {{ tombola.idGagnant.prenom }}</a>
+                                        {% if tombola.idGagnant is not null %}
+
+                                             {% if tombola.idGagnant.id==app.user.id %}
+                                              <span style="background-color: #2ecc71;font-size: 20px">Le gangant
+                                                    c'est : Vous !!</span>
+                                             {% else %}
+                                                 est :   <a target="_blank" style="color: #229fac"
+                                                            href="{{ path('fos_user_profile_show',{id: tombola.idGagnant.id}) }}">
+                                                 {{ tombola.idGagnant.nom }}  {{ tombola.idGagnant.prenom }}</a>
+                                            {% endif %}
                                         {% endif %}
 
                                     </center>
@@ -66,19 +70,12 @@
                                 {% endif %}
                                 <div class="product-btns">
                                     <div class="pull-right">
-                                        {% if app.user.type == 'Client' %}
-                                            {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                        {% if is_granted('ROLE_CLIENT') %}
+                                            {% if 'now'|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                                <p> amboula mazelit</p>
                                                 {#{% if tombola.idGagnant is null %}#}
-                                                {% if  participe == false %}
-                                                    <button class="btn btn-warning" id="part"
-                                                            href="{{ path('participer',{id: tombola.id}) }}">
-                                                        <i class="fa fa-pencil"></i> Participer
-                                                    </button>
-                                                    <button class="btn btn-danger alert_supp" disabled id="part"
-                                                            href="{{ path('supprimerPart',{id: app.user.id}) }}">
-                                                        <i class="fa fa-trash"></i> Annuler participation
-                                                    </button>
-                                                {% else %}
+                                                {% if  participe == 1 %}
+                                                    <p> {{ app.user.username }} a deja participé</p>
                                                     <button class="btn btn-warning" id="part" disabled
                                                             href="{{ path('participer',{id: tombola.id}) }}">
                                                         <i class="fa fa-pencil"></i> Participer
@@ -87,9 +84,21 @@
                                                             href="{{ path('supprimerPart',{id: app.user.id}) }}">
                                                         <i class="fa fa-trash"></i> Annuler participation
                                                     </button>
+                                                {% else %}
+                                                    <p> {{ app.user.username }} n'a pas participé</p>
+
+                                                    <button class="btn btn-warning" id="part"
+                                                            href="{{ path('participer',{id: tombola.id}) }}">
+                                                        <i class="fa fa-pencil"></i> Participer
+                                                    </button>
+                                                    <button class="btn btn-danger alert_supp" id="part" disabled
+                                                            href="{{ path('supprimerPart',{id: app.user.id}) }}">
+                                                        <i class="fa fa-trash"></i> Annuler participation
+                                                    </button>
                                                 {% endif %}
 
                                             {% else %}
+
                                                 <button class="btn btn-warning" id="part" disabled
                                                         href="{{ path('participer',{id: tombola.id}) }}">
                                                     <i class="fa fa-pencil"></i> Participer

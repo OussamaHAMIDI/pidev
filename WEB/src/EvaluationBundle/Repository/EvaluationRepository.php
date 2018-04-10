@@ -12,20 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class EvaluationRepository extends EntityRepository
 {
-
-    public function calculerNombre($idBoutique){
-        $result = $this->getEntityManager()
-            ->createQuery('SELECT e.id_boutique EvaluationBundle:Evaluation e WHERE e.id_boutique =:idBoutique')
-            ->setParameter('idBoutique',$idBoutique)
-            ->getResult();
-        return  $result;
+    public function getBoutiquesEvaluees()
+    {
+        $qb= $this->getEntityManager()->createQueryBuilder();
+        $qb->select('IDENTITY(e.idBoutique)')
+            ->from('EvaluationBundle:Evaluation', 'e')
+            ->distinct('e.idBoutique')
+            ->setMaxResults(5)
+            ->orderBy('e.note', 'DESC');
+        $q = $qb->getQuery();
+        return $q->execute();
     }
 
-    public function getTopTenBoutiques(){
-        $result = $this->getEntityManager()
-            ->createQuery('SELECT e.id_boutique EvaluationBundle:Evaluation e WHERE e.id_boutique =:idBoutique')
-            ->setParameter('idBoutique',$idBoutique)
-            ->getResult();
-        return  $result;
+    public function getNoteMoyenneuuu($idBoutique)
+    {
+        $qb= $this->getEntityManager()->createQueryBuilder();
+        $qb->select('e.note')
+            ->from('EvaluationBundle:Evaluation', 'e')
+            ->where('e.idBoutique = :id_boutique')
+            ->setParameter('id_boutique',$idBoutique);
+        $q = $qb->getQuery();
+        return $q->execute();
     }
 }

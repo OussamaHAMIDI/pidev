@@ -30,15 +30,23 @@
                         <div class="col-md-6">
                             <div class="product-body">
                                 <div class="product-label pull-right">
-                                    {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
-                                        <span style="background-color: red" class="pull-right">Cloturée</span><br>
-                                        {% if tombola.idArtisan is not null and tombola.idGagnant is not null %}
-                                            <span style="background-color: #2ecc71">Le gagnant est : {{ tombola.idGagnant.nom }} {{ tombola.idGagnant.prenom }}</span>
-                                        {% endif %}
 
-                                    {% else %}
+                                    {% if 'now '|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') %}
                                         <span style="background-color: forestgreen">Ouverte</span>
+                                    {% elseif tombola.idGagnant is not null %}
+                                        <span style="background-color: red" class="pull-right">Cloturé</span><br>
+                                        <span style="background-color: #2ecc71">Le gagnant est : {{ tombola.idGagnant.nom }} {{ tombola.idGagnant.prenom }}</span>
+                                    {% else %}
+                                        <span style="background-color: orange" class="pull-right">Fermée</span><br>
+                                        {% if participants|length >0 %}
+
+                                            <span style="background-color: dodgerblue">
+                                               <a href="{{ path('lancerTirage',{id: tombola.id}) }}"> Lancer le tirage</a>
+                                            </span>
+
+                                        {% endif %}
                                     {% endif %}
+
                                 </div>
 
                                 <h2 class="product-name">{{ tombola.titre }}</h2>
@@ -46,6 +54,7 @@
                                         : </strong>Le {{ tombola.dateAjout |  date('d/m/Y \\à H\\h i\\m s\\s') }}</p>
                                 <p><strong>Date de tirage
                                         : </strong>Le {{ tombola.dateTirage |  date('d/m/Y \\à H\\h i\\m s\\s') }}</p>
+                                {#: </strong>Le {{ tombola.dateTirage |  date('d/m/Y H:i:s') }}</p>#}
 
                                 <p><strong>Date derniere modification :</strong>
                                     {% if not tombola.dateModif is empty %}
@@ -58,9 +67,9 @@
 
 
                                 <p>
-                                    {{ tombola.description }}
-                                </p>
-                                <p><strong>Participants :</strong></p>
+                                    <strong>Description :</strong> <br> {{ tombola.description }}</p>
+
+                               <p> <strong>Participants :</strong></p>
                                 {% if not participants is empty %}
                                     <table class="table table-responsive">
                                         <thead>
@@ -68,6 +77,7 @@
                                             <th>Nom</th>
                                             <th>Prénom</th>
                                             <th>Date d'inscription</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -76,7 +86,9 @@
                                                 <td> {{ p.nom }} </td>
                                                 <td> {{ p.prenom }}  </td>
                                                 <td> {{ p.dateIscription | date('d-m-Y H:i:s') }} </td>
-
+                                                <td><a target="_blank" style="color: #229fac"
+                                                       href="{{ path('fos_user_profile_show',{id: p.id}) }}">
+                                                        Voir le profil du client</a></td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -88,7 +100,7 @@
                                 {% endif %}
                                 <div class="product-btns">
                                     <div class="pull-right">
-                                        {% if 'now -1 hour'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                        {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
                                             <a href="{{ path('modifier',{id: tombola.id}) }}"
                                                class="btn btn-warning disabled"
                                                role="button" aria-disabled="true"><i class="fa fa-pencil"></i> Modifier</a>

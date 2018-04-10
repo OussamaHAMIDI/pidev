@@ -11,17 +11,16 @@ class TombolaParticipantsRepository extends EntityRepository
 
         $count = $this->createQueryBuilder('t')
             ->select('COUNT(t)')
-            ->where('t.id = :id')
+            ->where('t.idTombola = :id')
             ->setParameter('id', $id_tombola)
             ->getQuery()
             ->getSingleScalarResult();
 
-        $gagnant=$this->createQueryBuilder('t')
-            ->setFirstResult(rand(0, $count - 1))
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getSingleResult();
-
+        $part = $this->findBy(array('idTombola'=>$id_tombola));
+        $count = count($this->findBy(array('idTombola'=>$id_tombola)));
+        $rnd = rand(0,$count-1);
+        $gagnant = $part[$rnd]->getIdParticipant();
+//        echo 'gagant is : '.$gagnant;
         return $gagnant;
     }
     

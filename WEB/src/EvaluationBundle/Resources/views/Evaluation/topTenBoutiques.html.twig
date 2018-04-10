@@ -1,0 +1,59 @@
+{% extends "@Souk/layout.html.twig" %}
+
+
+{% block title %}
+    <div class="section-title">
+        <h2 class="title">
+            Top Ten Boutiques (3 en fait) :D
+        </h2>
+    </div>
+{% endblock title %}
+
+{% block fos_user_content %}
+    <html>
+
+    <table>
+        <tr>
+            <th>Note</th>
+            <th>date creation</th>
+            <th>Nom</th>
+        </tr>
+        {% set b = 0 %}
+        {% set p = 0 %}
+        {% for e in evaluations %}
+            {% if (b <3) and (e.idBoutique != null) %}
+                <tr>
+                    <td>
+                        {% set b = b + 1 %}
+                        {{ e.note }}
+                        {% spaceless %}
+                            <div class="product">
+                                <div class="product-rating">
+                                    {% if (e.note)!=0 %}
+                                        {% for i in 1..e.note %}
+                                            <i class="fa fa-star"></i>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if (5 - e.note != 0 ) %}
+                                        {% for j in 1..(5 - e.note) %}
+                                            <i class="fa fa-star empty"></i>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endspaceless %}
+                    </td>
+                    <td>
+                        {{ e.dateCreation|date('y/m/d') }}
+                    </td>
+                    <td>
+                        {{ e.idBoutique ? e.idBoutique.nom : '' }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+
+    </html>
+{% endblock fos_user_content %}
