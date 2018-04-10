@@ -1,14 +1,12 @@
-<<<<<<< HEAD
+
 panier:
     resource: "@PanierBundle/Controller/"
     type:     annotation
     prefix:   /panier
-=======
+
 statistique:
     resource: "@StatistiqueBundle/Resources/config/routing.yml"
     prefix:   /statistique
-
-
 
 historique:
     resource: "@HistoriqueBundle/Resources/config/routing.yml"
@@ -36,7 +34,6 @@ reclamation:
 #    type:     annotation
 #    prefix:   /
 
->>>>>>> 5de313ea134033abadcf3214f93b00505b82ae1c
 
 tombola:
     resource: "@TombolaBundle/Controller/"
