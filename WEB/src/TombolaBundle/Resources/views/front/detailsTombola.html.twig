@@ -1,0 +1,353 @@
+{% extends '@Souk/layout.html.twig' %}
+{% block body %}
+    <div class="section">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="section-title">
+                    <h2 class="title">
+                        Détails tombola
+                        <input type="datetime" id="date_tir" value="{{ tombola.dateTirage |date('Y-m-d H:i:s') }}"
+                               hidden>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- section -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+
+                <!-- row -->
+                <div class="row">
+                    <!--  Product Details -->
+                    <div class="product product-details clearfix">
+                        <div class="col-md-5">
+                            <div id="product-main-view">
+                                <div class="product-view">
+                                    <img src="{{ asset('uploads/' ~ tombola.path) }}" alt="image du tombola" class="img-thumbnail
+                    img-rounded img-responsive"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-7">
+                            <div class="product-body">
+
+                                <h2 class="product-name">{{ tombola.titre }}</h2>
+                                <br>
+                                <p><strong>Artisan :</strong>
+                                    <a target="_blank" style="color: #229fac"
+                                       href="{{ path('fos_user_profile_show',{id: tombola.idArtisan.id}) }}">
+                                        {{ tombola.idArtisan.nom }}  {{ tombola.idArtisan.prenom }}</a>
+                                </p>
+                                <p><strong>Date de tirage
+                                        : </strong>Le {{ tombola.dateTirage |  date('d/m/Y \\à H\\h i\\m s\\s') }}</p>
+                                {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+
+                                    <center>
+                                        <h1 align='center' class='product-name'
+                                            style='color: red;font-family: Andalus'>
+                                            C'est fini le tirage est CLOTURÉ</h1>
+                                        {% if tombola.idGagnant is not null %}
+
+                                             {% if tombola.idGagnant.id==app.user.id %}
+                                              <span style="background-color: #2ecc71;font-size: 20px">Le gangant
+                                                    c'est : Vous !!</span>
+                                             {% else %}
+                                                 est :   <a target="_blank" style="color: #229fac"
+                                                            href="{{ path('fos_user_profile_show',{id: tombola.idGagnant.id}) }}">
+                                                 {{ tombola.idGagnant.nom }}  {{ tombola.idGagnant.prenom }}</a>
+                                            {% endif %}
+                                        {% endif %}
+
+                                    </center>
+                                    <br>
+                                {% else %}
+                                    <p><strong>Il vous reste : </strong></p>
+                                    <div id="count" class="col-md-12"
+                                         style="padding-top: 10px; padding-bottom: 25px"></div>
+
+                                {% endif %}
+                                <div class="product-btns">
+                                    <div class="pull-right">
+                                        {% if is_granted('ROLE_CLIENT') %}
+                                            {% if 'now'|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                                <p> amboula mazelit</p>
+                                                {#{% if tombola.idGagnant is null %}#}
+                                                {% if  participe == 1 %}
+                                                    <p> {{ app.user.username }} a deja participé</p>
+                                                    <button class="btn btn-warning" id="part" disabled
+                                                            href="{{ path('participer',{id: tombola.id}) }}">
+                                                        <i class="fa fa-pencil"></i> Participer
+                                                    </button>
+                                                    <button class="btn btn-danger alert_supp" id="part"
+                                                            href="{{ path('supprimerPart',{id: app.user.id}) }}">
+                                                        <i class="fa fa-trash"></i> Annuler participation
+                                                    </button>
+                                                {% else %}
+                                                    <p> {{ app.user.username }} n'a pas participé</p>
+
+                                                    <button class="btn btn-warning" id="part"
+                                                            href="{{ path('participer',{id: tombola.id}) }}">
+                                                        <i class="fa fa-pencil"></i> Participer
+                                                    </button>
+                                                    <button class="btn btn-danger alert_supp" id="part" disabled
+                                                            href="{{ path('supprimerPart',{id: app.user.id}) }}">
+                                                        <i class="fa fa-trash"></i> Annuler participation
+                                                    </button>
+                                                {% endif %}
+
+                                            {% else %}
+
+                                                <button class="btn btn-warning" id="part" disabled
+                                                        href="{{ path('participer',{id: tombola.id}) }}">
+                                                    <i class="fa fa-pencil"></i> Participer
+                                                </button>
+                                                <button class="btn btn-danger alert_supp" id="part" disabled
+                                                        href="{{ path('supprimerPart',{id: app.user.id}) }}">
+                                                    <i class="fa fa-trash"></i> Annuler participation
+                                                </button>
+
+                                            {% endif %}
+                                        {% else %}
+                                            {% if 'now'|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') and tombola.idGagnant is null %}
+                                                <br>
+                                                <p><strong>Veuillez vous connecter à un compte client pour pouvoir y
+                                                        participer </strong>
+                                                    <a target="_blank" style="color: #229fac"
+                                                       href="{{ path('fos_user_security_login') }}">
+                                                        Se connecter</a>
+                                                </p>
+                                            {% endif %}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="pull-left">
+
+                                        <a href="{{ path('afficherTombolas') }}" class="btn btn-primary"
+                                           role="button"><i class="fa fa-arrow-left"></i> Retour</a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <!-- /Product Details -->
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+                <!-- /section -->
+
+
+                <div class="col-md-12">
+                    <div class="product-tab">
+                        <ul class="tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Détails</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab1" class="tab-pane fade in active">
+                                <p>{{ tombola.description }}.</p>
+                            </div>
+                            <div id="tab2" class="tab-pane fade in col-md-offset-1 col-md-10">
+                                <p><strong>Les participants: </strong></p>
+                                {% if not participants is empty %}
+                                    <table class="table table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prénom</th>
+                                            <th>Date d'inscription</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for p in participants %}
+                                            <tr>
+                                                <td> {{ p.nom }} </td>
+                                                <td> {{ p.prenom }}  </td>
+                                                <td> {{ p.dateIscription | date('d-m-Y H:i:s') }} </td>
+                                                <td><a target="_blank" style="color: #229fac"
+                                                       href="{{ path('fos_user_profile_show',{id: p.id}) }}">
+                                                        Voir le profil du client</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>
+                                        Pour l'instant, il n'y a pas de participants dans le tirage.
+                                    </p>
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /container -->
+        </div>
+
+    </div>
+
+
+
+
+    {% block javascripts %}
+        <script>
+            Date.secondsBetween = function (date1, date2) {
+                //Get 1 day in milliseconds
+                var one_day = 1000 * 60 * 60 * 24;
+
+
+                // Convert both dates to milliseconds
+                var date1_ms = date1.getTime();
+                var date2_ms = date2.getTime();
+
+                // Calculate the difference in milliseconds
+                var difference_ms = date2_ms - date1_ms;
+
+                // Convert back to days and return
+                return Math.round(difference_ms * 24 * 3600 / (one_day));
+            }
+
+            $('.alert_supp').confirm({
+                title: 'Annulation',
+                content: 'Voulez-vous vraiment annuler votre participation ?',
+                type: 'red',
+                typeAnimated: true,
+                boxWidth: '300px',
+                theme: 'modern',
+                draggable: true,
+                useBootstrap: true,
+                backgroundDismiss: false,
+                backgroundDismissAnimation: 'glow',
+                buttons: {
+                    Oui: {
+                        text: 'Oui',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            location.href = this.$target.attr('href');
+                        }
+                    },
+                    Non: {
+                        text: 'Non',
+                        action: function () {
+                        }
+                    }
+                }
+            });
+            $('#part').confirm({
+                title: 'Confirmation',
+                content: 'Veuillez confirmer votre demande de participation.',
+                type: 'blue',
+                typeAnimated: true,
+                boxWidth: '300px',
+                theme: 'modern',
+                draggable: true,
+                useBootstrap: true,
+                backgroundDismiss: false,
+                backgroundDismissAnimation: 'glow',
+                buttons: {
+                    Oui: {
+                        text: 'Oui',
+                        btnClass: 'btn-green',
+                        action: function () {
+                            location.href = this.$target.attr('href');
+                        }
+                    },
+                    Non: {
+                        text: 'Non',
+                        action: function () {
+                        }
+                    }
+                }
+            });
+
+
+            var date_tirage = document.getElementById("date_tir").value;
+            var launch = new Date(date_tirage);
+            $('#count').ClassyCountdown({
+                // flat-colors, flat-colors-wide, flat-colors-very-wide,
+// flat-colors-black, black, black-wide, black-very-wide,
+// black-black, white, white-wide,
+// white-very-wide or white-black
+                theme: "black-very-wide",
+// end time
+                end: $.now() + Date.secondsBetween(new Date(), launch),
+                now: $.now(),
+
+// whether to display the days/hours/minutes/seconds labels.
+                labels: true,
+
+// object that specifies different language phrases for says/hours/minutes/seconds as well as specific CSS styles.
+                labelsOptions: {
+                    lang: {
+                        days: 'Jours',
+                        hours: 'Heures',
+                        minutes: 'Minutes',
+                        seconds: 'Secondes'
+                    },
+                    style: 'font-size: 18px;font-family: Comic Sans MS'
+                },
+
+// custom style for the countdown
+                style: {
+                    element: '',
+                    labels: false,
+                    textResponsive: .5,
+                    days: {
+                        gauge: {
+                            thickness: .05,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#F8694A",
+                            lineCap: 'round'
+                        },
+                        textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+                    },
+                    hours: {
+                        gauge: {
+                            thickness: .05,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#F8694A",
+                            lineCap: 'round'
+                        },
+                        textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+                    },
+                    minutes: {
+                        gauge: {
+                            thickness: .05,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#F8694A",
+                            lineCap: 'round'
+                        },
+                        textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+                    },
+                    seconds: {
+                        gauge: {
+                            thickness: .05,
+                            bgColor: "rgba(0,0,0,0)",
+                            fgColor: "#f8694a",
+                            lineCap: 'round'
+                        },
+                        textCSS: 'font-family:\'Open Sans\'; font-size:25px; font-weight:300; color:#34495e;'
+                    }
+
+                },
+                onEndCallback: function () {
+                    $('#count').html("<h1 align='center' class='product-name' style='color: red;" +
+                        "font-family: Andalus;font-style: italic' > C'est fini le tirage est CLOTURÉ</h1>");
+                    $('.alert_supp').prop("disabled", true);
+                    $('#part').prop("disabled", true);
+                }
+            });
+        </script>
+    {% endblock javascripts %}
+
+{% endblock body %}

@@ -1,0 +1,50 @@
+{% extends "@Souk/layout.html.twig" %}
+
+
+{% block title %}
+    <div class="section-title">
+        <h2 class="title">
+            Liste des Evaluations
+        </h2>
+    </div>
+{% endblock title %}
+
+{% block fos_user_content %}
+    <html>
+
+    <table>
+        <tr>
+            <th>Note</th>
+            <th>date creation</th>
+            <th>Nom</th>
+        </tr>
+        {% for e in evaluations %}
+            <tr>
+                <td>
+                    {{ e.note }}
+                    {% spaceless %}
+                        <div class="product">
+                            <div class="product-rating">
+                                {% for i in 1..e.note %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for j in 1..(5 - e.note) %}
+                                    <i class="fa fa-star empty"></i>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endspaceless %}
+                </td>
+                <td>
+                    {{ e.dateCreation|date('y/m/d') }}
+                </td>
+                <td>
+                    {{ e.idBoutique ? e.idBoutique.nom : '' }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    </html>
+{% endblock fos_user_content %}

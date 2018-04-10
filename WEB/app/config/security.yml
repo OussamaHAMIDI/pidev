@@ -31,6 +31,11 @@ security:
                 use_forward: true
                 always_use_default_target_path: false
                 success_handler: redirect.after.login
+#                logout:
+#                path: /logout
+#                target: /
+#                success_handler: redirect.after.logout
+#           anonymous:    true
             logout: true
 #                path:           fos_user_security_logout
 #                target:         fos_user_security_login

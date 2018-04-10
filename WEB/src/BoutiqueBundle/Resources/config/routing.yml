@@ -1,0 +1,12 @@
+ajouter_boutique:
+    path:     /ajouterBoutique
+    defaults: { _controller: BoutiqueBundle:Boutique:ajouterBoutique }
+afficher_boutique:
+    path:     /
+    defaults: { _controller: BoutiqueBundle:Boutique:afficherBoutique }
+modifier_boutique:
+    path:     /modifier/{id}
+    defaults: { _controller: BoutiqueBundle:Boutique:modifierBoutique }
+supprimer_boutique:
+    path:     /supprimer/{id}
+    defaults: { _controller: BoutiqueBundle:Boutique:supprimerBoutique }

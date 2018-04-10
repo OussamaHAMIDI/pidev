@@ -56,7 +56,7 @@ class Tombola
      *
      * @ORM\Column(name="date_ajout", type="datetime", nullable=false)
      */
-    private $dateAjout ;
+    private $dateAjout;
 
     /**
      * @var DateTime
@@ -72,35 +72,35 @@ class Tombola
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_gagnant", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="id_artisan", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * })
      */
-    private $idGagnant;
+    private $idArtisan;
+
 
     /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_artisan", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="id_gagnant", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * })
      */
-    private $idArtisan;
+    private $idGagnant;
 
-//* @Assert\File(
-//*     mimeTypes={ "image/bmp","image/png" ,"image/jpeg" },
-//*      mimeTypesMessage="Le type du fichier est invalide {{type}}. Les types autorisés sont {{types}}."),
-//     *
-//     *     maxSize="1M",    maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
-//     *      La taille maximale autorisée est {{ limit }} {{ suffix }}"
-//    * )
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
-     * @Assert\Image()
+     *
+     *
+     *
+     * *@Assert\File(
+     *     maxSize="3M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpeg"},maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
+     *    La taille maximale autorisée est {{ limit }} {{ suffix }}"
+     * )
      */
     private $path;
-
 
 
     /**
@@ -129,7 +129,7 @@ class Tombola
     /**
      * @param string $titre
      */
-    public function setTitre(string $titre): void
+    public function setTitre(string $titre)
     {
         $this->titre = $titre;
     }
@@ -185,7 +185,7 @@ class Tombola
     /**
      * @return User
      */
-    public function getIdGagnant(): User
+    public function getIdGagnant()
     {
         return $this->idGagnant;
     }
@@ -193,7 +193,7 @@ class Tombola
     /**
      * @param User $idGagnant
      */
-    public function setIdGagnant(User $idGagnant): void
+    public function setIdGagnant(User $idGagnant)
     {
         $this->idGagnant = $idGagnant;
     }
@@ -201,7 +201,7 @@ class Tombola
     /**
      * @return User
      */
-    public function getIdArtisan(): User
+    public function getIdArtisan()
     {
         return $this->idArtisan;
     }
@@ -225,7 +225,7 @@ class Tombola
     /**
      * @param \DateTime $dateModif
      */
-    public function setDateModif(\DateTime $dateModif)
+    public function setDateModif($dateModif)
     {
         $this->dateModif = $dateModif;
     }
@@ -254,33 +254,23 @@ class Tombola
     {
         $this->dateAjout = new \DateTime();
     }
-    /**
-     * @ORM\PostLoad()
-     */
-    public function postLoad()
-    {
 
-        $this->updateAt = new \DateTime();
-    }
+
 
     public function getUploadRootDir()
     {
-        return dirname(__DIR__, 4).'/uploads';
+        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+//        return __dir__.'/../../../web/uploads';
+//        return dirname(__DIR__, 4).'/uploads';
     }
 
     public function getAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->getPath();
     }
 
-    public function getAssetPath()
-    {
-        return 'uploads/'.$this->path;
-    }
-    /******************************************************************************************************************/
 
     public $file;
-
 
 
     /**
@@ -289,13 +279,20 @@ class Tombola
      */
     public function preUpload()
     {
-        $this->tempFile = $this->getAbsolutePath();
+        $t = $this->getAbsolutePath();
+
+        if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+            $this->tempFile = substr($t, strlen($this->getUploadRootDir())+1);
+        } else {
+            $this->tempFile = $this->getAbsolutePath();
+        }
         $this->oldFile = $this->path;
-        $this->updateAt = new \DateTime();
+//        $this->dateModif = new \DateTime();
 
 
-        if (null !== $this->file)
-            $this->path = sha1(uniqid(mt_rand(),true)).'.'.$this->file->guessExtension();
+        if (null !== $this->file) {
+            $this->path = sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension();
+        }
     }
 
     /**
@@ -305,10 +302,12 @@ class Tombola
     public function upload()
     {
         if (null !== $this->file) {
-            $this->file->move($this->getUploadRootDir(),$this->path);
+            $this->file->move($this->getUploadRootDir(), $this->path);
             unset($this->file);
 
-            if ($this->oldFile != null) unlink($this->tempFile);
+            if ($this->oldFile != null) {
+                unlink($this->tempFile);
+            }
         }
     }
 
@@ -325,7 +324,9 @@ class Tombola
      */
     public function removeUpload()
     {
-        if (file_exists($this->tempFile)) unlink($this->tempFile);
+        if (file_exists($this->tempFile)) {
+            unlink($this->tempFile);
+        }
     }
 
 }

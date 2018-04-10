@@ -5,6 +5,7 @@ namespace PanierBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
 
+<<<<<<< HEAD:WEB/src/PanierBundle/Entity/Panier.php
 
 class Panier
 {
@@ -16,6 +17,16 @@ class Panier
      */
 
 
+=======
+/**
+ * Panier
+ *
+ * @ORM\Table(name="panier", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+ * @ORM\Entity
+ */
+class Panier
+{
+>>>>>>> 5de313ea134033abadcf3214f93b00505b82ae1c:WEB/src/SoukBundle/Entity/Panier.php
 
     /**
      * @var integer

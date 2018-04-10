@@ -1,0 +1,3 @@
+afficher_statAdmin:
+    path:     /afficherAdmin
+    defaults: { _controller: StatistiqueBundle:Statistique:afficherStatistiqueArtisan }

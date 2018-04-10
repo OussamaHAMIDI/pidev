@@ -1,0 +1,40 @@
+{% extends "@Souk/layout.html.twig" %}
+
+
+{% block title %}
+    <div class="section-title">
+        <h2 class="title">
+            Liste des Reclamations
+        </h2>
+    </div>
+{% endblock title %}
+
+{% block fos_user_content %}
+    <html>
+   <table>
+        <tr>
+            <th>description</th>
+            <th>date creation</th>
+            <th>action</th>
+        </tr>
+        {% for r in reclamations %}
+            <tr>
+                <td>
+                    {{ r.description }}
+                </td>
+                <td>
+                    {{ r.dateCreation|date('d/m/y') }}
+                </td>
+                <td>
+                    <a href="{{ path('supprimer_reclamation',{'id':r.id}) }}">supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    </html>
+
+    {% block javascripts %}
+    {% endblock javascripts %}
+
+{% endblock fos_user_content %}

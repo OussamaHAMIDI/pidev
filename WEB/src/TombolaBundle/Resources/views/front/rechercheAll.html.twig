@@ -1,0 +1,50 @@
+<div class="row" id="result">
+    {% for tombola in tombolas %}
+        <!-- Product Single -->
+        <div class="col-md-4 col-sm-6 col-xs-6">
+            <a href="{{ path('detailsFront',{id: tombola.id}) }}">
+
+                <div class="product product-single">
+                    <div class="product-thumb">
+                        <div class="product-label">
+                            {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                <span style="background-color: red">Cloturée</span>
+                            {% else %}
+                                <span style="background-color: forestgreen">Ouverte</span>
+                            {% endif %}
+                        </div>
+
+                        <img src="{{ asset('uploads/' ~ tombola.path) }}"
+                             alt="image du tombola">
+                    </div>
+                    <div class="product-body">
+                        <h3 class="product-price"><a
+                                    href="{{ path('detailsFront',{id: tombola.id}) }}">
+                                {{ tombola.titre }}</a>
+                        </h3>
+
+                        <h2 class="product-name"><a
+                                    href="{{ path('detailsFront',{id: tombola.id}) }}">
+                                {{ tombola.description [0:30] }}{% if tombola.description|length > 30 %}...{% endif %}</a>
+                        </h2>
+                        <div class="product-btns">
+                            {#<button class="main-btn icon-btn"><i class="fa fa-heart"></i>#}
+                            {#</button>#}
+                            {#<button class="main-btn icon-btn"><i class="fa fa-exchange"></i>#}
+                            {#</button>#}
+                            <a href="{{ path('detailsFront',{id: tombola.id}) }}">
+                                <button class="btn primary-btn add-to-cart"><i
+                                            class="fa fa-info"></i>
+                                    En savoir plus
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        <!-- /Product Single -->
+    {% endfor %}
+
+</div>
