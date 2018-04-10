@@ -1,0 +1,207 @@
+{%extends '@Souk/layout.html.twig'%}
+{%block body %}
+
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Checkout</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <form id="checkout-form" class="clearfix">
+                <div class="col-md-6">
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Informations client:</h3>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.nom }}" type="text" name="first-name" readonly="readonly" placeholder="Nom">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.prenom }}" type="text" name="last-name" readonly="readonly" placeholder="Prenom">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.email }}" type="email" name="email" readonly="readonly" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.adresse }}" type="text" name="address" readonly="readonly" placeholder="Adresse">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.tel }}" type="tel" name="tel" readonly="readonly" placeholder="Telephone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Mode de livraison: </h4>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModeLivraison=="SurPlace" %}
+                                <input type="radio" name="shipping" id="shipping-1" checked>
+                            {% else %}
+                                <input type="radio" name="shipping" id="shipping-1" >
+                            {% endif %}
+                            <label for="shipping-1">Sur place -  TND0.00</label>
+                            <div class="caption">
+                                <p>Récuperer vos produits vous même avec la facture fournie.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModeLivraison=="ADomicile" %}
+                                <input type="radio" name="shipping" id="shipping-2" checked>
+                            {% else %}
+                                <input type="radio" name="shipping" id="shipping-2" >
+                            {% endif %}
+                            <label for="shipping-2">A Domicile: - TND12.00</label>
+                            <div class="caption">
+                                <p>Vos produits vous seront livrée a votre domicile.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModeLivraison=="ParPoste" %}
+                                <input type="radio" name="shipping" id="shipping-3" checked>
+                            {% else %}
+                                <input type="radio" name="shipping" id="shipping-3" >
+                            {% endif %}
+
+                            <label for="shipping-3">Par Poste: - TND12.00</label>
+                            <div class="caption">
+                                <p>Vous receverez un email dès que votre commande est déposé a la poste.
+                                <p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payments-methods">
+                        <div class="section-title">
+                            <h4 class="title"> Modes de paiement:</h4>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModePaiement=="Espece" %}
+                                <input type="radio" name="payments" id="payments-1" checked>
+                            {% else %}
+                                <input type="radio" name="payments" id="payments-1">
+                            {% endif %}
+
+                            <label for="payments-1">Espece</label>
+                            <div class="caption">
+                                <p>Payez en espece a la livraison ou a la recupération des produits.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModePaiement=="Cheque" %}
+                                <input type="radio" name="payments" id="payments-2" checked>
+                            {% else %}
+                                <input type="radio" name="payments" id="payments-2">
+                            {% endif %}
+                            <label for="payments-2">Cheque</label>
+                            <div class="caption">
+                                <p>Le payment se fera par cheque (Ce mode ne vous permet pas la livraison a domicile ou par poste).
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModePaiement=="Internet" %}
+                                <input type="radio" name="payments" id="payments-3" checked>
+                            {% else %}
+                                <input type="radio" name="payments" id="payments-3">
+                            {% endif %}
+                            <label for="payments-3">Paypal</label>
+                            <div class="caption">
+                                <p>Payez en ligne sans soucis.
+                                <p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Commande</h3>
+                        </div>
+                        <table class="shopping-cart-table table">
+                            <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th></th>
+                                <th class="text-center">Prix</th>
+                                <th class="text-center">Quantité</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-right"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for produit in produits %}
+                                <tr>
+                                    <td class="thumb"><img src="{{ asset('img/thumb-product01.jpg') }}" alt=""></td>
+                                    <td class="details">
+                                        <a href="#">{{ produit.libelle }}</a>
+                                        <ul>
+                                            <li><span>Size: {{ produit.reference }}</span></li>
+                                            <li><span>Size: {{ produit.description }}</span></li>
+                                        </ul>
+                                    </td>
+                                    <td class="price text-center"><strong>TND{{ produit.prix }}</strong></td>
+                                    <td class="qty text-center"><input class="input" type="number" min="1" value="1"></td>
+                                    <td class="total text-center"><strong class="primary-color">TND{{ produit.prix }}</strong></td>
+                                    <td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>SOUSTOTAL</th>
+                                <th id="soustotal" colspan="2" class="sub-total">TND<span>{{ monpanier.totalTtc|number_format(3,'.')-monpanier.fraisLivraison|number_format(3,'.') }}</span></th>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>Livraison</th>
+                                <td id="livraison" colspan="2">Sur place</td>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>TOTAL</th>
+                                <th id="total" colspan="2" class="total">TND<span>{{ monpanier.totalTtc }}</span></th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <div class="pull-right">
+                            <button class="primary-btn">Passer la commande</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+
+        </script>
+
+    {% endblock javascripts %}
+
+{% endblock body %}
