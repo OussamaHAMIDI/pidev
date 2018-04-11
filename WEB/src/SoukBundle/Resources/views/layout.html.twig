@@ -93,7 +93,7 @@
                             <div class="header-btns-icon">
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                                    <img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">
+                                    {#<img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">#}
 
                                 {% else %}
                                     <i class="fa fa-user-o"></i>
