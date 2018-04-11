@@ -129,8 +129,8 @@ class User extends BaseUser
 
     public function setEnabled($boolean)
     {
-        $this->enabled = (bool) $boolean;
-        if($boolean) {
+        $this->enabled = (bool)$boolean;
+        if ($boolean) {
             $this->etat = "Active";
         } else {
             $this->etat = "Pending";
@@ -169,14 +169,13 @@ class User extends BaseUser
     public function setType($type)
     {
         if ($type === "Artisan") {
-            $this->roles = array('ROLE_ARTISAN');
+            $this->addRole('ROLE_ARTISAN');
+        } elseif ($type === "Client") {
+            $this->addRole('ROLE_CLIENT');
         } else {
-            if ($type === "Client") {
-                $this->addRole('ROLE_CLIENT');
-            } else {
-                $this->addRole('ROLE_ADMINISTRATEUR');
-            }
+            $this->addRole('ROLE_ADMINISTRATEUR');
         }
+
         $this->type = $type;
     }
 
@@ -403,12 +402,12 @@ class User extends BaseUser
 
     public function getAbsolutePathPhotoProfil()
     {
-        return null === $this->pathPhotoProfil ? null : $this->getUploadRootDir().'/'.$this->pathPhotoProfil;
+        return null === $this->pathPhotoProfil ? null : $this->getUploadRootDir().'/'.$this->getPathPhotoProfil();
     }
-    
+
     public function getAbsolutePathPhotoPermis()
     {
-        return null === $this->pathPhotoPermis ? null : $this->getUploadRootDir().'/'.$this->pathPhotoPermis;
+        return null === $this->pathPhotoPermis ? null : $this->getUploadRootDir().'/'.$this->getPathPhotoPermis();
     }
 
 
@@ -423,21 +422,22 @@ class User extends BaseUser
     public function preUpload()
     {
         $t = $this->getAbsolutepathPhotoProfil();
+        $tt = $this->getAbsolutePathPhotoPermis();
 
         if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
             $this->tempFileP = substr($t, strlen($this->getUploadRootDir()) + 1);
         } else {
             $this->tempFileP = $this->getAbsolutepathPhotoProfil();
         }
-        if($this->pathPhotoPermis != null){
-            $t = $this->getAbsolutepathPhotoProfil();
-            if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+        if ($this->pathPhotoPermis != null) {
+
+            if (strlen($tt) > strlen($this->getUploadRootDir()) + 41) {
                 $this->tempFilePe = substr($t, strlen($this->getUploadRootDir()) + 1);
             } else {
                 $this->tempFilePe = $this->getAbsolutePathPhotoPermis();
             }
         }
-        
+
         $this->oldFileP = $this->pathPhotoProfil;
 
         $this->oldFilePe = $this->pathPhotoPermis;
@@ -456,6 +456,8 @@ class User extends BaseUser
      */
     public function upload()
     {
+        var_dump($this->pathPhotoProfil);
+
         if (null !== $this->fileP) {
             $this->fileP->move($this->getUploadRootDir(), $this->pathPhotoProfil);
             unset($this->fileP);
@@ -489,10 +491,10 @@ class User extends BaseUser
      */
     public function removeUpload()
     {
-        if (fileP_exists($this->tempFileP)) {
+        if (file_exists($this->tempFileP)) {
             unlink($this->tempFileP);
         }
-        if (fileP_exists($this->tempFilePe)) {
+        if (file_exists($this->tempFilePe)) {
             unlink($this->tempFilePe);
         }
     }
