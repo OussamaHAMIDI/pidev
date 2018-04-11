@@ -11,3 +11,6 @@ afficher_reclamation:
 supprimer_reclamation:
     path:     /supprimer/{id}
     defaults: { _controller: ReclamationBundle:Reclamation:supprimerReclamation }
+recherche_reclamation:
+    path:     /recherche
+    defaults: { _controller: ReclamationBundle:Reclamation:searchAJAXReclamation }

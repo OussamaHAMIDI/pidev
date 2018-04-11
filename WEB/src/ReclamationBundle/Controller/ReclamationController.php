@@ -71,9 +71,14 @@ class ReclamationController extends Controller
 //        ));
     }
 
-    public function indexAction()
+    public function searchAJAXReclamationAction(Request $request)
     {
-        return $this->render('@Reclamation/Default/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $parameter = $request->get('key');
+        $reclamations = $em->getRepository('ReclamationBundle:Reclamation')->rechercheAction($parameter);
+        return $this->render('@Reclamation/Reclamation/rechercheAll.html.twig', array(
+            "reclamations" => $reclamations
+        ));
     }
 
 }
