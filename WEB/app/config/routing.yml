@@ -1,4 +1,3 @@
-
 panier:
     resource: "@PanierBundle/Controller/"
     type:     annotation

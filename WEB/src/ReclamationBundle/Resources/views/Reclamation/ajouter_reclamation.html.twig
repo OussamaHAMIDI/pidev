@@ -1,18 +1,6 @@
-{% extends "@Souk/layout.html.twig" %}
 
 
-{% block title %}
-    <div class="section-title">
-        <h2 class="title">
-            Ajouter une reclamation
-        </h2>
-    </div>
-{% endblock title %}
 
-{% block fos_user_content %}
+{% block reclamation %}
     {{ form(form) }}
-
-    {% block javascripts %}
-    {% endblock javascripts %}
-
-{% endblock fos_user_content %}
+{% endblock reclamation %}

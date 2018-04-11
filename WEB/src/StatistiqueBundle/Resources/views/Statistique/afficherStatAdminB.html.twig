@@ -1,21 +1,8 @@
 {% extends "@Souk/layout.html.twig" %}
-{#{% block title %}#}
-    {#<div class="section-title">#}
-        {#<h2 class="title">#}
-            {#Statistiques#}
-        {#</h2>#}
-    {#</div>#}
-{#{% endblock title %}#}
 {% block body %}
     <html>
-    <div class="col" style="padding-right: 7%; padding-left: 7%; padding-bottom: 10%;">
+    <div class="col" style="margin-right: 7%; margin-left: 7%; margin-bottom: 10%;">
         <div class="product-tab">
-            <ul class="tab-nav">
-                <li class="active"><a data-toggle="tab" href="#tab1">Boutiques</a></li>
-                <li><a data-toggle="tab" href="#tab2">Produits</a></li>
-                <li><a data-toggle="tab" href="#tab3">Utilisateurs</a></li>
-                <li><a data-toggle="tab" href="#tab4">Vente</a></li>
-            </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane fade in active">
                     <div class="section">
@@ -51,87 +38,36 @@
                         {% set b = 0 %}
                         {% set p = 0 %}
                         {% for e in evaluations %}
-                                <tr>
-                                    <td>
-                                        {% set b = b + 1 %}
-                                        {{ e.note }}
-                                        {% spaceless %}
-                                            <div class="product">
-                                                <div class="product-rating">
-                                                    {% if (e.note)!=0 %}
-                                                        {% for i in 1..e.note %}
-                                                            <i class="fa fa-star"></i>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                    {% if (5 - e.note != 0 ) %}
-                                                        {% for j in 1..(5 - e.note) %}
-                                                            <i class="fa fa-star empty"></i>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </div>
+                            <tr>
+                                <td>
+                                    {% set b = b + 1 %}
+                                    {{ e.note }}
+                                    {% spaceless %}
+                                        <div class="product">
+                                            <div class="product-rating">
+                                                {% if (e.note)!=0 %}
+                                                    {% for i in 1..e.note %}
+                                                        <i class="fa fa-star"></i>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {% if (5 - e.note != 0 ) %}
+                                                    {% for j in 1..(5 - e.note) %}
+                                                        <i class="fa fa-star empty"></i>
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
-                                        {% endspaceless %}
-                                    </td>
-                                    <td>
-                                        {{ e.dateCreation|date('y/m/d') }}
-                                    </td>
-                                    <td>
-                                        {{ e.idBoutique ? e.idBoutique.nom : '' }}
-                                    </td>
-                                </tr>
+                                        </div>
+                                    {% endspaceless %}
+                                </td>
+                                <td>
+                                    {{ e.dateCreation|date('y/m/d') }}
+                                </td>
+                                <td>
+                                    {{ e.idBoutique ? e.idBoutique.nom : '' }}
+                                </td>
+                            </tr>
                         {% endfor %}
                     </table>
-
-                </div>
-                <div id="tab2" class="tab-pane fade in col-md-offset-1 col-md-10">
-                    <p><strong> Top Ten Produits </strong></p>
-                    <table>
-                        <tr>
-                            <th>Note</th>
-                            <th>date creation</th>
-                            <th>Nom</th>
-                        </tr>
-                        {% set b = 0 %}
-                        {% set p = 0 %}
-                        {% for e in evaluations %}
-                            {% if (b <3) and (e.idBoutique != null) %}
-                                <tr>
-                                    <td>
-                                        {% set b = b + 1 %}
-                                        {{ e.note }}
-                                        {% spaceless %}
-                                            <div class="product">
-                                                <div class="product-rating">
-                                                    {% if (e.note)!=0 %}
-                                                        {% for i in 1..e.note %}
-                                                            <i class="fa fa-star"></i>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                    {% if (5 - e.note != 0 ) %}
-                                                        {% for j in 1..(5 - e.note) %}
-                                                            <i class="fa fa-star empty"></i>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        {% endspaceless %}
-                                    </td>
-                                    <td>
-                                        {{ e.dateCreation|date('y/m/d') }}
-                                    </td>
-                                    <td>
-                                        {{ e.idBoutique ? e.idBoutique.nom : '' }}
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </table>
-                </div>
-                <div id="tab3" class="tab-pane fade in col-md-offset-1 col-md-10">
-                    <p><strong> Utilisateurs </strong></p>
-                </div>
-                <div id="tab4" class="tab-pane fade in col-md-offset-1 col-md-10">
-                    <p><strong> Vente </strong></p>
                 </div>
             </div>
         </div>

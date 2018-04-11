@@ -50,15 +50,6 @@
                                         )) }}
                                     {% endblock rating %}
                                 </div>
-                                <div class="product-rating">
-                                    {% block rate %}
-                                        {{ render(controller(
-                                            'EvaluationBundle\\Controller\\EvaluationController::afficherEvaluerAction',
-                                            { 'idBoutique': boutique.id }
-                                        )) }}
-                                    {% endblock rate %}
-                                </div>
-
 
                                 <div class="product-btns">
                                     <div class="pull-right">
@@ -96,8 +87,17 @@
                         </div>
 
                         <!-- /Product Details -->
+
                     </div>
                     <!-- /row -->
+                    <div class="product-rating">
+                        {% block rate %}
+                            {{ render(controller(
+                                'EvaluationBundle\\Controller\\EvaluationController::afficherEvaluerAction',
+                                { 'idBoutique': boutique.id }
+                            )) }}
+                        {% endblock rate %}
+                    </div>
                 </div>
                 <!-- /container -->
                 <!-- /section -->
