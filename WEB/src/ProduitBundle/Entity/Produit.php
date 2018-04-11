@@ -23,20 +23,17 @@ class Produit
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-<<<<<<< HEAD
 
     /**
      * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
      * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
      */
     private $boutique;
-=======
     /**
      * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
     * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
      */
        private $boutique;
->>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
 
     /**
      * @var string
