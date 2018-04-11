@@ -1,3 +1,45 @@
+<<<<<<< HEAD
+
+{% extends '@Souk/layout.html.twig' %}
+{%block body %}
+<div class="container">
+
+<table class="table table-bordered table-hover">
+
+        <th>nom</th>
+        <th>adresse</th>
+        {#<th>propio</th>#}
+        <th>date creation</th>
+        <th>action</th>
+
+    {% for b in boutiques %}
+    <tr>
+        <td>
+            {{ b.nom }}
+        </td>
+        <td>
+            {{ b.adresse }}
+        </td>
+     {#   <td>
+            {{ b.idUser.nom }}
+        </td>#}
+        <td>
+            {{ b.dateCreation|date('d/m/y') }}
+        </td>
+        <td>
+            <a href="{{ path('modifier_boutique',{'id':b.id}) }}">modifier</a>
+            <a href="{{ path('supprimer_boutique',{'id':b.id}) }}">supprimer</a>
+        </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+{% endblock %}
+
+
+=======
 {% extends '@Souk/layout.html.twig' %}
 {#{%block body %}#}
 {#<html>#}
@@ -159,3 +201,4 @@
         </script>
     {% endblock javascripts %}
 {% endblock body %}
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704

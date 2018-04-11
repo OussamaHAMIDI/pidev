@@ -5,6 +5,7 @@ namespace ProduitBundle\Entity;
 use BoutiqueBundle\Entity\Boutique;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use BoutiqueBundle\Entity\Boutique;
 
 /**
  * Produit
@@ -22,11 +23,20 @@ class Produit
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+<<<<<<< HEAD
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
+     * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
+     */
+    private $boutique;
+=======
     /**
      * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
     * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
      */
        private $boutique;
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
 
     /**
      * @var string
@@ -55,6 +65,14 @@ class Produit
      * @ORM\Column(name="prix", type="integer")
      */
     private $prix;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="quantite", type="integer")
+     */
+    private $quantite;
+
 
     /**
      * @var string
@@ -92,15 +110,7 @@ class Produit
      */
     private $date_creation;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="photo", type="string", length=255)
-     * @Assert\NotBlank(message="Ajouter une image jpg")
-     * @Assert\File(mimeTypes={ "image/jpeg" })
-     *
-     */
-    private $photo;
+
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
@@ -114,6 +124,8 @@ class Produit
      * )
      */
     private $path;
+
+
 
     /**
      * @return int
@@ -218,6 +230,22 @@ class Produit
     }
 
     /**
+     * @return int
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+    /**
+     * @param int $quantite
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+    }
+
+    /**
      * @return string
      */
     public function getTaille()
@@ -297,21 +325,7 @@ class Produit
         $this->date_creation = $date_creation;
     }
 
-    /**
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
 
-    /**
-     * @param string $photo
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-    }
     /**
      * @return mixed
      */
@@ -337,17 +351,11 @@ class Produit
         $this->dateAjout = new \DateTime();
     }
 
-    /**
-     * @ORM\PostLoad()
-     */
-    public function postLoad()
-    {
-        #$this->dateModif = new \DateTime();
-    }
 
+/* In MERGE CONFLICT : This is for MAC users for windows users go back to the old getUploadRootDir */
     public function getUploadRootDir()
     {
-        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+        return '';
 //        return __dir__.'/../../../web/uploads';
 //        return dirname(__DIR__, 4).'/uploads';
     }
@@ -375,7 +383,7 @@ class Produit
             $this->tempFile = $this->getAbsolutePath();
         }
         $this->oldFile = $this->path;
-        $this->dateModif = new \DateTime();
+//        $this->dateModif = new \DateTime();
 
 
         if (null !== $this->file) {
@@ -416,6 +424,8 @@ class Produit
             unlink($this->tempFile);
         }
     }
+
+
 
 
 

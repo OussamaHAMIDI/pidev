@@ -1,10 +1,7 @@
 <?php
-
 namespace TombolaBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
-
 /**
  * InscriTombola
  *
@@ -13,7 +10,6 @@ use UserBundle\Entity\User;
  */
 class TombolaParticipants
 {
-
     /**
      * @var integer
      *
@@ -22,7 +18,6 @@ class TombolaParticipants
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
     /**
      * @var User
      *
@@ -32,7 +27,6 @@ class TombolaParticipants
      * })
      */
     private $idParticipant;
-
     /**
      * @var Tombola
      *
@@ -42,14 +36,12 @@ class TombolaParticipants
      * })
      */
     private $idTombola;
-
     /**
      * @var \DateTime
      *
      * @ORM\COlumn(name="date_inscription",type="datetime", nullable=false)
      */
     private $dateInscri;
-
     /**
      * InscriTombola constructor.
      */
@@ -57,8 +49,6 @@ class TombolaParticipants
     {
         $this->dateInscri = new \DateTime();
     }
-
-
     /**
      * @return Tombola
      */
@@ -66,7 +56,6 @@ class TombolaParticipants
     {
         return $this->idTombola;
     }
-
     /**
      * @param Tombola $idTombola
      */
@@ -74,7 +63,6 @@ class TombolaParticipants
     {
         $this->idTombola = $idTombola;
     }
-
     /**
      * @return \DateTime
      */
@@ -82,7 +70,6 @@ class TombolaParticipants
     {
         return $this->dateInscri;
     }
-
     /**
      * @param \DateTime $dateInscri
      */
@@ -90,7 +77,6 @@ class TombolaParticipants
     {
         $this->dateInscri = $dateInscri;
     }
-
     /**
      * @return User
      */
@@ -98,7 +84,6 @@ class TombolaParticipants
     {
         return $this->idParticipant;
     }
-
     /**
      * @param User $idParticipant
      */
@@ -106,8 +91,4 @@ class TombolaParticipants
     {
         $this->idParticipant = $idParticipant;
     }
-
-
-
-
 }

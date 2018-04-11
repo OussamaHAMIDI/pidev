@@ -6,6 +6,9 @@ use ProduitBundle\Entity\Produit;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use BoutiqueBundle\Entity\Boutique;
+use SoukBundle\Entity\Produit;
+
 class DefaultController extends Controller
 {
     /**
@@ -18,7 +21,19 @@ class DefaultController extends Controller
         $prod2 = new Produit('3','refart2','testprod7777','testproood858585','19.5');
         $this->get('session')->set('produits',[$prod,$prod1,$prod2]);
         $produits = $this->get('session')->get('produits');
-        return $this->render('@Souk/Default/index.html.twig',array('produits'=>$produits));
+        return $this->render('@Souk/Default/index.html.twig',array(
+            'produits'=>$produits));
     }
 
+    /**
+     * @Route("/allboutique", name="allboutique")
+     */
+    public function afficherBoutiqueProductAction()
+    {
+        $em= $this->getDoctrine()->getManager();
+        $boutiques=$em->getRepository(Boutique::class)->findAll();
+        return $this->render('@Souk/Default/boutique_navbar.html.twig', array(
+            "boutiques"=>$boutiques
+        ));
+    }
 }

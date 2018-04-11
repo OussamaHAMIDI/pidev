@@ -21,14 +21,23 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
+
             new PanierBundle\PanierBundle(),
+
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new \ReclamationBundle\ReclamationBundle(),
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
             new \HistoriqueBundle\HistoriqueBundle(),
             new StatistiqueBundle\StatistiqueBundle(),
+
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Sonata\NotificationBundle\SonataNotificationBundle(),
+            new Application\Sonata\NotificationBundle\ApplicationSonataNotificationBundle(),
+
+
             new Nomaya\SocialBundle\NomayaSocialBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

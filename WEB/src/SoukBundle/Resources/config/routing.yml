@@ -2,3 +2,7 @@
 #    path:     /
 #    defaults: { _controller: SoukBundle:Default:index }
 #
+afficher_BoutiqueProduct:
+    path:     /{req}
+    defaults: { _controller: SoukBundle:Default:afficherBoutiqueProduct }
+
