@@ -8,6 +8,7 @@ imports:
     - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
 
     - { resource: "@TombolaBundle/Resources/config/services.yml" }
+    - { resource: "@PanierBundle/Resources/config/services.yml" }
     - { resource: "@ProduitBundle/Resources/config/services.yml" }
 
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
@@ -84,6 +85,8 @@ swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
+
+#    auth_mode: '%mailer_auth_mode%'
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl

@@ -18,19 +18,18 @@ class EvaluationRepository extends EntityRepository
         $qb->select('IDENTITY(e.idBoutique)')
             ->from('EvaluationBundle:Evaluation', 'e')
             ->distinct('e.idBoutique')
-            ->orderBy('e.note', 'DESC');
+            ->orderBy('e.note', 'DESC')
+            ->setMaxResults(5);
         $q = $qb->getQuery();
         return $q->execute();
     }
 
-    public function getNoteMoyenneuuu($idBoutique)
+    public function peutEvaluer($id)
     {
-        $qb= $this->getEntityManager()->createQueryBuilder();
-        $qb->select('e.note')
-            ->from('EvaluationBundle:Evaluation', 'e')
-            ->where('e.idBoutique = :id_boutique')
-            ->setParameter('id_boutique',$idBoutique);
-        $q = $qb->getQuery();
-        return $q->execute();
+        $result = $this->getEntityManager()->createQuery('SELECT p.idUser FROM SoukBundle:Panier p, SoukBundle:ProduitPanier pp WHERE 
+        MONTH(p.idUser) = :id and p.id = : pp.idPanier')
+            ->setParameter('id',$id)
+            ->getResult();
+        return  $result;
     }
 }

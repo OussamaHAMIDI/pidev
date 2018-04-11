@@ -1,8 +1,12 @@
+
+panier:
+    resource: "@PanierBundle/Controller/"
+    type:     annotation
+    prefix:   /panier
+
 statistique:
     resource: "@StatistiqueBundle/Resources/config/routing.yml"
-    prefix:   /
-
-
+    prefix:   /statistique
 
 historique:
     resource: "@HistoriqueBundle/Resources/config/routing.yml"

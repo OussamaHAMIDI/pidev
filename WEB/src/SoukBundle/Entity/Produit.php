@@ -111,6 +111,22 @@ class Produit
      */
     private $idBoutique;
 
+    /**
+     * Produit constructor.
+     * @param int $id
+     * @param string $reference
+     * @param string $libelle
+     * @param string $description
+     * @param string $prix
+     */
+    public function __construct(int $id, string $reference, string $libelle, string $description, string $prix)
+    {
+        $this->id = $id;
+        $this->reference = $reference;
+        $this->libelle = $libelle;
+        $this->description = $description;
+        $this->prix = $prix;
+    }
 
 
     /**
@@ -407,4 +423,5 @@ class Produit
     {
         return $this->pathPhoto;
     }
+
 }

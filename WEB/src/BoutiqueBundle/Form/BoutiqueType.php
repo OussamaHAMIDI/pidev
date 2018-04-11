@@ -4,6 +4,7 @@ namespace BoutiqueBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -22,8 +23,8 @@ class BoutiqueType extends AbstractType
             ->add('dateCreation',DateTimeType::class)
             ->add('longitude')
             ->add('altitude')
-            ->add('photo')
-            ->add('pathPhoto')
+
+            ->add('pathPhoto',FileType::class, array('required' => true, 'label' => 'Image de la boutique',))
 
             ->add('valider',SubmitType::class)
 ;

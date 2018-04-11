@@ -103,6 +103,19 @@ class Produit
     private $photo;
 
     /**
+     * @ORM\Column(type="string",length=255, nullable=true)
+     *
+     *
+     *
+     * *@Assert\File(
+     *     maxSize="3M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpeg"},maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
+     *    La taille maximale autorisée est {{ limit }} {{ suffix }}"
+     * )
+     */
+    private $path;
+
+    /**
      * @return int
      */
     public function getId()
@@ -294,7 +307,110 @@ class Produit
     {
         $this->photo = $photo;
     }
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+
+    /**
+     * Tombola constructor.
+     */
+    public function __construct()
+    {
+        $this->dateAjout = new \DateTime();
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+        #$this->dateModif = new \DateTime();
+    }
+
+    public function getUploadRootDir()
+    {
+        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+//        return __dir__.'/../../../web/uploads';
+//        return dirname(__DIR__, 4).'/uploads';
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->getPath();
+    }
+
+
+    public $file;
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        $t = $this->getAbsolutePath();
+
+        if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+            $this->tempFile = substr($t, strlen($this->getUploadRootDir())+1);
+        } else {
+            $this->tempFile = $this->getAbsolutePath();
+        }
+        $this->oldFile = $this->path;
+        $this->dateModif = new \DateTime();
+
+
+        if (null !== $this->file) {
+            $this->path = sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null !== $this->file) {
+            $this->file->move($this->getUploadRootDir(), $this->path);
+            unset($this->file);
+
+            if ($this->oldFile != null) {
+                unlink($this->tempFile);
+            }
+        }
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        $this->tempFile = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (file_exists($this->tempFile)) {
+            unlink($this->tempFile);
+        }
+    }
 
 
 

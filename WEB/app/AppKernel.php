@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
+            new PanierBundle\PanierBundle(),
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new \ReclamationBundle\ReclamationBundle(),
             new ProduitBundle\ProduitBundle(),
