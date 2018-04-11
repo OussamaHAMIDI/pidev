@@ -44,6 +44,7 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
+
     public function __construct($environment, $debug)
     {
         date_default_timezone_set( 'Africa/Tunis' );

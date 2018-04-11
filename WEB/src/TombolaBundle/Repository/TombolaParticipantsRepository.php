@@ -28,8 +28,9 @@ class TombolaParticipantsRepository extends EntityRepository
     public function infoParticipant($id_tombola){
 
             $query=$this->getEntityManager()
-                ->createQuery("select (u.id)as id, (u.nom) as nom, (u.prenom) as prenom, (t.dateInscri) as dateIscription from UserBundle:User u,
-          TombolaBundle:TombolaParticipants t 
+                ->createQuery("select (u.id)as id, (u.nom) as nom, (u.prenom) as prenom, (t.dateInscri) as dateIscription,
+            (u.pathPhotoProfil) as photoProfil
+      from UserBundle:User u, TombolaBundle:TombolaParticipants t 
             WHERE t.idParticipant IN (SELECT IDENTITY(p.idParticipant) 
                 FROM TombolaBundle:TombolaParticipants p
               WHERE p.idTombola = :id)

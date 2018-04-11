@@ -93,7 +93,7 @@
                             <div class="header-btns-icon">
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                                    <img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">
+                                    {#<img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">#}
 
                                 {% else %}
                                     <i class="fa fa-user-o"></i>
@@ -161,15 +161,18 @@
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Accueil </a></li>
+                    <li><a href="#">Produits </a></li>
 
                     {#{% if is_granted('ROLE_ARTISAN') %}#}
                     {#<li><a href="{{ path('afficher_boutique_artisan',{'id': }) }}"> Mes boutiques</a></li>#}
                     {#{% else %}#}
-                        <li><a href="{{ path('afficher_boutique') }}"> Boutiques</a></li>
+                        <li><a href="{{ path('afficher_boutique') }}">Boutiques </a></li>
                     {#{% endif %}#}
-
+                    {% if is_granted('ROLE_CLIENT') %}
+                        <li><a href="{{ path('afficher_historique') }}">Historiques </a></li>
+                    {% endif %}
+                    {#HOWA RAW NORMALEMENT ADMIN EMA NJARREB W BARRA#}
                     {% if is_granted('ROLE_ARTISAN') %}
                         <li class="dropdown mega-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"
@@ -182,6 +185,22 @@
                                         </li>
                                         <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
                                         <li><a href="{{ path('afficher_reclamation') }}">Boutiques</a></li>
+                                    </ul>
+                                    <hr class="hidden-md hidden-lg">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="dropdown mega-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="true">Statistiques <i class="fa fa-caret-down"></i></a>
+                            <div class="custom-menu col-md-8">
+                                <div class="col-md-8">
+                                    <ul class="list-links">
+                                        <li><a href="{{ path('afficher_statAdminB') }}">Boutiques</a></li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
+                                        <li><a href="{{ path('afficher_statAdminU') }}">Utilisateurs</a></li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Vente</a></li>
                                     </ul>
                                     <hr class="hidden-md hidden-lg">
                                 </div>
