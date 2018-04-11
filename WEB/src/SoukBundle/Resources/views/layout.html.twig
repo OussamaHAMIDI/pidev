@@ -71,19 +71,6 @@
                 </div>
                 <!-- /Logo -->
 
-                <!-- Search -->
-                {#<div class="header-search">#}
-                {#<form title="headher">#}
-                {#<input class="input search-input" type="text" placeholder="Enter your keyword">#}
-                {#<select class="input search-categories">#}
-                {#<option value="0">All Categories</option>#}
-                {#<option value="1">Category 01</option>#}
-                {#<option value="1">Category 02</option>#}
-                {#</select>#}
-                {#<button class="search-btn"><i class="fa fa-search"></i></button>#}
-                {#</form>#}
-                {#</div>#}
-                <!-- /Search -->
             </div>
             <div class="pull-right">
                 <ul class="header-btns">
@@ -93,7 +80,7 @@
                             <div class="header-btns-icon">
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                                    <img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">
+                                    {#<img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">#}
 
                                 {% else %}
                                     <i class="fa fa-user-o"></i>
@@ -161,6 +148,7 @@
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
+<<<<<<< HEAD
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Shop</a></li>
                     <li><a href=" {{ path('allboutique') }}  ">Tous Nos Boutiques</a></li>
@@ -184,33 +172,39 @@
                                 </div>
 
                                 <div class="col-md-6">
+=======
+                    <li><a href="#">Accueil </a></li>
+                    <li><a href="#">Produits </a></li>
+
+                    {#{% if is_granted('ROLE_ARTISAN') %}#}
+                    {#<li><a href="{{ path('afficher_boutique_artisan',{'id': }) }}"> Mes boutiques</a></li>#}
+                    {#{% else %}#}
+                        <li><a href="{{ path('afficher_boutique') }}">Boutiques </a></li>
+                    {#{% endif %}#}
+                    {% if is_granted('ROLE_CLIENT') %}
+                        <li><a href="{{ path('afficher_historique') }}">Historiques </a></li>
+                    {% endif %}
+                    {#HOWA RAW NORMALEMENT ADMIN EMA NJARREB W BARRA#}
+                    {% if is_granted('ROLE_ARTISAN') %}
+                        <li class="dropdown mega-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
+                            <div class="custom-menu col-md-8">
+                                <div class="col-md-8">
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
                                     <ul class="list-links">
                                         <li>
-                                            <h3 class="list-links-title">Categories</h3></li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
+                                            <h3 class="list-links-title"><a href="{{ path('afficher_reclamation') }}">Liste des Reclamations</a></h3>
+                                        </li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Boutiques</a></li>
                                     </ul>
                                     <hr class="hidden-md hidden-lg">
                                 </div>
                             </div>
-                            <div class="row hidden-sm hidden-xs">
-                                <div class="col-md-12">
-                                    <hr>
-                                    <a class="banner banner-1" href="#">
-                                        <img src="{{ asset('img/banner05.jpg') }}" alt="">
-                                        <div class="banner-caption text-center">
-                                            <h2 class="white-color">NEW COLLECTION</h2>
-                                            <h3 class="white-color font-weak">HOT DEAL</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
 
+<<<<<<< HEAD
 
 
 
@@ -224,17 +218,18 @@
 
 
                     {% if is_granted('ROLE_ARTISAN') %}
+=======
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
                         <li class="dropdown mega-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
+                               aria-expanded="true">Statistiques <i class="fa fa-caret-down"></i></a>
                             <div class="custom-menu col-md-8">
                                 <div class="col-md-8">
                                     <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title"><a href="{{ path('afficher_reclamation') }}">Liste des Reclamations</a></h3>
-                                        </li>
+                                        <li><a href="{{ path('afficher_statAdminB') }}">Boutiques</a></li>
                                         <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
-                                        <li><a href="{{ path('afficher_reclamation') }}">Boutiques</a></li>
+                                        <li><a href="{{ path('afficher_statAdminU') }}">Utilisateurs</a></li>
+                                        <li><a href="{{ path('afficher_reclamation') }}">Vente</a></li>
                                     </ul>
                                     <hr class="hidden-md hidden-lg">
                                 </div>

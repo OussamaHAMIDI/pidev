@@ -10,5 +10,17 @@ modifier_boutique:
 supprimer_boutique:
     path:     /supprimer/{id}
     defaults: { _controller: BoutiqueBundle:Boutique:supprimerBoutique }
+<<<<<<< HEAD
 
 
+=======
+details_boutique:
+    path:     /details/{id}
+    defaults: { _controller: BoutiqueBundle:Boutique:afficherBoutiqueDetail }
+afficher_boutique_artisan:
+    path:     /afficherArtisan/{id}
+    defaults: { _controller: BoutiqueBundle:Boutique:afficherBoutiqueArtisan }
+chercher_boutique:
+    path:     /chercher
+    defaults: { _controller: BoutiqueBundle:Boutique:chercherBoutique }
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704

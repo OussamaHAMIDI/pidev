@@ -21,19 +21,27 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
+<<<<<<< HEAD
 
             new PanierBundle\PanierBundle(),
 
+=======
+            new PanierBundle\PanierBundle(),
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new \ReclamationBundle\ReclamationBundle(),
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
             new \HistoriqueBundle\HistoriqueBundle(),
             new StatistiqueBundle\StatistiqueBundle(),
+<<<<<<< HEAD
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\NotificationBundle\SonataNotificationBundle(),
             new Application\Sonata\NotificationBundle\ApplicationSonataNotificationBundle(),
 
+=======
+            new Nomaya\SocialBundle\NomayaSocialBundle(),
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -49,6 +57,7 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
+
     public function __construct($environment, $debug)
     {
         date_default_timezone_set( 'Africa/Tunis' );

@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as UniqueEntity;
  *
  * @ORM\Table(name="`user`", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="username_canonical", columns={"username_canonical"}), @ORM\UniqueConstraint(name="email", columns={"email"}), @ORM\UniqueConstraint(name="email_canonical", columns={"email_canonical"}), @ORM\UniqueConstraint(name="confirmation_token", columns={"confirmation_token"})})
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -109,7 +109,8 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @Assert\File( maxSize = "1024k", mimeTypesMessage = "Taille de l'image max < 1024 Ko")
+     * @Assert\File( maxSize="2M", mimeTypes={"image/png", "image/jpeg", "image/jpeg"} , mimeTypesMessage = "Veuillez choisir une image valide" ,
+     *     maxSizeMessage="Taille maximale de l'image 2Mo")
      * @ORM\Column(name="path_photo_profil", type="string", length=255, nullable=false)
      */
     private $pathPhotoProfil;
@@ -118,28 +119,25 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @Assert\File( maxSize = "1024k", mimeTypesMessage = "Taille de l'image max < 1024 Ko")
+     * @Assert\File( maxSize="2M", mimeTypes={"image/png", "image/jpeg", "image/jpeg"} , mimeTypesMessage = "Veuillez choisir une image valide" ,
+     *     maxSizeMessage="Taille maximale de l'image 2Mo")
+     *
      * @ORM\Column(name="path_photo_permis", type="string", length=255, nullable=true)
      */
     private $pathPhotoPermis;
 
 
-    /**
-     * User constructor.
-     */
-    public function __construct()
+    public function setEnabled($boolean)
     {
-        parent::__construct();
-
-
-        if($this->enabled){
+        $this->enabled = (bool) $boolean;
+        if($boolean) {
             $this->etat = "Active";
-        }else{
+        } else {
             $this->etat = "Pending";
         }
 
+        return $this;
     }
-
 
     /**
      * Get id
@@ -151,6 +149,16 @@ class User extends BaseUser
         return $this->id;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function setLastLogin(\DateTime $time = null)
+    {
+        $this->lastLogin = $time;
+        $this->etat = "Connected";
+
+        return $this;
+    }
 
     /**
      * Set type
@@ -160,18 +168,15 @@ class User extends BaseUser
      */
     public function setType($type)
     {
-
-        if($type === "Artisan"){
+        if ($type === "Artisan") {
             $this->roles = array('ROLE_ARTISAN');
+        } else {
+            if ($type === "Client") {
+                $this->addRole('ROLE_CLIENT');
+            } else {
+                $this->addRole('ROLE_ADMINISTRATEUR');
+            }
         }
-        else if($type === "Client"){
-            $this->addRole('ROLE_CLIENT');
-        }
-        else{
-            $this->addRole('ROLE_ADMINISTRATEUR');
-        }
-        $this->enabled = true;
-
         $this->type = $type;
     }
 
@@ -386,52 +391,29 @@ class User extends BaseUser
         $this->pathPhotoPermis = $pathPhotoPermis;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPhotoProfil()
-    {
-        return $this->photoProfil;
-    }
+    /******************************************* pour les photos ***************************/
 
-    /**
-     * @param mixed $photoProfil
-     */
-    public function setPhotoProfil($photoProfil)
-    {
-        $this->photoProfil = $photoProfil;
-    }
-
-
-
-
-    /**
-     * @ORM\PostLoad()
-     */
-    public function postLoad()
-    {
-
-        $this->updateAt = new \DateTime();
-    }
 
     public function getUploadRootDir()
     {
-        return dirname(__DIR__, 4).'/uploads';
+        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+//        return __dir__.'/../../../web/uploads';
+//        return dirname(__DIR__, 4).'/uploads';
     }
 
     public function getAbsolutePathPhotoProfil()
     {
         return null === $this->pathPhotoProfil ? null : $this->getUploadRootDir().'/'.$this->pathPhotoProfil;
     }
-
-    public function getAssetPath()
+    
+    public function getAbsolutePathPhotoPermis()
     {
-        return 'uploads/'.$this->pathPhotoProfil;
+        return null === $this->pathPhotoPermis ? null : $this->getUploadRootDir().'/'.$this->pathPhotoPermis;
     }
-    /******************************************************************************************************************/
 
-    private $fileProfil;
 
+    public $fileP;
+    public $filePe;
 
 
     /**
@@ -440,13 +422,32 @@ class User extends BaseUser
      */
     public function preUpload()
     {
-        $this->tempFile = $this->getAbsolutePathPhotoProfil();
-        $this->oldFile = $this->pathPhotoProfil;
-        $this->updateAt = new \DateTime();
+        $t = $this->getAbsolutepathPhotoProfil();
 
+        if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+            $this->tempFileP = substr($t, strlen($this->getUploadRootDir()) + 1);
+        } else {
+            $this->tempFileP = $this->getAbsolutepathPhotoProfil();
+        }
+        if($this->pathPhotoPermis != null){
+            $t = $this->getAbsolutepathPhotoProfil();
+            if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+                $this->tempFilePe = substr($t, strlen($this->getUploadRootDir()) + 1);
+            } else {
+                $this->tempFilePe = $this->getAbsolutePathPhotoPermis();
+            }
+        }
+        
+        $this->oldFileP = $this->pathPhotoProfil;
 
-        if (null !== $this->fileProfil)
-            $this->pathPhotoProfil = sha1(uniqid(mt_rand(),true)).'.'.$this->fileProfil->guessExtension();
+        $this->oldFilePe = $this->pathPhotoPermis;
+
+        if (null !== $this->fileP) {
+            $this->pathPhotoProfil = sha1(uniqid(mt_rand(), true)).'.'.$this->fileP->guessExtension();
+        }
+        if (null !== $this->filePe) {
+            $this->pathPhotoPermis = sha1(uniqid(mt_rand(), true)).'.'.$this->filePe->guessExtension();
+        }
     }
 
     /**
@@ -455,11 +456,21 @@ class User extends BaseUser
      */
     public function upload()
     {
-        if (null !== $this->fileProfil) {
-            $this->fileProfil->move($this->getUploadRootDir(),$this->pathPhotoProfil);
-            unset($this->fileProfil);
+        if (null !== $this->fileP) {
+            $this->fileP->move($this->getUploadRootDir(), $this->pathPhotoProfil);
+            unset($this->fileP);
 
-            if ($this->oldFile != null) unlink($this->tempFile);
+            if ($this->oldFileP != null) {
+                unlink($this->tempFileP);
+            }
+        }
+        if (null !== $this->filePe) {
+            $this->filePe->move($this->getUploadRootDir(), $this->pathPhotoPermis);
+            unset($this->filePe);
+
+            if ($this->oldfilePe != null) {
+                unlink($this->tempFilePe);
+            }
         }
     }
 
@@ -468,7 +479,9 @@ class User extends BaseUser
      */
     public function preRemoveUpload()
     {
-        $this->tempFile = $this->getAbsolutePathPhotoProfil();
+        $this->tempFileP = $this->getAbsolutepathPhotoProfil();
+        $this->tempFilePe = $this->getAbsolutePathPhotoPermis();
+
     }
 
     /**
@@ -476,9 +489,12 @@ class User extends BaseUser
      */
     public function removeUpload()
     {
-        if (file_exists($this->tempFile)) unlink($this->tempFile);
+        if (fileP_exists($this->tempFileP)) {
+            unlink($this->tempFileP);
+        }
+        if (fileP_exists($this->tempFilePe)) {
+            unlink($this->tempFilePe);
+        }
     }
-
-
 
 }

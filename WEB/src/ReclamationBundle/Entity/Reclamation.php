@@ -12,12 +12,17 @@ use ProduitBundle\Entity\Produit as Produit;
  * Reclamation
  *
  * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_produit", columns={"id_produit"}), @ORM\Index(name="id_boutique", columns={"id_boutique"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ReclamationBundle\Repository\ReclamationRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 
 class Reclamation
 {
 
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
+    }
 
     /**
      * @var integer
@@ -31,7 +36,7 @@ class Reclamation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=00, nullable=false)
+     * @ORM\Column(name="description", type="string", length=1000, nullable=false)
      */
     private $description;
 
@@ -85,22 +90,14 @@ class Reclamation
     }
 
     /**
-     * Set description
-     *
      * @param string $description
-     *
-     * @return Reclamation
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
-
-        return $this;
     }
 
     /**
-     * Get description
-     *
      * @return string
      */
     public function getDescription()
@@ -173,7 +170,7 @@ class Reclamation
     /**
      * Get idProduit
      *
-     * @return \TestBundle\Entity\Produit
+     * @return \ProduitBundle\Entity\Produit
      */
     public function getIdProduit()
     {

@@ -8,8 +8,6 @@ statistique:
     resource: "@StatistiqueBundle/Resources/config/routing.yml"
     prefix:   /statistique
 
-
-
 historique:
     resource: "@HistoriqueBundle/Resources/config/routing.yml"
     prefix:   /historique
@@ -17,7 +15,6 @@ historique:
 evaluation:
     resource: "@EvaluationBundle/Resources/config/routing.yml"
     prefix:   /evaluation
-
 
 produit:
     resource: "@ProduitBundle/Resources/config/routing.yml"
@@ -32,6 +29,7 @@ reclamation:
     resource: "@ReclamationBundle/Resources/config/routing.yml"
     prefix:   /reclamation
 
+
 #boutique:
 #    resource: "@BoutiqueBundle/Controller/"
 #    type:     annotation
@@ -43,7 +41,6 @@ tombola:
     resource: "@TombolaBundle/Controller/"
     type:     annotation
     prefix:   /tombola
-
 
 user:
     resource: "@UserBundle/Controller/"

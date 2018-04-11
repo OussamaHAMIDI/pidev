@@ -94,11 +94,9 @@ class Tombola
      *
      *
      *
-     * *@Assert\File(
-     *     maxSize="3M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpeg"},maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
-     *    La taille maximale autorisée est {{ limit }} {{ suffix }}"
-     * )
+     * @Assert\File( maxSize="1M", mimeTypes={"image/png", "image/jpeg", "image/jpeg"} , mimeTypesMessage = "Veuillez choisir une image valide" ,
+     *     maxSizeMessage="Taille maximale de l'image 1Mo")
+     *
      */
     private $path;
 

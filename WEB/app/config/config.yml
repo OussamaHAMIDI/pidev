@@ -3,22 +3,25 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SoukBundle/Resources/config/services.yml" }
-
-
     - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
-
     - { resource: "@TombolaBundle/Resources/config/services.yml" }
+<<<<<<< HEAD
 
     - { resource: "@PanierBundle/Resources/config/services.yml" }
 
+=======
+    - { resource: "@PanierBundle/Resources/config/services.yml" }
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
     - { resource: "@ProduitBundle/Resources/config/services.yml" }
-
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
     - { resource: "@EvaluationBundle/Resources/config/services.yml" }
     - { resource: "@HistoriqueBundle/Resources/config/services.yml" }
     - { resource: "@StatistiqueBundle/Resources/config/services.yml" }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -48,7 +51,9 @@ framework:
     assets: ~
     php_errors:
         log: true
-
+    templating:
+        engines:
+            -  twig
 # Twig Configuration
 twig:
     form_themes:
@@ -90,7 +95,10 @@ swiftmailer:
     username: '%mailer_user%'
 
 #    auth_mode: '%mailer_auth_mode%'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl
@@ -116,6 +124,7 @@ fos_user:
     from_email:
                         address:        souklemdina@gmail.com
                         sender_name:    Administrateur SoukLemdina
+<<<<<<< HEAD
 
 # config/packages/sonata.yaml
 
@@ -141,3 +150,37 @@ sonata_notification:
     #..
     class:
         message: Application\Sonata\NotificationBundle\Entity\Message
+=======
+nomaya_social:
+    buttons:
+        facebook:
+            url:            null
+            locale:         "fr_FR"
+            send:           false
+            width:          300
+            showFaces:      false
+            layout:         "button_count"
+        twitter:
+            url:            null
+            locale:         "fr"
+            message:        "Je veux partager ça avec vous"
+            text:           "Tweet"
+            via:            "L'Equipe cartedevisitevirtuelle.fr"
+            tag:            "ttot"
+        googleplus:
+            url:            null
+            locale :        "fr"
+            size :          "medium"
+            annotation :    "bubble"
+            width :         300
+        linkedin:
+            url:            null
+            locale:         "fr_FR"
+            counter:        "right"
+        pinterest:
+            url:            null
+    links:
+        facebook:           "http://www.facebook.com/yann.chauvel"
+        googleplus:         "https://plus.google.com/105931415830389032796"
+    theme:                  'default' # optional
+>>>>>>> 3efc36c3b4b9f3f69d2adfbb51d72e368536e704

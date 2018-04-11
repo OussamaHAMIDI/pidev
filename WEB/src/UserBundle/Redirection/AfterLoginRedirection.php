@@ -59,6 +59,13 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
 
             $redirection = new RedirectResponse($this->router->generate('souk_homepage'));
 
+
+        $time = new \DateTime();
+        $result = $time->format('Y-m-d H:i:s');
+
+        $txt = $token->getUsername().' login executed At : '.$result;
+        $file = file_put_contents('logs.txt', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+
         return $redirection;
     }
 }

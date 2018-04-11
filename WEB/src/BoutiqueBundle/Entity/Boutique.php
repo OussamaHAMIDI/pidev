@@ -3,6 +3,7 @@
 namespace BoutiqueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 
 
@@ -68,9 +69,15 @@ class Boutique
     private $photo;
 
     /**
-     * @var string
+     * @ORM\Column(type="string",length=255, nullable=true)
      *
-     * @ORM\Column(name="path_photo", type="string", length=180, nullable=true)
+     *
+     *
+     * *@Assert\File(
+     *     maxSize="3M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpeg"},maxSizeMessage="La taille du fichier est trop grande ({{ size }} {{ suffix }}).
+     *    La taille maximale autorisée est {{ limit }} {{ suffix }}"
+     * )
      */
     private $pathPhoto;
 
@@ -265,17 +272,11 @@ class Boutique
     }
 
     /**
-     * Set pathPhoto
-     *
-     * @param string $pathPhoto
-     *
-     * @return Boutique
+     * @param mixed $pathPhoto
      */
     public function setPathPhoto($pathPhoto)
     {
         $this->pathPhoto = $pathPhoto;
-
-        return $this;
     }
 
     /**
@@ -287,4 +288,84 @@ class Boutique
     {
         return $this->pathPhoto;
     }
+    /**
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+      //  $this->dateModif = new \DateTime();
+    }
+
+    public function getUploadRootDir()
+    {
+        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+//        return __dir__.'/../../../web/uploads';
+//        return dirname(__DIR__, 4).'/uploads';
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->pathPhoto ? null : $this->getUploadRootDir().'/'.$this->getPathPhoto();
+    }
+
+
+    public $file;
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        $t = $this->getAbsolutePath();
+
+        if (strlen($t) > strlen($this->getUploadRootDir()) + 41) {
+            $this->tempFile = substr($t, strlen($this->getUploadRootDir())+1);
+        } else {
+            $this->tempFile = $this->getAbsolutePath();
+        }
+        $this->oldFile = $this->pathPhoto;
+       // $this->dateModif = new \DateTime();
+
+
+        if (null !== $this->file) {
+            $this->pathPhoto = sha1(uniqid(mt_rand(), true)).'.'.$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null !== $this->file) {
+            $this->file->move($this->getUploadRootDir(), $this->pathPhoto);
+            unset($this->file);
+
+            if ($this->oldFile != null) {
+                unlink($this->tempFile);
+            }
+        }
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        $this->tempFile = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (file_exists($this->tempFile)) {
+            unlink($this->tempFile);
+        }
+    }
+
 }
