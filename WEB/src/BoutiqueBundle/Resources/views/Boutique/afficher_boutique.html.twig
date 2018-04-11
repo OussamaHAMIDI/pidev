@@ -1,36 +1,128 @@
-<html>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<table>
-    <tr>
-        <th>nom</th>
-        <th>adresse</th>
+{% extends '@Souk/layout.html.twig' %}
+{#{%block body %}#}
+{#<html>#}
+{#<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+{#<table>#}
+    {#<tr>#}
+        {#<th>nom</th>#}
+        {#<th>adresse</th>#}
         {#<th>propio</th>#}
-        <th>date creation</th>
-        <th>action</th>
-    </tr>
-    {% for b in boutiques %}
-    <tr>
-        <td>
-            {{ b.nom }}
-        </td>
-        <td>
-            {{ b.adresse }}
-        </td>
-     {#   <td>
-            {{ b.idUser.nom }}
-        </td>#}
-        <td>
-            {{ b.dateCreation|date('d/m/y') }}
-        </td>
-        <td>
-            <a href="{{ path('modifier_boutique',{'id':b.id}) }}">modifier</a>
-            <a href="{{ path('supprimer_boutique',{'id':b.id}) }}">supprimer</a>
-        </td>
+        {#<th>date creation</th>#}
+        {#<th>action</th>#}
+    {#</tr>#}
+    {#{% for b in boutiques %}#}
+    {#<tr>#}
+        {#<td>#}
+            {#{{ b.nom }}#}
+        {#</td>#}
+        {#<td>#}
+            {#{{ b.adresse }}#}
+        {#</td>#}
+     {#   <td>#}
+            {#{{ b.idUser.nom }}#}
+        {#</td>#}
+        {#<td>#}
+            {#{{ b.dateCreation|date('d/m/y') }}#}
+        {#</td>#}
+        {#<td>#}
+            {#<a href="{{ path('modifier_boutique',{'id':b.id}) }}">modifier</a>#}
+            {#<a href="{{ path('supprimer_boutique',{'id':b.id}) }}">supprimer</a>#}
+        {#</td>#}
 
-    </tr>
-    {% endfor %}
+    {#</tr>#}
+    {#{% endfor %}#}
 
-</table>
+{#</table>#}
 
 
-</html>
+{#</html>#}
+{#{% endblock body %}#}
+{% block body %}
+    <div class="section" style="padding: 20px;">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="section-title">
+                    <h2 class="title">
+                        Les boutiques
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- section -->
+        <div class="section">
+
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- MAIN -->
+                    <div id="main" class="col-md-10 col-md-offset-1">
+                        <!-- store top filter -->
+                        <div class="store-filter clearfix">
+                            <div class="pull-right">
+                                <div class="row-filter">
+                                    <form class="navbar-form" role="search" style="padding-left: 60px">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="keyword"
+                                                   placeholder="Chercher...">
+                                            <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+                                    </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row">
+                            <!-- banner -->
+
+                            {% for boutique in boutiques %}
+                                <!-- Product Single -->
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="product product-single">
+                                        <div class="product-thumb">
+                                            <div class="product-label">
+
+                                            </div>
+
+
+                                            <img src="{{ asset('uploads/images/' ~ boutique.pathPhoto) }}"
+                                                 alt="image de la boutique">
+                                        </div>
+                                        <div class="product-body">
+                                            <div class="product-rating">
+                                                {% block rating %}
+                                                    {{ render(controller(
+                                                        'EvaluationBundle\\Controller\\EvaluationController::evaluationAction',
+                                                        { 'idBoutique': boutique.id }
+                                                    )) }}
+                                                {% endblock rating %}
+                                            </div>
+                                            <h2 class="product-name"><a href="#">{{ boutique.nom }}</a></h2>
+                                            <h1 class="product-name"><a href="#">{{ boutique.adresse }}</a></h1>
+                                            <div class="product-btns">
+                                                <a href="{{ path('details_boutique',{id: boutique.id}) }}">
+                                                    <button class="btn primary-btn add-to-cart"><i
+                                                                class="fa fa-info"></i>
+                                                        En savoir plus
+                                                    </button>
+                                                </a>
+                                                <button class="primary-btn add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i> Voir Produits
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Product Single -->
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock body %}

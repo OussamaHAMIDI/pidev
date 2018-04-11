@@ -1,5 +1,112 @@
-{% extends "@Souk/layout.html.twig" %}
+{#{% extends "@Souk/layout.html.twig" %}#}
 
+
+{#{% block title %}#}
+    {#<div class="section-title">#}
+        {#<h2 class="title">#}
+            {#Historiques#}
+        {#</h2>#}
+    {#</div>#}
+{#{% endblock title %}#}
+
+{#{% block fos_user_content %}#}
+    {#<html>#}
+    {#<table>#}
+        {#<tr>#}
+            {#<th>Date de création</th>#}
+            {#<th>Date de livraison</th>#}
+            {#<th>Total ttc</th>#}
+            {#<th>Frais livraison</th>#}
+            {#<th>Mode de paiement</th>#}
+            {#<th>Mode de livraison</th>#}
+            {#<th>Details</th>#}
+        {#</tr>#}
+        {#hello#}
+        {#{{ historiques ? 'mawjoud' : 'null' }}#}
+
+        {#{% for h in historiques %}#}
+            {#<tr>#}
+                {#<td>#}
+                    {#{{ h.dateCreation|date('y/m/d') }}#}
+                {#</td>#}
+
+                {#<td>#}
+                    {#{{ h.dateCreation|date('y/m/d') }}#}
+                {#</td>#}
+
+                {#<td>#}
+                    {#{{ h.totalTtc }}#}
+                {#</td>#}
+
+
+                {#<td>#}
+                    {#{{ h.fraisLivraison }}#}
+                {#</td>#}
+
+                {#<td>#}
+                    {#{{ h.modePaiement }}#}
+                {#</td>#}
+
+                {#<td>#}
+                    {#{{ h.modeLivraison}}#}
+                {#</td>#}
+
+                {#<td>#}
+                    {#<a href="{{ path('afficher_historique_details',{'id':h.id}) }}">Afficher</a>#}
+                {#</td>#}
+
+            {#</tr>#}
+
+        {#{% endfor %}#}
+
+    {#</table>#}
+
+
+    {#</html>#}
+{#{% endblock fos_user_content %}#}
+
+
+{#{% extends "@Souk/layout.html.twig" %}#}
+
+
+{#{% block title %}#}
+    {#<div class="section-title">#}
+        {#<h2 class="title">#}
+            {#Liste des Reclamations#}
+        {#</h2>#}
+    {#</div>#}
+{#{% endblock title %}#}
+
+{#{% block fos_user_content %}#}
+
+    {#<html>#}
+    {#<div class="container">#}
+
+        {#<div class="title">#}
+            {#<div class="col"><h5>description</h5></div>#}
+            {#<div class="col"><h5>date creation</h5></div>#}
+            {#<div class="col"><h5>action</h5></div>#}
+        {#</div>#}
+        {#{% for r in reclamations %}#}
+            {#<div class="row">#}
+                {#<div class="col">#}
+                    {#{{ r.description }}#}
+                {#</div>#}
+                {#<div class="col">#}
+                    {#{{ r.dateCreation|date('d/m/y') }}#}
+                {#</div>#}
+                {#<div class="col">#}
+                    {#<a href="{{ path('supprimer_reclamation',{'id':r.id}) }}">supprimer</a>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endfor %}#}
+    {#</div>#}
+    {#</html>#}
+
+
+{#{% endblock fos_user_content %}#}
+
+{% extends '@Souk/layout.html.twig' %}
 
 {% block title %}
     <div class="section-title">
@@ -9,58 +116,97 @@
     </div>
 {% endblock title %}
 
-{% block fos_user_content %}
-    <html>
-    <table>
-        <tr>
-            <th>Date de création</th>
-            <th>Date de livraison</th>
-            <th>Total ttc</th>
-            <th>Frais livraison</th>
-            <th>Mode de paiement</th>
-            <th>Mode de livraison</th>
-            <th>Details</th>
-        </tr>
-        hello
-        {{ historiques ? 'mawjoud' : 'null' }}
+{% block body %}
 
-        {% for h in historiques %}
-            <tr>
-                <td>
-                    {{ h.dateCreation|date('y/m/d') }}
-                </td>
+    <div style="padding-left: 30px; padding-right: 30px">
+        <!-- section -->
+        <div>
 
-                <td>
-                    {{ h.dateCreation|date('y/m/d') }}
-                </td>
+            <!-- container -->
+            <div class="container">
+                {% if historiques %}
+                    <!-- row -->
+                    <div class="row">
+                        <!-- MAIN -->
+                        <div id="main">
+                            <!-- reclamation top filter -->
+                            <div class="store-filter clearfix">
+                                <div class="pull-right">
+                                    <div class="row-filter">
+                                        <form class="navbar-form" role="search" style="padding-left: 60px">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="keyword"
+                                                       placeholder="Chercher...">
+                                                <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-template-main"><i
+                                                        class="fa fa-search"></i></button>
+                                            </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /reclamation top filter -->
+                            <!-- Reclamation -->
 
-                <td>
-                    {{ h.totalTtc }}
-                </td>
+                            <div id="store">
+                                <!-- row -->
+                                <div class="row" id="result">
+                                    {% for h in historiques %}
+                                        <!-- Product Single -->
+                                        <div class="col">
+                                            <div class="product product-single"
+                                                 style="background-color: #f5f5f5; margin-top: 3%; border-radius: 8px;">
+                                                <div class="product-label clearfix" style="margin-top: -2%">
+                                                    <span style="background-color: orange">Créé le {{ h.dateCreation|date('y/m/d') }}</span>
+                                                </div>
+                                                <div class="product-body">
+                                                    <div class="product-btns pull-right" style="margin-right: 20px">
+                                                        <button class="btn btn-blue pull-right"><i
+                                                                    class="fa fa-eye "><a
+                                                                        href="{{ path('afficher_historique_details',{'id':h.id}) }}"></a></i>
+                                                            Details
+                                                        </button>
+                                                    </div>
+                                                    <h2 class="product-price"
+                                                        style="color: #4A4E5A">Total TTC
+                                                        : {{ h.totalTtc }} TND</h2><br>
+                                                    <h3 class="product-price"
+                                                        style="color: #4A4E5A">Frais de Livraison
+                                                        : {{ h.fraisLivraison }}
+                                                    </h3>
+                                                    <h3 class="product-name"
+                                                        style="color: #4A4E5A">Date de livraison
+                                                        : {{ h.dateLivraison|date('y/m/d') }}</h3>
+                                                    <h6>
+                                                        Paiemenet : {{ h.modePaiement }}
+                                                    </h6>
+                                                    <h6>
+                                                        Livraison : {{ h.modeLivraison }}
+                                                    </h6>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /Product Single -->
+                                    {% endfor %}
+                                </div>
+                                <!-- /row -->
+                            </div>
+                            <!-- /STORE -->
+                        </div>
+                        <!-- /MAIN -->
+                    </div>
+                    <!-- /row -->
+                {% else %}
+                    <div class=""> Vous n'avez pas encore d'historiques</div>
+                {% endif %}
+            </div>
 
-                <td>
-                    {{ h.fraisLivraison }}
-                </td>
+            <!-- /container -->
+        </div>
+        <!-- /section -->
+    </div>
+    <!-- /container -->
 
-                <td>
-                    {{ h.modePaiement }}
-                </td>
-
-                <td>
-                    {{ h.modeLivraison}}
-                </td>
-
-                <td>
-                    <a href="{{ path('afficher_historique_details',{'id':h.id}) }}">Afficher</a>
-                </td>
-
-            </tr>
-
-        {% endfor %}
-
-    </table>
-
-
-    </html>
-{% endblock fos_user_content %}
+{% endblock body %}

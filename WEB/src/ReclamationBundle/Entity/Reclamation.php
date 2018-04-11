@@ -18,6 +18,10 @@ use ProduitBundle\Entity\Produit as Produit;
 class Reclamation
 {
 
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
+    }
 
     /**
      * @var integer
@@ -31,7 +35,7 @@ class Reclamation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=00, nullable=false)
+     * @ORM\Column(name="description", type="string", length=1000, nullable=false)
      */
     private $description;
 
@@ -85,22 +89,14 @@ class Reclamation
     }
 
     /**
-     * Set description
-     *
      * @param string $description
-     *
-     * @return Reclamation
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
-
-        return $this;
     }
 
     /**
-     * Get description
-     *
      * @return string
      */
     public function getDescription()

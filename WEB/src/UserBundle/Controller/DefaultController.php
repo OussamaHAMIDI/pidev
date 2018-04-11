@@ -8,13 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/profil/{id}",name="show_profile")
+     * @Route("/afficher/{id}",name="show_profile")
      */
-    public function profileAction($id)
+    public function afficherProfilAction($id)
     {
         $em=$this->getDoctrine()->getManager();
         $user=$em->getRepository("UserBundle:User")->findOneBy(array("id"=>$id));
 
-        return $this->render('@UserBundle/afficherProfil.html.twig',array('profile',$user));
+        return $this->render('@UserBundle/afficherProfil.html.twig',array('profil',$user));
     }
 }

@@ -5,7 +5,7 @@ namespace PanierBundle\Controller;
 use PanierBundle\PanierBundle;
 
 use PanierBundle\Entity\Panier;
-use SoukBundle\Entity\Produit;
+use ProduitBundle\Entity\Produit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 

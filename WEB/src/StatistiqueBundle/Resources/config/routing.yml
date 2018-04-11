@@ -1,3 +1,6 @@
-afficher_statAdmin:
-    path:     /afficherAdmin
-    defaults: { _controller: StatistiqueBundle:Statistique:afficherStatistiqueArtisan }
+afficher_statAdminB:
+    path:     /afficherAdminB
+    defaults: { _controller: StatistiqueBundle:Statistique:afficherStatistiqueAdminB }
+afficher_statAdminU:
+    path:     /afficherAdminU
+    defaults: { _controller: StatistiqueBundle:Statistique:afficherStatistiqueAdminU }

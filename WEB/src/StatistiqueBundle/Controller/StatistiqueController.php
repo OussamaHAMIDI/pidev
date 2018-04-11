@@ -5,16 +5,16 @@ namespace StatistiqueBundle\Controller;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use EvaluationBundle\Entity\Evaluation;
-use BoutiqueBundle\Entity\Boutique;
 
 class StatistiqueController extends Controller
 {
 
-    public function afficherStatistiqueArtisanAction()
+    public function afficherStatistiqueAdminBAction()
     {
         $em = $this->getDoctrine()->getManager();
         $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
         $i = 0;
+        //var_dump($boutiquesEvaluees);
         foreach ($boutiquesEvaluees as $b) {
             $evaluation = new Evaluation();
             $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
@@ -53,9 +53,52 @@ class StatistiqueController extends Controller
 
         $ob->series($boutiqueChart);
 
-
-        return $this->render('@Statistique/Statistique/afficherStatAdmin.html.twig', array(
+        return $this->render('@Statistique/Statistique/afficherStatAdminB.html.twig', array(
             "evaluations" => $topTen, "chart" => $ob
+        ));
+
+    }
+
+    public function afficherStatistiqueAdminPAction(){
+
+    }
+    public function afficherStatistiqueAdminUAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $nombreAdmin = $em->getRepository("UserBundle:User")->count(array('type' => 'Administrateur'));
+        $nombreArtisan = $em->getRepository("UserBundle:User")->count(array('type' => 'Artisan'));
+        $nombreClient = $em->getRepository("UserBundle:User")->count(array('type' => 'Client'));
+
+
+        $namesU = array(
+            'Administrateur',
+            'Artisan',
+            'Client',
+        );
+        $nombreU = array(
+            $nombreAdmin,
+            $nombreArtisan,
+            $nombreClient
+        );
+
+        $utilisateursChart = array(
+            array(
+                "name" => "Nombre",
+                "data" => $nombreU
+            ),
+        );
+        $ob = new Highchart();
+        $ob->chart->renderTo('chartUtilisateur');
+        $ob->title->text('Nombre d\'utilisateurs par Type');
+        $ob->chart->type('column');
+        $ob->yAxis->title(array('text' => "Nombre"));
+        $ob->xAxis->title(array('text' => "Type"));
+        $ob->xAxis->categories($namesU);
+
+        $ob->series($utilisateursChart);
+
+        return $this->render('@Statistique/Statistique/afficherStatAdminU.html.twig', array(
+            "chart" => $ob
         ));
 
     }
@@ -103,7 +146,7 @@ class StatistiqueController extends Controller
 ////        $ob->series($series);
 //
 //        return $this->render(
-//            "@Statistique/Statistique/afficherStatAdmin.html.twig"
+//            "@Statistique/Statistique/afficherStatAdminB.html.twig"
 //            //,
 //            //array('tombolas' => $tombolas, 'chart' => $ob)
 //        );

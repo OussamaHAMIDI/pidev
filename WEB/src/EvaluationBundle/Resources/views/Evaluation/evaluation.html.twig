@@ -1,15 +1,6 @@
-{% extends "@Souk/layout.html.twig" %}
 
 
-{% block title %}
-    <div class="section-title">
-        <h2 class="title">
-            Note Moyenne
-        </h2>
-    </div>
-{% endblock title %}
-
-{% block fos_user_content %}
+{% block rating %}
 
     {{ noteMoyenne }}
     {% spaceless %}
@@ -29,4 +20,4 @@
         </div>
     {% endspaceless %}
 
-{% endblock fos_user_content %}
+{% endblock rating %}
