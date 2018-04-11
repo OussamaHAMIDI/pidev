@@ -25,7 +25,6 @@ class LogoutListener implements LogoutHandlerInterface
 
         $user = $Token->getUser();
         $user->setEtat("Disconnected");
-        dump($user);
         $this->userManager->updateUser($user);
 
         // ..

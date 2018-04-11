@@ -56,248 +56,254 @@
 
 <body>
 {% block headerNav %}
-<!-- HEADER -->
-<header>
+    <!-- HEADER -->
+    <header>
 
-    <!-- header -->
-    <div id="header">
-        <div class="container">
-            <div class="pull-left">
-                <!-- Logo -->
-                <div class="header-logo">
-                    <a class="logo" href="#">
-                        <img src="{{ asset('img/logo.png') }}" alt="">
-                    </a>
-                </div>
-                <!-- /Logo -->
-
-            </div>
-            <div class="pull-right">
-                <ul class="header-btns">
-                    <!-- Account -->
-                    <li class="header-account dropdown default-dropdown">
-                        <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
-                                    {#<img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">#}
-
-                                {% else %}
-                                    <i class="fa fa-user-o"></i>
-                                {% endif %}
-
-                            </div>
-                            <strong class="text-uppercase">Mon compte <i class="fa fa-caret-down"></i></strong><br>
-                        </div>
-                        <a href="{{ path('fos_user_security_login') }}" class="text-uppercase" style="font-size: 11px">Login</a>
-                        /
-                        <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase"
-                           style="font-size: 11px">Register</a>
-                        <ul class="custom-menu">
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i>Mon profil</a>
-                                </li>
-                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i>Déconnexion</a>
-                                </li>
-                            {% else %}
-                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>
-                                        Connexion</a></li>
-                                <li><a href="{{ path('fos_user_registration_register') }}"><i
-                                                class="fa fa-user-plus"></i>Creer un compte</a></li>
-
-                            {% endif %}
-
-                        </ul>
-                    </li>
-                    <!-- /Account -->
-                    {% if (is_granted("ROLE_CLIENT")) %}
-                        <!-- Cart -->
-
-                                        {% block shoppingcart %}
-                                            {{ render(controller(
-                                                'PanierBundle\\Controller\\DefaultController::panierAction'
-                                            )) }}
-                                        {% endblock %}
-
-                        <!-- /Cart -->
-
-                    {% endif %}
-
-                    <!-- Mobile nav toggle-->
-                    <li class="nav-toggle">
-                        <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                    </li>
-                    <!-- / Mobile nav toggle -->
-                </ul>
-            </div>
-        </div>
         <!-- header -->
-    </div>
-    <!-- container -->
-</header>
-<!-- /HEADER -->
+        <div id="header">
+            <div class="container">
+                <div class="pull-left">
+                    <!-- Logo -->
+                    <div class="header-logo">
+                        <a class="logo" href="#">
+                            <img src="{{ asset('img/logo.png') }}" alt="">
+                        </a>
+                    </div>
+                    <!-- /Logo -->
 
-<!-- NAVIGATION -->
-<div id="navigation">
-    <!-- container -->
-    <div class="container">
-        <div id="responsive-nav">
+                </div>
+                <div class="pull-right">
+                    <ul class="header-btns">
 
-
-            <!-- menu nav -->
-            <div class="menu-nav">
-                <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                <ul class="menu-list">
-                    <li><a href="#">Accueil </a></li>
-                    <li><a href="#">Produits </a></li>
-
-                    {#{% if is_granted('ROLE_ARTISAN') %}#}
-                    {#<li><a href="{{ path('afficher_boutique_artisan',{'id': }) }}"> Mes boutiques</a></li>#}
-                    {#{% else %}#}
-                        <li><a href="{{ path('afficher_boutique') }}">Boutiques </a></li>
-                    {#{% endif %}#}
-                    {% if is_granted('ROLE_CLIENT') %}
-                        <li><a href="{{ path('afficher_historique') }}">Historiques </a></li>
-                    {% endif %}
-                    {#HOWA RAW NORMALEMENT ADMIN EMA NJARREB W BARRA#}
-                    {% if is_granted('ROLE_ARTISAN') %}
-                        <li class="dropdown mega-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
-                            <div class="custom-menu col-md-8">
-                                <div class="col-md-8">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title"><a href="{{ path('afficher_reclamation') }}">Liste des Reclamations</a></h3>
-                                        </li>
-                                        <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
-                                        <li><a href="{{ path('afficher_reclamation') }}">Boutiques</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="dropdown mega-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="true">Statistiques <i class="fa fa-caret-down"></i></a>
-                            <div class="custom-menu col-md-8">
-                                <div class="col-md-8">
-                                    <ul class="list-links">
-                                        <li><a href="{{ path('afficher_statAdminB') }}">Boutiques</a></li>
-                                        <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
-                                        <li><a href="{{ path('afficher_statAdminU') }}">Utilisateurs</a></li>
-                                        <li><a href="{{ path('afficher_reclamation') }}">Vente</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-                            </div>
-                        </li>
-
-                    {% endif %}
-
-                    {% if is_granted('ROLE_ARTISAN') %}
-                        <li class="dropdown mega-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="true">Mes tombolas <i class="fa fa-caret-down"></i></a>
-                            <div class="custom-menu col-md-8">
-                                {#<div class="row">#}
-                                <div class="col-md-8">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title"><a href="{{ path('afficherTombolasArtisan') }}">All</a></h3></li>
-                                        <li><a href="{{ path('ajouter_tombola') }}">Ajout</a></li>
-                                        <li><a href="{{ path('afficherTombolasArtisan') }}">Modification</a></li>
-                                        <li><a href="{{ path('afficherTombolasArtisan') }}">Suppression</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-
-                                {#</div>#}
-
-                            </div>
-                        </li>
-
-                    {% endif %}
-                    {% if not is_granted('ROLE_ARTISAN') %}
-                        <li><a href="{{ path('afficherTombolas') }}">Nos Tombola</a></li>
-                    {% endif %}
-                    <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown"
-                                                                     aria-expanded="true">Men <i
-                                    class="fa fa-caret-down"></i></a>
-                        <div class="custom-menu">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="hidden-sm hidden-xs">
-                                        <a class="banner banner-1" href="#">
-                                            <img src="{{ asset('img/banner06.jpg') }}" alt="">
-                                            <div class="banner-caption text-center">
-                                                <h3 class="white-color text-uppercase">Women’s</h3>
-                                            </div>
-                                        </a>
-                                        <hr>
+                        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                            <li class="header-account dropdown default-dropdown">
+                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true"
+                                style="width: 200px">
+                                    <div class="header-btns-icon">
+                                        {#<img src="data:image/png;base64, {{ app.user.photoProfil }}" width="30%">#}
                                     </div>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3></li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
+                                    <strong class="text-uppercase">Mon compte <i class="fa fa-caret-down"></i></strong>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="hidden-sm hidden-xs">
-                                        <a class="banner banner-1" href="#">
-                                            <img src="{{ asset('img/banner07.jpg') }}" alt="">
-                                            <div class="banner-caption text-center">
-                                                <h3 class="white-color text-uppercase">Men’s</h3>
-                                            </div>
-                                        </a>
+                                <p><strong>{{ app.user.type }} : </strong> {{ app.user.username }}</p>
+                                <ul class="custom-menu">
+                                    <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i>Mon profil</a>
+                                    </li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i>Déconnexion</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        {% else %}
+                            <li class="header-account dropdown default-dropdown">
+                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true"
+                                     style="width: 180px">
+                                    <div class="header-btns-icon">
+                                        <i class="fa fa-user-o"></i>
                                     </div>
-                                    <hr>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3></li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
+                                    <strong class="text-uppercase">VISITEUR</strong>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                                <a href="{{ path('fos_user_security_login') }}" class="text-uppercase"
+                                   style="font-size: 11px">
+                                    <i class="fa fa-unlock-alt" style="color: #f8694a"></i> Login</a>
+                                /
+                                <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase"
+                                   style="font-size: 11px"> <i class="fa fa-registered" style="color: #f8694a"></i>
+                                    Register</a>
+                            </li>
+
+                        {% endif %}
+
+                        <!-- /Account -->
+                        {% if (is_granted("ROLE_CLIENT")) %}
+                            <!-- Cart -->
+                            {% block shoppingcart %}
+                                {{ render(controller(
+                                    'PanierBundle\\Controller\\DefaultController::panierAction'
+                                )) }}
+                            {% endblock %}
+                            <!-- /Cart -->
+                        {% endif %}
+
+                        <!-- Mobile nav toggle-->
+                        <li class="nav-toggle">
+                            <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+                        </li>
+                        <!-- / Mobile nav toggle -->
+                    </ul>
+                </div>
             </div>
-            <!-- menu nav -->
+            <!-- header -->
         </div>
+        <!-- container -->
+    </header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <div id="navigation">
+        <!-- container -->
+        <div class="container">
+            <div id="responsive-nav">
+
+
+                <!-- menu nav -->
+                <div class="menu-nav">
+                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                    <ul class="menu-list">
+                        <li><a href="#">Accueil </a></li>
+                        <li><a href="#">Produits </a></li>
+
+                        {#{% if is_granted('ROLE_ARTISAN') %}#}
+                        {#<li><a href="{{ path('afficher_boutique_artisan',{'id': }) }}"> Mes boutiques</a></li>#}
+                        {#{% else %}#}
+                        <li><a href="{{ path('afficher_boutique') }}">Boutiques </a></li>
+                        {#{% endif %}#}
+                        {% if is_granted('ROLE_CLIENT') %}
+                            <li><a href="{{ path('afficher_historique') }}">Historiques </a></li>
+                        {% endif %}
+                        {#HOWA RAW NORMALEMENT ADMIN EMA NJARREB W BARRA#}
+                        {% if is_granted('ROLE_ARTISAN') %}
+                            <li class="dropdown mega-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
+                                <div class="custom-menu col-md-8">
+                                    <div class="col-md-8">
+                                        <ul class="list-links">
+                                            <li>
+                                                <h3 class="list-links-title"><a
+                                                            href="{{ path('afficher_reclamation') }}">Liste des
+                                                        Reclamations</a></h3>
+                                            </li>
+                                            <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
+                                            <li><a href="{{ path('afficher_reclamation') }}">Boutiques</a></li>
+                                        </ul>
+                                        <hr class="hidden-md hidden-lg">
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="dropdown mega-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-expanded="true">Statistiques <i class="fa fa-caret-down"></i></a>
+                                <div class="custom-menu col-md-8">
+                                    <div class="col-md-8">
+                                        <ul class="list-links">
+                                            <li><a href="{{ path('afficher_statAdminB') }}">Boutiques</a></li>
+                                            <li><a href="{{ path('afficher_reclamation') }}">Produits</a></li>
+                                            <li><a href="{{ path('afficher_statAdminU') }}">Utilisateurs</a></li>
+                                            <li><a href="{{ path('afficher_reclamation') }}">Vente</a></li>
+                                        </ul>
+                                        <hr class="hidden-md hidden-lg">
+                                    </div>
+                                </div>
+                            </li>
+
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ARTISAN') %}
+                            <li class="dropdown mega-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-expanded="true">Mes tombolas <i class="fa fa-caret-down"></i></a>
+                                <div class="custom-menu col-md-8">
+                                    {#<div class="row">#}
+                                    <div class="col-md-8">
+                                        <ul class="list-links">
+                                            <li>
+                                                <h3 class="list-links-title"><a
+                                                            href="{{ path('afficherTombolasArtisan') }}">All</a></h3>
+                                            </li>
+                                            <li><a href="{{ path('ajouter_tombola') }}">Ajout</a></li>
+                                            <li><a href="{{ path('afficherTombolasArtisan') }}">Modification</a></li>
+                                            <li><a href="{{ path('afficherTombolasArtisan') }}">Suppression</a></li>
+                                        </ul>
+                                        <hr class="hidden-md hidden-lg">
+                                    </div>
+
+                                    {#</div>#}
+
+                                </div>
+                            </li>
+
+                        {% endif %}
+                        {% if not is_granted('ROLE_ARTISAN') %}
+                            <li><a href="{{ path('afficherTombolas') }}">Nos Tombola</a></li>
+                        {% endif %}
+                        <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown"
+                                                                         aria-expanded="true">Men <i
+                                        class="fa fa-caret-down"></i></a>
+                            <div class="custom-menu">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="hidden-sm hidden-xs">
+                                            <a class="banner banner-1" href="#">
+                                                <img src="{{ asset('img/banner06.jpg') }}" alt="">
+                                                <div class="banner-caption text-center">
+                                                    <h3 class="white-color text-uppercase">Women’s</h3>
+                                                </div>
+                                            </a>
+                                            <hr>
+                                        </div>
+                                        <ul class="list-links">
+                                            <li>
+                                                <h3 class="list-links-title">Categories</h3></li>
+                                            <li><a href="#">Women’s Clothing</a></li>
+                                            <li><a href="#">Men’s Clothing</a></li>
+                                            <li><a href="#">Phones & Accessories</a></li>
+                                            <li><a href="#">Jewelry & Watches</a></li>
+                                            <li><a href="#">Bags & Shoes</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="hidden-sm hidden-xs">
+                                            <a class="banner banner-1" href="#">
+                                                <img src="{{ asset('img/banner07.jpg') }}" alt="">
+                                                <div class="banner-caption text-center">
+                                                    <h3 class="white-color text-uppercase">Men’s</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <hr>
+                                        <ul class="list-links">
+                                            <li>
+                                                <h3 class="list-links-title">Categories</h3></li>
+                                            <li><a href="#">Women’s Clothing</a></li>
+                                            <li><a href="#">Men’s Clothing</a></li>
+                                            <li><a href="#">Phones & Accessories</a></li>
+                                            <li><a href="#">Jewelry & Watches</a></li>
+                                            <li><a href="#">Bags & Shoes</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- menu nav -->
+            </div>
+        </div>
+        <!-- /container -->
     </div>
-    <!-- /container -->
-</div>
 
 {% endblock headerNav %}
 {#<div>#}
-    {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
-        {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
-        {#<a href="{{ path('fos_user_security_logout') }}">#}
-            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
-        {#</a>#}
-    {#{% else %}#}
-        {#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
-    {#{% endif %}#}
+{#{% if is_granted("IS_AUTHENTICATED_FULLY") %}#}
+{#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+{#<a href="{{ path('fos_user_security_logout') }}">#}
+{#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+{#</a>#}
+{#{% else %}#}
+{#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+{#{% endif %}#}
 {#</div>#}
 
 {#{% if app.request.hasPreviousSession %}#}
-    {#{% for type, messages in app.session.flashbag.all() %}#}
-        {#{% for message in messages %}#}
-            {#<div class="flash-{{ type }}">#}
-                {#{{ message }}#}
-            {#</div>#}
-        {#{% endfor %}#}
-    {#{% endfor %}#}
+{#{% for type, messages in app.session.flashbag.all() %}#}
+{#{% for message in messages %}#}
+{#<div class="flash-{{ type }}">#}
+{#{{ message }}#}
+{#</div>#}
+{#{% endfor %}#}
+{#{% endfor %}#}
 {#{% endif %}#}
 
 <div class="section" style="padding: 80px;">

@@ -94,8 +94,8 @@ class Tombola
      *
      *
      *
-     * @Assert\File( maxSize="1M", mimeTypes={"image/png", "image/jpeg", "image/jpeg"} , mimeTypesMessage = "Veuillez choisir une image valide" ,
-     *     maxSizeMessage="Taille maximale de l'image 1Mo")
+     * @Assert\File( maxSize="2M", mimeTypes={"image/png", "image/jpeg", "image/jpeg"} , mimeTypesMessage = "Veuillez choisir une image valide" ,
+     *     maxSizeMessage="Taille maximale de l'image 2Mo")
      *
      */
     private $path;
@@ -285,7 +285,6 @@ class Tombola
             $this->tempFile = $this->getAbsolutePath();
         }
         $this->oldFile = $this->path;
-//        $this->dateModif = new \DateTime();
 
 
         if (null !== $this->file) {
