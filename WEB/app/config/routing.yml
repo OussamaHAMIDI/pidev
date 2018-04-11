@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> f0a45c7f3f909ebc7767fe9fbbe9f65b40d635b4
 panier:
     resource: "@PanierBundle/Controller/"
     type:     annotation
@@ -31,15 +28,14 @@ reclamation:
     resource: "@ReclamationBundle/Resources/config/routing.yml"
     prefix:   /reclamation
 
-<<<<<<< HEAD
-=======
+
 #boutique:
 #    resource: "@BoutiqueBundle/Controller/"
 #    type:     annotation
 #    prefix:   /
 
 
->>>>>>> f0a45c7f3f909ebc7767fe9fbbe9f65b40d635b4
+
 tombola:
     resource: "@TombolaBundle/Controller/"
     type:     annotation

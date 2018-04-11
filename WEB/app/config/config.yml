@@ -12,10 +12,6 @@ imports:
     - { resource: "@HistoriqueBundle/Resources/config/services.yml" }
     - { resource: "@StatistiqueBundle/Resources/config/services.yml" }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f0a45c7f3f909ebc7767fe9fbbe9f65b40d635b4
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -87,10 +83,7 @@ swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
-<<<<<<< HEAD
-=======
 
->>>>>>> f0a45c7f3f909ebc7767fe9fbbe9f65b40d635b4
 #    auth_mode: '%mailer_auth_mode%'
     password: '%mailer_password%'
     spool: { type: memory }

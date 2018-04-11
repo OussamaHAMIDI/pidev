@@ -13,10 +13,7 @@ use UserBundle\Entity\User;
  */
 class Panier
 {
-<<<<<<< HEAD
 
-=======
->>>>>>> f0a45c7f3f909ebc7767fe9fbbe9f65b40d635b4
 
     /**
      * @var integer

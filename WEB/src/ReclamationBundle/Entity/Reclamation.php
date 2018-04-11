@@ -169,7 +169,7 @@ class Reclamation
     /**
      * Get idProduit
      *
-     * @return \TestBundle\Entity\Produit
+     * @return \ProduitBundle\Entity\Produit
      */
     public function getIdProduit()
     {
