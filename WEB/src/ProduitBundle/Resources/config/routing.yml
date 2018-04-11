@@ -6,6 +6,11 @@ modifier_produit:
     path:     /admin/modifierProduit{id}
     defaults: { _controller: ProduitBundle:Produit:modifierProduit }
 
+modifier_produit_stock:
+    path:     /admin/modifierProduitstock/{id}
+    defaults: { _controller: ProduitBundle:Produit:modifierProduitStock }
+
+
 supprimer_produit:
     path:     /admin/supprimerProduit{id}
     defaults: { _controller: ProduitBundle:Produit:supprimerProduit }
@@ -17,6 +22,10 @@ afficher_produits:
 afficher_front_produit:
     path:     /Produits
     defaults: { _controller: ProduitBundle:Produit:afficherFrontProduit }
+
+afficher_produit_boutique:
+    path:     /Produits/boutique/{idboutique}
+    defaults: { _controller: ProduitBundle:Produit:getProduitBoutique }
 
 ajouter_categorie:
     path:     /admin/ajouterCategorie

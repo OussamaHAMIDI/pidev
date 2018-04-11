@@ -8,9 +8,9 @@ imports:
     - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
 
     - { resource: "@TombolaBundle/Resources/config/services.yml" }
-<<<<<<< HEAD
+
     - { resource: "@PanierBundle/Resources/config/services.yml" }
-=======
+
     - { resource: "@ProduitBundle/Resources/config/services.yml" }
 
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
@@ -18,7 +18,7 @@ imports:
     - { resource: "@HistoriqueBundle/Resources/config/services.yml" }
     - { resource: "@StatistiqueBundle/Resources/config/services.yml" }
 
->>>>>>> 5de313ea134033abadcf3214f93b00505b82ae1c
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -88,10 +88,9 @@ swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
-<<<<<<< HEAD
+
 #    auth_mode: '%mailer_auth_mode%'
-=======
->>>>>>> 5de313ea134033abadcf3214f93b00505b82ae1c
+
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl
@@ -118,3 +117,27 @@ fos_user:
                         address:        souklemdina@gmail.com
                         sender_name:    Administrateur SoukLemdina
 
+# config/packages/sonata.yaml
+
+sonata_notification:
+    backend: sonata.notification.backend.runtime
+
+
+# config/packages/doctrine.yaml
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataNotificationBundle: ~
+                    SonataNotificationBundle: ~
+
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+sonata_notification:
+    #..
+    class:
+        message: Application\Sonata\NotificationBundle\Entity\Message

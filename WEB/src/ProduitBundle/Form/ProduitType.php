@@ -13,7 +13,9 @@ class ProduitType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('reference')->add('libelle')->add('description')->add('prix')->add('taille')->add('couleur')->add('texture')->add('poids')->add('date_creation')->add('photo')->add('boutique');
+        $builder->add('reference')->add('libelle')->add('description')
+            ->add('prix')->add('taille')->add('couleur')->add('texture')
+            ->add('poids')->add('date_creation')->add('path');
     }/**
      * {@inheritdoc}
      */

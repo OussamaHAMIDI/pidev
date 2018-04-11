@@ -21,16 +21,19 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
-<<<<<<< HEAD
+
             new PanierBundle\PanierBundle(),
-=======
+
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new \ReclamationBundle\ReclamationBundle(),
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
             new \HistoriqueBundle\HistoriqueBundle(),
             new StatistiqueBundle\StatistiqueBundle(),
->>>>>>> 5de313ea134033abadcf3214f93b00505b82ae1c
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Sonata\NotificationBundle\SonataNotificationBundle(),
+            new Application\Sonata\NotificationBundle\ApplicationSonataNotificationBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

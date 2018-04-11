@@ -163,6 +163,7 @@
                 <ul class="menu-list">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Shop</a></li>
+                    <li><a href=" {{ path('allboutique') }}  ">Tous Nos Boutiques</a></li>
                     <li class="dropdown mega-dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown"
                            aria-expanded="true">Women <i
@@ -209,6 +210,18 @@
                             </div>
                         </div>
                     </li>
+
+
+
+
+
+
+
+
+
+
+
+
 
                     {% if is_granted('ROLE_ARTISAN') %}
                         <li class="dropdown mega-dropdown">
@@ -279,6 +292,7 @@
                                         <li><a href="#">Phones & Accessories</a></li>
                                         <li><a href="#">Jewelry & Watches</a></li>
                                         <li><a href="#">Bags & Shoes</a></li>
+                                        <li><a href="#">Nos Boutiques</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">

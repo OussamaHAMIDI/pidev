@@ -1,13 +1,16 @@
-<html>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<table>
-    <tr>
+
+{% extends '@Souk/layout.html.twig' %}
+{%block body %}
+<div class="container">
+
+<table class="table table-bordered table-hover">
+
         <th>nom</th>
         <th>adresse</th>
         {#<th>propio</th>#}
         <th>date creation</th>
         <th>action</th>
-    </tr>
+
     {% for b in boutiques %}
     <tr>
         <td>
@@ -31,6 +34,7 @@
     {% endfor %}
 
 </table>
+</div>
+{% endblock %}
 
 
-</html>

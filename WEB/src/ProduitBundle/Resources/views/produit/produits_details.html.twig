@@ -11,29 +11,25 @@
                                 <div class="flexslider">
                                     <ul class="slides">
                                         <li data-thumb="images/si.jpg">
-                                            <div class="thumb-image"> <img src="{{ asset('images/' ~ p.Image) }}" data-imagezoom="true" class="img-responsive"> </div>
+                                            <div class="thumb-image"> <img src="{{ asset('img/' ~ p.path) }}" data-imagezoom="true" class="img-responsive"> </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-7 single-top-in">
                                 <div class="span_2_of_a1 simpleCart_shelfItem">
-                                    <!--Titre--> <h3>{{ p.libelle }}</h3>
-                                    <!--Sous Title--> <p class="in-para">{{  p.animal }}</p>
-                                    <div class="price_single">
-                                        <!--Prix-->    <span class="reducedfrom item_price">{{  p.prix }} DT</span>
-                                        <div class="clearfix"></div>
-                                    </div>
+                                    <!--Titre--> <h3>Libelle: {{ p.libelle }}</h3>
+                                    <h4 class="quick">Prix: {{  p.prix }}</h4>
                                     <h4 class="quick">Description</h4>
-                                    <!--Description--> <p class="quick_desc">{{  p.description }}</p>
+                                    <!--Description--> <p class="quick_desc"> {{  p.description }}</p>
+                                    <h4 class="quick">Boutique</h4>
+                                    <!--Boutique--> <p class="quick_desc">{{  p.boutique.nom }}</p>
+                                    <h4 class="quick">Détails:</h4>
+                                    <!--Boutique--> <p class="quick_desc">Texture: {{  p.texture }}</p>
+                                    <!--Boutique--> <p class="quick_desc">Taille: {{  p.taille }}</p>
+                                    <!--Boutique--> <p class="quick_desc">Couleur: {{  p.couleur }}</p>
+                                    <!--Boutique--> <p class="quick_desc">Poids: {{  p.poids }}</p>
 
-                                    <div class="quantity">
-                                        <div class="quantity-select">
-                                            <div class="entry value-minus">&nbsp;</div>
-                                            <div class="entry value"><span>1</span></div>
-                                            <div class="entry value-plus active">&nbsp;</div>
-                                        </div>
-                                    </div>
 
                                     <!--quantity-->
                                     <script>
@@ -71,4 +67,4 @@
             {% endfor %}
         </form>
     {% endblock %}
-{% endembed %}
+
