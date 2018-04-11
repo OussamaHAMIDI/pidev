@@ -122,18 +122,12 @@ class TombolaController extends Controller
     public function supprimerPartTombolaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $part = $em->getRepository("TombolaBundle:TombolaParticipants")->findOneBy(array("idParticipant" => $id));
+        $part = $em->getRepository("TombolaBundle:TombolaParticipants")->findOneBy(
+            array("idParticipant" => $this->getUser()->getId(),"idTombola" => $id)
+        );
         $em->remove($part);
         $em->flush();
-        // verif si user connected a deja participé
-//        $deja = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:TombolaParticipants')->
-//        dejaParticiperTombola($this->getUser()->getId());
 
-//        if (sizeof($deja) > 0) {
-//            $participe = true;
-//        } else {
-//            $participe = false;
-//        }
 
         return $this->redirectToRoute("detailsFront", array('id' => $part->getIdTombola()->getId()));
     }
@@ -188,7 +182,8 @@ class TombolaController extends Controller
             ->getRepository('TombolaBundle:Tombola')->findOneBy(array('id' => $id));
 
         $participants = $this->getDoctrine()->getManager()->getRepository(
-            'TombolaBundle:TombolaParticipants')->infoParticipant($id);
+            'TombolaBundle:TombolaParticipants'
+        )->infoParticipant($id);
 
 //        $participants = $this->getDoctrine()->getManager()->getRepository(
 //            'TombolaBundle:TombolaParticipants')->findBy(array('idTombola'=> $id));
@@ -241,9 +236,9 @@ class TombolaController extends Controller
         if ($this->getUser() != null) {
             // verif si user connected a deja participé
             $deja = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:TombolaParticipants')->
-            dejaParticiperTombola($this->getUser()->getId());
+            dejaParticiperTombola($this->getUser()->getId(),$id);
 
-            if (sizeof($deja) > 0) {
+            if ($deja > 0) {
                 $participe = true;
             } else {
                 $participe = false;
@@ -294,24 +289,25 @@ class TombolaController extends Controller
      */
     public function lancerTirageAction($id)
     {
-        $em=$this->getDoctrine()->getManager();
-        $tombola =$em->getRepository('TombolaBundle:Tombola')->findOneBy(array("id"=>$id));
+        $em = $this->getDoctrine()->getManager();
+        $tombola = $em->getRepository('TombolaBundle:Tombola')->findOneBy(array("id" => $id));
 
-        $gagnant=$em->getRepository('TombolaBundle:TombolaParticipants')->Random_tombolaAction($tombola->getId());
+        $gagnant = $em->getRepository('TombolaBundle:TombolaParticipants')->Random_tombolaAction($tombola->getId());
 //        var_dump($randomPart);
         $tombola->setIdGagnant($gagnant);
 
         //envoyer un mail au gagnant
-        $contenu_mail= \Swift_Message::newInstance()
+        $contenu_mail = \Swift_Message::newInstance()
             ->setSubject('Félicitation')
-            ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
+            ->setFrom(array('souklemdina@gmail.com' => 'Souk lemdina Team'))
             ->setTo($gagnant->getEmail())
             ->setCharset('utf-8')
             ->setContentType('text/html')
-            ->setBody($this->renderView('@Tombola/SwiftView/gagnant.html.twig',array('tombola'=>$tombola)));
+            ->setBody($this->renderView('@Tombola/SwiftView/gagnant.html.twig', array('tombola' => $tombola)));
 //        $this->get('mailer')->send($contenu_mail);
 
         $em->flush();
+
         return $this->redirectToRoute("details", array('id' => $tombola->getId()));
     }
 

@@ -42,11 +42,9 @@ class TombolaParticipantsRepository extends EntityRepository
     }
 
 
-    public function dejaParticiperTombola($id_participant){
-        $query=$this->getEntityManager()
-            ->createQuery("SELECT t FROM  TombolaBundle:TombolaParticipants t WHERE t.idParticipant = :id_participant");
-        $query->setParameter('id_participant',$id_participant);
-        return  $query->getResult();
+    public function dejaParticiperTombola($id_participant,$id_tombola){
+        $count = count($this->findBy(array('idTombola'=>$id_tombola,'idParticipant'=>$id_participant)));
+        return  $count;
 
     }
 
