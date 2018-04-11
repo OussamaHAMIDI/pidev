@@ -188,13 +188,15 @@ class TombolaController extends Controller
             ->getRepository('TombolaBundle:Tombola')->findOneBy(array('id' => $id));
 
         $participants = $this->getDoctrine()->getManager()->getRepository(
-            'TombolaBundle:TombolaParticipants'
-        )->infoParticipant($id);
+            'TombolaBundle:TombolaParticipants')->infoParticipant($id);
+
+//        $participants = $this->getDoctrine()->getManager()->getRepository(
+//            'TombolaBundle:TombolaParticipants')->findBy(array('idTombola'=> $id));
 
 
         return $this->render(
             "@Tombola/back/detailsTombola.html.twig",
-            array('tombola' => $tombola, 'participants' => $participants,)
+            array('tombola' => $tombola, 'participants' => $participants)
         );
     }
 
@@ -298,17 +300,15 @@ class TombolaController extends Controller
         $gagnant=$em->getRepository('TombolaBundle:TombolaParticipants')->Random_tombolaAction($tombola->getId());
 //        var_dump($randomPart);
         $tombola->setIdGagnant($gagnant);
-//        $gagnant = $em->getRepository('UserBundle:User')->findOneBy(array('id'=>$randomPart->getIdParticipant()->getId()));
 
         //envoyer un mail au gagnant
         $contenu_mail= \Swift_Message::newInstance()
-            ->setSubject('Vous êtes le gagnant de la tombola')
+            ->setSubject('Félicitation')
             ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
             ->setTo($gagnant->getEmail())
             ->setCharset('utf-8')
             ->setContentType('text/html')
-            ->setBody($this->renderView('@Tombola/SwiftView/gagnant.html.twig'));
-
+            ->setBody($this->renderView('@Tombola/SwiftView/gagnant.html.twig',array('tombola'=>$tombola)));
 //        $this->get('mailer')->send($contenu_mail);
 
         $em->flush();
