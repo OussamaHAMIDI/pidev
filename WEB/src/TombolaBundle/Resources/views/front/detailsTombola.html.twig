@@ -60,11 +60,11 @@
                         <div class="col-md-7">
                             <div class="product-body">
                                 {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') and
-                                tombola.idGagnant is null %}
-                                <div class="pull-right">
-                                    <i class="fa fa-spinner fa-spin fa-fw"
-                                       style="color: #229fac;font-size: 55px"></i>
-                                </div>
+                                    tombola.idGagnant is null %}
+                                    <div class="pull-right">
+                                        <i class="fa fa-spinner fa-spin fa-fw"
+                                           style="color: #229fac;font-size: 55px"></i>
+                                    </div>
                                 {% endif %}
                                 <h2 class="product-name">{{ tombola.titre }}</h2>
                                 <br>
@@ -87,20 +87,23 @@
                                         <h1 align='center' class='product-name' style='color: red;font-family: Andalus'>
                                             C'est fini le tirage est CLOTURÉ</h1>
                                         <span style="color: #078407;font-size: 30px">
-
-                                            {% if tombola.idGagnant.id==app.user.id %}
-                                                <i class="fa fa-trophy fa-fw" style="color: gold;font-size: 35px"></i>
-                                                Le gangant c'est VOUS
-                                                <i class="fa fa-trophy fa-fw" style="color: gold;font-size: 35px"></i>
-                                            {% else %}
-                                                <i class="fa fa-trophy fa-fw" style="color: gold;font-size: 35px"></i>
-                                                    Le gangant est :
-                                                    <a target="_blank" title="Voir profil"
-                                                       style="color: #229fac"
-                                                       href="{{ path('show_profile',{id: tombola.idGagnant.id}) }}">
-                                                {{ tombola.idGagnant.nom }}  {{ tombola.idGagnant.prenom }}</a>
-                                                <i class="fa fa-trophy fa-fw" style="color: gold;font-size: 35px"></i>
-                                            {% endif %}
+                                                   {% if app.user is not null and tombola.idGagnant.id==app.user.id %}
+                                                       <i class="fa fa-trophy fa-fw"
+                                                          style="color: gold;font-size: 35px"></i>
+                                                    Le gangant c'est VOUS
+                                                    <i class="fa fa-trophy fa-fw"
+                                                       style="color: gold;font-size: 35px"></i>
+                                                    {% else %}
+                                                       <i class="fa fa-trophy fa-fw"
+                                                          style="color: gold;font-size: 35px"></i>
+                                                      Le gangant est :
+                                                          <a target="_blank" title="Voir profil"
+                                                             style="color: #229fac"
+                                                             href="{{ path('show_profile',{id: tombola.idGagnant.id}) }}">
+                                                         {{ tombola.idGagnant.nom }}  {{ tombola.idGagnant.prenom }}</a>
+                                                       <i class="fa fa-trophy fa-fw"
+                                                          style="color: gold;font-size: 35px"></i>
+                                                   {% endif %}
                                             {% else %}
                                                 <br>
                                                 <span style="color: #1b6d85;font-size: 20px">

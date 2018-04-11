@@ -92,19 +92,19 @@ class User extends BaseUser
      */
     private $sexe;
 
-//    /**
-//     * @var mixed
-//     *
-//     * @ORM\Column(name="photo_profil", type="blob", length=16777215, nullable=false)
-//     */
-//    private $photoProfil;
-//
-//    /**
-//     * @var string
-//     *
-//     * @ORM\Column(name="photo_permis", type="blob", length=16777215, nullable=true)
-//     */
-//    private $photoPermis;
+    /**
+     * @var mixed
+     *
+     * @ORM\Column(name="photo_profil", type="blob", length=16777215, nullable=false)
+     */
+    private $photoProfil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo_permis", type="blob", length=16777215, nullable=true)
+     */
+    private $photoPermis;
 
     /**
      * @var string
@@ -126,14 +126,6 @@ class User extends BaseUser
      */
     private $pathPhotoPermis;
 
-
-    /**
-     * User constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function setEnabled($boolean)
     {
@@ -157,6 +149,16 @@ class User extends BaseUser
         return $this->id;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function setLastLogin(\DateTime $time = null)
+    {
+        $this->lastLogin = $time;
+        $this->etat = "Connected";
+
+        return $this;
+    }
 
     /**
      * Set type
