@@ -2,6 +2,7 @@
 
 namespace ProduitBundle\Entity;
 
+use BoutiqueBundle\Entity\Boutique;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,12 +22,11 @@ class Produit
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-//    /**
-//     * @ORM\ManyToOne(targetEntity="ProduitBundle\Entity\Boutique")
-//     * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
-//     */
-//    private $boutique;
+    /**
+     * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
+    * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
+     */
+       private $boutique;
 
     /**
      * @var string
@@ -131,6 +131,11 @@ class Produit
         $this->id = $id;
     }
 
+    /**
+     * @param Boutique $boutique
+     * @return Boutique
+     */
+
     public function setBoutique(Boutique $boutique = null)
     {
         $this->boutique = $boutique;
@@ -141,7 +146,7 @@ class Produit
     /**
      * Get categorie
      *
-     * @return \ProduitBundle\Entity\Boutique
+     * @return \BoutiqueBundle\Entity\Boutique
      */
     public function getBoutique()
     {

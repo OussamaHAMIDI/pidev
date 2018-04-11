@@ -99,7 +99,15 @@ class BoutiqueController extends Controller
             "boutique"=>$boutique
         ));
     }
+    public function chercherBoutiqueAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $searchParameter = $request->get('key');
+        $boutiques = $em->getRepository('Boutique')->rechercheAction($searchParameter);
 
+        return $this->render("@Boutique/Boutique/recherche.html.twig", array('boutiques' => $boutiques));
+
+    }
 
 
 

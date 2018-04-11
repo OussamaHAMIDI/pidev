@@ -125,4 +125,37 @@
     </div>
     </div>
     </div>
+    {% block javascripts %}
+        <script>
+            var searchField = $('#keyword');
+            var boutique_div = $('#result');
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+            searchField.keyup(function (evt) {
+
+                var array = {'key': searchField.val()};
+
+                delay(function () {
+                    $.ajax({
+                        url: '{{ path('chercher_boutique') }}',
+                        method: "POST",
+                        data: array,
+                        dataType: 'html',
+                        success: function (result) {
+                            var parsedData = result;
+                            boutique_div.fadeOut(function () {
+                                boutique_div.empty();
+                                boutique_div.html(parsedData).fadeIn();
+                            });
+                        }
+                    });
+                }, 100);
+            });
+        </script>
+    {% endblock javascripts %}
 {% endblock body %}

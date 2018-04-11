@@ -61,6 +61,13 @@
 
 
                                 <div class="product-btns">
+                                    <div>
+                                        {{ socialButtons() }}
+                                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBoVSG3FplX2Ckbl672m4HWjnKK4WS5j2w&q={{boutique.adresse}}&attribution_source=Google+Maps+Embed+API&attribution_web_url=http://www.fairmont.com/empress-victoria/&attribution_ios_deep_link_id=comgooglemaps://?daddr=Fairmont+Empress,+Victoria,+BC" style="height: 400px;width: 700px">
+                                        </iframe>
+                                       {# <iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBoVSG3FplX2Ckbl672m4HWjnKK4WS5j2w&center={{boutique.altitude}},{{boutique.longitude}}&zoom=10&maptype=satellite">
+                                        </iframe>#}
+                                    </div>
                                     <div class="pull-right">
 
                                         <button class="btn btn-warning" id="voirP"
@@ -68,11 +75,11 @@
                                         >
                                             <i class="fa fa-eye"></i> Voir produits
                                         </button>
-                                        <button class="btn btn-warning" id="voirM"
+                                        {#<button class="btn btn-warning" id="voirM"#}
                                                 {#href="{{ path('supprimerPart',{id: app.user.id}) }}"#}
-                                        >
-                                            <i class="fa fa-map"></i> Voir sur map
-                                        </button>
+                                        {#>#}
+                                            {#<i class="fa fa-map"></i> Voir sur map#}
+                                        {#</button>#}
 
                                         {% if is_granted('ROLE_ARTISAN') %}
 

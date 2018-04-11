@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new EvaluationBundle\EvaluationBundle(),
             new \HistoriqueBundle\HistoriqueBundle(),
             new StatistiqueBundle\StatistiqueBundle(),
+            new Nomaya\SocialBundle\NomayaSocialBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
