@@ -24,7 +24,6 @@
         "beberlei/DoctrineExtensions": "*",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
-        "twig/twig": "1.18.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",
         "ob/highcharts-bundle": "^1.6",
@@ -34,14 +33,8 @@
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
-<<<<<<< HEAD
-        "symfony/templating": "^4.0",
-        "nomaya/social-bundle": "dev-master"
-
-=======
         "nomaya/social-bundle": "dev-master",
         "twig/twig": "^1.0||^2.0"
->>>>>>> d44b1582fce9c8ff46d33941d635d653b181024d
 
     },
     "require-dev": {

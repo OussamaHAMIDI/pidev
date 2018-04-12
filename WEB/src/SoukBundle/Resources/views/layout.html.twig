@@ -66,7 +66,7 @@
                     <!-- Logo -->
                     <div class="header-logo">
                         <a class="logo" href="#">
-                            <img src="{{ asset('img/logo.png') }}" alt="">
+                            <img src="{{ asset('img/logo.png') }}" alt="" id="img">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -110,13 +110,21 @@
                                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                     <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i>Mon profil</a>
                                     </li>
+
                                     <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i>Déconnexion</a>
                                     </li>
+<<<<<<< HEAD
                                 {% else %}
                                     <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>
                                             Connexion</a></li>
                                     <li><a href="{{ path('fos_user_registration_register') }}"><i
                                                     class="fa fa-user-plus"></i>Creer un compte</a></li>
+=======
+                                    <li><a href="{{ path('delete_profile',({id:app.user.id }) ) }}"><i class="fa fa-trash-o"></i>Supprimer compte</a>
+                                    </li>
+                                </ul>
+                            </li>
+>>>>>>> d44b1582fce9c8ff46d33941d635d653b181024d
 
                                 {% endif %}
 
@@ -161,6 +169,7 @@
                 <div class="menu-nav">
                     <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                     <ul class="menu-list">
+<<<<<<< HEAD
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Shop</a></li>
                         <li><a href=" {{ path('allboutique') }}  ">Tous Nos Boutiques</a></li>
@@ -171,6 +180,26 @@
                             <div class="custom-menu">
                                 <div class="row">
                                     <div class="col-md-6">
+=======
+                        <li><a href="#">Accueil </a></li>
+                        <li><a href="#">Produits </a></li>
+
+                        {#{% if is_granted('ROLE_ARTISAN') %}#}
+                        {#<li><a href="{{ path('afficher_boutique_artisan',{'id': }) }}"> Mes boutiques</a></li>#}
+                        {#{% else %}#}
+                        <li><a href="{{ path('afficher_boutique') }}">Boutiques </a></li>
+                        {#{% endif %}#}
+                        {% if is_granted('ROLE_CLIENT') %}
+                            <li><a href="{{ path('afficher_historique') }}">Historiques </a></li>
+                        {% endif %}
+                        {#HOWA RAW NORMALEMENT ADMIN EMA NJARREB W BARRA#}
+                        {% if is_granted('ROLE_ARTISAN') %}
+                            <li class="dropdown mega-dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown"
+                                   aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
+                                <div class="custom-menu col-md-8">
+                                    <div class="col-md-8">
+>>>>>>> d44b1582fce9c8ff46d33941d635d653b181024d
                                         <ul class="list-links">
                                             <li>
                                                 <h3 class="list-links-title">Categories</h3></li>
@@ -182,6 +211,7 @@
                                         </ul>
                                         <hr class="hidden-md hidden-lg">
                                     </div>
+<<<<<<< HEAD
 
                                     <div class="col-md-6">
                                         <ul class="list-links">
@@ -224,6 +254,11 @@
 
 
                         {% if is_granted('ROLE_ARTISAN') %}
+=======
+                                </div>
+                            </li>
+
+>>>>>>> d44b1582fce9c8ff46d33941d635d653b181024d
                             <li class="dropdown mega-dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown"
                                    aria-expanded="true">Reclamations <i class="fa fa-caret-down"></i></a>
@@ -246,7 +281,7 @@
                         {% if is_granted('ROLE_ARTISAN') %}
                             <li class="dropdown mega-dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown"
-                                   aria-expanded="true">Mes tombolas <i class="fa fa-caret-down"></i></a>
+                                   aria-expanded="true">Tombolas <i class="fa fa-caret-down"></i></a>
                                 <div class="custom-menu col-md-8">
                                     {#<div class="row">#}
                                     <div class="col-md-8">
@@ -265,7 +300,10 @@
                                 </div>
                             </li>
 
+                        {% else %}
+                            <li><a href="{{ path('afficherTombolas') }}">Tombolas</a></li>
                         {% endif %}
+<<<<<<< HEAD
                         {% if not is_granted('ROLE_ARTISAN') %}
                             <li><a href="{{ path('afficherTombolas') }}">Nos Tombola</a></li>
                         {% endif %}
@@ -318,6 +356,9 @@
                                 </div>
                             </div>
                         </li>
+=======
+
+>>>>>>> d44b1582fce9c8ff46d33941d635d653b181024d
                     </ul>
                 </div>
                 <!-- menu nav -->
@@ -347,6 +388,24 @@
 {#{% endfor %}#}
 {#{% endfor %}#}
 {#{% endif %}#}
+
+
+<div class="main-content">
+    {% for msg in app.session.flashBag.get('success') %}
+        <br><br><br><br>
+        <div class="alert alert-success alert-dismissible col-md-offset-1 col-md-10">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ msg }}
+        </div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('sup') %}
+        <br><br><br><br>
+        <div class="alert alert-danger alert-dismissible col-md-offset-1 col-md-10">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ msg }}
+        </div>
+    {% endfor %}
+</div>
 
 <div class="section" style="padding: 80px;">
     <div class="container form-group">

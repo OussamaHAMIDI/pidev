@@ -8,65 +8,108 @@
  */
 
 namespace TombolaBundle\Repository;
+
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 
 class TombolaRepository extends EntityRepository
 {
     public function rechercheAction($word)
     {
-        $qb= $this->getEntityManager()->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('p')
             ->from('TombolaBundle:Tombola', 'p')
             ->where('p.titre LIKE :word')
             ->setParameter('word', '%'.$word.'%');
 
         $q = $qb->getQuery();
+
         return $q->execute();
-
     }
 
-    public function insererGagnant($id_tombola,$id_gagnant){
-        $query=$this->getEntityManager()
-            ->createQuery('UPDATE TombolaBundle:Tombola t SET t.id_gagnant = : nv_id WHERE t.id = : id');
-        $query->setParameter('nv_id',$id_gagnant);
-        $query->setParameter('id',$id_tombola);
-        $query->execute();
-    }
 
-    public function recherchebytitreFRONTAction($word,$id)
+    public function recherchebytitreFRONTAction($word, $id)
     {
-        $qb= $this->getEntityManager()->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('p')
             ->from('TombolaBundle:Tombola', 'p')
             ->where('p.titre LIKE :word')->andWhere('p.idArtisan = :id')
             ->setParameter('word', '%'.$word.'%')
-        ->setParameter('id',$id);
+            ->setParameter('id', $id);
         $q = $qb->getQuery();
+
         return $q->execute();
     }
-    
-    public function recherchebytitreAction($word)
 
+    public function recherchebytitreAction($word)
     {
-        $qb= $this->getEntityManager()->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('p')
             ->from('TombolaBundle:Tombola', 'p')
             ->where('p.titre LIKE :word')
             ->setParameter('word', '%'.$word.'%');
         $q = $qb->getQuery();
+
         return $q->execute();
     }
-    public function moisTombolaAction($mois,$id_artisan){
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $result = $this->getEntityManager()->createQuery('SELECT t FROM TombolaBundle:Tombola t WHERE 
-        MONTH(t.dateAjout) = :m and t.idArtisan = :id')
-            ->setParameter('m',$mois) ->setParameter('id',$id_artisan)
-            ->getResult();
-        return  $result;
 
+    public function moisTombolaAction($mois, $id_artisan)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('MONTH(t.dateAjout) = :m')
+            ->andWhere('t.idArtisan = :id')
+            ->setParameter('m', $mois)->setParameter('id', $id_artisan)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
+    public function tombolasCloture($id_artisan)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.dateTirage < :now')
+            ->andWhere('t.idGagnant IS NOT NULL')
+            ->andWhere('t.idArtisan = :id')
+            ->setParameter('now', new \DateTime())
+            ->setParameter('id', $id_artisan)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
+    public function tombolasFerme($id_artisan)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.dateTirage < :now')
+            ->andWhere('t.idGagnant IS NULL')
+            ->andWhere('t.idArtisan = :id')
+            ->setParameter('now', new \DateTime())
+            ->setParameter('id', $id_artisan)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
+    public function tombolasOuverte($id_artisan)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.dateTirage > :now')
+            ->andWhere('t.idGagnant IS NULL')
+            ->andWhere('t.idArtisan = :id')
+            ->setParameter('now', new \DateTime())
+            ->setParameter('id', $id_artisan)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
     }
 
 }

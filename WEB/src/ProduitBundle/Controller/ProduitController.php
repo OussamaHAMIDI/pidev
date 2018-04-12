@@ -11,7 +11,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 use ProduitBundle\Entity\Produit;
-use BoutiqueBundle\Entity\Boutique;
 use ProduitBundle\Form\ProduitType;
 
 class ProduitController extends Controller
@@ -26,10 +25,6 @@ class ProduitController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($produit);
             $em->flush();
-            $this->addFlash(
-                'notice',
-                'Produit Ajouté!'
-            );
             return $this->redirectToRoute('afficher_produits');
         }
         return $this->render('@Produit/Produit/ajouter_produit.html.twig', array(
@@ -46,36 +41,15 @@ class ProduitController extends Controller
         {
 
             $produit->setLibelle($request->get('libelle'));
-            $produit->setReference($request->get('reference'));
-            $produit->setTexture($request->get('texture'));
+            $produit->setQuantite($request->get('quantite'));
+            $produit->setAnimal($request->get('animal'));
             $produit->setPrix($request->get('prix'));
-            $produit->setDescription($request->get('description'));
-            $produit->setPoids($request->get('poids'));
-            $produit->setCouleur($request->get('couleur'));
             $produit->setDescription($request->get('description'));
             $em->persist($produit);
             $em->flush();
             return $this->redirectToRoute('afficher_produits');
         }
         return $this->render('@Produit/Produit/modifier_produit.html.twig', array(
-            'produit' => $produit));
-    }
-
-    public function modifierProduitStockAction(Request $request,$id)
-    {
-
-        $em=$this->getDoctrine()->getManager();
-        $produit=$em->getRepository("ProduitBundle:Produit")->find($id);
-        if ($request->isMethod('POST'))
-        {
-
-            $produit->setQuantite($request->get('quantite'));
-
-            $em->persist($produit);
-            $em->flush();
-            return $this->redirectToRoute('afficher_produits');
-        }
-        return $this->render('@Produit/Produit/modifier_produit_stock.html.twig', array(
             'produit' => $produit));
     }
 
@@ -93,7 +67,7 @@ class ProduitController extends Controller
     {
         $em= $this->getDoctrine()->getManager();
         $produits=$em->getRepository("ProduitBundle:Produit")->affichage();
-        return $this->render('@Produit/Produit/afficher_produits.html.twig', array(
+        return $this->render('ProduitBundle:Produit:afficher_produits.html.twig', array(
             "produits"=>$produits
         ));
     }
@@ -136,18 +110,6 @@ class ProduitController extends Controller
         return $this->render('ProduitBundle:Produit:afficher_produits.html.twig', array(
 
         ));
-    }
-
-
-    public function getProduitBoutiqueAction($idboutique){
-        $em= $this->getDoctrine()->getManager();
-        $boutique= $em->getRepository(Boutique::class)->find($idboutique);
-        $produits=$em->getRepository("ProduitBundle:Produit")->ProduitBoutique($idboutique);
-        return $this->render('@Produit/Produit/produit_boutique.html.twig', array(
-            "produits"=>$produits,
-            "boutique"=> $boutique
-        ));
-
     }
 
 }

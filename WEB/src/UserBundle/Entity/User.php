@@ -448,6 +448,7 @@ class User extends BaseUser
         if (null !== $this->filePe) {
             $this->pathPhotoPermis = sha1(uniqid(mt_rand(), true)).'.'.$this->filePe->guessExtension();
         }
+        var_dump($this->pathPhotoProfil);
     }
 
     /**
@@ -456,8 +457,6 @@ class User extends BaseUser
      */
     public function upload()
     {
-        var_dump($this->pathPhotoProfil);
-
         if (null !== $this->fileP) {
             $this->fileP->move($this->getUploadRootDir(), $this->pathPhotoProfil);
             unset($this->fileP);

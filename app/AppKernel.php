@@ -21,15 +21,14 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new BoutiqueBundle\BoutiqueBundle(),
             new TombolaBundle\TombolaBundle(),
-
             new PanierBundle\PanierBundle(),
-
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new \ReclamationBundle\ReclamationBundle(),
             new ProduitBundle\ProduitBundle(),
             new EvaluationBundle\EvaluationBundle(),
             new \HistoriqueBundle\HistoriqueBundle(),
             new StatistiqueBundle\StatistiqueBundle(),
+<<<<<<< HEAD:WEB/app/AppKernel.php
 
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\NotificationBundle\SonataNotificationBundle(),
@@ -38,6 +37,9 @@ class AppKernel extends Kernel
 
 
 
+=======
+            new Nomaya\SocialBundle\NomayaSocialBundle(),
+>>>>>>> d44b1582fce9c8ff46d33941d635d653b181024d:app/AppKernel.php
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

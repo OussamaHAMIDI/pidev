@@ -1,21 +1,14 @@
-{% extends '@Souk/layout.html.twig' %}
+{%extends '@Souk/layout.html.twig'%}
 {%block body %}
-    <div class="container">
-<a href="{{ path('ajouter_produit') }}" class="primary-btn"><span>Ajouter un Produit</span></a>
-    </div>
-<div class="container">
 
-    <div class="row">
-        <div class="col-md-6 col-md-offset-1">
-            <div class="section-title">
+<a href="{{ path('ajouter_produit') }}" class="btn btn-default"><span>Ajouter</span></a>
+<a href="{{ path('afficher_statistique') }}" class="btn btn-default"><span>Statistiques</span></a>
 
-                <h2 class="title">
-                    Liste Des Produits
-                </h2>
-            </div>
-        </div>
-    </div>
+<center><h1>Liste Des Aliments</h1>
+    <form>
 
+        <input type="text" name="mot" id="mot" placeholder="chercher">
+    </form>
     <div class="box-body">
         <style type="text/css">
             table{border-collapse: collapse;width: 40%;font-size: 10pt;} table,th,td{border:1px solid #cfbfa6;} th{background:#cfbfa6;color: white;}
@@ -26,45 +19,36 @@
             <th>Libelle</th>
             <th>Description</th>
             <th>Prix</th>
-            <th>Reference</th>
-            <th>Taille</th>
-            <th>Texture</th>
-            <th>Image</th>
-            <th>Couleur</th>
-            <th>Stock</th>
-            <th style="padding-right: 70px; ">Supprimer || Modifier</th>
+            <th>Categorie</th>
+            <th>Animal</th>
+            <th>Url_Image</th>
+            <th>Quantite</th>
+            <th>Supprimer || Modifier</th>
 
 
 
             </thead>
             <tbody id="tbody">
             {% for p in produits %}
-                <tr><td>{{  p.id }}</td>
-                    <td>{{  p.libelle }}</td>
-                    <td>{{  p.description }}</td>
-                    <td>{{  p.prix }}</td>
-                    <td>{{  p.reference }}</td>
-                    <td>{{  p.taille }}</td>
-                    <td>{{  p.texture }}</td>
-                    <td>{{ asset('images/' ~ p.path) }}</td>
-                    <td>{{  p.couleur }}</td>
-                    <td>{{ p.quantite }}</td>
-
-                    <td><a href="{{ path('supprimer_produit',{'id':p.id}) }}" class='btn btn-default'>X</a>
-                        <a href="{{ path('modifier_produit',{'id':p.id}) }}" class='btn btn-default'>
-                            <i class='fa fa-pencil-square-o'></i></a>
-                        <a href="{{ path('modifier_produit_stock',{'id':p.id}) }}" class='btn btn-default'>
-                            <i class='fa fa-archive'></i></a>
-                    </td>
+            <tr><td>{{  p.id }}</td>
+                <td>{{  p.libelle }}</td>
+                <td>{{  p.description }}</td>
+                <td>{{  p.prix }}</td>
+                <td>{{  p.reference }}</td>
+                <td>{{  p.taille }}</td>
+                <td>{{  p.texture }}</td>
+                <td>{{ asset('images/' ~ p.photo) }}</td>
+                <td>{{  p.couleur }}</td>
 
 
-                </tr>
+                <td><a href="{{ path('supprimer_produit',{'id':p.id}) }}" class='btn btn-default'>X</a><a href="{{ path('modifier_produit',{'id':p.id}) }}" class='btn btn-default'><i class='fa fa-pencil-square-o'></i></a></td>
+                <td> </td>
+
+            </tr>
             {% endfor %}
 
             </tbody>
         </table>
-</div>
-
         <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 
 
