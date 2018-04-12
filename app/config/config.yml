@@ -5,6 +5,10 @@ imports:
     - { resource: "@SoukBundle/Resources/config/services.yml" }
     - { resource: "@BoutiqueBundle/Resources/config/services.yml" }
     - { resource: "@TombolaBundle/Resources/config/services.yml" }
+<<<<<<< HEAD:app/config/config.yml
+=======
+
+>>>>>>> 541f17c88436cdb19d5f4250b0d25f53fa61e5af:WEB/app/config/config.yml
     - { resource: "@PanierBundle/Resources/config/services.yml" }
     - { resource: "@ProduitBundle/Resources/config/services.yml" }
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
@@ -85,6 +89,10 @@ swiftmailer:
     username: '%mailer_user%'
 
 #    auth_mode: '%mailer_auth_mode%'
+<<<<<<< HEAD:app/config/config.yml
+=======
+
+>>>>>>> 541f17c88436cdb19d5f4250b0d25f53fa61e5af:WEB/app/config/config.yml
     password: '%mailer_password%'
     spool: { type: memory }
     encryption: ssl
@@ -110,6 +118,34 @@ fos_user:
     from_email:
                         address:        souklemdina@gmail.com
                         sender_name:    Administrateur SoukLemdina
+<<<<<<< HEAD:app/config/config.yml
+=======
+
+# config/packages/sonata.yaml
+
+sonata_notification:
+    backend: sonata.notification.backend.runtime
+
+
+# config/packages/doctrine.yaml
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataNotificationBundle: ~
+                    SonataNotificationBundle: ~
+
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+sonata_notification:
+    #..
+    class:
+        message: Application\Sonata\NotificationBundle\Entity\Message
+>>>>>>> 541f17c88436cdb19d5f4250b0d25f53fa61e5af:WEB/app/config/config.yml
 nomaya_social:
     buttons:
         facebook:
