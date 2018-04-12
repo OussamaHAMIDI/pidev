@@ -51,7 +51,7 @@
                         <div class="col-md-5">
                             <div id="product-main-view">
                                 <div class="product-view">
-                                    <img src="{{ asset('uploads/' ~ tombola.path) }}" alt="image du tombola" class="img-thumbnail
+                                    <img id="tomb" src="{{ asset('uploads/' ~ tombola.path) }}" alt="image du tombola" class="img-thumbnail
                     img-rounded img-responsive"/>
                                 </div>
                             </div>
@@ -279,6 +279,22 @@
 
     {% block javascripts %}
         <script>
+
+            {% if tombola.idGagnant is not null and app.user is not null %}
+            {% if(tombola.idGagnant.id == app.user.id) %}
+            Push.clear();
+            Push.create("Félicitations {{ app.user.username|upper }} !", {
+                body: "Vous avez gagné cette tombola.",
+                icon: $('#tomb').prop('src'),
+                timeout: 5000,
+                onClick: function () {
+                    window.focus();
+                    this.close();
+                }
+            });
+            {% endif %}
+            {% endif %}
+
             Date.secondsBetween = function (date1, date2) {
                 //Get 1 day in milliseconds
                 var one_day = 1000 * 60 * 60 * 24;

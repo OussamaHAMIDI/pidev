@@ -1,7 +1,7 @@
 # Project java
 /Desktop/*
 
-
+WEB/app/*
 WEB/.idea/
 WEB/build/
 WEB/var/

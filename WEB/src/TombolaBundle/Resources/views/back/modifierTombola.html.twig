@@ -73,16 +73,6 @@
         <script type="text/javascript">
             $("#erreurFile").hide();
 
-            Push.clear();
-            Push.create("Modification effectué!", {
-                body: "Cette tombola est modifié avec succès.",
-                icon: $('#img').prop('src'),
-                timeout: 2000,
-                onClick: function () {
-                    window.focus();
-                    this.close();
-                }
-            });
 
 
             function readURL(input) {
@@ -149,38 +139,9 @@
                     format: 'YYYY/MM/DD HH:mm:ss'
                 });
             });
-        </script>
-        {#<script>#}
-        {#$('#submit').confirm({#}
-        {#title: 'Confirmation',#}
-        {#content: 'Voulez vous appliquer ces changements ?',#}
-        {#type: 'blue',#}
-        {#typeAnimated: true,#}
-        {#boxWidth: '300px',#}
-        {#theme: 'modern',#}
-        {#draggable: true,#}
-        {#useBootstrap: true,#}
-        {#backgroundDismiss: false,#}
-        {#backgroundDismissAnimation: 'glow',#}
-        {#buttons: {#}
-        {#Oui: {#}
-        {#text: 'Confirmer',#}
-        {#btnClass: 'btn-blue',#}
-        {#action: function () {#}
-        {#console.log("dkhal");#}
-        {#$('#form').submit();#}
-        {#}#}
-        {#},#}
-        {#Non: {#}
-        {#text: 'Annuler',#}
-        {#action: function () {#}
-        {#}#}
-        {#}#}
-        {#}#}
-        {#});#}
 
 
-        {#</script>#}
+       </script>
 
     {% endblock javascripts %}
 

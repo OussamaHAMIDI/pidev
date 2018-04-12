@@ -21,17 +21,6 @@ class ProduitRepository extends \Doctrine\ORM\EntityRepository
         $req=$this->getEntityManager()->createQuery("select p from ProduitBundle:Produit p where p.id=:id")->setParameter('id',$id);
         return $req->getResult();
     }
-
-
-    public function ProduitBoutique($idboutique)
-    {
-        $req=$this->getEntityManager()->createQuery("select p from ProduitBundle:Produit p where p.boutique=:idboutique")
-            ->setParameter('idboutique',$idboutique);
-        return $req->getResult();
-    }
-
-
-
     public function rechercheAjax($mot)
     {
         $q=$this->getEntityManager()->createQuery("select p from ProduitBundle:produit p where 

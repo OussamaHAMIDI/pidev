@@ -1,3 +1,43 @@
+{#{% extends "@Souk/layout.html.twig" %}#}
+
+
+{#{% block title %}#}
+    {#<div class="section-title">#}
+        {#<h2 class="title">#}
+            {#Liste des Reclamations#}
+        {#</h2>#}
+    {#</div>#}
+{#{% endblock title %}#}
+
+{#{% block fos_user_content %}#}
+
+    {#<html>#}
+    {#<div class="container">#}
+
+        {#<div class="title">#}
+            {#<div class="col"><h5>description</h5></div>#}
+            {#<div class="col"><h5>date creation</h5></div>#}
+            {#<div class="col"><h5>action</h5></div>#}
+        {#</div>#}
+        {#{% for r in reclamations %}#}
+            {#<div class="row">#}
+                {#<div class="col">#}
+                    {#{{ r.description }}#}
+                {#</div>#}
+                {#<div class="col">#}
+                    {#{{ r.dateCreation|date('d/m/y') }}#}
+                {#</div>#}
+                {#<div class="col">#}
+                    {#<a href="{{ path('supprimer_reclamation',{'id':r.id}) }}">supprimer</a>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endfor %}#}
+    {#</div>#}
+    {#</html>#}
+
+
+{#{% endblock fos_user_content %}#}
+
 {% extends '@Souk/layout.html.twig' %}
 
 {% block title %}
@@ -88,40 +128,4 @@
         <!-- /section -->
     </div>
     <!-- /container -->
-
-    {% block javascripts %}
-        <script>
-            var searchField = $('#keyword');
-            var reclamation_div = $('#result');
-            var delay = (function () {
-                var timer = 50;
-                return function (callback, ms) {
-                    clearTimeout(timer);
-                    timer = setTimeout(callback, ms);
-                };
-            })();
-            searchField.keyup(function (evt) {
-
-                var array = {'key': searchField.val()};
-
-                delay(function () {
-                    $.ajax({
-                        url: '{{ path('recherche_reclamation') }}',
-                        method: "POST",
-                        data: array,
-                        dataType: 'html',
-                        success: function (result) {
-                            var parsedData = result;
-                            reclamation_div.fadeOut(function () {
-                                reclamation_div.empty();
-                                reclamation_div.html(parsedData).fadeIn();
-                            });
-                        }
-                    });
-                }, 100);
-            });
-        </script>
-    {% endblock javascripts %}
-
-
 {% endblock body %}
