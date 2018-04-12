@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use BoutiqueBundle\Entity\Boutique;
-use SoukBundle\Entity\Produit;
+use SoukBundle\Entity\Produit2;
 
 class DefaultController extends Controller
 {

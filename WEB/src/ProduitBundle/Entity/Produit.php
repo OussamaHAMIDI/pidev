@@ -5,7 +5,7 @@ namespace ProduitBundle\Entity;
 use BoutiqueBundle\Entity\Boutique;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use BoutiqueBundle\Entity\Boutique;
+
 
 /**
  * Produit
@@ -29,11 +29,7 @@ class Produit
      * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
      */
     private $boutique;
-    /**
-     * @ORM\ManyToOne(targetEntity="BoutiqueBundle\Entity\Boutique")
-    * @ORM\JoinColumn(name="boutique", referencedColumnName="id")
-     */
-       private $boutique;
+
 
     /**
      * @var string

@@ -66,23 +66,6 @@
 </div>
 
         <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-        <script>
-            $('#mot').keyup(function () {
-                var input=$('#mot').val();
-                $.ajax({
-                    url:"{{ path('searchAjax') }}",
-                    type:'Post',
-                    data:{'mot':input},
-                    success:function (data) {
-                        //console.log(data);
-                        $.each(data,function (i,e) {
-                            $('#tbody').html("<table id='#tbody'><tr><td>"+e.id+"</td><td>"+e.libelle+"</td><td>"+e.description+"</td><td>"+e.prix+"</td><td>"+e.categorie.libelle+"</td><td>"+e.animal+"</td><td>"+e.Image+"</td><td>"+e.quantite+"</td></tr></table>");
-                        })
-                    }
-                })
 
-            });
-
-        </script>
 
         {% endblock %}

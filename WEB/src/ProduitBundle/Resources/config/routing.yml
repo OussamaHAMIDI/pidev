@@ -47,43 +47,8 @@ afficher_produit_details:
     path:     /afficherProduitDetail/{id}
     defaults: { _controller: ProduitBundle:Produit:afficherProduitDetail }
 
-afficher_statistique:
-    path:     /admin/afficherstatistique
-    defaults: { _controller: ProduitBundle:Produit:statistique }
-
-ajouter_panier:
-    path:     /ajouterPanier
-    defaults: { _controller: ProduitBundle:Produit:ajouterPanier }
-
-supprimer_panier:
-    path:     /supprimerPanier/{id}
-    defaults: { _controller: ProduitBundle:Produit:supprimerPanier }
-
-afficher_panier:
-    path:     /afficherPanier
-    defaults: { _controller: ProduitBundle:Produit:AfficherPanier }
-
-commander:
-    path:     /commander/{id}
-    defaults: { _controller: ProduitBundle:Commande:commander}
 
 
-paypal:
-    path:     /commander/{id}/show
-    defaults: { _controller: ProduitBundle:Commande:show}
 
-createPayment:
-    path:     /commande/{id}/payment/create
-    defaults: {_controller: ProduitBundle:Commande:paymentCreate}
 
-successPayment:
-    path:     /commande/{id}/payment/complete
-    defaults: {_controller: ProduitBundle:Commande:paymentComplete}
 
-cancelPayment:
-    path:     /commande/{id}/payment/cancel
-    defaults: {_controller: ProduitBundle:Commande:paymentCancel}
-
-searchAjax:
-    path:     /searchAjax
-    defaults: {_controller: ProduitBundle:Produit:searchAjax}

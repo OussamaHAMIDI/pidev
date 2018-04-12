@@ -168,7 +168,7 @@ class Produit
      *
      * @param string $libelle
      *
-     * @return Produit
+     * @return Produit2
      */
     public function setLibelle($libelle)
     {
@@ -216,7 +216,7 @@ class Produit
      *
      * @param string $prix
      *
-     * @return Produit
+     * @return Produit2
      */
     public function setPrix($prix)
     {
@@ -264,7 +264,7 @@ class Produit
      *
      * @param string $couleur
      *
-     * @return Produit
+     * @return Produit2
      */
     public function setCouleur($couleur)
     {
@@ -360,7 +360,7 @@ class Produit
      *
      * @param string $photo
      *
-     * @return Produit
+     * @return Produit2
      */
     public function setPhoto($photo)
     {

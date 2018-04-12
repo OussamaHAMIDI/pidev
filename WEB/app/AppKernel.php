@@ -36,7 +36,7 @@ class AppKernel extends Kernel
             new Application\Sonata\NotificationBundle\ApplicationSonataNotificationBundle(),
 
 
-            new Nomaya\SocialBundle\NomayaSocialBundle(),
+
 
         ];
 

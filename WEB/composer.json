@@ -24,9 +24,9 @@
         "beberlei/DoctrineExtensions": "*",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
+        "twig/twig": "1.18.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",
-        "nomaya/social-bundle": "dev-master",
         "ob/highcharts-bundle": "^1.6",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
@@ -38,9 +38,8 @@
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
         "symfony/templating": "^4.0",
-        "twig/twig": "^1.0||^2.0"
-        "nomaya/social-bundle": "dev-master",
-        "twig/twig": "^1.0||^2.0"
+        "nomaya/social-bundle": "dev-master"
+
 
     },
     "require-dev": {
