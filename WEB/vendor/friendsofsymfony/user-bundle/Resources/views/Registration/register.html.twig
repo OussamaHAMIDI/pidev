@@ -1,0 +1,29 @@
+{% extends "@Souk/layout.html.twig" %}
+
+{% block fos_user_content %}
+{% include "@FOSUser/Registration/register_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% block javascripts %}
+
+    <script>
+        $('select option:contains("Client")').prop('selected',true);
+        $("label:contains('Photo de permis')").hide();
+        $('#fos_user_registration_form_pathPhotoPermis').hide();
+
+        $('#fos_user_registration_form_type').change(function() {
+            var type = $('#fos_user_registration_form_type').val();
+            if(type == "Artisan"){
+                $('#fos_user_registration_form_pathPhotoPermis').prop("required", true);
+                $("label:contains('Photo de permis')").show();
+                $('#fos_user_registration_form_pathPhotoPermis').show();
+
+            }
+            else{
+                $('#fos_user_registration_form_pathPhotoPermis').prop("required", false);
+                $("label:contains('Photo de permis')").hide();
+                $('#fos_user_registration_form_pathPhotoPermis').hide();
+            }
+        });
+    </script>
+{% endblock javascripts %}
