@@ -27,7 +27,7 @@ public class SmsSender {
     }
 
     public SmsSender() {
-        this.url = "http://172.20.10.7:8080/v1/sms/send/?";
+        this.url = "http://172.20.10.2:8080/v1/sms/send/?";
     }
 
 

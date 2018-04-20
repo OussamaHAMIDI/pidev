@@ -8,11 +8,16 @@ package Utils;
 import Entities.Reclamation;
 import Presentation.LoginController;
 import Utils.Enumerations.TypeReclamation;
+import java.io.File;
+import java.io.FileInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,6 +46,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import main.MainUser;
 
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
@@ -51,6 +57,8 @@ import tray.notification.TrayNotification;
  * @author Hamdi
  */
 public class Utils {
+
+    final static String dir = System.getProperty("user.dir").replace("Desktop", "WEB\\web\\uploads\\").replace("\\", "/");
 
     public static String generateCode(int length) {
 
@@ -126,8 +134,7 @@ public class Utils {
 
     }
 
-    
-      public static void sendMail(String to_mail, String code1,String code2,String type) {
+    public static void sendMail(String to_mail, String code1, String code2, String type) {
 
         final String userName = "souklemdina@gmail.com";
         final String password = "hints2018";
@@ -154,12 +161,11 @@ public class Utils {
             msg.setSubject("Votre compte Souk lemdina requiert votre attention");
 
             msg.setSentDate(new Date(System.currentTimeMillis()));
-            
-            String htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/Commande"+type+".html"))).replace("123456", code1);
-if(type.equals("Artisan"))
-{
-    htmlBody = htmlBody.replace("654321", code2);
-}
+
+            String htmlBody = new String(Files.readAllBytes(Paths.get("src/Utils/Commande" + type + ".html"))).replace("123456", code1);
+            if (type.equals("Artisan")) {
+                htmlBody = htmlBody.replace("654321", code2);
+            }
             msg.setContent(htmlBody, "text/html");
 
             Runnable runnable = () -> {
@@ -179,6 +185,7 @@ if(type.equals("Artisan"))
         }
 
     }
+
     /**
      * **** To use this function ****
      *
@@ -365,5 +372,49 @@ if(type.equals("Artisan"))
             System.out.println("Echec de l'envoie du mail \n" + e.getMessage());
             return false;
         }
+    }
+
+    public static File copyFileToUploads(File src) {
+        String ext = src.getName().substring(src.getName().lastIndexOf(".")); // return .ext
+        File dest = null;
+        try {
+            String shaChecksum = getFileChecksum(MessageDigest.getInstance("SHA-1"), src);
+            dest = new File(dir + shaChecksum + ext);
+            Files.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (NoSuchAlgorithmException | IOException ex) {
+            Logger.getLogger(MainUser.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return dest;
+    }
+
+    private static String getFileChecksum(MessageDigest digest, File file) throws IOException {
+        //Get file input stream for reading the file content
+        FileInputStream fis = new FileInputStream(file);
+
+        //Create byte array to read data in chunks
+        byte[] byteArray = new byte[1024];
+        int bytesCount = 0;
+
+        //Read file data and update in message digest
+        while ((bytesCount = fis.read(byteArray)) != -1) {
+            digest.update(byteArray, 0, bytesCount);
+        };
+
+        //close the stream; We don't need it now.
+        fis.close();
+
+        //Get the hash's bytes
+        byte[] bytes = digest.digest();
+
+        //This bytes[] has bytes in decimal format;
+        //Convert it to hexadecimal format
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        //return complete hash
+        return sb.toString();
     }
 }
