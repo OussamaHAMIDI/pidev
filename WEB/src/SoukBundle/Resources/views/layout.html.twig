@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <title>Souk Lemdina</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}"/>
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/fbr1dNL.png"/>
 
     {% block stylesheets %}
         <!-- Google font -->
@@ -65,8 +65,8 @@
                 <div class="pull-left">
                     <!-- Logo -->
                     <div class="header-logo">
-                        <a class="logo" href="#">
-                            <img src="{{ asset('img/logo.png') }}" alt="" id="img">
+                        <a class="col-md-offset-1" href="{{ path('souk_homepage') }}">
+                            <img src="https://i.imgur.com/fbr1dNL.png" alt="Souk Lemdina" id="img" height="35%" width="35%">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -325,11 +325,11 @@
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="footer">
                         <!-- footer logo -->
-                        <div class="footer-logo">
-                            <a class="logo" href="#">
-                                <img src="{{ asset('img/logo.png') }}" alt="souk lemdina">
+                        {#<div class="footer-logo">#}
+                            <a class="logo" href="{{ path('souk_homepage') }}">
+                                <img src="https://i.imgur.com/fbr1dNL.png" alt="souk lemdina" width="90%" height="90%">
                             </a>
-                        </div>
+                        {#</div>#}
                         <!-- /footer logo -->
 
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
