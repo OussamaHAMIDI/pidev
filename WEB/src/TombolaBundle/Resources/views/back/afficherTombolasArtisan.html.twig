@@ -1,0 +1,315 @@
+{% extends '@Souk/layout.html.twig' %}
+{% block body %}
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            background-color: #f8694a;
+            color: white;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        /*tr:nth-child(even) {background-color: #e8e8e8;}*/
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+
+
+    <div class="section" style="padding: 20px;">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="section-title">
+                    <h2 class="title">
+                        Mes tombolas
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- section -->
+        <div class="section">
+            <!-- container -->
+            {% if not tombolas is empty %}
+                <div id="container">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="col-md-4 col-md-offset-1">
+                                <div id="linechart2" style="width: 350px; height: 350px; margin: 0 auto">
+                                    <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+                                    <script src="http://code.highcharts.com/4.0.1/highcharts.js"></script>
+                                    <script src="http://code.highcharts.com/4.0.1/modules/exporting.js"></script>
+                                    <script type="text/javascript">
+                                        {{ chart(chart2) }}
+                                    </script>
+                                </div>
+
+                            </div>
+                            <div class="col-md-7">
+                                <div id="linechart" style="min-width: 400px; height: 400px; margin: 0 auto">
+                                    <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+                                    <script src="http://code.highcharts.com/4.0.1/highcharts.js"></script>
+                                    <script src="http://code.highcharts.com/4.0.1/modules/exporting.js"></script>
+                                    <script type="text/javascript">
+                                        {{ chart(chart) }}
+                                    </script>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br> <br> <br>
+
+            {% endif %}
+
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-11">
+                        {% if not tombolas is empty %}
+                            <div class="pull-right">
+
+                                <div class="row-filter">
+                                    <form class="navbar-form" role="search" id="f">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="keyword"
+                                                   placeholder="Chercher...">
+                                            <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button>
+                                    </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        <div class="pull-left" style="padding-left: 60px">
+                            <div class="form-group">
+                                <a href="{{ path('ajouter_tombola') }}">
+                                    <button class="main-btn">Ajouter une nouvelle
+                                        tombola
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="container" id="result">
+                            <div class="col-lg-12">
+
+                                {% if not tombolas is empty %}
+                                    <table class="table table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th>Etat</th>
+                                            <th rowspan="1">Titre</th>
+                                            <th rowspan="1">Description</th>
+                                            <th rowspan="1">Date du tirage</th>
+                                            <th rowspan="1">Date d'ajout</th>
+                                            {#<th rowspan="1">Date Derniere modification</th>#}
+                                            <th></th>
+                                            <th>Opérations</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for tombola in tombolas %}
+                                            <tr id="tomb{{ tombola.id }}">
+                                                <td>
+                                                    {% if 'now '|date('Y-m-d H:i:s') < tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                                        <p class="fa fa-circle" style="color: green"></p>
+                                                    {% elseif tombola.idGagnant is not null %}
+                                                        <p class="fa fa-circle" style="color: red"></p>
+                                                    {% else %}
+                                                        <p class="fa fa-circle" style="color: orange"></p>
+                                                    {% endif %}
+                                                </td>
+                                                <td> {{ tombola.titre }} </td>
+
+                                                <td> {{ tombola.description [0:25] }}{% if tombola.description|length > 25 %}...{% endif %}</td>
+                                                <td> {{ tombola.dateTirage | date('d-m-Y H:m:s') }} </td>
+                                                <td> {{ tombola.dateAjout | date('d-m-Y H:m:s') }} </td>
+                                                {#<td> {{ tombola.dateModif | date('d-m-Y H:m:s') }} </td>#}
+
+                                                <td>
+                                                    <a href="{{ path('details',{id: tombola.id}) }}">
+                                                        <button class="btn btn-info"><i class="fa fa-info-circle"></i>
+                                                            Détails
+                                                        </button>
+                                                    </a>
+                                                </td>
+
+                                                <td>
+                                                    {% if 'now'|date('Y-m-d H:i:s') > tombola.dateTirage|date('Y-m-d H:i:s') %}
+                                                        <a href="{{ path('modifier',{id: tombola.id}) }}"
+                                                           class="btn btn-warning disabled"
+                                                           role="button" aria-disabled="true"><i
+                                                                    class="fa fa-pencil"></i> Modifier</a>
+                                                    {% else %}
+                                                        <a href="{{ path('modifier',{id: tombola.id}) }}"
+                                                           class="btn btn-warning"
+                                                           role="button"><i class="fa fa-pencil"></i> Modifier</a>
+                                                    {% endif %}
+
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger alert_supp"
+                                                            href="{{ path('supprimer',{id: tombola.id}) }}">
+                                                        {#href="{{tombola.id }}">#}
+                                                        <i class="fa fa-trash"></i> Supprimer
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <!-- /row -->
+            </div>
+
+
+            <!-- /container -->
+        </div>
+        <!-- /section -->
+
+
+    </div>
+    <!-- /container -->
+
+
+    {% block javascripts %}
+        <script>
+            Push.clear();
+            Push.create("Bonjour {{ app.user.username|upper }} !", {
+                body: "Bienvenu  à votre espace des tombolas.",
+                icon: $('#img').prop('src'),
+                timeout: 3500,
+                onClick: function () {
+                    window.focus();
+                    this.close();
+                }
+            });
+
+            var id;
+            $('#')
+
+            $('.alert_supp').confirm({
+                title: 'Suppression',
+                content: 'Voulez-vous vraiment supprimer cette tombola ?',
+                type: 'red',
+                typeAnimated: true,
+                boxWidth: '300px',
+                theme: 'modern',
+                draggable: true,
+                useBootstrap: true,
+                backgroundDismiss: false,
+                backgroundDismissAnimation: 'glow',
+                buttons: {
+                    Oui: {
+                        text: 'Oui',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            location.href = this.$target.attr('href');
+                            // console.log(this.$target.attr('href'));
+                            // supp(this.$target.attr('href'));
+                        }
+                    },
+                    Non: {
+                        text: 'Non',
+                        action: function () {
+                        }
+                    }
+                }
+            });
+
+
+            var searchField = $('#keyword');
+            var tombola_div = $('#result');
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+
+
+            searchField.keyup(function (evt) {
+
+                var array = {'key': searchField.val()};
+                var code = evt.which;
+                if (code !==13) {
+
+                delay(function () {
+                    $.ajax({
+                        url: '{{ path('rechercheAJAX_tombola') }}',
+                        method: "POST",
+                        data: array,
+                        dataType: 'html',
+                        async: true,
+                        success: function (result) {
+                            var parsedData = result;
+                            tombola_div.fadeOut(function () {
+                                tombola_div.empty();
+                                tombola_div.html(parsedData).fadeIn();
+                            });
+                        }
+                    });
+                }, 100);
+            }
+            else{
+                    console.log('dsklfsdaklhf');
+                evt.preventDefault();
+                evt.stopPropagation();
+                }});
+
+
+            {#function supp(id)#}
+            {#{#}
+                {#$.ajax({#}
+                    {#type: "POST",#}
+                    {#url:"{{ path('supprimerPartAjax',{'id':'THIS'}) }}".replace("THIS",id),#}
+                    {#data:{id:id},#}
+                    {#success: function(response) {#}
+                        {#// alert('supprimer');#}
+                        {#$('#tomb-'+id).remove();#}
+                    {#},#}
+                    {#error:function(request, status, error)#}
+                    {#{#}
+                        {#alert("Une erreur est survenu lors de la suppression!"+request.responseText+status+error);#}
+
+                    {#}#}
+                {#});#}
+            {#}#}
+
+        </script>
+    {% endblock javascripts %}
+
+{% endblock body %}

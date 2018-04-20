@@ -1,0 +1,76 @@
+{% extends "@Souk/layout.html.twig" %}
+{% block body %}
+    <html>
+    <div class="col" style="margin-right: 7%; margin-left: 7%; margin-bottom: 10%;">
+        <div class="product-tab">
+            <div class="tab-content">
+                <div id="tab1" class="tab-pane fade in active">
+                    <div class="section">
+                        <!-- container -->
+                        <div class="container">
+                            <!-- row -->
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div id="container">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div id="chartProduit"
+                                                 style="min-width: 400px; height: 400px; margin: 0 auto">
+                                                <script src="{{ asset('js/jquery.min.js') }}"
+                                                        type="text/javascript"></script>
+                                                <script src="http://code.highcharts.com/4.0.1/highcharts.js"></script>
+                                                <script src="http://code.highcharts.com/4.0.1/modules/exporting.js"></script>
+                                                <script type="text/javascript">
+                                                    {{ chart(chart) }}
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Note</th>
+                            <th>date creation</th>
+                            <th>Nom</th>
+                        </tr>
+                        {% set b = 0 %}
+                        {% set p = 0 %}
+                        {% for e in evaluations %}
+                            <tr>
+                                <td>
+                                    {% set b = b + 1 %}
+                                    {{ e.note }}
+                                    {% spaceless %}
+                                        <div class="product">
+                                            <div class="product-rating">
+                                                {% if (e.note)!=0 %}
+                                                    {% for i in 1..e.note %}
+                                                        <i class="fa fa-star"></i>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {% if (5 - e.note != 0 ) %}
+                                                    {% for j in 1..(5 - e.note) %}
+                                                        <i class="fa fa-star empty"></i>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endspaceless %}
+                                </td>
+                                <td>
+                                    {{ e.dateCreation|date('y/m/d') }}
+                                </td>
+                                <td>
+                                    {{ e.idProduit ? e.idProduit.nom : '' }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </html>
+{% endblock body %}

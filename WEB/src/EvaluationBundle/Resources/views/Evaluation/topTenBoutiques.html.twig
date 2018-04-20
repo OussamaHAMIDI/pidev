@@ -1,0 +1,52 @@
+{% block topTenBoutiques %}
+    {% set i = 0 %}
+    <!-- HOME -->
+    <div id="home">
+        <!-- container -->
+        <div class="container">
+            <!-- home wrap -->
+            <div class="home-wrap">
+                <!-- home slick -->
+                <div id="home-slick">
+                    {% for e in evaluations %}
+                        <!-- banner -->
+                        <div class="banner banner-1">
+                            {% set bout = boutiques[i] %}
+                            <img src="{{ asset('uploads/images/' ~ bout.pathPhoto) }}"
+                                 alt="image de la boutique">
+                            {% set i= i+1 %}
+                            <div class="banner-caption">
+                                <h1 class="white-color">Boutique : <span> {{ bout.nom }}</span></h1>
+                                <button class="primary-btn"><a href="{{ path('details_boutique',{'id': bout.id}) }}">
+                                        Voir boutique </a></button>
+                                {% spaceless %}
+                                    <div class="product" style="margin-top: 2%">
+                                        <div class="product-rating" style="background-color: white; padding: 2%">
+                                            {% if (e.note)!=0 %}
+                                                {% for i in 1..e.note %}
+                                                    <i class="fa fa-star"></i>
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if (5 - e.note != 0 ) %}
+                                                {% for j in 1..(5 - e.note) %}
+                                                    <i class="fa fa-star empty"></i>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endspaceless %}
+                            </div>
+
+                        </div>
+                        <!-- /banner -->
+
+                    {% endfor %}
+                </div>
+                <!-- /home slick -->
+            </div>
+            <!-- /home wrap -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /HOME -->
+{% endblock topTenBoutiques %}

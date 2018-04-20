@@ -1,0 +1,14 @@
+historique_homepage:
+    path:     /
+    defaults: { _controller: HistoriqueBundle:Default:index }
+afficher_historique:
+    path:     /afficher
+    defaults: { _controller: HistoriqueBundle:Historique:afficherHistoriques }
+
+afficher_historiqueAdmin:
+    path:     /afficherAdmin
+    defaults: { _controller: HistoriqueBundle:Historique:afficherHistoriquesAdmin }
+
+afficher_historique_details:
+    path:     /details/{id}
+    defaults: { _controller: HistoriqueBundle:Historique:afficherBoutiqueDetail }

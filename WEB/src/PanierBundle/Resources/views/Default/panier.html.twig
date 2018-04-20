@@ -1,0 +1,71 @@
+
+  {% block shoppingcart %}
+      <li class="header-cart dropdown default-dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+              <div class="header-btns-icon">
+                  <i class="fa fa-shopping-cart"></i>
+                  <span id="nombre" class="qty">{{produits|length }}</span>
+              </div>
+              <strong class="text-uppercase">Mon panier:</strong>
+              <br>
+              <span>TND<span id="totalthumppanier">{{ monpanier.totalTtc|number_format(3,'.') }}</span></span>
+          </a>
+          <div class="custom-menu">
+              <div id="shopping-cart">
+                  <div class="shopping-cart-list">
+
+ {% for produit in produits %}
+
+     <div id="prodthumb-{{ produit.idProduit }}" class="product product-widget">
+         <div class="product-thumb">
+             <img src="{{ asset('img/main-product01.jpg') }}" alt="">
+         </div>
+         <div class="product-body">
+             <h3 class="product-price">TND<span id="thumbtotal-{{ produit.idProduit }}">{{ produit.prixVente|number_format(3,'.') }}</span> <span class="qty">x<span id="qteprod-{{ produit.idProduit }}">{{ produit.quantiteVendu }}</span></span></h3>
+             <h2 class="product-name"><a href="#">{{ produit.libelle }}</a></h2>
+         </div>
+         <button class="cancel-btn" type="button" onclick="xpan({{ produit.idProduit }})"><i class="fa fa-trash"></i></button>
+     </div>
+
+ {% endfor %}
+  {% endblock %}
+                  </div>
+                  <div class="shopping-cart-btns">
+                      <a  href="{{ path('panier_default_index') }}">
+                      <button class="main-btn">Voir Panier</button>
+                      </a>
+                      <a  href="{{ path('panier_default_index') }}">
+                      <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i>
+                      </button>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </li>
+  {% block javascripts %}
+
+      <script language="JavaScript">
+          function xpan(id)
+          {
+              $.ajax({
+                  type: "POST",
+                  url:"{{ path('panier_default_supprimerproduitpanier',{'id':'THIS'}) }}".replace("THIS",id),
+                  data:{id:id},
+                  success: function(response) {
+                      $('#totalthumppanier').text(
+                          (parseFloat($('#totalthumppanier').text())-
+                              (parseFloat($('#thumbtotal-'+id).text())*parseFloat($('#qteprod-'+id).text()))).toFixed(3)
+                      );
+                      $('#nombre').text(parseFloat($('#nombre').text())-1);
+                      $('#prodthumb-'+id).remove();
+                  },
+                  error:function(request, status, error)
+                  {
+                      alert("Une erreur est survenu lors de la suppression!"+request.responseText+status+error);
+                  }
+              });
+          }
+
+      </script>
+
+  {% endblock javascripts %}

@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: souk
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: smtp.gmail.com
+    mailer_user: souklemdina@gmail.com
+    mailer_password: hints2018
+    secret: 8678c2591b3f6dd9c42a8cdaaae872f017f38905

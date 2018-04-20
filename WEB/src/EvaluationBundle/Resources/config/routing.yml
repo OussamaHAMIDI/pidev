@@ -1,0 +1,31 @@
+reclamation_homepage:
+    path:     /
+    defaults: { _controller: EvaluationBundle:Default:index }
+
+afficher_evaluation:
+    path:     /afficher
+    defaults: { _controller: EvaluationBundle:Evaluation:afficherEvaluation }
+
+topTenBoutiques:
+    path:     /topTenB
+    defaults: { _controller: EvaluationBundle:Evaluation:afficherTopTenBoutiques }
+
+topTenProduits:
+    path:     /topTenP
+    defaults: { _controller: EvaluationBundle:Evaluation:afficherTopTenProduits }
+
+ajouter_evaluationBoutique:
+    path:     /ajouter/{note}/{idBoutique}
+    defaults: { _controller: EvaluationBundle:Evaluation:ajouterEvaluationBoutique }
+
+evaluation:
+    path:     /evaluation/{idBoutique}
+    defaults: { _controller: EvaluationBundle:Evaluation:evaluation }
+
+evaluationProduit:
+    path:     /evaluationProduit/{idProduit}
+    defaults: { _controller: EvaluationBundle:Evaluation:evaluationProduit }
+
+ajouterEvaluationProduit:
+    path:     /ajouterProduit/{note}/{idProduit}
+    defaults: { _controller: EvaluationBundle:Evaluation:ajouterEvaluationProduit }

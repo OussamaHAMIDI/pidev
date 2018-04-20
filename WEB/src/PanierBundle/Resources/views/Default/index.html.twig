@@ -1,0 +1,336 @@
+{%extends '@Souk/layout.html.twig'%}
+{%block body %}
+
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Checkout</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <form id="checkout-form" class="clearfix">
+                <div class="col-md-6">
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Informations client:</h3>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.nom }}" type="text" name="first-name" readonly="readonly" placeholder="Nom">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.prenom }}" type="text" name="last-name" readonly="readonly" placeholder="Prenom">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.email }}" type="email" name="email" readonly="readonly" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.adresse }}" type="text" name="address" readonly="readonly" placeholder="Adresse">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" value="{{ user.tel }}" type="tel" name="tel" readonly="readonly" placeholder="Telephone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Mode de livraison: </h4>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModeLivraison=="SurPlace" %}
+                                <input type="radio" name="shipping" onchange="modeliv('SurPlace')"  id="shipping-1" checked>
+                            {% else %}
+                                <input type="radio" name="shipping" onchange="modeliv('SurPlace')"  id="shipping-1" >
+                            {% endif %}
+                            <label for="shipping-1">Sur place -  TND0.00</label>
+                            <div class="caption">
+                                <p>Récuperer vos produits vous même avec la facture fournie.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModeLivraison=="ADomicile" %}
+                                <input type="radio" name="shipping" onchange="modeliv('ADomicile')"  id="shipping-2" checked>
+                            {% else %}
+                                <input type="radio" name="shipping" onchange="modeliv('ADomicile')"  id="shipping-2" >
+                            {% endif %}
+                            <label for="shipping-2">A Domicile: - TND12.00</label>
+                            <div class="caption">
+                                <p>Vos produits vous seront livrée a votre domicile.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModeLivraison=="ParPoste" %}
+                                <input type="radio" name="shipping" onchange="modeliv('ParPoste')" id="shipping-3" checked>
+                            {% else %}
+                                <input type="radio" name="shipping" onchange="modeliv('ParPoste')"  id="shipping-3" >
+                            {% endif %}
+
+                            <label for="shipping-3">Par Poste: - TND12.00</label>
+                            <div class="caption">
+                                <p>Vous receverez un email dès que votre commande est déposé a la poste.
+                                <p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payments-methods">
+                        <div class="section-title">
+                            <h4 class="title"> Modes de paiement:</h4>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModePaiement=="Espece" %}
+                                <input type="radio" onchange="modepay('Espece')" name="payments" id="payments-1" checked>
+                            {% else %}
+                                <input type="radio" onchange="modepay('Espece')" name="payments" id="payments-1">
+                            {% endif %}
+
+                            <label for="payments-1">Espece</label>
+                            <div class="caption">
+                                <p>Payez en espece a la livraison ou a la recupération des produits.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModePaiement=="Cheque" %}
+                                <input type="radio" onchange="modepay('Cheque')" name="payments" id="payments-2" checked>
+                            {% else %}
+                                <input type="radio" onchange="modepay('Cheque')" name="payments" id="payments-2">
+                            {% endif %}
+                            <label for="payments-2">Cheque</label>
+                            <div class="caption">
+                                <p>Le payment se fera par cheque.
+                                <p>
+                            </div>
+                        </div>
+                        <div class="input-checkbox">
+                            {% if monpanier.ModePaiement=="Internet" %}
+                                <input type="radio" onchange="modepay('Internet')" name="payments" id="payments-3" checked>
+                            {% else %}
+                                <input type="radio" onchange="modepay('Internet')" name="payments" id="payments-3">
+                            {% endif %}
+                            <label for="payments-3">Paypal</label>
+                            <div class="caption">
+                                <p>Payez en ligne sans soucis.
+                                <p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Commande</h3>
+                        </div>
+                        <table class="shopping-cart-table table">
+                            <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th></th>
+                                <th class="text-center">Prix</th>
+                                <th class="text-center">Quantité</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-right"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for produit in produits %}
+                                <tr id="prod-{{ produit.idProduit }}">
+                                    <td class="thumb"><img src="{{ asset('img/thumb-product01.jpg') }}" alt=""></td>
+                                    <td class="details">
+                                        <a href="#">{{ produit.libelle }}</a>
+                                        <ul>
+                                            <li><span>Size: {{ produit.reference }}</span></li>
+                                            <li><span>Size: {{ produit.description }}</span></li>
+                                        </ul>
+                                    </td>
+                                    <td class="price text-center"><strong>TND<span id="prix-{{ produit.idProduit }}">{{ produit.prixVente|number_format(3,'.') }}</span></strong></td>
+                                    <td class="qty text-center"><input id="qte-{{ produit.idProduit }}" class="input" type="number" min="1" onchange="qte({{ produit.idProduit }})" value="{{ produit.quantiteVendu }}"></td>
+                                    <td class="total text-center"><strong class="primary-color">TND<span id="total-{{ produit.idProduit }}">{{ (produit.prixVente|number_format(3,'.')*produit.quantiteVendu|number_format(3,'.'))|number_format(3,'.') }}</span></strong></td>
+                                    <td class="text-right"><button class="main-btn icon-btn" type="button" onclick="x('{{ produit.idProduit }}')"><i class="fa fa-close"></i></button></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>SOUSTOTAL</th>
+                                <th id="soustotal" colspan="2" class="sub-total">TND<span id="soustotalpanier">{{ (monpanier.totalTtc|number_format(3,'.')-monpanier.fraisLivraison|number_format(3,'.'))|number_format(3,'.') }}</span></th>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>Livraison</th>
+                                <td id="livraison" colspan="2">Sur place</td>
+                            </tr>
+                            <tr>
+
+                                <th class="empty" colspan="3"></th>
+                                <th>TOTAL </th>
+                                <th id="total" colspan="2" class="total">TND<span id="totalpanier">{{ monpanier.totalTtc|number_format(3,'.') }}</span></th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <div class="pull-right">
+                            <button class="primary-btn" type="button" onclick="passerCommande()">Passer la commande</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+    {% block javascripts %}
+        {{ parent() }}
+        <script language="JavaScript">
+function x(id)
+{
+    $.ajax({
+        type: "POST",
+        url:"{{ path('panier_default_supprimerproduitpanier',{'id':'THIS'}) }}".replace("THIS",id),
+      data:{id:id},
+        success: function(response) {
+            alert($('#total-'+id).text());
+            $('#totalpanier').text(
+                (parseFloat($('#totalpanier').text())-
+                parseFloat($('#total-'+id).text())).toFixed(3)
+            );
+            $('#soustotalpanier').text((parseFloat($('#soustotalpanier').text())-parseFloat($('#total-'+id).text())).toFixed(3));
+            $('#prod-'+id).remove();
+        },
+        error:function(request, status, error)
+        {
+            alert("Une erreur est survenu lors de la suppression!"+request.responseText+status+error);
+        }
+    });
+}
+
+function qte(id)
+{
+    $.ajax({
+        type: "POST",
+        url:"{{ path('panier_default_quantiteproduitpanier',{'id':'THIS'}) }}".replace("THIS",id),
+        data:{id:id,qte:$('#qte-'+id).val()},
+        success: function(response) {
+            $('#totalpanier').text(
+                (parseFloat($('#totalpanier').text())-
+                    parseFloat($('#total-'+id).text())).toFixed(3)
+            );
+            $('#totalpanier').text(
+                (parseFloat($('#totalpanier').text())+
+                    parseFloat($('#prix-'+id).text())*parseFloat($('#qte-'+id).val())).toFixed(3)
+            );
+             $('#soustotalpanier').text((parseFloat($('#soustotalpanier').text())-parseFloat($('#total-'+id).text())).toFixed(3));
+            $('#soustotalpanier').text((parseFloat($('#soustotalpanier').text())+
+                parseFloat($('#prix-'+id).text())*parseFloat($('#qte-'+id).val())).toFixed(3));
+            $('#total-'+id).text((parseFloat($('#prix-'+id).text())*parseFloat($('#qte-'+id).val())).toFixed(3));
+        },
+        error:function(request, status, error)
+        {
+            alert("Une erreur est survenu lors de la modification!"+request.responseText+status+error);
+
+        }
+    });
+}
+
+function modeliv(mode)
+{
+    $.ajax({
+        type: "POST",
+        url:"{{ path('panier_default_modelivraison') }}",
+        data:{mode:mode},
+        success: function(response) {
+            if(mode==='ADomicile')
+            {
+                $('#livraison').text('A Domicile');
+                $('#totalpanier').text(
+                    (parseFloat($('#totalpanier').text())+
+                        parseFloat('12.0')).toFixed(3));
+            }
+            else if(mode==='SurPlace')
+            {
+                $('#livraison').text('Sur Place');
+                $('#totalpanier').text(
+                    (parseFloat($('#totalpanier').text())-
+                        parseFloat('12.0')).toFixed(3));
+            }
+            else
+            {
+                $('#livraison').text('Par Poste');
+                $('#totalpanier').text(
+                    (parseFloat($('#totalpanier').text())+
+                        parseFloat('12.0')).toFixed(3));
+            }
+
+        },
+        error:function(request, status, error)
+        {
+            alert("Une erreur est survenu lors de la modification!"+request.responseText+status+error);
+
+        }
+    });
+}
+
+function modepay(mode)
+{
+    $.ajax({
+        type: "POST",
+        url:"{{ path('panier_default_modepayment') }}",
+        data:{mode:mode},
+        success: function(response) {
+
+        },
+        error:function(request, status, error)
+        {
+            alert("Une erreur est survenu lors de la modification!"+request.responseText+status+error);
+
+        }
+    });
+}
+function passerCommande()
+{
+
+    $.ajax({
+        type: "POST",
+        url:"{{ path('panier_default_passercommande') }}",
+        success: function(response) {
+
+            if(response.indexOf("127")>=0)
+            {
+                $(location).attr('href', response.replace('\"','').replace('\"',''));
+            }
+            $(location).attr('href', 'http://127.0.0.1:8000');
+            },
+        error:function(request, status, error)
+        {
+
+            alert("Une erreur est survenu lors de la modification!"+request.responseText+status+error);
+
+alert(request.responseText);
+            $("#error").val(request.responseText);
+
+        }
+    });
+}
+        </script>
+
+    {% endblock javascripts %}
+
+{% endblock body %}

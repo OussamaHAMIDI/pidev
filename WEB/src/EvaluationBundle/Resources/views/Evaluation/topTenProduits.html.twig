@@ -1,0 +1,86 @@
+{% block topTenProduits %}
+    {% set i = 0 %}
+    <div class="section">
+
+
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section-title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">Top 5 Produits</h2>
+                    <div class="pull-right">
+                        <div class="product-slick-dots-1 custom-dots"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /section-title -->
+
+            <!-- banner -->
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="banner banner-2">
+                    <img src="{{ asset('uploads/images/7cfa3d21c8ebf6e3a36ed54471b5eb74.jpeg') }}"
+                         alt="image du produit">
+                    <h2 class="white-color">TOP<br>5 Produits</h2>
+                </div>
+            </div>
+
+            <!-- /banner -->
+            <div class="col-md-9 col-sm-6 col-xs-6">
+                <div class="row">
+                    <div id="product-slick-1" class="product-slick">
+
+                        {% for e in evaluations %}
+
+
+                            <!-- Product Single -->
+                            <div class="product product-single">
+                                <div class="product-thumb">
+                                    <div class="product-label"><span>Top</span></div>
+                                    {% set prod = produits[i] %}
+                                    <img src="{{ asset('uploads/images/' ~ prod.path) }}" alt="image du produit">
+                                    {% set i= i+1 %}
+                                </div>
+                                <div class="product-body">
+                                    <h3 class="product-price">{{ prod.prix }} TND</h3>
+                                    {% spaceless %}
+                                        <div class="product" style="margin-top: 2%">
+                                            <div class="product-rating" style="background-color: white; padding: 2%">
+                                                {% if (e.note)!=0 %}
+                                                    {% for i in 1..e.note %}
+                                                        <i class="fa fa-star"></i>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {% if (5 - e.note != 0 ) %}
+                                                    {% for j in 1..(5 - e.note) %}
+                                                        <i class="fa fa-star empty"></i>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endspaceless %}
+                                    <h2 class="product-name"><a
+                                                href="{{ path('afficher_produit_details',{'id': prod.id}) }}">{{ prod.libelle }}</a>
+                                    </h2>
+                                    <div class="product-btns">
+                                        <button class="primary-btn"><a
+                                                    href="{{ path('afficher_produit_details',{'id': prod.id}) }}">
+                                                Voir Produit </a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Product Single -->
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+    <!-- /section -->
+{% endblock topTenProduits %}

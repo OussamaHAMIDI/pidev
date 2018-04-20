@@ -1,0 +1,92 @@
+{%extends '@Souk/layout.html.twig'%}
+{%block body %}
+        <form method="post" >
+
+            {% for p in produit %}
+                <input hidden name="idProduit" value="{{ p.id }}">
+                <div class="single">
+                    <div class="container">
+                        <div class="col-md-9">
+                            <div class="col-md-5 grid">
+                                <div class="flexslider">
+                                    <ul class="slides">
+                                        <li data-thumb="images/si.jpg">
+                                            <div class="thumb-image"> <img src="{{ asset('uploads/' ~ p.path) }}" data-imagezoom="true" class="img-responsive"> </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7 single-top-in">
+                                <div class="span_2_of_a1 simpleCart_shelfItem">
+                                    <!--Titre--> <h3>Libelle: {{ p.libelle }}</h3>
+                                    <h4 class="quick">Prix: {{  p.prix }}</h4>
+                                    <h4 class="quick">Description</h4>
+                                    <!--Description--> <p class="quick_desc"> {{  p.description }}</p>
+                                    <h4 class="quick">Boutique</h4>
+                                    <!--Boutique--> <p class="quick_desc">{{  p.boutique.nom }}</p>
+                                    <h4 class="quick">Détails:</h4>
+                                    <!--Boutique--> <p class="quick_desc">Texture: {{  p.texture }}</p>
+                                    <!--Boutique--> <p class="quick_desc">Taille: {{  p.taille }}</p>
+                                    <!--Boutique--> <p class="quick_desc">Couleur: {{  p.couleur }}</p>
+                                    <!--Boutique--> <p class="quick_desc">Poids: {{  p.poids }}</p>
+
+
+                                    <!--quantity-->
+                                    <script>
+                                        $('.value-plus').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+                                            divUpd.text(newVal);
+                                            $('input[name="quantite"]').val(newVal);
+                                        });
+
+                                        $('.value-minus').on('click', function(){
+                                            var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+                                            if(newVal>=1) divUpd.text(newVal);
+                                            $('input[name="quantite"]').val(newVal);
+                                        });
+                                    </script>
+                                    <!--quantity--><input hidden name="quantite" value="{{ 1 }}">
+
+                                    <input type="button" onclick="ajouter({{ p.id }})" class="add-to item_add hvr-skew-backward" value="Ajouter Au Panier">
+                                    <div class="clearfix"> </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"> </div>
+                            <!---->
+
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!---->
+                </div>
+                <!----->
+                </div>
+                </div>
+            {% endfor %}
+        </form>
+    {% block javascripts %}
+
+        <script language="JavaScript">
+            function ajouter(id)
+            {
+                $.ajax({
+                    type: "POST",
+                    url:"{{ path('panier_default_ajouterproduitpanier',{'id':'THIS'}) }}".replace("THIS",id),
+                    data:{id:id},
+                    success: function(response) {
+                        alert("ajouté avec succes!"+response);
+                    },
+                    error:function(request, status, error)
+                    {
+                        alert("Une erreur est survenu lors de l'ajout!"+request.responseText+status+error);
+                    }
+                });
+            }
+
+        </script>
+
+    {% endblock javascripts %}
+    {% endblock %}
+

@@ -1,0 +1,26 @@
+{% block Prate %}
+
+    <html>
+    <br>
+    <br>
+    <div class="section-title"><h4>Donner votre feedback sur ce produit</h4></div>
+    <div class="section">
+        {% spaceless %}
+            <a href="{{ path('ajouterEvaluationProduit',{'note' : 1 , 'idProduit' : idProduit}) }}"><i class="fa fa-star"></i> </a>
+            <a href="{{ path('ajouterEvaluationProduit',{'note' : 2 , 'idProduit' : idProduit}) }}"><i class="fa fa-star"></i> </a>
+            <a href="{{ path('ajouterEvaluationProduit',{'note' : 3 , 'idProduit' : idProduit}) }}"><i class="fa fa-star"></i> </a>
+            <a href="{{ path('ajouterEvaluationProduit',{'note' : 4 , 'idProduit' : idProduit}) }}"><i class="fa fa-star"></i> </a>
+            <a href="{{ path('ajouterEvaluationProduit',{'note' : 5 , 'idProduit' : idProduit}) }}"><i class="fa fa-star"></i> </a>
+        {% endspaceless %}
+        <br>
+        <br>
+        {% block Preclamation %}
+            {{ render(controller(
+                'ReclamationBundle\\Controller\\ReclamationController::ajouterReclamationProduitAction',
+                { 'idProduit': idProduit }
+            )) }}
+        {% endblock Preclamation %}
+    </div>
+
+    </html>
+{% endblock Prate %}

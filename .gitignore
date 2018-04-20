@@ -4,5 +4,6 @@
 
 WEB/.idea/
 WEB/build/
-WEB/var/
+WEB/var/*
+WEB/tests
 

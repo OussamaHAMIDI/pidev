@@ -1,0 +1,79 @@
+{% extends '@Souk/layout.html.twig' %}
+{% block body %}
+    <div class="section" style="padding: 20px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1">
+                <div class="section-title">
+                    <h2 class="title">
+                        Profil
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- section -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!--  Product Details -->
+                    <div class="product product-details clearfix">
+                        <div class="col-md-5">
+                            <div id="product-main-view">
+                                <div class="product-view">
+                                    <img src="{{ asset('uploads/' ~ user.pathPhotoProfil) }}"
+                                         alt="image de l'utilisateur" class="img-thumbnail
+                    img-rounded img-responsive"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-7">
+                            <div class="product-body">
+
+                                <h2 class="product-name">{{ user.nom }}</h2>
+                                <br>
+                                <p><strong>nom :</strong>
+                                    <a target="_blank" style="color: #229fac">
+
+                                        {{ user.nom }}  </a>
+                                </p>
+                                <p><strong>prénom :</strong>
+                                    <a target="_blank" style="color: #229fac">
+
+                                    {{ user.prenom }}  </a>
+                                </p>
+                                <p><strong>adresse :</strong>
+                                    <a target="_blank" style="color: #229fac">
+
+                                    {{ user.adresse }}  </a>
+                                </p>
+                                <p><strong>Date de naissance
+                                        : </strong>Le {{ user.dateNaissance |  date('d/m/Y \\à H\\h i\\m s\\s') }}
+                                </p>
+                                <p><strong>Sexe :</strong>
+                                    <a target="_blank" style="color: #229fac">
+
+                                    {{ user.sexe }}  </a>
+                                </p>
+                            </div>
+
+
+                        </div>
+
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /section -->
+
+    </div>
+    <!-- /container -->
+
+
+    {% block javascripts %}
+
+    {% endblock javascripts %}
+
+{% endblock body %}
