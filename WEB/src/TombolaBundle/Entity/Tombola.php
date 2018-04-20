@@ -255,11 +255,10 @@ class Tombola
 
 
 
-    public function getUploadRootDir()
+    private function getUploadRootDir()
     {
-        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
-//        return __dir__.'/../../../web/uploads';
-//        return dirname(__DIR__, 4).'/uploads';
+//        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+        return str_replace('\\','/',dirname(__DIR__, 3)).'/web/uploads';
     }
 
     public function getAbsolutePath()
@@ -268,7 +267,7 @@ class Tombola
     }
 
 
-    public $file;
+    private $file;
 
 
     /**

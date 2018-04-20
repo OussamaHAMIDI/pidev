@@ -395,9 +395,8 @@ class User extends BaseUser
 
     public function getUploadRootDir()
     {
-        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
-//        return __dir__.'/../../../web/uploads';
-//        return dirname(__DIR__, 4).'/uploads';
+//        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
+        return str_replace('\\','/',dirname(__DIR__, 3)).'/web/uploads';
     }
 
     public function getAbsolutePathPhotoProfil()
@@ -411,8 +410,8 @@ class User extends BaseUser
     }
 
 
-    public $fileP;
-    public $filePe;
+    private $fileP;
+    private $filePe;
 
 
     /**

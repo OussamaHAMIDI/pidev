@@ -14,15 +14,6 @@ class UserRepository extends EntityRepository
 {
     public function supprimerUser($id)
     {
-//        $em = $this->getDoctrine()->getManager();
-//        $query = $this->create(
-//            'DELETE StreetBumbApiBundle:BussOwner buss
-//               WHERE buss.id = :bussId')
-//            ->setParameter("bussId", $id);
-//
-//        $query->execute();
-//
-//        $em = $this->getDoctrine()->getManager();
         $qb = $this->createQueryBuilder('u');
         $query = $qb->delete('UserBundle:User', 'u')
             ->where('u.id = :id')
@@ -31,10 +22,5 @@ class UserRepository extends EntityRepository
 
         $query->execute();
 
-//        $this->createQueryBuilder('t')
-//            ->delete('t')
-//            ->where('t.id = :id')
-//            ->setParameter('id', $id)
-//            ->getQuery()->execute();
     }
 }
