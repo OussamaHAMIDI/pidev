@@ -159,7 +159,7 @@ class Tombola
     /**
      * @param \DateTime $dateAjout
      */
-    public function setDateAjout(\DateTime $dateAjout)
+    public function setDateAjout($dateAjout)
     {
         $this->dateAjout = $dateAjout;
     }
@@ -191,7 +191,7 @@ class Tombola
     /**
      * @param User $idGagnant
      */
-    public function setIdGagnant(User $idGagnant)
+    public function setIdGagnant($idGagnant)
     {
         $this->idGagnant = $idGagnant;
     }
@@ -207,7 +207,7 @@ class Tombola
     /**
      * @param User $idArtisan
      */
-    public function setIdArtisan(User $idArtisan)
+    public function setIdArtisan($idArtisan)
     {
         $this->idArtisan = $idArtisan;
     }
@@ -255,7 +255,7 @@ class Tombola
 
 
 
-    private function getUploadRootDir()
+    public function getUploadRootDir()
     {
 //        return 'C:/xampp/htdocs/pidev/WEB/web/uploads';
         return str_replace('\\','/',dirname(__DIR__, 3)).'/web/uploads';
@@ -267,7 +267,7 @@ class Tombola
     }
 
 
-    private $file;
+    public $file;
 
 
     /**

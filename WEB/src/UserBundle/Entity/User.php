@@ -152,7 +152,7 @@ class User extends BaseUser
     /**
      * {@inheritdoc}
      */
-    public function setLastLogin(\DateTime $time = null)
+    public function setLastLogin($time = null)
     {
         $this->lastLogin = $time;
         $this->etat = "Connected";
@@ -431,7 +431,7 @@ class User extends BaseUser
         if ($this->pathPhotoPermis != null) {
 
             if (strlen($tt) > strlen($this->getUploadRootDir()) + 41) {
-                $this->tempFilePe = substr($t, strlen($this->getUploadRootDir()) + 1);
+                $this->tempFilePe = substr($tt, strlen($this->getUploadRootDir()) + 1);
             } else {
                 $this->tempFilePe = $this->getAbsolutePathPhotoPermis();
             }

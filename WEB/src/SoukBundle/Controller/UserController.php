@@ -33,16 +33,19 @@ class UserController extends Controller
      */
     public function findAction($id)
     {
-        $users = $this->getDoctrine()->getManager()
+        $user = $this->getDoctrine()->getManager()
             ->getRepository('UserBundle:User')
             ->find($id);
+        $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+        $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
         $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($users);
+        $formatted = $serializer->normalize($user);
+
         return new JsonResponse($formatted);
     }
     
     /**
-     * @Route("/api/user/create")
+     * @Route("/api/user/ajouter")
      */
     public function ajouterAction(Request $request)
     {

@@ -446,7 +446,7 @@ abstract class User implements UserInterface, GroupableInterface
     /**
      * {@inheritdoc}
      */
-    public function setLastLogin(\DateTime $time = null)
+    public function setLastLogin($time = null)
     {
         $this->lastLogin = $time;
 
