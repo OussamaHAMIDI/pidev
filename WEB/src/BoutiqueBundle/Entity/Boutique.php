@@ -46,7 +46,7 @@ class Boutique
      *
      * @ORM\Column(name="date_creation", type="datetime", nullable=false)
      */
-    private $dateCreation ;
+    private $dateCreation;
 
     /**
      * @var float
@@ -65,7 +65,7 @@ class Boutique
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="blob", length=16777215, nullable=false)
+     * @ORM\Column(name="photo", type="blob", length=16777215, nullable=true)
      */
     private $photo;
 
@@ -153,27 +153,19 @@ class Boutique
     }
 
     /**
-     * Set dateCreation
-     *
-     * @param \DateTime $dateCreation
-     *
-     * @return Boutique
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreation
-     *
      * @return \DateTime
      */
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * @param \DateTime $dateCreation
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
     }
 
     /**
