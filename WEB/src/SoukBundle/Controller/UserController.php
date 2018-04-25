@@ -23,6 +23,15 @@ class UserController extends Controller
         $users = $this->getDoctrine()->getManager()
             ->getRepository('UserBundle:User')
             ->findAll();
+
+            foreach ($users as $user) {
+                if($user->getDateNaissance() != null)
+                    $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+                if($user->getLastLogin() != null)
+                    $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+
+//                $user->setRoles('');
+            }
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($users);
         return new JsonResponse($formatted);
@@ -36,8 +45,10 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getManager()
             ->getRepository('UserBundle:User')
             ->find($id);
-        $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
-        $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+        if($user->getDateNaissance() != null)
+            $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+        if($user->getLastLogin() != null)
+            $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($user);
 
@@ -45,7 +56,7 @@ class UserController extends Controller
     }
     
     /**
-     * @Route("/api/user/ajouter")
+     * @Route("/api/user/add")
      */
     public function ajouterAction(Request $request)
     {

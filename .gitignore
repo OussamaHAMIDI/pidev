@@ -1,5 +1,5 @@
 # Project java
-/Desktop/*
+Desktop/*
 
 
 WEB/.idea/
@@ -7,3 +7,5 @@ WEB/build/
 WEB/var/*
 WEB/tests
 
+/Mobile/build/
+/Mobile/dist/

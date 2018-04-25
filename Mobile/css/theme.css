@@ -1,0 +1,22 @@
+@media cn1{
+	TitleArea {
+        background-color: transparent;
+    }
+	HomeForm {
+        cn1-derive: Form;
+        background-color: #d5efef;
+    }
+	
+	Button{
+		background-color : orange;
+
+	}
+	
+	List{
+		background-color : d5efef;
+	}
+	
+	ListItem{
+		background-color : white;
+	}
+}

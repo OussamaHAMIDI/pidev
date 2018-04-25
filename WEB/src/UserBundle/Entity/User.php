@@ -92,19 +92,6 @@ class User extends BaseUser
      */
     private $sexe;
 
-    /**
-     * @var mixed
-     *
-     * @ORM\Column(name="photo_profil", type="blob", length=16777215, nullable=false)
-     */
-    private $photoProfil;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="photo_permis", type="blob", length=16777215, nullable=true)
-     */
-    private $photoPermis;
 
     /**
      * @var string
@@ -125,6 +112,9 @@ class User extends BaseUser
      * @ORM\Column(name="path_photo_permis", type="string", length=255, nullable=true)
      */
     private $pathPhotoPermis;
+
+
+
 
 
     public function setEnabled($boolean)
