@@ -75,6 +75,4 @@ class EvaluationController extends Controller
         return new JsonResponse($formatted);
     }
 
-   
-
 }
