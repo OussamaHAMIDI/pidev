@@ -12,7 +12,7 @@ use BoutiqueBundle\Entity\Boutique;
 
 class BoutiqueController extends Controller
 {
-    
+
     /**
      * @Route("/api/boutique/all")
      */
