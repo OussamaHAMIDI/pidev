@@ -1,6 +1,6 @@
-package Entities;
+package tn.esprit.entities;
 
-import Entities.Enumerations.*;
+import tn.esprit.entities.Enumerations.*;
 
 /**
  *

@@ -1,7 +1,7 @@
-package Main;
+package tn.esprit.app;
 
-import GUI.BoutiqueForm;
-import GUI.HomeForm;
+import tn.esprit.GUI.BoutiqueForm;
+import tn.esprit.GUI.HomeForm;
 import com.codename1.components.MultiButton;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Form;
@@ -17,8 +17,8 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import GUI.BoutiqueForm;
-import GUI.TombolaForm;
+import tn.esprit.GUI.BoutiqueForm;
+import tn.esprit.GUI.TombolaForm;
 
 
 public class Main {

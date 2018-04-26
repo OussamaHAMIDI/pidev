@@ -1,7 +1,7 @@
-package Services;
+package tn.esprit.Services;
 
-import Entities.Tombola;
-import Entities.User;
+import tn.esprit.entities.Tombola;
+import tn.esprit.entities.User;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import tn.esprit.entities.Enumerations;
 
 /**
  *
@@ -48,12 +49,22 @@ public class TombolaService {
             Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(new InputStreamReader(
                     new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
 
-            User artisan = us.getUser(((Map<String, Object>) response.get("idArtisan")).get("id").toString());
+             Map<String, Object> a = (Map<String, Object>) response.get("idArtisan");
+            
+            User artisan = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(),a.get("sexe").toString(), 
+                    a.get("email").toString(), a.get("adresse").toString(),a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+          
             User gagnant = null;
             Map<String, Object> g = (Map<String, Object>) response.get("idGagnant");
             if (g != null) {
-                gagnant = us.getUser(g.get("id").toString());
+                gagnant = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(),a.get("sexe").toString(), 
+                    a.get("email").toString(), a.get("adresse").toString(),a.get("tel").toString(), a.get("pathPhotoProfil").toString());
             }
+
 
             t = new Tombola(response.get("id").toString(), response.get("titre").toString(), response.get("description").toString(),
                     response.get("dateAjout").toString(), response.get("dateTirage").toString(), response.get("dateModif").toString(),
@@ -82,11 +93,20 @@ public class TombolaService {
             Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(new InputStreamReader(
                     new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
 
-            User artisan = us.getUser(((Map<String, Object>) response.get("idArtisan")).get("id").toString());
+            Map<String, Object> a = (Map<String, Object>) response.get("idArtisan");
+
+            User artisan = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                    a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+
             User gagnant = null;
             Map<String, Object> g = (Map<String, Object>) response.get("idGagnant");
             if (g != null) {
-                gagnant = us.getUser(g.get("id").toString());
+                gagnant = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                        Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                        a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                        a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
             }
 
             t = new Tombola(response.get("id").toString(), response.get("titre").toString(), response.get("description").toString(),
@@ -121,12 +141,22 @@ public class TombolaService {
 
             for (Map<String, Object> obj : content) {
 
-                User artisan = us.getUser(((Map<String, Object>) obj.get("idArtisan")).get("id").toString());
+                Map<String, Object> a = (Map<String, Object>) obj.get("idArtisan");
+
+                User artisan = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                        Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                        a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                        a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+
                 User gagnant = null;
-                Map<String, Object> g = (Map<String, Object>) obj.get("idGagnant");
+                Map<String, Object> g = (Map<String, Object>) response.get("idGagnant");
                 if (g != null) {
-                    gagnant = us.getUser(g.get("id").toString());
+                    gagnant = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                            Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                            a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                            a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
                 }
+
                 tombolas.add(new Tombola(obj.get("id").toString(), obj.get("titre").toString(), obj.get("description").toString(),
                         obj.get("dateAjout").toString(), obj.get("dateTirage").toString(), obj.get("dateModif").toString(),
                         artisan, gagnant, obj.get("path").toString()));
@@ -141,8 +171,6 @@ public class TombolaService {
     }
 
     public Tombola getTombola(String id) {
-
-        //  List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();
         Tombola t;
         try {
             ConnectionRequest r = new ConnectionRequest();
@@ -151,26 +179,33 @@ public class TombolaService {
             r.setPost(false);
             r.setHttpMethod("GET");
 
-//            InfiniteProgress prog = new InfiniteProgress();
-//            Dialog dlg = prog.showInifiniteBlocking();
-//            r.setDisposeOnCompletion(dlg);
+            InfiniteProgress prog = new InfiniteProgress();
+            Dialog dlg = prog.showInifiniteBlocking();
+            r.setDisposeOnCompletion(dlg);
             NetworkManager.getInstance().addToQueueAndWait(r);
 
             Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(
                     new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
 
-            User artisan = us.getUser(((Map<String, Object>) response.get("idArtisan")).get("id").toString());
+            Map<String, Object> a = (Map<String, Object>) response.get("idArtisan");
+
+            User artisan = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                    a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+
             User gagnant = null;
             Map<String, Object> g = (Map<String, Object>) response.get("idGagnant");
             if (g != null) {
-                gagnant = us.getUser(g.get("id").toString());
+                gagnant = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+                        Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                        a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                        a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
             }
 
             t = new Tombola(response.get("id").toString(), response.get("titre").toString(), response.get("description").toString(),
                     response.get("dateAjout").toString(), response.get("dateTirage").toString(), response.get("dateModif").toString(),
                     artisan, gagnant, response.get("path").toString());
-
-            //content = (List<Map<String, Object>>) response.get("root");
         } catch (IOException err) {
             Log.e(err);
             return null;

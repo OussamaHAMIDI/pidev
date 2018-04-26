@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Services;
+package tn.esprit.Services;
 
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
@@ -11,7 +11,7 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.Log;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Dialog;
-import Entities.Boutique;
+import tn.esprit.entities.Boutique;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

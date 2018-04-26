@@ -1,8 +1,8 @@
-package Services;
+package tn.esprit.Services;
 
-import Entities.Enumerations.*;
-import Entities.User;
-import Entities.User;
+import tn.esprit.entities.Enumerations.*;
+import tn.esprit.entities.User;
+import tn.esprit.entities.User;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -128,8 +128,6 @@ public class UserService {
     }
 
     public User getUser(String id) {
-
-        //  List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();
         User u;
         try {
             ConnectionRequest r = new ConnectionRequest();
@@ -138,9 +136,9 @@ public class UserService {
             r.setPost(false);
             r.setHttpMethod("GET");
 
-//            InfiniteProgress prog = new InfiniteProgress();
-//            Dialog dlg = prog.showInifiniteBlocking();
-//            r.setDisposeOnCompletion(dlg);
+            InfiniteProgress prog = new InfiniteProgress();
+            Dialog dlg = prog.showInifiniteBlocking();
+            r.setDisposeOnCompletion(dlg);
             NetworkManager.getInstance().addToQueueAndWait(r);
 
             Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(

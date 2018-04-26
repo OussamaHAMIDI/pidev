@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package tn.esprit.GUI;
 
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;

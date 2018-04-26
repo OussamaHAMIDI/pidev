@@ -1,4 +1,9 @@
-package Entities;
+package tn.esprit.entities;
+
+import com.codename1.io.Log;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -14,6 +19,7 @@ public class Tombola {
     private User artisan;
     private User gagnant;
     private String dateModif;
+    private String etat;
     private String photo; // juste the name of the file.ext
 
     public Tombola() {
@@ -33,6 +39,26 @@ public class Tombola {
         this.gagnant = gagnant;
         this.dateModif = dateModif;
         this.photo = photo;
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date tirage = s.parse(dateTirage);
+
+            if (tirage.getTime() > new Date().getTime()) {
+                if (gagnant != null) {
+                    this.etat = "Cloturée";
+                } else {
+                    this.etat = "Ouverte";
+                }
+            } else {
+                if (gagnant != null) {
+                    this.etat = "Cloturée";
+                } else {
+                    this.etat = "Fermée";
+                }
+            }
+        } catch (ParseException ex) {
+            Log.e(ex);
+        }
     }
 
     public String getId() {
@@ -103,6 +129,15 @@ public class Tombola {
         this.dateModif = dateModif;
     }
 
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    
     public String getPhoto() {
         return photo;
     }

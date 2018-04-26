@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package tn.esprit.GUI;
 
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
@@ -27,7 +27,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
-import Main.Main;
+import tn.esprit.app.Main;
 
 /**
  *

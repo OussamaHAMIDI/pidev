@@ -29,6 +29,28 @@
         <val key="SideCommand.margin" value="0.0,1.0,0.0,0.0" />
         <val key="SideCommand.padUnit" value="2,2,2,2" />
         <val key="SideCommand.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="SideCommand.press#bgColor" value="009999" />
+        <border key="SideCommand.press#border" type="empty" />
+        <val key="SideCommand.press#derive" value="SideCommand.sel" />
+        <val key="SideCommand.press#fgColor" value="ffffff" />
+        <font key="SideCommand.press#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
+        <val key="SideCommand.press#marUnit" value="0,0,2,0" />
+        <val key="SideCommand.press#margin" value="0.0,1.0,0.0,0.0" />
+        <val key="SideCommand.press#padUnit" value="2,2,2,2" />
+        <val key="SideCommand.press#padding" value="1.0,1.0,1.0,1.0" />
+        <val key="SideCommand.press#textDecoration" value="0" />
+        <val key="SideCommand.press#transparency" value="255" />
+        <val key="SideCommand.sel#bgColor" value="009999" />
+        <border key="SideCommand.sel#border" type="empty" />
+        <val key="SideCommand.sel#derive" value="SideCommand.sel" />
+        <val key="SideCommand.sel#fgColor" value="ffffff" />
+        <font key="SideCommand.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
+        <val key="SideCommand.sel#marUnit" value="0,0,2,0" />
+        <val key="SideCommand.sel#margin" value="0.0,1.0,0.0,0.0" />
+        <val key="SideCommand.sel#padUnit" value="2,2,2,2" />
+        <val key="SideCommand.sel#padding" value="1.0,1.0,1.0,1.0" />
+        <val key="SideCommand.sel#textDecoration" value="0" />
+        <val key="SideCommand.sel#transparency" value="255" />
         <val key="SideCommand.textDecoration" value="0" />
         <val key="SideCommand.transparency" value="255" />
         <val key="SideNavigationPanel.bgColor" value="ffffff" />
@@ -36,6 +58,8 @@
         <val key="StatusBar.transparency" value="0" />
         <val key="TextField.transparency" value="0" />
         <val key="Title.transparency" value="0" />
+        <val key="TitleCommand.press#transparency" value="0" />
+        <val key="TitleCommand.sel#transparency" value="0" />
         <val key="TitleCommand.transparency" value="0" />
     </theme>
 </resource>
