@@ -45,7 +45,7 @@ public class TombolaForm extends Form {
         if (tombos != null) {
             for (Tombola t : tombos) {
 
-                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 4, this.getHeight() / 6, 0xFFFFFFFF), true);
+                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 3, this.getHeight() / 5, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, t.getPhoto(), "http://localhost/pidev/WEB/web/uploads/" + t.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
 
