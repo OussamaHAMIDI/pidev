@@ -9,6 +9,7 @@ import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
+import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.ComponentSelector.$;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
@@ -20,6 +21,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
@@ -41,7 +43,7 @@ public class BoutiqueForm extends Form {
         super("Boutiques", new BorderLayout());
         this.res = Main.stheme;
 
-        Container boutiques = new Container(BoxLayout.y());
+                Container boutiques = new Container(BoxLayout.y());
         boutiques.setUIID("List");
         boutiques.setScrollableY(true);
         for (int i = 0; i < 5; i++) {
@@ -54,7 +56,14 @@ public class BoutiqueForm extends Form {
             mb.setTextLine4(i + " odddddddddd");
             mb.setIcon(res.getImage("camera.png"));
             Slider note = createStarRankSlider();
-            //boutiques.add(mb);
+            mb.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("clikina aal mb");
+                    Form bdf = new BoutiqueDetailsForm();
+                    bdf.show();
+                }
+            });
             boutiques.add(FlowLayout.encloseCenter(mb, note));
         }
         this.add(CENTER, boutiques);
