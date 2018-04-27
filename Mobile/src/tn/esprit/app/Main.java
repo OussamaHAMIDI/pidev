@@ -44,7 +44,7 @@ public class Main {
 
         theme = UIManager.initNamedTheme("/theme", "Theme");
         // Enable Toolbar on all Forms by default
-        Toolbar.setGlobalToolbar(true);
+        Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
 
     }
