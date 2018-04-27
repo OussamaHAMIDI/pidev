@@ -55,10 +55,16 @@ public class BoutiqueDetailsForm extends Form {
         Image img = URLImage.createToStorage(placeholder, boutique.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + boutique.getPhoto(),
                 URLImage.RESIZE_SCALE_TO_FILL);
         north.add(img);
+
+//        EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth(), this.getWidth()), true);
+//        Image img = URLImage.createToStorage(placeholder, boutique.getPhoto(),
+//                "http://localhost/pidev/WEB/web/uploads/images" + boutique.getPhoto());
+//        Style stitle = this.getUnselectedStyle();
+//        stitle.setBgImage(img);
+//        stitle.setBackgroundType(Style.BACKGROUND_IMAGE_ALIGNED_TOP);
 //
 //        Button photoButton = new Button(res.getImage("profile-mask-white.png"));
 //        photoButton.setUIID("PhotoButton");
-//        north.addComponent(photoButton);
 
         this.addComponent(BorderLayout.NORTH, north);
 

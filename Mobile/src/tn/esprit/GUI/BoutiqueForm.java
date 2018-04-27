@@ -29,8 +29,10 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.List;
 import tn.esprit.Services.BoutiqueService;
+import tn.esprit.Services.EvaluationService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
+import tn.esprit.entities.Evaluation;
 
 /**
  *
@@ -45,7 +47,10 @@ public class BoutiqueForm extends Form {
         this.res = Main.stheme;
 
         BoutiqueService bs = new BoutiqueService();
+        EvaluationService es = new EvaluationService();
         List<Boutique> lb = bs.getBoutiques();
+//        List<Evaluation> le = es.getEvaluations();
+//        System.out.println(le);
 
         Container boutiques = new Container(BoxLayout.y());
         boutiques.setUIID("List");
