@@ -6,21 +6,45 @@
         cn1-derive: Form;
         background-color: #d5efef;
     }
-	
 	Button{
-		background-color : orange;
-
+		background-color: red;
+		border-radius: 2mm;
 	}
-	
 	List{
 		background-color : d5efef;
 	}
-	
 	ListItem{
 		background-color : white;
 	}
-	
+	SidemenuTagline{
+		background-color : transparent;
+		color : white;
+		text-align : left;
+		font-family : native:MainRegular;
+		font-size : 4mm;
+		margin-bottom : 5mm;
+	}
 	ListItem.selected{
 		background-color : gray;
+	}
+	SideCommand{
+		background-color : #009999;
+		color : white;
+		font-family : native:MainRegular;
+		font-size : 3.5mm;
+		border : transparent;
+		padding : 1mm;
+		margin-bottom : 1mm;
+	}
+	SideCommand.pressed{
+		background-color : #007777;
+		border-color : transparent;
+		border : none;
+		
+	}
+	SideCommand.selected{
+		background-color : #007777;
+		border-color : transparent;
+		border : none;
 	}
 }

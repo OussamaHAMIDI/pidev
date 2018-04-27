@@ -20,7 +20,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.TombolaForm;
 
-
 public class Main {
 
     public static Form shome;
@@ -44,13 +43,12 @@ public class Main {
             current.show();
             return;
         }
-        
+
         //Styling buttons ac java :D
-        Button.setCapsTextDefault(true);
+        //Button.setCapsTextDefault(true);
         Button.setButtonRippleEffectDefault(true);
         Button btn = new Button();
         btn.setText("boutiques");
-        btn.setUIID("RaisedButton");
 
         //Styling fi wost el theme hashtable
 //        Hashtable h = new Hashtable();
@@ -70,21 +68,26 @@ public class Main {
         topBar.add(BorderLayout.SOUTH, new Label("Souk Lemdina", "SidemenuTagline"));
         topBar.setUIID("SideCommand");
         tb.addComponentToSideMenu(topBar);
-
-        tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_WEB, e -> {
+        tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+        });
+        tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
 
             BoutiqueForm bf = new BoutiqueForm();
             bf.show();
 
         });
-        
-        tb.addMaterialCommandToSideMenu("Tombolas", FontImage.MATERIAL_WEB, e -> {
+
+        tb.addMaterialCommandToSideMenu("Tombolas", FontImage.MATERIAL_STARS, e -> {
 
             TombolaForm tf = new TombolaForm();
             tf.show();
 
         });
-        
+        tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+        });
+
+        tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+        });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
@@ -93,8 +96,6 @@ public class Main {
 //        Iterable<Command> commands = tb.getSideMenuCommands();
 //        MenuBar mb = tb.getMenuBar();
 //        mb.setUIID("MenuBar");
-        
-       
         current.show();
     }
 

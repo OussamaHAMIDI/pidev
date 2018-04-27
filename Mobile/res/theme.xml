@@ -20,17 +20,8 @@
         <val key="Scroll.bgType" value="8" />
         <gradient key="ScrollThumb.bgGradient" color1="16777215" color2="16777215" posX="0.5" posY="0.5" radius="0.3" />
         <val key="ScrollThumb.bgType" value="7" />
-        <val key="SideCommand.bgColor" value="009999" />
-        <border key="SideCommand.border" type="empty" />
-        <val key="SideCommand.derive" value="SideCommand.sel" />
-        <val key="SideCommand.fgColor" value="ffffff" />
-        <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
-        <val key="SideCommand.marUnit" value="0,0,2,0" />
-        <val key="SideCommand.margin" value="0.0,1.0,0.0,0.0" />
-        <val key="SideCommand.padUnit" value="2,2,2,2" />
-        <val key="SideCommand.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="SideCommand.derive" value="SideCommand.press" />
         <val key="SideCommand.textDecoration" value="0" />
-        <val key="SideCommand.transparency" value="255" />
         <val key="SideNavigationPanel.bgColor" value="ffffff" />
         <val key="SideNavigationPanel.transparency" value="255" />
         <val key="StatusBar.transparency" value="0" />
