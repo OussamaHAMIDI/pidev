@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import tn.esprit.GUI.BoutiqueForm;
+import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.TombolaAddForm;
 import tn.esprit.GUI.TombolaForm;
 
@@ -127,6 +128,7 @@ public class Main {
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
+            new SignUpForm().show();
         });
 
 //        Iterable<Command> commands = tb.getSideMenuCommands();
