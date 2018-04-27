@@ -33,8 +33,13 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import tn.esprit.Services.EvaluationService;
+import tn.esprit.Services.ReclamationService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
+import tn.esprit.entities.Evaluation;
+import tn.esprit.entities.Reclamation;
+import tn.esprit.entities.User;
 
 public class BoutiqueDetailsForm extends Form {
 
@@ -48,6 +53,7 @@ public class BoutiqueDetailsForm extends Form {
         this.boutique = boutiqueS;
         System.out.println(boutique);
 
+        
         Container north = new Container(new FlowLayout(Component.CENTER));
         north.setUIID("BoutiqueNorth");
 
@@ -83,10 +89,41 @@ public class BoutiqueDetailsForm extends Form {
         date.setUIID("BoutiqueInfo");
         center.addComponent(date);
 
+        center.addComponent(new Label("Feedback"));
+        TextField reclamation = new TextField("Donnez votre reclamation");
+        center.addComponent(reclamation);
+ 
+        //TO DO Yetbadel statique ki yahdher el user
+        User user = new User();
+        user.setId("40");
+        
         Slider rating = createStarRankSlider();
-
         center.add(FlowLayout.encloseCenter(rating));
-
+        rating.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                EvaluationService es = new EvaluationService();
+                Evaluation ev = new Evaluation(user,boutique,rating.getProgress());
+                es.addEvaluationBoutique(ev);
+                System.out.println("rate =====> " + rating.getProgress());
+            }
+        });
+        
+        
+        
+        Button btnReclamation = new Button("Reclamer");
+        center.addComponent(btnReclamation);
+        btnReclamation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if(!reclamation.getText().equals("")){
+                    ReclamationService rs = new ReclamationService();
+                    Reclamation rec = new Reclamation(user, boutique, reclamation.getText());
+                    rs.addReclamation(rec);
+                }
+            }
+        });
+        
         this.addComponent(BorderLayout.CENTER, center);
 
         Button map = new Button("Voir sur Google Maps", res.getImage("right-arrow.png"));

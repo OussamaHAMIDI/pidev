@@ -44,34 +44,32 @@ class EvaluationController extends Controller
     }
 
     /**
-     * @Route("/api/evaluation/add")
+     * @Route("/api/evaluation/addBoutique")
      */
-    public function ajouterAction(Request $request)
+    public function ajouterBoutiqueAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $evaluation= new Evaluation();
-        $evaluation->setNote($request->get('note'));
-        $evaluation->setDateCreation(new \DateTime($request->get('dateCreation')));
-        if($request->get('idBoutique')){
+        $evaluation = $em->getRepository("EvaluationBundle:Evaluation")
+            ->findOneBy(array('idBoutique' => $request->get('idBoutique'),
+                'idUser' => $request->get('idUser')));
+        if ($evaluation) {
+            $evaluation->setNote($request->get('note'));
+            $em->persist($evaluation);
+            $em->flush();
+        } else {
+            $evaluation = new Evaluation();
             $boutique = $em->getRepository('BoutiqueBundle:Boutique')->find($request->get('idBoutique'));
             $evaluation->setIdBoutique($boutique);
+            $user = $em->getRepository('UserBundle:User')->find($request->get('idUser'));
+            $evaluation->setIdUser($user);
+
+            $evaluation->setNote($request->get('note'));
+            $em->persist($evaluation);
+            $em->flush();
+            $evaluation->setDateCreation($evaluation->getDateCreation()->format('Y-m-d H:i:s'));
         }
-        if($request->get('idProduit')){
-            $produit = $em->getRepository('ProduitBundle:Produit')->find($request->get('idProduit'));
-            $evaluation->setIdProduit($produit);
-        }
-        $user = $em->getRepository('UserBundle:User')->find($request->get('idUser'));
-        $evaluation->setIdUser($user);
-
-        $em->persist($evaluation);
-        $em->flush();
-
-        $evaluation->setDateCreation($evaluation->getDateCreation()->format('Y-m-d H:i:s'));
-
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($evaluation);
-
         return new JsonResponse($formatted);
     }
 

@@ -15,6 +15,32 @@
         <val key="@showBackCommandOnTitleBool" value="true" />
         <val key="@sideMenuAnimSpeedInt" value="50" />
         <val key="@sideMenuFoldedSwipeBool" value="true" />
+        <val key="Button.align" value="4" />
+        <font key="Button.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarDate.align" value="4" />
+        <val key="CalendarDate.fgColor" value="000000" />
+        <val key="CalendarDateLabel.align" value="4" />
+        <val key="CalendarDateLabel.fgColor" value="000000" />
+        <val key="CalendarDay.align" value="4" />
+        <border key="CalendarDay.border" type="line" millimeters="false" thickness="1.0" color="39321" />
+        <val key="CalendarDay.fgColor" value="009999" />
+        <font key="CalendarDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarDay.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="CalendarDay.sel#fgColor" value="000000" />
+        <val key="CalendarDay.transparency" value="0" />
+        <val key="CalendarDayArea.align" value="4" />
+        <val key="CalendarDayArea.fgColor" value="000000" />
+        <border key="CalendarMultipleDay.border" type="empty" />
+        <font key="CalendarMultipleDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarSelectedDay.align" value="4" />
+        <border key="CalendarSelectedDay.border" type="empty" />
+        <val key="CalendarSelectedDay.fgColor" value="000000" />
+        <font key="CalendarSelectedDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarSelectedDay.transparency" value="0" />
+        <val key="CalendarTitle.align" value="4" />
+        <border key="CalendarTitle.border" type="empty" />
+        <font key="CalendarTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="2.0" />
+        <val key="Label.fgColor" value="000000" />
         <val key="Label.transparency" value="0" />
         <gradient key="Scroll.bgGradient" color1="15724527" color2="15724527" posX="0.5" posY="0.5" radius="0.3" />
         <val key="Scroll.bgType" value="8" />
@@ -28,5 +54,7 @@
         <val key="TextField.transparency" value="0" />
         <val key="Title.transparency" value="0" />
         <val key="TitleCommand.transparency" value="0" />
+        <border key="border" type="empty" />
+        <font key="font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
     </theme>
 </resource>

@@ -4,29 +4,29 @@ package tn.esprit.entities;
  *
  * @author Imen BenAbderrahmen
  */
-public class Evaluation {
+public class Reclamation {
     private String id;
     private String dateCreation;
     private User user;
     private Boutique boutique;
     //TO DO Produit
-    private int note;
+    private String description;
 
-    public Evaluation() {
+    public Reclamation() {
     }
 
-    public Evaluation(String id, String dateCreation, User user, Boutique boutique, int note) {
+    public Reclamation(String id, String dateCreation, User user, Boutique boutique, String description) {
         this.id = id;
         this.dateCreation = dateCreation;
         this.user = user;
         this.boutique = boutique;
-        this.note = note;
+        this.description = description;
     }
 
-    public Evaluation(User user, Boutique boutique, int note) {
+    public Reclamation(User user, Boutique boutique, String description) {
         this.user = user;
         this.boutique = boutique;
-        this.note = note;
+        this.description = description;
     }
 
     public String getId() {
@@ -61,20 +61,17 @@ public class Evaluation {
         this.boutique = boutique;
     }
 
-    public int getNote() {
-        return note;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNote(int note) {
-        this.note = note;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return "\n Evaluation{" + "id=" + id + ", dateCreation=" + dateCreation + ", user=" + user + ", boutique=" + boutique + ", note=" + note + '}';
+        return "\n Evaluation{" + "id=" + id + ", dateCreation=" + dateCreation + ", user=" + user + ", boutique=" + boutique + ", description=" + description + '}';
     }
 
-    
-    
-    
 }

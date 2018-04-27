@@ -18,6 +18,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import tn.esprit.GUI.BoutiqueForm;
+import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.TombolaForm;
 
 public class Main {
@@ -76,7 +77,12 @@ public class Main {
             bf.show();
 
         });
+        tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
 
+            HistoriqueForm hf = new HistoriqueForm();
+            hf.show();
+
+        });
         tb.addMaterialCommandToSideMenu("Tombolas", FontImage.MATERIAL_STARS, e -> {
 
             TombolaForm tf = new TombolaForm();
