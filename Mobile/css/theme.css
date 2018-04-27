@@ -2,19 +2,72 @@
 	TitleArea {
         background-color: transparent;
     }
+	Form{
+		background-color : #efefef;
+	}
 	HomeForm {
         cn1-derive: Form;
-        background-color: #d5efef;
+        background-color: #efefef;
     }
 	Button{
-		background-color: red;
+		background-color: #009999;
 		border-radius: 2mm;
+		color : white;
+		font-size : 3mm;
+		font-family : native:MainRegular;
+	}
+	BoutiqueInfo{
+        text-align: center;
+	}
+	Label{
+		background-color : transparent;
+		font-size : 2mm;
+		font-family : native:MainRegular;
 	}
 	List{
-		background-color : d5efef;
+		background-color : efefef;
 	}
 	ListItem{
 		background-color : white;
+		border-radius: 2mm;
+	}
+	Title{
+		background-color : transparent;
+		color : #545454;
+		font-size : 3mm;
+		font-family : native:MainRegular;
+	}
+	TitleCommand{
+		color : #009999;
+		font-size : 1mm;
+		font-family : native:MainRegular;
+	}
+	TitleCommand.pressed{
+		background-color : transparent;
+	}
+	MultiLine1{
+		background-color : transparent;
+		color : #545454;
+		font-size : 3mm;
+		font-family : native:MainRegular;
+	}
+	MultiLine2{
+		background-color : transparent;
+		font-size : 1mm;
+		color : #666666;
+		font-family : native:MainRegular;
+	}
+	MultiLine3{
+		background-color : transparent;
+		font-size : 1mm;
+		color : #666666;
+		font-family : native:MainRegular;
+	}
+	MultiLine4{
+		background-color : transparent;
+		font-size : 1mm;
+		color : #666666;
+		font-family : native:MainRegular;
 	}
 	SidemenuTagline{
 		background-color : transparent;
@@ -25,7 +78,7 @@
 		margin-bottom : 5mm;
 	}
 	ListItem.selected{
-		background-color : gray;
+		background-color : #e2e2e2;
 	}
 	SideCommand{
 		background-color : #009999;

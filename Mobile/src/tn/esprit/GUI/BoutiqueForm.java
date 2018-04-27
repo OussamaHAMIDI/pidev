@@ -6,20 +6,18 @@
 package tn.esprit.GUI;
 
 import com.codename1.components.MultiButton;
-import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.CENTER;
-import static com.codename1.ui.ComponentSelector.$;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
-import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
-import com.codename1.ui.animations.CommonTransitions;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
@@ -29,7 +27,10 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import java.util.List;
+import tn.esprit.Services.BoutiqueService;
 import tn.esprit.app.Main;
+import tn.esprit.entities.Boutique;
 
 /**
  *
@@ -43,61 +44,50 @@ public class BoutiqueForm extends Form {
         super("Boutiques", new BorderLayout());
         this.res = Main.stheme;
 
-                Container boutiques = new Container(BoxLayout.y());
+        BoutiqueService bs = new BoutiqueService();
+        List<Boutique> lb = bs.getBoutiques();
+
+        Container boutiques = new Container(BoxLayout.y());
         boutiques.setUIID("List");
         boutiques.setScrollableY(true);
-        for (int i = 0; i < 5; i++) {
-            MultiButton mb = new MultiButton("boutique numero " + i);
-            mb.setUIID("ListItem");
-            mb.setNameLine1(i + "hedhi name lbeki text");
-            mb.setTextLine1(i + " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            mb.setTextLine2(i + " bbbbbb");
-            mb.setTextLine3(i + " ccccccc");
-            mb.setTextLine4(i + " odddddddddd");
-            mb.setIcon(res.getImage("camera.png"));
-            Slider note = createStarRankSlider();
-            mb.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    System.out.println("clikina aal mb");
-                    Form bdf = new BoutiqueDetailsForm();
-                    bdf.show();
-                }
-            });
-            boutiques.add(FlowLayout.encloseCenter(mb, note));
+        if (lb != null) {
+            for (Boutique b : lb) {
+                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth()/2, this.getHeight() / 5, 0xFFFFFFFF), true);
+                Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPhoto(),
+                        URLImage.RESIZE_SCALE_TO_FILL);
+                Container imgC = new Container();
+                imgC.add(img);
+                MultiButton mb = new MultiButton(b.getNom());
+                mb.setUIID("ListItem");
+                mb.setTextLine2(b.getAdresse());
+                mb.setTextLine3(b.getDateCreation());
+                //mb.setIcon(img);
+                mb.add(LEFT,img);
+                Slider note = createStarRankSlider();
+                mb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        System.out.println("clikina aal mb");
+                        BoutiqueDetailsForm.boutiqueS = b;
+                        Form bdf = new BoutiqueDetailsForm();
+                        bdf.show();
+                    }
+                });
+                boutiques.add(FlowLayout.encloseCenter(mb));
+            }
+            this.add(CENTER, boutiques);
+        } else {
+            //TO DO
         }
-        this.add(CENTER, boutiques);
-        
-        this.setBackCommand(new Command("", res.getImage("back-arrow.png")) {
+
+        this.addCommand(new Command("Retour") {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-
-            }
-        });
-        
-        this.addCommand(new Command("Done") {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                  Main.shome.showBack();
+                Main.shome.showBack();
             }
         });
 
-        
-
-//        this.add(new Label("This is Boutique"));
-//
-//        Button slideUp = $(new Button("Boutton mezyen"))
-//                .setIcon(FontImage.MATERIAL_EXPAND_LESS)
-//                .addActionListener(e -> {
-//                    $(e)
-//                            .getParent()
-//                            .find(">*")
-//                            .slideUpAndWait(1000);
-//                })
-//                .asComponent(Button.class);
-//        this.add(slideUp);
     }
 
     public Slider createStarRankSlider() {

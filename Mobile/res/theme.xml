@@ -2,6 +2,7 @@
 
 <resource majorVersion="1" minorVersion="9" useXmlUI="false">
     <image name="camera.png" type="multi"  />
+    <image name="left-arrow.png" type="multi"  />
     <image name="profile-mask-white.png" type="multi"  />
     <theme name="Theme">
         <val key="@OverlayThemes" value="theme.css" />
@@ -14,9 +15,8 @@
         <val key="@showBackCommandOnTitleBool" value="true" />
         <val key="@sideMenuAnimSpeedInt" value="50" />
         <val key="@sideMenuFoldedSwipeBool" value="true" />
-        <val key="Form.bgColor" value="d5efef" />
         <val key="Label.transparency" value="0" />
-        <gradient key="Scroll.bgGradient" color1="14020591" color2="14020591" posX="0.5" posY="0.5" radius="0.3" />
+        <gradient key="Scroll.bgGradient" color1="15724527" color2="15724527" posX="0.5" posY="0.5" radius="0.3" />
         <val key="Scroll.bgType" value="8" />
         <gradient key="ScrollThumb.bgGradient" color1="16777215" color2="16777215" posX="0.5" posY="0.5" radius="0.3" />
         <val key="ScrollThumb.bgType" value="7" />

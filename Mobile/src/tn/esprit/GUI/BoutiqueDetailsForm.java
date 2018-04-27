@@ -5,7 +5,6 @@
  */
 package tn.esprit.GUI;
 
-
 /**
  *
  * @author Imen BenAbderrahmen
@@ -15,6 +14,7 @@ import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -22,6 +22,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
 import com.codename1.ui.TextField;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
@@ -33,73 +34,57 @@ import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import tn.esprit.app.Main;
-
+import tn.esprit.entities.Boutique;
 
 public class BoutiqueDetailsForm extends Form {
 
     final Resources res;
+    static Boutique boutiqueS;
+    private Boutique boutique;
 
     public BoutiqueDetailsForm() {
-        super("Boutique", new BorderLayout());
+        super("", new BorderLayout());
         this.res = Main.stheme;
+        this.boutique = boutiqueS;
+        System.out.println(boutique);
 
         Container north = new Container(new FlowLayout(Component.CENTER));
         north.setUIID("BoutiqueNorth");
 
-        Button photoButton = new Button(res.getImage("profile-mask-white.png"));
-        photoButton.setUIID("PhotoButton");
-        north.addComponent(photoButton);
+        EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 5, 0xFFFFFFFF), true);
+        Image img = URLImage.createToStorage(placeholder, boutique.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + boutique.getPhoto(),
+                URLImage.RESIZE_SCALE_TO_FILL);
+        north.add(img);
+//
+//        Button photoButton = new Button(res.getImage("profile-mask-white.png"));
+//        photoButton.setUIID("PhotoButton");
+//        north.addComponent(photoButton);
 
         this.addComponent(BorderLayout.NORTH, north);
 
         Container center = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        center.setUIID("SignUpCenter");
+        center.setUIID("BoutiqueCenter");
 
-        Container row1 = new Container(new GridLayout(1,2));
-        TextField firstName = new TextField();
-        firstName.setUIID("SignUpField");
-        firstName.setHint("First Name");
-        firstName.getHintLabel().setUIID("SignupFieldHint");
-        TextField lastName = new TextField();
-        lastName.setUIID("SignUpField");
-        lastName.setHint("Last Name");
-        lastName.getHintLabel().setUIID("SignupFieldHint");
-        row1.addComponent(firstName);
-        row1.addComponent(lastName);
-        center.addComponent(row1);
-        center.setScrollableY(true);
+        Label name = new Label(boutique.getNom());
+        name.setUIID("BoutiqueInfo");
+        center.addComponent(name);
 
-        TextField email = new TextField();
-        email.setUIID("SignUpField");
-        center.addComponent(email);
-        email.setHint("Email Address");
-        email.getHintLabel().setUIID("SignupFieldHint");
+        Label adresse = new Label(boutique.getAdresse());
+        adresse.setUIID("BoutiqueInfo");
+        center.addComponent(adresse);
 
-        TextField password = new TextField();
-        password.setUIID("SignUpField");
-        password.setConstraint(TextField.PASSWORD);
-        password.setHint("Choose Password");
-        password.getHintLabel().setUIID("SignupFieldHint");
-        center.addComponent(password);
+        Label date = new Label(boutique.getDateCreation());
+        date.setUIID("BoutiqueInfo");
+        center.addComponent(date);
 
-        Container row4 = new Container(new BorderLayout());
-        Label code = new Label("+1");
-        code.setUIID("SignUpLabel");
-        row4.addComponent(BorderLayout.WEST, code);
+        Slider rating = createStarRankSlider();
 
-        TextField phoneNumber = new TextField();
-        phoneNumber.setUIID("SignUpField");
-        phoneNumber.setHint("Phone Number");
-        phoneNumber.getHintLabel().setUIID("SignupFieldHint");
-        row4.addComponent(BorderLayout.CENTER, phoneNumber);
-
-        center.addComponent(row4);
+        center.add(FlowLayout.encloseCenter(rating));
 
         this.addComponent(BorderLayout.CENTER, center);
-        
-        Button map = new Button("Voir sur la Map", res.getImage("right-arrow.png"));
+
+        Button map = new Button("Voir sur Google Maps", res.getImage("right-arrow.png"));
         map.setGap(map.getStyle().getFont().getHeight());
-        map.setUIID("MapButton");
         map.setTextPosition(Component.LEFT);
         map.addActionListener(new ActionListener() {
             @Override
@@ -120,7 +105,7 @@ public class BoutiqueDetailsForm extends Form {
         starRank.setSmoothScrolling(true);
         starRank.setMaxValue(5);
         Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
-                derive(Display.getInstance().convertToPixels(2, true), Font.STYLE_PLAIN);
+                derive(Display.getInstance().convertToPixels(3, true), Font.STYLE_PLAIN);
         Style s = new Style(0xffff33, 0, fnt, (byte) 0);
         Image fullStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
         s.setOpacity(100);
