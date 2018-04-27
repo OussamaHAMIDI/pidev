@@ -104,6 +104,7 @@
 		border-color : transparent;
 		border : none;
 	}
+	/* ----------------------for sign up form -------------------------*/
 	SignUpForm {
 		padding: 0;
 		cn1-derive: Form;
@@ -157,7 +158,30 @@
 	SignUpButton.pressed {
 		background-color: gray;
 	
-	
 	}
-	
+	/* ---------------------- label for items in list -------------------------*/
+	TitleItem {
+		padding-left: 4mm;
+		padding-right: 0.5mm;
+		color: rgb(247, 112, 50);
+		font-family: "Source Sans Pro";
+		font-size: 6.5mm;
+		font-weight: bold;
+		background-color: transparent;
+	}
+	RestItem{
+		padding-left: 0.5mm;
+		padding-right: 1mm;
+		color: rgb(0, 0, 0);
+		font-family: "Source Sans Pro";
+		font-size: 2.5mm;
+		background-color: transparent;
+	}
+	RestItem.pressed{
+		background-color: transparent;
+	}
+	PhotoItem{
+		margin: 2mm 1mm 1mm 0mm;
+		border-radius: 2mm;
+	}
 }
