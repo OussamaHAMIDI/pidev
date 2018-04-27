@@ -34,16 +34,17 @@
 	ListItem{
 		background-color : white;
 		border-radius: 2mm;
+		margin: 0.5mm 0.5mm 0.5mm 0.5mm ;
 	}
 	Title{
 		background-color : transparent;
 		color : #545454;
-		font-size : 3mm;
+		font-size : 3.5mm;
 		font-family : native:MainRegular;
 	}
 	TitleCommand{
 		color : #009999;
-		font-size : 1mm;
+		font-size : 2.5mm;
 		font-family : native:MainRegular;
 	}
 	TitleCommand.pressed{
@@ -159,7 +160,7 @@
 		background-color: gray;
 	
 	}
-	/* ---------------------- label for items in list -------------------------*/
+	/* ---------------------- LABEL FOR ITEMS IN LIST  -------------------------*/
 	TitleItem {
 		padding-left: 4mm;
 		padding-right: 0.5mm;
@@ -183,5 +184,7 @@
 	PhotoItem{
 		margin: 2mm 1mm 1mm 0mm;
 		border-radius: 2mm;
+		background-color: transparent;
 	}
+
 }
