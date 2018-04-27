@@ -6,6 +6,7 @@ import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -14,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.util.Date;
@@ -45,12 +47,14 @@ public class TombolaForm extends Form {
         if (tombos != null) {
             for (Tombola t : tombos) {
 
-                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 3, this.getHeight() / 5, 0xFFFFFFFF), true);
+                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 4, this.getHeight() / 4, 0xFFFFFFFF), true);
+                
+                
                 Image img = URLImage.createToStorage(placeholder, t.getPhoto(), "http://localhost/pidev/WEB/web/uploads/" + t.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
 
                 MultiButton mb = new MultiButton(t.getTitre());
-                mb.setUIID("Item");
+                //mb.setUIID("Item");
 //                mb.setNameLine1(t.getTitre());
 //                mb.setTextLine1(t.getDescription());
                 mb.setTextLine2("Date Ajout : \n" + t.getDateAjout());
