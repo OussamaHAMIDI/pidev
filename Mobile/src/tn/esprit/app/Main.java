@@ -56,12 +56,12 @@ public class Main {
         }
 
         //Styling buttons ac java :D
-        Button.setCapsTextDefault(true);
+        //Button.setCapsTextDefault(true);
         Button.setButtonRippleEffectDefault(true);
-        Button btn = new Button();
+        Button btn = new Button();       
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
-
+ 
         btn.addActionListener(e -> {
             String htmlBody = "";
             InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
@@ -107,32 +107,27 @@ public class Main {
                 "SideCommand");
         tb.addComponentToSideMenu(topBar);
 
-        tb.addMaterialCommandToSideMenu(
-                "Boutiques", FontImage.MATERIAL_WEB, e -> {
+        tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+        });
+        tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
+            BoutiqueForm bf = new BoutiqueForm();
+            bf.show();
+        });
 
-                    BoutiqueForm bf = new BoutiqueForm();
-                    bf.show();
+        tb.addMaterialCommandToSideMenu("Tombolas", FontImage.MATERIAL_WEB, e -> {
+            TombolaForm tf = new TombolaForm();
+            tf.show();
+        });
 
-                }
-        );
+        tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+        });
 
-        tb.addMaterialCommandToSideMenu(
-                "Tombolas", FontImage.MATERIAL_WEB, e -> {
-
-                    TombolaForm tf = new TombolaForm();
-                    tf.show();
-
-                }
-        );
-
-        tb.addMaterialCommandToSideMenu(
-                "Settings", FontImage.MATERIAL_SETTINGS, e -> {
-                    TombolaAddForm taf = new TombolaAddForm();
-                    taf.show();
-                });
-        tb.addMaterialCommandToSideMenu(
-                "About", FontImage.MATERIAL_INFO, e -> {
-                });
+        tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+        });
+        tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
+        });
+        tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
+        });
 
 //        Iterable<Command> commands = tb.getSideMenuCommands();
 //        MenuBar mb = tb.getMenuBar();

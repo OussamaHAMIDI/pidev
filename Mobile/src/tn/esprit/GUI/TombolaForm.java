@@ -61,6 +61,7 @@ public class TombolaForm extends Form {
                 mb.setTextLine3("Date Modification \n: " + t.getDateModif());
                 mb.setTextLine4("Date Tirage : \n" + t.getDateTirage());
                 mb.setIcon(img);
+                
 
 //                tombolas.add(mb);
                 Picker dateTimePicker = new Picker();

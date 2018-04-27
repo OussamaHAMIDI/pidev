@@ -63,13 +63,6 @@ class Boutique
     private $altitude;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="photo", type="blob", length=16777215, nullable=true)
-     */
-    private $photo;
-
-    /**
      * @ORM\Column(type="string",length=255, nullable=true)
      *
      *
@@ -216,29 +209,6 @@ class Boutique
         return $this->altitude;
     }
 
-    /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return Boutique
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
 
     /**
      * Set idUser

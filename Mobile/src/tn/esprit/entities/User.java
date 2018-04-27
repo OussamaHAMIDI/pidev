@@ -155,4 +155,11 @@ public class User {
         this.photo = photo;
     }
 
+    @Override
+    public String toString() {
+        return "\nUser{" + "id=" + id + ", userName=" + userName + ", mdp=" + mdp + ", etat=" + etat + ", type=" + type + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", Sexe=" + Sexe + ", email=" + email + ", adresse=" + adresse + ", tel=" + tel + ", photo=" + photo + '}';
+    }
+    
+    
+
 }

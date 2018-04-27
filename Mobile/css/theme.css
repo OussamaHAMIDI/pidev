@@ -2,21 +2,102 @@
 	TitleArea {
         background-color: transparent;
     }
+	Form{
+		background-color : #efefef;
+	}
 	HomeForm {
         cn1-derive: Form;
-        background-color: #d5efef;
+        background-color: #efefef;
     }
-	
 	Button{
-		background-color : orange;
-
+		background-color: #009999;
+		border-radius: 2mm;
+		color : white;
+		font-size : 3mm;
+		font-family : native:MainRegular;
 	}
-	
+	BoutiqueInfo{
+        text-align: center;
+	}
+	Label{
+		background-color : transparent;
+		font-size : 2mm;
+		font-family : native:MainRegular;
+	}
 	List{
-		background-color : d5efef;
+		background-color : efefef;
 	}
-	
 	ListItem{
 		background-color : white;
+		border-radius: 2mm;
+	}
+	Title{
+		background-color : transparent;
+		color : #545454;
+		font-size : 3mm;
+		font-family : native:MainRegular;
+	}
+	TitleCommand{
+		color : #009999;
+		font-size : 1mm;
+		font-family : native:MainRegular;
+	}
+	TitleCommand.pressed{
+		background-color : transparent;
+	}
+	MultiLine1{
+		background-color : transparent;
+		color : #545454;
+		font-size : 3mm;
+		font-family : native:MainRegular;
+	}
+	MultiLine2{
+		background-color : transparent;
+		font-size : 1mm;
+		color : #666666;
+		font-family : native:MainRegular;
+	}
+	MultiLine3{
+		background-color : transparent;
+		font-size : 1mm;
+		color : #666666;
+		font-family : native:MainRegular;
+	}
+	MultiLine4{
+		background-color : transparent;
+		font-size : 1mm;
+		color : #666666;
+		font-family : native:MainRegular;
+	}
+	SidemenuTagline{
+		background-color : transparent;
+		color : white;
+		text-align : left;
+		font-family : native:MainRegular;
+		font-size : 4mm;
+		margin-bottom : 5mm;
+	}
+	ListItem.selected{
+		background-color : #e2e2e2;
+	}
+	SideCommand{
+		background-color : #009999;
+		color : white;
+		font-family : native:MainRegular;
+		font-size : 3.5mm;
+		border : transparent;
+		padding : 1mm;
+		margin-bottom : 1mm;
+	}
+	SideCommand.pressed{
+		background-color : #007777;
+		border-color : transparent;
+		border : none;
+		
+	}
+	SideCommand.selected{
+		background-color : #007777;
+		border-color : transparent;
+		border : none;
 	}
 }

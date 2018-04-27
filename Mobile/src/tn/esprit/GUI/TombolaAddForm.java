@@ -3,6 +3,8 @@ package tn.esprit.GUI;
 import tn.esprit.entities.Tombola;
 import com.codename1.components.MultiButton;
 import com.codename1.components.SpanLabel;
+import com.codename1.io.Util;
+import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.CENTER;
 import static com.codename1.ui.CN.SOUTH;
@@ -29,6 +31,8 @@ import com.codename1.ui.validation.GroupConstraint;
 import com.codename1.ui.validation.LengthConstraint;
 import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.ui.validation.Validator;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 import java.util.List;
@@ -131,3 +135,22 @@ public class TombolaAddForm extends Form {
 
     }
 }
+//tn.addActionListener(e -> {
+//            String htmlBody = "";
+//            InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
+//            if (in != null) {
+//                try {
+//                    htmlBody = Util.readToString(in);
+//                    in.close();
+//                } catch (IOException ex) {
+//                    System.out.println(ex);
+//                    htmlBody = "Read Error";
+//                }
+//            }
+//            Message m = new Message(htmlBody);
+//            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
+//                    + "</body></html>");
+//            m.setMimeType(Message.MIME_HTML);
+//
+//            Display.getInstance().sendMessage(new String[]{"hamdi.megdiche@esprit.tn"}, "Souk lemdina : Gagnant Tombola", m);
+//        });
