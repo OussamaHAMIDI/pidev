@@ -1,187 +1,238 @@
 @font-face {
     font-family: "Source Sans Pro";
-    src: url(https://raw.githubusercontent.com/google/fonts/master/ofl/sourcesanspro/SourceSansPro-Light.ttf);
+    src: url(fonts/SourceSansPro-Light.ttf);
+}
+@font-face {
+    font-family: "Roboto";
+    src: url(fonts/Roboto-Thin.ttf);
 } 
 @media cn1{
-	TitleArea {
+    TitleArea {
         background-color: transparent;
     }
-	Form{
-		background-color : #efefef;
-	}
-	HomeForm {
+    Form{
+        background-color : #efefef;
+    }
+    HomeForm {
         cn1-derive: Form;
         background-color: #efefef;
     }
-	Button{
-		background-color: #009999;
-		border-radius: 2mm;
-		color : white;
-		font-size : 3mm;
-		font-family : native:MainRegular;
-	}
-	BoutiqueInfo{
+    Button{
+        background-color: #009999;
+        border-radius: 2mm;
+        color : white;
+        font-size : 3mm;
+        font-family : native:MainRegular;
+    }
+    BoutiqueInfo{
         text-align: center;
-	}
-	Label{
-		background-color : transparent;
-		font-size : 2mm;
-		font-family : native:MainRegular;
-	}
-	List{
-		background-color : efefef;
-	}
-	ListItem{
-		background-color : white;
-		border-radius: 2mm;
-	}
-	Title{
-		background-color : transparent;
-		color : #545454;
-		font-size : 3mm;
-		font-family : native:MainRegular;
-	}
-	TitleCommand{
-		color : #009999;
-		font-size : 1mm;
-		font-family : native:MainRegular;
-	}
-	TitleCommand.pressed{
-		background-color : transparent;
-	}
-	MultiLine1{
-		background-color : transparent;
-		color : #545454;
-		font-size : 3mm;
-		font-family : native:MainRegular;
-	}
-	MultiLine2{
-		background-color : transparent;
-		font-size : 1mm;
-		color : #666666;
-		font-family : native:MainRegular;
-	}
-	MultiLine3{
-		background-color : transparent;
-		font-size : 1mm;
-		color : #666666;
-		font-family : native:MainRegular;
-	}
-	MultiLine4{
-		background-color : transparent;
-		font-size : 1mm;
-		color : #666666;
-		font-family : native:MainRegular;
-	}
-	SidemenuTagline{
-		background-color : transparent;
-		color : white;
-		text-align : left;
-		font-family : native:MainRegular;
-		font-size : 4mm;
-		margin-bottom : 5mm;
-	}
-	ListItem.selected{
-		background-color : #e2e2e2;
-	}
-	SideCommand{
-		background-color : #009999;
-		color : white;
-		font-family : native:MainRegular;
-		font-size : 3.5mm;
-		border : transparent;
-		padding : 1mm;
-		margin-bottom : 1mm;
-	}
-	SideCommand.pressed{
-		background-color : #007777;
-		border-color : transparent;
-		border : none;
-		
-	}
-	SideCommand.selected{
-		background-color : #007777;
-		border-color : transparent;
-		border : none;
-	}
-	/* ----------------------for sign up form -------------------------*/
-	SignUpForm {
-		padding: 0;
-		cn1-derive: Form;
-		/*background-image: url(../assets/signup-form-bg.png);*/
-	
-	}
-	
-	/* White background for center panel on which all text fields are placed */
-	SignUpCenter {
-		background-color: white;
-		padding: 0;
-		margin: 0;
-	}
-	SignUpField, SignUpLabel {
-		border-bottom: 1px solid rgb( 77, 96, 111 );
-		border-right: 1px solid rgb( 77, 96, 111 );
-		opacity: 0.102;
-		padding: 2mm;
-		color: rgb( 77, 96, 111 );
-		font-family: "Source Sans Pro";
-		margin: 0;
-	
-	
-	}
-	
-	SignUpLabel {
-		padding-left: 4mm;
-		padding-right: 4mm;
-	}
-	
-	SignupFieldHint {
-		font-family: "Source Sans Pro";
-		color: rgb( 77, 96, 111 );
-		font-size: small;
-		padding: 4mm;
-	}
-	PhotoButton {
-		margin: 3mm;
-	}
-	
-	SignUpButton {
-		background-color: rgb( 247, 50, 103 );
-		border: none;
-		margin: 0;
-		color: white;
-		text-align: center;
-		font-family: "Source Sans Pro";
-		padding: 2mm;
-	}
-	
-	SignUpButton.pressed {
-		background-color: gray;
-	
-	}
-	/* ---------------------- label for items in list -------------------------*/
-	TitleItem {
-		padding-left: 4mm;
-		padding-right: 0.5mm;
-		color: rgb(247, 112, 50);
-		font-family: "Source Sans Pro";
-		font-size: 6.5mm;
-		font-weight: bold;
-		background-color: transparent;
-	}
-	RestItem{
-		padding-left: 0.5mm;
-		padding-right: 1mm;
-		color: rgb(0, 0, 0);
-		font-family: "Source Sans Pro";
-		font-size: 2.5mm;
-		background-color: transparent;
-	}
-	RestItem.pressed{
-		background-color: transparent;
-	}
-	PhotoItem{
-		margin: 2mm 1mm 1mm 0mm;
-		border-radius: 2mm;
-	}
+    }
+    Label{
+        background-color : transparent;
+        font-size : 2mm;
+        font-family : "Source Sans Pro";
+    }
+    List{
+        background-color : efefef;
+    }
+    ListItem{
+        background-color : white;
+        border-radius: 2mm;
+        margin: 0.5mm 0.5mm 0.5mm 0.5mm ;
+    }
+    Title{
+        background-color : transparent;
+        color : #545454;
+        font-size : 3.5mm;
+        font-family : native:MainRegular;
+    }
+    TitleCommand{
+        color : #009999;
+        font-size : 2.5mm;
+        font-family : native:MainRegular;
+    }
+    TitleCommand.pressed{
+        background-color : transparent;
+    }
+    MultiLine1{
+        background-color : transparent;
+        color : #545454;
+        font-size : 3mm;
+        font-family : native:MainRegular;
+    }
+    MultiLine2{
+        background-color : transparent;
+        font-size : 1mm;
+        color : #666666;
+        font-family : native:MainRegular;
+    }
+    MultiLine3{
+        background-color : transparent;
+        font-size : 1mm;
+        color : #666666;
+        font-family : native:MainRegular;
+    }
+    MultiLine4{
+        background-color : transparent;
+        font-size : 1mm;
+        color : #666666;
+        font-family : native:MainRegular;
+    }
+    SidemenuTagline{
+        background-color : transparent;
+        color : white;
+        text-align : left;
+        font-family : native:MainRegular;
+        font-size : 4mm;
+        margin-bottom : 5mm;
+    }
+    ListItem.selected{
+        background-color : #e2e2e2;
+    }
+    SideCommand{
+        background-color : #009999;
+        color : white;
+        font-family : native:MainRegular;
+        font-size: 3.5mm;
+        border: transparent;
+        padding : 1mm;
+        margin-bottom : 1mm;
+    }
+    SideCommand.pressed{
+        background-color : #007777;
+        border-color : transparent;
+        border : none;
+
+    }
+    SideCommand.selected{
+        background-color : #007777;
+        border-color : transparent;
+        border : none;
+    }
+    /* ----------------------for sign up form -------------------------*/
+    SignUpForm {
+        padding: 0;
+        cn1-derive: Form;
+        /*background-image: url(../assets/signup-form-bg.png);*/
+
+    }
+
+    /* White background for center panel on which all text fields are placed */
+    SignUpCenter {
+        background-color: white;
+        padding: 0;
+        margin: 0;
+    }
+    SignUpField, SignUpLabel {
+        border-bottom: 1px solid rgb( 77, 96, 111 );
+        border-right: 1px solid rgb( 77, 96, 111 );
+        opacity: 0.102;
+        padding: 2mm;
+        color: rgb( 77, 96, 111 );
+        font-family: "Roboto";
+        margin: 0;
+
+
+    }
+
+    SignUpLabel {
+        padding-left: 4mm;
+        padding-right: 4mm;
+    }
+
+    SignupFieldHint {
+        font-family: "Roboto";
+        color: rgb( 77, 96, 111 );
+        font-size: small;
+        padding: 4mm;
+    }
+    date{
+        cn1-derive: Dialog;
+/*        cn1-derive: DialogBody;
+        cn1-derive: Calendar;*/
+        /*cn1-derive: Dialog;*/
+    }
+    PhotoButton {
+        margin: 3mm;
+    }
+
+    SignUpButton {
+        background-color: rgb( 247, 50, 103 );
+        border: none;
+        margin: 0;
+        color: white;
+        text-align: center;
+        font-family: "Roboto";
+        padding: 2mm;
+    }
+
+    SignUpButton.pressed {
+        background-color: gray;
+
+    }
+    /* ---------------------- LABEL FOR ITEMS IN LIST  -------------------------*/
+    TitleItem {
+        padding-left: 3mm;
+        padding-right: 3mm;
+        color: rgb(247, 112, 50);
+        font-family: "Roboto";
+        font-size: 6.5mm;
+        font-weight: bold;
+        background-color: transparent;
+    }
+    RestItem{
+        padding-left: 0.5mm;
+        padding-right: 1mm;
+        color: rgb(0, 0, 0);
+        font-family: "Roboto";
+        font-size: 2mm;
+        font-weight: bold;
+        background-color: transparent;
+    }
+    RestItemInfo{
+        background-color : transparent;
+        font-size : 3mm;
+        font-weight: bold;
+        font-family : "Source Sans Pro";
+        color: orangered;
+    }
+    PhotoItem{
+        margin: 1.5mm;
+        border-radius: 2mm;
+        background-color: transparent;
+        cn1-background-type: cn1-image-scaled-fill;
+
+    }
+    EtatTombolaFermée{
+        background-color: rgba(255, 187, 0, 0.863);
+
+        color: rgb(255, 255, 255);
+        font-family: "Roboto";
+        font-size: 3mm;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 0mm 2mm 2mm 0mm ;
+    }
+    EtatTombolaOuverte{
+        background-color: green;
+
+        color: rgb(255, 255, 255);
+        font-family: "Roboto";
+        font-size: 3mm;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 0mm 2mm 2mm 0mm ;
+        margin: 0;
+    }
+    EtatTombolaCloturée{
+        background-color: red;
+
+        color: rgb(255, 255, 255);
+        font-family: "Roboto";
+        font-size: 3mm;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 0mm 2mm 2mm 0mm ;
+    }
+
 }

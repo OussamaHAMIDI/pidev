@@ -67,8 +67,8 @@ public class TombolaAddForm extends Form {
 
     public TombolaAddForm() {
         super("Ajouter tombola", new BorderLayout());
-        //this.res = Main.stheme;
-        this.res = UIManager.initNamedTheme("/theme", "test");
+        this.res = Main.stheme;
+//        this.res = UIManager.initNamedTheme("/theme", "test");
 
 //        Container tombolas = new Container(BoxLayout.y());
 //        tombolas.setUIID("Tombolas");
@@ -117,13 +117,7 @@ public class TombolaAddForm extends Form {
             }
         });
 
-        this.getToolbar().addCommandToRightBar(new Command("Done") {
 
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                new TombolaForm().showBack();
-            }
-        });
         
         this.addCommand(new Command("Done") {
 

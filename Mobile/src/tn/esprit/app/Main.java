@@ -77,8 +77,9 @@ public class Main {
                 }
             }
             Message m = new Message(htmlBody);
-            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
-                    + "</body></html>");
+//            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
+//                    + "</body></html>");
+//            
             m.setMimeType(Message.MIME_HTML);
 
             Display.getInstance().sendMessage(new String[]{"hamdi.megdiche@esprit.tn"}, "Souk lemdina : Gagnant Tombola", m);

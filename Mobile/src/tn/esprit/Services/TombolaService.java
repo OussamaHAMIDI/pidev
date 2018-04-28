@@ -49,22 +49,21 @@ public class TombolaService {
             Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(new InputStreamReader(
                     new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
 
-             Map<String, Object> a = (Map<String, Object>) response.get("idArtisan");
-            
+            Map<String, Object> a = (Map<String, Object>) response.get("idArtisan");
+
             User artisan = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
                     Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
-                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(),a.get("sexe").toString(), 
-                    a.get("email").toString(), a.get("adresse").toString(),a.get("tel").toString(), a.get("pathPhotoProfil").toString());
-          
+                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                    a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+
             User gagnant = null;
             Map<String, Object> g = (Map<String, Object>) response.get("idGagnant");
             if (g != null) {
                 gagnant = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
-                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
-                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(),a.get("sexe").toString(), 
-                    a.get("email").toString(), a.get("adresse").toString(),a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+                        Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+                        a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+                        a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
             }
-
 
             t = new Tombola(response.get("id").toString(), response.get("titre").toString(), response.get("description").toString(),
                     response.get("dateAjout").toString(), response.get("dateTirage").toString(), response.get("dateModif").toString(),
@@ -195,8 +194,9 @@ public class TombolaService {
                     a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
 
             User gagnant = null;
-            Map<String, Object> g = (Map<String, Object>) response.get("idGagnant");
-            if (g != null) {
+            a = null;
+            a = (Map<String, Object>) response.get("idGagnant");
+            if (a != null) {
                 gagnant = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
                         Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
                         a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),

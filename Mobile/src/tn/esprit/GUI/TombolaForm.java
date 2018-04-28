@@ -1,14 +1,13 @@
 package tn.esprit.GUI;
 
+import com.codename1.components.ImageViewer;
 import tn.esprit.entities.Tombola;
 import com.codename1.components.MultiButton;
-import com.codename1.ui.Calendar;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -18,8 +17,6 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.plaf.Style;
-import com.codename1.ui.spinner.DateTimeSpinner;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.util.Date;
@@ -51,21 +48,19 @@ public class TombolaForm extends Form {
         if (tombos != null) {
             for (Tombola t : tombos) {
 
-                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 3, this.getHeight() / 5, 0xFFFFFFFF), true);
+                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 3, this.getHeight() / 4, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, t.getPhoto(), "http://localhost/pidev/WEB/web/uploads/" + t.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
-                
+
+                ImageViewer iv = new ImageViewer(img);
+
                 Container image = new Container();
-                image.setUIID("PhotoItem");
-                image.add(img);
+
+                iv.setUIID("PhotoItem");
+                image.add(iv);
 
                 MultiButton mb = new MultiButton(t.getTitre());
                 mb.setUIID("ListItem");
-//                mb.setNameLine1(t.getTitre());
-////                mb.setTextLine1(t.getDescription());
-//                mb.setTextLine2("Date Ajout : \n" + t.getDateAjout());
-//                mb.setTextLine3("Date Modification \n: " + t.getDateModif());
-//                mb.setTextLine4("Date Tirage : \n" + t.getDateTirage());
 
                 Label title = new Label(t.getTitre());
                 title.setUIID("TitleItem");
@@ -76,34 +71,55 @@ public class TombolaForm extends Form {
 
                 Container center = new Container(new BorderLayout());
                 center.add(BorderLayout.WEST, image);
-                
-                Container row = new Container(new GridLayout(7, 1));
-                row.add(new Label("Date Ajout :"));
+
+                Container row = new Container(new GridLayout(6, 1));
+                row.getStyle().setPaddingTop(15);
+
+                Label l5 = new Label("Date Ajout :");
+                l5.setUIID("RestItemInfo");
+                row.add(l5);
+
                 Label l1 = new Label(t.getDateAjout());
                 l1.setUIID("RestItem");
                 row.add(l1);
-                row.add(new Label("Date Tirage :"));
+
+                Label l6 = new Label("Date Tirage :");
+                l6.setUIID("RestItemInfo");
+                row.add(l6);
+
                 Label l2 = new Label(t.getDateTirage());
                 l2.setUIID("RestItem");
                 row.add(l2);
-                row.add(new Label("Date Modification :"));
+
+                Label l7 = new Label("Date Modification :");
+                l7.setUIID("RestItemInfo");
+                row.add(l7);
+
                 Label l3 = new Label(t.getDateModif());
                 l3.setUIID("RestItem");
                 row.add(l3);
-                row.add(new Label("Etat :"));
-                Label l4 = new Label(t.getEtat());
-                l4.setUIID("RestItem");
-                row.add(l4);
                 center.add(BorderLayout.CENTER, row);
-                
-                 mb.addComponent(BorderLayout.CENTER, center);
+
+                mb.addComponent(BorderLayout.CENTER, center);
+
+                Container south = new Container(new BorderLayout());
+                Label l4 = new Label(t.getEtat());
+                l4.setUIID("EtatTombola" + t.getEtat());
+                south.add(BorderLayout.CENTER, l4);
+
+                mb.addComponent(BorderLayout.SOUTH, south);
 
                 Picker dateTimePicker = new Picker();
                 dateTimePicker.setType(Display.PICKER_TYPE_DATE);
                 dateTimePicker.setDate(new Date());
 
                 //tombolas.add(dateTimePicker);
-                tombolas.add(mb);//, new Label(t.getEtat())));//.add(dateTimePicker);
+                mb.addActionListener(e -> {
+                    TombolaAddForm taf = new TombolaAddForm();
+                    taf.show();
+                });
+
+                tombolas.add(mb);//.add(dateTimePicker);
 
             }
         }
