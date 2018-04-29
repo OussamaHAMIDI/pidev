@@ -7,9 +7,13 @@
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/app/Main.java</file>
         </group>
         <group name="test">
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/SignUpForm.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/app/Main.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/BoutiqueForm.java</file>
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/css/theme.css</file>
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/Services/TombolaService.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/TombolaForm.java</file>
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/TombolaAddForm.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/BoutiqueDetailsForm.java</file>
         </group>
     </open-files>

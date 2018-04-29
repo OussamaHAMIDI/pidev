@@ -17,17 +17,26 @@
         cn1-derive: Form;
         background-color: #efefef;
     }
-    Button{
+    Button,Button.selected{
         background-color: #009999;
         border-radius: 2mm;
         color : white;
+        text-align: center;
         font-size : 3mm;
+        font-family : native:MainRegular;
+    }
+    Button.disabled{
+        background-color: rgba(66, 82, 79, 0.219);
+        border-radius: 2mm;
+        color : white;
+        font-size : 3mm;
+        text-align: center;
         font-family : native:MainRegular;
     }
     BoutiqueInfo{
         text-align: center;
     }
-    Label{
+   Label{
         background-color : transparent;
         font-size : 2mm;
         font-family : "Source Sans Pro";
@@ -52,6 +61,7 @@
         font-family : native:MainRegular;
     }
     TitleCommand.pressed{
+        color : rgba(0, 181, 212, 0.904);
         background-color : transparent;
     }
     MultiLine1{
@@ -146,12 +156,7 @@
         font-size: small;
         padding: 4mm;
     }
-    date{
-        cn1-derive: Dialog;
-/*        cn1-derive: DialogBody;
-        cn1-derive: Calendar;*/
-        /*cn1-derive: Dialog;*/
-    }
+
     PhotoButton {
         margin: 3mm;
     }
@@ -211,7 +216,7 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 0mm 2mm 2mm 0mm ;
+        border-radius: 2mm;
     }
     EtatTombolaOuverte{
         background-color: green;
@@ -221,8 +226,7 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 0mm 2mm 2mm 0mm ;
-        margin: 0;
+        border-radius: 2mm;
     }
     EtatTombolaCloturée{
         background-color: red;
@@ -232,7 +236,7 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 0mm 2mm 2mm 0mm ;
+        border-radius: 2mm;
     }
 
 }

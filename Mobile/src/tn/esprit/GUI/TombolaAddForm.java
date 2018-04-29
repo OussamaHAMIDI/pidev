@@ -18,6 +18,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.PickerComponent;
 import com.codename1.ui.TextComponent;
+import com.codename1.ui.TextField;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
@@ -26,7 +27,9 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.TextModeLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
+import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.Constraint;
 import com.codename1.ui.validation.GroupConstraint;
 import com.codename1.ui.validation.LengthConstraint;
 import com.codename1.ui.validation.RegexConstraint;
@@ -52,7 +55,6 @@ public class TombolaAddForm extends Form {
         Form f = new Form("Ajoutée", BoxLayout.y());
         f.add(new SpanLabel("Thanks " + name + " for your submission. You can press the back arrow and try again"));
         TombolaForm tf = new TombolaForm();
-        
 
         f.addCommand(new Command("Done") {
 
@@ -68,19 +70,34 @@ public class TombolaAddForm extends Form {
     public TombolaAddForm() {
         super("Ajouter tombola", new BorderLayout());
         this.res = Main.stheme;
-//        this.res = UIManager.initNamedTheme("/theme", "test");
 
-//        Container tombolas = new Container(BoxLayout.y());
-//        tombolas.setUIID("Tombolas");
-//        tombolas.setScrollableY(true);
+        this.setScrollableY(true);
         TextModeLayout tm = new TextModeLayout(4, 2);
 
         Container content = new Container(tm);
-        TextComponent titre = new TextComponent().labelAndHint("Titre");
-        TextComponent description = new TextComponent().labelAndHint("Description").multiline(true).rows(3);
-        PickerComponent date = PickerComponent.createDate(new Date()).label("Date");
-        PickerComponent time = PickerComponent.createTime(0).label("Heure");
-        PickerComponent gender = PickerComponent.createStrings("Male", "Female", "Other", "Unspecified").label("Gender");
+        TextField titre = new TextField();
+
+        TextComponent description = new TextComponent().multiline(true).rows(4);
+        System.out.println(new Date().toString());
+        //int h = Integer.parseInt(s.)
+        //Sun Apr 29 14:41:29 WAT 2018
+
+        Picker date = new Picker();
+        date.setType(Display.PICKER_TYPE_DATE);
+        date.setDate(new Date());
+        date.setUIID("Container");
+        date.setLabelForComponent(new Label("Date"));
+        date.addActionListener(e -> {
+            System.out.println(date.getDate());
+        });
+
+        Picker time = new Picker();
+        time.setText("00:00");
+        time.setType(Display.PICKER_TYPE_TIME);
+        time.setLabelForComponent(new Label("Heure"));
+        time.setUIID("Container");
+
+        System.out.println(date.getDate());
 
         content.add(tm.createConstraint().horizontalSpan(2), new SpanLabel("Veuillez remplir tous les champs"));
         content.add(tm.createConstraint().horizontalSpan(2), titre);
@@ -88,13 +105,14 @@ public class TombolaAddForm extends Form {
         content.add(tm.createConstraint().widthPercentage(60), date);
         content.add(tm.createConstraint().widthPercentage(40), time);
 
-        this.setEditOnShow(titre.getField());
+        this.setEditOnShow(titre);
         content.setScrollableY(true);
 
         Button submit = new Button("Ajouter");
         FontImage.setMaterialIcon(submit, FontImage.MATERIAL_DONE);
         submit.addActionListener(e -> {
-            showOKForm(titre.getField().getText());
+
+            showOKForm(titre.getText());
         });
 
         this.add(CENTER, content);
@@ -108,7 +126,11 @@ public class TombolaAddForm extends Form {
                         new RegexConstraint("^([a-zA-Z ]*)$", "Veuillez saisir que des caracteres"))).
                 addSubmitButtons(submit);
 
-        //this.add(CENTER, tombolas);
+        val.addConstraint(description,new LengthConstraint(20, "Minimum 20 caracteres")).
+                addSubmitButtons(submit);
+        
+       
+
         this.setBackCommand(new Command("", res.getImage("back-arrow.png")) {
 
             @Override
@@ -117,9 +139,7 @@ public class TombolaAddForm extends Form {
             }
         });
 
-
-        
-        this.addCommand(new Command("Done") {
+        this.addCommand(new Command("Retour") {
 
             @Override
             public void actionPerformed(ActionEvent evt) {

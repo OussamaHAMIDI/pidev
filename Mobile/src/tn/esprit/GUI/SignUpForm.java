@@ -1,6 +1,7 @@
 package tn.esprit.GUI;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.CN1Constants;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
@@ -38,6 +39,8 @@ public class SignUpForm extends Form {
         this.setUIID("SignUpForm");
 
         res = Main.stheme;
+        
+       // String i = (String) Display.showNativePicker(CN1Constants.PICKER_TYPE_DATE,this,new Date(),new Date());
 
         this.setLayout(new BorderLayout());
         Container north = new Container(new FlowLayout(Component.CENTER));
@@ -74,10 +77,11 @@ public class SignUpForm extends Form {
         email.getHintLabel().setUIID("SignupFieldHint");
 
         Picker dob = new Picker();
+        dob.setUIID("Container");
         dob.setType(Display.PICKER_TYPE_DATE);
         dob.setDate(new Date());
 
-        dob.setUIID("Dialog");
+        dob.setUIID("date");
         center.addComponent(dob);
 //        dob.setHint("Date naissance");
 //        dob.getHintLabel().setUIID("SignupFieldHint");
@@ -109,13 +113,14 @@ public class SignUpForm extends Form {
         getStarted.setGap(getStarted.getStyle().getFont().getHeight());
         getStarted.setUIID("SignUpButton");
         getStarted.setTextPosition(Component.LEFT);
+//        getStarted.addActionListener();
 
         this.addComponent(BorderLayout.SOUTH, getStarted);
         this.addCommand(new Command("Retour") {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+                Main.shome.showBack();
             }
 
         });

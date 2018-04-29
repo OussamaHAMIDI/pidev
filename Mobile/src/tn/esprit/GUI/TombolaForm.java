@@ -108,18 +108,12 @@ public class TombolaForm extends Form {
                 south.add(BorderLayout.CENTER, l4);
 
                 mb.addComponent(BorderLayout.SOUTH, south);
-
-                Picker dateTimePicker = new Picker();
-                dateTimePicker.setType(Display.PICKER_TYPE_DATE);
-                dateTimePicker.setDate(new Date());
-
-                //tombolas.add(dateTimePicker);
                 mb.addActionListener(e -> {
                     TombolaAddForm taf = new TombolaAddForm();
                     taf.show();
                 });
 
-                tombolas.add(mb);//.add(dateTimePicker);
+                tombolas.add(mb);
 
             }
         }
@@ -141,19 +135,6 @@ public class TombolaForm extends Form {
                 Main.shome.showBack();
             }
         });
-
-//        this.add(new Label("This is Tombola"));
-//
-//        Button slideUp = $(new Button("Boutton mezyen"))
-//                .setIcon(FontImage.MATERIAL_EXPAND_LESS)
-//                .addActionListener(e -> {
-//                    $(e)
-//                            .getParent()
-//                            .find(">*")
-//                            .slideUpAndWait(1000);
-//                })
-//                .asComponent(Button.class);
-//        this.add(slideUp);
     }
 
 }
