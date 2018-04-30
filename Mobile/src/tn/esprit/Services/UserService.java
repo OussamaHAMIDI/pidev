@@ -64,8 +64,11 @@ public class UserService {
     User ajouterUserPhoto(String id, String filePath) {
         User u = new User();
         try {
+            if(id.indexOf(".")>0){
+                id = id.substring(0, id.indexOf('.'));
+            }
             MultipartRequest r = new MultipartRequest();
-            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/addImage/" + id.substring(0, id.indexOf('.')));
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/addImage/" + id);
             r.setPost(true);
             r.addData("path", filePath, "image/jpeg");
 
@@ -131,8 +134,10 @@ public class UserService {
         User u;
         try {
             ConnectionRequest r = new ConnectionRequest();
-
-            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/find/" + id.substring(0, id.indexOf('.')));
+            if(id.indexOf(".")>0){
+                id = id.substring(0, id.indexOf('.'));
+            }
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/find/" + id);
             r.setPost(false);
             r.setHttpMethod("GET");
 

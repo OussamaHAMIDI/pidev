@@ -8,6 +8,7 @@ import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -109,8 +110,7 @@ public class TombolaForm extends Form {
 
                 mb.addComponent(BorderLayout.SOUTH, south);
                 mb.addActionListener(e -> {
-                    TombolaAddForm taf = new TombolaAddForm();
-                    taf.show();
+                    new TombolaAddOrEditForm(t).show();
                 });
 
                 tombolas.add(mb);
@@ -119,22 +119,25 @@ public class TombolaForm extends Form {
         }
 
         this.add(CENTER, tombolas);
+        TombolaAddOrEditForm.tbf = this;
 
-        this.setBackCommand(new Command("", res.getImage("back-arrow.png")) {
-
+        Command c1 = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+                new HomeForm().show();
             }
-        });
-
-        this.addCommand(new Command("Retour") {
-
+        };
+        FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        this.addCommand(c1);
+        Command c = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                Main.shome.showBack();
+                new TombolaAddOrEditForm(null).show();
             }
-        });
+        };
+        FontImage.setMaterialIcon(c, FontImage.MATERIAL_ADD, "TitleCommand", 5);
+
+        this.addCommand(c);
     }
 
 }
