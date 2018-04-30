@@ -30,7 +30,7 @@ import java.util.Date;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.SignUpForm;
-import tn.esprit.GUI.TombolaAddForm;
+import tn.esprit.GUI.TombolaAddOrEditForm;
 import tn.esprit.GUI.TombolaForm;
 
 public class Main {
@@ -133,7 +133,6 @@ public class Main {
         tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
         });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
-            new TombolaAddForm().show();
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
             new SignUpForm().show();

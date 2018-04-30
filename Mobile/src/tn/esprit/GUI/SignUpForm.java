@@ -26,22 +26,14 @@ public class SignUpForm extends Form {
 
     static Resources res;
 
-//    public static void init() {
-//        if (res == null) {
-//            //res = Resources.openLayered("/SignUpForm.css");
-//            res = Main.stheme;
-//            //UIManager.getInstance().
-//            UIManager.getInstance().addThemeProps(res.getTheme("Theme"));
-//        }
-//    }
+
+
     public SignUpForm() {
-        super("Sign Up");
+        super("Inscription");
         this.setUIID("SignUpForm");
 
         res = Main.stheme;
         
-       // String i = (String) Display.showNativePicker(CN1Constants.PICKER_TYPE_DATE,this,new Date(),new Date());
-
         this.setLayout(new BorderLayout());
         Container north = new Container(new FlowLayout(Component.CENTER));
         north.setUIID("SignUpNorth");
@@ -81,10 +73,8 @@ public class SignUpForm extends Form {
         dob.setType(Display.PICKER_TYPE_DATE);
         dob.setDate(new Date());
 
-        dob.setUIID("date");
         center.addComponent(dob);
-//        dob.setHint("Date naissance");
-//        dob.getHintLabel().setUIID("SignupFieldHint");
+
 
         TextField password = new TextField();
         password.setUIID("SignUpField");
