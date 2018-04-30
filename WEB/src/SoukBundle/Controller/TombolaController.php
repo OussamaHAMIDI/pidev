@@ -35,7 +35,50 @@ class TombolaController extends Controller
 
         return new JsonResponse($formatted);
     }
+    /**
+     * @Route("/api/tombola/participants/{id}")
+     */
+    public function participantsAction($id)
+    {
+        $participants =$this->getDoctrine()->getManager()
+            ->getRepository('TombolaBundle:TombolaParticipants')
+            ->findBy(array('idTombola'=>$id));
 
+        $users = array();
+
+        foreach ($participants as $part) {
+            $user = $part->getIdParticipant();
+            if($user->getDateNaissance() != null)
+                $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+            if($user->getLastLogin() != null)
+                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+
+            array_push($users,$user);
+        }
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($users);
+
+        return new JsonResponse($formatted);
+    }
+
+    public function getPart($id){
+        $participants =$this->getDoctrine()->getManager()
+            ->getRepository('TombolaBundle:TombolaParticipants')
+            ->findBy(array('idTombola'=>$id));
+
+        $users = array();
+
+        foreach ($participants as $part) {
+            $user = $part->getIdParticipant();
+            if($user->getDateNaissance() != null)
+                $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+            if($user->getLastLogin() != null)
+                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+
+            array_push($users,$user);
+        }
+        return $users;
+    }
     /**
      * @Route("/api/tombola/find/{id}")
      */
@@ -127,7 +170,7 @@ class TombolaController extends Controller
         $tombola = $em->getRepository('TombolaBundle:Tombola')->find($id);
 
         $tempFile = $tombola->getAbsolutePath();
-    
+
         if (file_exists($tempFile)) {
             unlink($tempFile);
         }
