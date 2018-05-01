@@ -30,15 +30,13 @@ import tn.esprit.GUI.ProduitForm;
 import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
-<<<<<<< HEAD
 import tn.esprit.entities.Panier;
-=======
 import tn.esprit.Services.EvaluationService;
 import tn.esprit.Services.TombolaService;
 import tn.esprit.Services.UserService;
 import tn.esprit.entities.Evaluation;
 import tn.esprit.entities.User;
->>>>>>> c42e4965bf31c6eb46272ff054587fd314d459aa
+
 
 public class Main {
 
@@ -46,11 +44,9 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
-<<<<<<< HEAD
     public static Panier monpanier;
-=======
     public static User userConnected = null;
->>>>>>> c42e4965bf31c6eb46272ff054587fd314d459aa
+
 
     public void init(Object context) {
         // use two network threads instead of one
