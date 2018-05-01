@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="9" useXmlUI="false">
+    <image name="back-arrow.png" type="multi"  />
+    <image name="background.png" type="multi"  />
     <image name="camera.png" type="multi"  />
+    <image name="camera.png 1" type="multi"  />
     <image name="left-arrow.png" type="multi"  />
+    <image name="left-arrow.png 1" type="multi"  />
     <image name="profile-mask-white.png" type="multi"  />
+    <image name="profile-mask-white.png 1" type="multi"  />
+    <image name="profile-photo-button.png" type="multi"  />
+    <image name="right-arrow.png" type="multi"  />
     <theme name="Theme">
         <val key="@OverlayThemes" value="theme.css" />
         <val key="@backUsesTitleBool" value="true" />
@@ -57,4 +64,5 @@
         <border key="border" type="empty" />
         <font key="font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
     </theme>
+    <image name="tombola.png" type="multi"  />
 </resource>

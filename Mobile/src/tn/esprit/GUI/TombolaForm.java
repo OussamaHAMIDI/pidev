@@ -8,6 +8,7 @@ import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import tn.esprit.app.Main;
 import tn.esprit.Services.TombolaService;
+import tn.esprit.entities.Enumerations;
 
 /**
  *
@@ -108,52 +110,49 @@ public class TombolaForm extends Form {
                 south.add(BorderLayout.CENTER, l4);
 
                 mb.addComponent(BorderLayout.SOUTH, south);
-
-                Picker dateTimePicker = new Picker();
-                dateTimePicker.setType(Display.PICKER_TYPE_DATE);
-                dateTimePicker.setDate(new Date());
-
-                //tombolas.add(dateTimePicker);
                 mb.addActionListener(e -> {
-                    TombolaAddForm taf = new TombolaAddForm();
-                    taf.show();
+                    new TombolaAddOrEditForm(t).show();
                 });
 
-                tombolas.add(mb);//.add(dateTimePicker);
+                tombolas.add(mb);
 
             }
         }
 
         this.add(CENTER, tombolas);
+        TombolaAddOrEditForm.tbf = this;
 
-        this.setBackCommand(new Command("", res.getImage("back-arrow.png")) {
-
+        Command c1 = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+                new HomeForm().show();
             }
-        });
+        };
+        FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
 
-        this.addCommand(new Command("Retour") {
-
+        Command c = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                Main.shome.showBack();
+                new TombolaAddOrEditForm(null).show();//ajout
             }
-        });
+        };
+        FontImage.setMaterialIcon(c, FontImage.MATERIAL_ADD, "TitleCommand", 5);
 
-//        this.add(new Label("This is Tombola"));
-//
-//        Button slideUp = $(new Button("Boutton mezyen"))
-//                .setIcon(FontImage.MATERIAL_EXPAND_LESS)
-//                .addActionListener(e -> {
-//                    $(e)
-//                            .getParent()
-//                            .find(">*")
-//                            .slideUpAndWait(1000);
-//                })
-//                .asComponent(Button.class);
-//        this.add(slideUp);
+        if (Main.userConnected != null && Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
+            Command cc = new Command("Retour ") {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    new HomeForm().show();
+                }
+            };
+            FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
+
+            this.addCommand(cc);
+        } else {
+            this.addCommand(c1);
+            this.addCommand(c);// plus
+        }
+
     }
 
 }

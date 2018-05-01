@@ -16,23 +16,15 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
-import com.codename1.ui.PickerComponent;
-import com.codename1.ui.TextComponent;
-import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.layouts.TextModeLayout;
-import com.codename1.ui.validation.Constraint;
-import com.codename1.ui.validation.LengthConstraint;
-import com.codename1.ui.validation.NumericConstraint;
-import com.codename1.ui.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.SignUpForm;
-import tn.esprit.GUI.TombolaAddForm;
 import tn.esprit.GUI.TombolaForm;
+import tn.esprit.Services.UserService;
+import tn.esprit.entities.User;
 
 public class Main {
 
@@ -40,7 +32,8 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
-
+    public static User userConnected = null;
+    
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
@@ -49,6 +42,7 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
+        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
 
     }
 
