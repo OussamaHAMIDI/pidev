@@ -116,6 +116,12 @@ class BoutiqueController extends Controller
 
         $dir = $boutique->getUploadRootDir().'/';
 
+        $tempFile = $boutique->getAbsolutePath();
+
+        if (file_exists($tempFile)) {
+            unlink($tempFile);
+        }
+
         foreach ($request->files as $uploadedFile) {
             $name = sha1(uniqid(mt_rand(), true)).'.'.$uploadedFile->guessExtension();
             $uploadedFile->move($dir, $name);
@@ -132,5 +138,4 @@ class BoutiqueController extends Controller
 
         return new JsonResponse($formatted);
     }
-
 }

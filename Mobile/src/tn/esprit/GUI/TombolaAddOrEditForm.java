@@ -38,6 +38,7 @@ import com.codename1.ui.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import javafx.scene.paint.Material;
 import tn.esprit.Services.TombolaService;
 
 import tn.esprit.app.Main;
@@ -50,37 +51,32 @@ import tn.esprit.entities.User;
  * @author Hamdi Megdiche
  */
 public class TombolaAddOrEditForm extends Form {
-    
+
     static Resources res;
     public static TombolaForm tbf;
     String path = null;
     String dateTirage = "";
     User userConnected = null;
-    
+
     TextField titre = new TextField();
     TextArea description = new TextArea(4, 2);
     Picker date = new Picker();
     Picker time = new Picker();
     MultiButton photo = new MultiButton("");
     TombolaService ts = new TombolaService();
-    
+
     private void showOKForm(String msg) {
         Form f = new Form("Tombola", BoxLayout.y());
-        
+
         TextArea l = new TextArea(4, 2);
         l.setEditable(false);
         l.setUIID("Titre");
-//        SpanLabel l = new SpanLabel("Tombola \"" + t + "\" est " + etat + " avec succés.");
-//        l.setHeight(10);
-//        l.setUIID("SpanLabel");
-//        SpanLabel l2 = new SpanLabel("Reste : " + count + " avant la cloturation.");
-//        l2.setUIID("SpanLabel2");
+
         l.setText(msg);
         f.add(l);
-//        f.add(l2);
 
         f.addCommand(new Command("Tombolas") {
-            
+
             @Override
             public void actionPerformed(ActionEvent evt) {
                 TombolaForm tf = new TombolaForm();
@@ -89,18 +85,18 @@ public class TombolaAddOrEditForm extends Form {
         });
         f.show();
     }
-    
+
     public TombolaAddOrEditForm(Tombola t) {
-        
+
         super("Ajout Tombola", new BorderLayout());
         userConnected = Main.userConnected;
         this.res = Main.stheme;
-        
+
         this.setScrollableY(true);
         this.setLayout(new BorderLayout());
-        
+
         Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        
+
         Label l1 = new Label("Choisir une photo :");
         l1.setUIID("RestItemInfo");
         Label l2 = new Label("Titre :");
@@ -109,22 +105,22 @@ public class TombolaAddOrEditForm extends Form {
         l3.setUIID("RestItemInfo");
         Label l4 = new Label("Date Tirage :");
         l4.setUIID("RestItemInfo");
-        
+
         titre.setUIID("Titre");
-        
+
         description.setUIID("Titre");
-        
+
         Container row = new Container(new GridLayout(1, 2));
-        
+
         date.setType(Display.PICKER_TYPE_DATE);
         date.setDate(new Date());
         date.setFormatter(new SimpleDateFormat("yyyy-MM-dd"));
         date.setUIID("Date");
-        
+
         time.setType(Display.PICKER_TYPE_DATE_AND_TIME);
         time.setFormatter(new SimpleDateFormat("HH:mm:ss"));
         time.setUIID("Time");
-        
+
         date.addActionListener(e -> {
             SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
             String d = s.format(date.getDate());
@@ -132,7 +128,7 @@ public class TombolaAddOrEditForm extends Form {
             dateTirage = date.getText() + " " + time.getText();
             System.out.println(dateTirage);
         });
-        
+
         time.addActionListener(e -> {
             SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String d = s.format(time.getDate());
@@ -141,21 +137,21 @@ public class TombolaAddOrEditForm extends Form {
             dateTirage = date.getText() + " " + time.getText();
             System.out.println(dateTirage);
         });
-        
+
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String d = s.format(new Date());
         date.setText(d.substring(0, d.indexOf(":") - 3));
         time.setText(d.substring(d.indexOf(":") - 2));
         dateTirage = date.getText() + " " + time.getText();
-        
+
         ImageViewer iv = new ImageViewer(res.getImage("tombola.png"));
-        
+
         photo.setUIID("PreviewPhoto");
         iv.setUIID("PreviewPhoto");
-        
+
         photo.addComponent(BorderLayout.CENTER, iv);
         Button submit = new Button("Ajouter");
-        
+
         photo.addActionListener(e -> {
             path = Capture.capturePhoto();
             if (t != null) {
@@ -174,10 +170,10 @@ public class TombolaAddOrEditForm extends Form {
             } catch (IOException ex) {
                 Log.e(ex);
             }
-            
+
         });
         content.setScrollableY(true);
-        
+
         FontImage.setMaterialIcon(submit, FontImage.MATERIAL_DONE);
         submit.addActionListener(e -> {
             boolean chk = true;
@@ -186,34 +182,36 @@ public class TombolaAddOrEditForm extends Form {
                 tirage = s.parse(dateTirage);
             } catch (ParseException ex) {
             }
-            
+
             if (t != null && path == null) {
                 path = t.getPhoto();
                 chk = true;
             } else if (path == null) {
                 Dialog.show("Erreur", "Veuillez bien choisir une photo !", "  OK  ", null);
                 chk = false;
-                
+
             }
             if (new Date().getTime() - tirage.getTime() > 0) {
                 Dialog.show("Erreur", "Date de tirage doit être superieure à celle d'aujourd'hui", "  OK  ", null);
                 chk = false;
             }
             if (chk) {
-                
+
                 Tombola tomb = new Tombola("", titre.getText().trim(), description.getText().trim(), "", dateTirage, "", userConnected, null, path);
-                
+
+                String action = "e";
                 if (t != null) {
                     tomb.setId(t.getId());
-                    tomb = ts.addOrEditTombola(tomb, "e");
+                    tomb = ts.addOrEditTombola(tomb, action);
                 } else {
-                    tomb = ts.addOrEditTombola(tomb, "a");
+                    action = "a";
+                    tomb = ts.addOrEditTombola(tomb, action);
                 }
                 long sec = (tirage.getTime() - new Date().getTime()) / 1000;
-                
+
                 String count = count(sec);
-                
-                if (tomb.getId().length() > 0) {
+
+                if (action.equals("e")) {
                     if (tomb.getTitre() != null) {
                         showOKForm("Tombola " + tomb.getTitre() + " est modifiée avec sucées.\nIl reste " + count + " avant la fermeture.");
                     } else {
@@ -226,7 +224,7 @@ public class TombolaAddOrEditForm extends Form {
                         Dialog.show("Erreur", "L'ajout a échoué.", "  OK  ", null);
                     }
                 }
-                
+
             }
         });
 
@@ -236,14 +234,14 @@ public class TombolaAddOrEditForm extends Form {
             titre.setText(t.getTitre());
             description.setText(t.getDescription());
             String dd = t.getDateTirage();
-            
+
             date.setText(dd.substring(0, dd.indexOf(":") - 3));
             time.setText(dd.substring(dd.indexOf(":") - 2));
             dateTirage = date.getText() + " " + time.getText();
             EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 3, 0xFFFFFFFF), true);
             Image img = URLImage.createToStorage(placeholder, t.getPhoto(), "http://localhost/pidev/WEB/web/uploads/" + t.getPhoto(),
                     URLImage.RESIZE_SCALE_TO_FILL);
-            
+
             iv.setImage(img);
             iv.refreshTheme();
             photo.refreshTheme();
@@ -253,7 +251,7 @@ public class TombolaAddOrEditForm extends Form {
             this.revalidate();
         }
         row.add(date).add(time);
-        
+
         content.add(l2).add(titre);
         content.add(l3).add(description);
         content.add(l4).add(row);
@@ -263,24 +261,24 @@ public class TombolaAddOrEditForm extends Form {
         if (t != null && t.getGagnant() != null) {
             Label l = new Label("Gagnant :");
             l.setUIID("RestItemInfo");
-            
+
             EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 3, 0xFFFFFFFF), true);
             Image img = URLImage.createToStorage(placeholder, t.getGagnant().getPhoto(), "http://localhost/pidev/WEB/web/uploads/" + t.getGagnant().getPhoto(), URLImage.RESIZE_SCALE_TO_FILL);
-            
+
             ImageViewer ivv = new ImageViewer(img);
-            
+
             Container image = new Container();
-            
+
             ivv.setUIID("PreviewPhoto");
             image.add(ivv);
             String np = t.getGagnant().getNom() + " " + t.getGagnant().getPrenom();
             MultiButton mb = new MultiButton(np);
             mb.setUIID("PreviewPhoto");
             this.revalidate();
-            
+
             Label title = new Label(np);
             title.setUIID("Title2");
-            
+
             Container center = new Container(new BorderLayout());
             center.add(BorderLayout.SOUTH, image);
             center.add(BorderLayout.NORTH, title);
@@ -295,43 +293,24 @@ public class TombolaAddOrEditForm extends Form {
         //** ******************************** GESTION BUTTONS ******************************
         if (t != null) {
             Container south = new Container(new GridLayout(2));
-            
+
             Button delete = new Button("Supprimer");
             delete.setUIID("Delete");
             FontImage.setMaterialIcon(delete, FontImage.MATERIAL_DELETE_FOREVER);
 
             //** ******************************** SHOW CONFIRMAATION DELETE DIALOG ******************************
-            Dialog dlg = new Dialog("Suppression");
-            Style dlgStyle = dlg.getDialogStyle();
-            dlgStyle.setBorder(Border.createEmpty());
-            dlgStyle.setBgTransparency(255);
-            dlgStyle.setBgColor(0xffffff);
-            
-            TextArea ta = new TextArea("Voulez vous vraiment supprimer cette tombola ?");
-            ta.setUIID("DBody");
-            ta.setEditable(false);
-            ta.setUIID("DialogBody");
-            ta.getAllStyles().setFgColor(0);
-            ta.getAllStyles().setMarginBottom(110);
-            
-            Button close = new Button("Annuler");
-            Button conf = new Button("Confirmer");
-            
-            close.addActionListener((ee) -> dlg.dispose());
-            conf.addActionListener(e -> {
-                String msg = ts.deleteTombola(t.getId());
-                showOKForm(msg);
+
+            delete.addActionListener(e -> {
+                Command show = Dialog.show("Suppression", "Voulez-vous vraiment supprimer cette tombola ?",
+                        new Command[]{new Command("Confirmer"), new Command("Annuler")},
+                        Dialog.TYPE_WARNING, null, 0);
+
+                if (show.getCommandName().equals("Confirmer")) {
+                    String msg = ts.deleteTombola(t.getId());
+                    showOKForm(msg);
+                }
             });
-            Container south2 = new Container(new GridLayout(2));
-            south2.add(conf).add(close);
-            
-            Dimension pre = dlg.getContentPane().getPreferredSize();
-            delete.addActionListener(e -> dlg.show(500, 500, 90, 90));
-            
-            Container cc = new Container(new BorderLayout());
-            cc.add(BorderLayout.NORTH, ta);
-            cc.add(BorderLayout.SOUTH, south2);
-            dlg.add(cc);
+
             if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Artisan) {
                 //** ******************************** GESTION BUTTONS ******************************
                 if (t.getEtat().equals("Fermée")) {
@@ -339,17 +318,19 @@ public class TombolaAddOrEditForm extends Form {
                     FontImage.setMaterialIcon(lancer, FontImage.MATERIAL_LOUPE);
                     lancer.addActionListener(e -> {
                         User gagnant = ts.lancerTirageTombola(t.getId());
-                        
                         String msg = "L'utilisateur " + gagnant.getNom() + " " + gagnant.getPrenom() + " est le gagnant du tombola " + t.getTitre()
                                 + ".\nUne fenetre s'ouvrira pour vous permetre de lui envoyer un mail.";
                         showOKForm(msg);
                         envoyerMail(gagnant.getEmail());
                     });
-                    disable();;
+                    disable();
+                    if(t.getParticipants().size()<1){
+                        lancer.setEnabled(false);
+                    }
                     south.add(lancer);
                     south.add(delete);
                     this.add(SOUTH, south);
-                    
+
                 } else if (t.getEtat().equals("Ouverte")) {
                     south.add(submit);
                     south.add(delete);
@@ -395,22 +376,22 @@ public class TombolaAddOrEditForm extends Form {
                 });
                 this.add(SOUTH, connect);
             }
-            
+
         } else {// ajouuuuuuuuuuuuuuuut
             this.add(SOUTH, submit);
         }
-        
+
         Validator val = new Validator();
         val.setShowErrorMessageForFocusedComponent(true);
         val.addConstraint(titre,
                 new GroupConstraint(
                         new LengthConstraint(5, "Minimum 5 caracteres"),
                         new RegexConstraint("^([a-zA-Z ÉéèÈêÊôÔ']*)$", "Veuillez saisir que des caracteres")));
-        
+
         val.addConstraint(description, new LengthConstraint(20, "Minimum 20 caracteres"));
-        
+
         val.addSubmitButtons(submit);
-        
+
         Command c1 = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -418,7 +399,7 @@ public class TombolaAddOrEditForm extends Form {
             }
         };
         FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
-        
+
         Command c = new Command("Annuler") {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -430,14 +411,14 @@ public class TombolaAddOrEditForm extends Form {
             }
         };
         FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
-        
+
         if (t != null) {
             this.addCommand(c1);
             if (userConnected != null && userConnected.getType() != Enumerations.TypeUser.Artisan) {
                 Command part = new Command("Participants") {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        
+
                     }
                 };
                 FontImage.setMaterialIcon(part, ' ', "TitleCommand", 5);
@@ -446,14 +427,14 @@ public class TombolaAddOrEditForm extends Form {
             if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Artisan) {
                 this.addCommand(c);
             }
-            
+
         } else {
             this.addCommand(c1);
             this.addCommand(c);
         }
-        
+
     }
-    
+
     private boolean verifPart(Tombola t) {
         for (User u : t.getParticipants()) {
             if (u.getId().equals(userConnected.getId())) {
@@ -462,7 +443,7 @@ public class TombolaAddOrEditForm extends Form {
         }
         return false;
     }
-    
+
     private void disable() {
         titre.setEditable(false);
         description.setEditable(false);
@@ -470,9 +451,9 @@ public class TombolaAddOrEditForm extends Form {
         time.setEnabled(false);
         photo.setEnabled(false);
     }
-    
+
     private String count(long sec) {
-        
+
         int j = (int) sec / 86400;
         int h = (int) (sec % 86400) / 3600;
         int mm = (int) ((sec % 86400) % 3600) / 60;
@@ -491,7 +472,7 @@ public class TombolaAddOrEditForm extends Form {
             } else {
                 count += h + " heures ";
             }
-            
+
         }
         if (mm > 0) {
             if (mm == 1) {
@@ -509,7 +490,7 @@ public class TombolaAddOrEditForm extends Form {
         }
         return count;
     }
-    
+
     private void envoyerMail(String email) {
         String htmlBody = "";
         InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
@@ -526,8 +507,8 @@ public class TombolaAddOrEditForm extends Form {
         m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
                 + "</body></html>");
         m.setMimeType(Message.MIME_HTML);
-        
+
         Display.getInstance().sendMessage(new String[]{email}, "Souk lemdina : Gagnant Tombola", m);
     }
-    
+
 }

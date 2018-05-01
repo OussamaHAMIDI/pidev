@@ -1,15 +1,20 @@
 package tn.esprit.GUI;
 
+import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.MultiButton;
+import com.codename1.io.Log;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
-import com.codename1.ui.CN1Constants;
+import static com.codename1.ui.CN.SOUTH;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
@@ -18,90 +23,87 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.util.Date;
+import static tn.esprit.GUI.TombolaAddOrEditForm.res;
 import tn.esprit.app.Main;
+import tn.esprit.entities.Boutique;
 
 public class BoutiqueAddForm extends Form {
 
     static Resources res;
+    String path = null;
+    TextField nom = new TextField();
+    TextArea adresse = new TextArea(4, 2);
 
-
+    MultiButton photo = new MultiButton("");
 
     public BoutiqueAddForm() {
-        super("Ajout Boutique");
-        this.setUIID("SignUpForm");
+        super("Ajout Boutique", new BorderLayout());
+        this.res = Main.stheme;
 
-        res = Main.stheme;
-        
+        this.setScrollableY(true);
         this.setLayout(new BorderLayout());
-        Container north = new Container(new FlowLayout(Component.CENTER));
-        north.setUIID("SignUpNorth");
 
-//        String path;
-//        MultiButton photo = new MultiButton("");
-//        ImageViewer iv = new ImageViewer(res.getImage("tombola.png"));
-//
-//        photo.setUIID("PreviewPhoto");
-//        iv.setUIID("PreviewPhoto");
-//
-//        photo.addComponent(BorderLayout.CENTER, iv);
-//        Button submit = new Button("Ajouter");
-//
-//        photo.addActionListener(e -> {
-//            path = Capture.capturePhoto();
-//            if (b != null) {
-//                if (path != null) {
-//                    b.setPhoto(path);
-//                }
-//            }
-//            try {
-//                Image img = Image.createImage(path);
-//                iv.setImage(img);
-//                iv.refreshTheme();
-//                photo.refreshTheme();
-//                iv.setUIID("PreviewPhoto");
-//                photo.setUIID("PreviewPhoto");
-//                this.revalidate();
-//            } catch (IOException ex) {
-//            }
-//
-//        });
-        Button photoButton = new Button(res.getImage("profile-mask-white.png"));
-        photoButton.setUIID("PhotoButton");
-        north.addComponent(photoButton);
+        Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
-        this.addComponent(BorderLayout.NORTH, north);
+        Label l1 = new Label("Nom :");
+        l1.setUIID("RestItemInfo");
+        Label l2 = new Label("Adresse :");
+        l2.setUIID("RestItemInfo");
+        Label l3 = new Label("Choisir une photo :");
+        l3.setUIID("RestItemInfo");
 
-        Container center = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        center.setUIID("SignUpCenter");
+        nom.setUIID("Titre");
+        adresse.setUIID("Titre");
 
-       // Container row1 = new Container(new GridLayout(1, 2));
+        ImageViewer iv = new ImageViewer(res.getImage("tombola.png"));
 
-        TextField nom = new TextField();
-        nom.setUIID("SignUpField");
-//        nom.setHint("Nom de la boutique");
-        nom.getHintLabel().setUIID("SignupFieldHint");
-        TextField adresse = new TextField();
-        adresse.setUIID("SignUpField");
-        adresse.setHint("Adresse de la boutique");
-        adresse.getHintLabel().setUIID("SignupFieldHint");
-        center.addComponent(nom);
-        center.addComponent(adresse);
-        center.setScrollableY(true);
-        this.addComponent(BorderLayout.CENTER, center);
+        photo.setUIID("PreviewPhoto");
+        iv.setUIID("PreviewPhoto");
 
-        Button getStarted = new Button("Creer boutique", res.getImage("right_arrow.png"));
-        getStarted.setGap(getStarted.getStyle().getFont().getHeight());
-        getStarted.setUIID("SignUpButton");
-        getStarted.setTextPosition(Component.LEFT);
-//        getStarted.addActionListener();
+        photo.addComponent(BorderLayout.CENTER, iv);
 
-        this.addComponent(BorderLayout.SOUTH, getStarted);
-        
+        photo.addActionListener(e -> {
+            path = Capture.capturePhoto();
+            try {
+                Image img = Image.createImage(path);
+                iv.setImage(img);
+                iv.refreshTheme();
+                photo.refreshTheme();
+                iv.setUIID("PreviewPhoto");
+                photo.setUIID("PreviewPhoto");
+                this.revalidate();
+            } catch (IOException ex) {
+                Log.e(ex);
+            }
+
+        });
+        content.setScrollableY(true);
+
+        Button submit = new Button("Ajouter");
+        FontImage.setMaterialIcon(submit, FontImage.MATERIAL_DONE);
+
+        content.add(l1).add(nom);
+        content.add(l2).add(adresse);
+        content.add(l3).add(photo);
+
+        submit.addActionListener(e -> {
+            if (path == null) {
+                Dialog.show("Erreur", "Veuillez bien choisir une photo !", "  OK  ", null);
+            } else {
+                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+                String d = s.format(new Date());
+                Boutique b = new Boutique("", adresse.getText(), 0.0f, 0.0f, path, nom.getText(),d, Main.userConnected);
+                System.out.println(b);
+            }
+        });
+
+        this.add(CENTER, content);
+        this.add(SOUTH, submit);
+
         Command back = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
