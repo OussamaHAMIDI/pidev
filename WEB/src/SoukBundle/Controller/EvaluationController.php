@@ -37,6 +37,7 @@ class EvaluationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
         $i = 0;
+        var_dump($boutiquesEvaluees);
         foreach ($boutiquesEvaluees as $b) {
             $evaluation = new Evaluation();
             $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
@@ -55,15 +56,12 @@ class EvaluationController extends Controller
             $topTen[$i] = $evaluation;
             $i++;
         }
-        $evaluations = $this->getDoctrine()->getManager()
-            ->getRepository('EvaluationBundle:Evaluation')
-            ->findAll();
-        foreach ($evaluations as $evaluation) {
+        foreach ($topTen as $evaluation) {
             $evaluation->setDateCreation($evaluation->getDateCreation()->format('Y-m-d H:i:s'));
         }
 
         $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($evaluations);
+        $formatted = $serializer->normalize($topTen);
         return new JsonResponse($formatted);
     }
 
