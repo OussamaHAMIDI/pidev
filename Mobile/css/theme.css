@@ -52,7 +52,7 @@
         font-weight: bold;
         background-color: rgb(185, 185, 185);
         font-family : native:MainRegular;
-        
+
     }
     Delete.pressed{
         color : rgba(250, 42, 42, 0.342);
@@ -62,7 +62,7 @@
         font-weight: bold;
         background-color : rgba(219, 75, 75, 0.61);
         font-family : native:MainRegular;
-      
+
     }
     Delete.disabled{
         background-color: rgba(66, 82, 79, 0.219);
@@ -78,7 +78,7 @@
     BoutiqueInfo{
         text-align: center;
     }
-   Label{
+    Label{
         background-color : transparent;
         font-size : 2mm;
         font-family : "Source Sans Pro";
@@ -91,7 +91,17 @@
         border-radius: 2mm;
         margin: 0.5mm 0.5mm 0.5mm 0.5mm ;
     }
-
+    ListItem.selected{
+        background-color : #e2e2e2;
+    }
+    Title2{
+         background-color : transparent;
+        color : #009999;
+        font-size : 3.5mm;
+         margin: 0.5mm 4mm 4mm 0.5mm ;
+        font-family : "Source Sans Pro";
+        
+    }
     PreviewPhoto{
         background-color : transparent;
         border-radius: 2mm;
@@ -115,7 +125,7 @@
         margin: 0.1mm 0.3mm 0mm 0.3mm;
         background-color : rgba(25, 106, 121, 0.212);
     }
-    
+
 
     MultiLine1{
         background-color : transparent;
@@ -149,9 +159,7 @@
         font-size : 4mm;
         margin-bottom : 5mm;
     }
-    ListItem.selected{
-        background-color : #e2e2e2;
-    }
+
     SideCommand{
         background-color : #009999;
         color : white;
@@ -270,7 +278,7 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 2mm;
+        border-radius: 0 2mm 2mm 0;;
     }
     EtatTombolaOuverte{
         background-color: green;
@@ -280,7 +288,8 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 2mm;
+        border-radius: 0 2mm 2mm 0;;
+
     }
     EtatTombolaCloturée{
         background-color: red;
@@ -290,7 +299,8 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 2mm;
+        border-radius: 0 2mm 2mm 0;;
+
     }
     /************************* ADD TOMBOLA STYLES ****************************************/
     Titre{

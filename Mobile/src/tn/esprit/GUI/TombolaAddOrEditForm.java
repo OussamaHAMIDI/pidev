@@ -3,10 +3,11 @@ package tn.esprit.GUI;
 import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.MultiButton;
-import com.codename1.components.SpanLabel;
 import com.codename1.io.Log;
+import com.codename1.io.Util;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
+import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.SOUTH;
 import com.codename1.ui.Command;
@@ -35,11 +36,13 @@ import com.codename1.ui.validation.LengthConstraint;
 import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.ui.validation.Validator;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import javafx.scene.paint.Material;
 import tn.esprit.Services.TombolaService;
-import tn.esprit.Services.UserService;
 
 import tn.esprit.app.Main;
+import tn.esprit.entities.Enumerations;
 import tn.esprit.entities.Tombola;
 import tn.esprit.entities.User;
 
@@ -53,23 +56,30 @@ public class TombolaAddOrEditForm extends Form {
     public static TombolaForm tbf;
     String path = null;
     String dateTirage = "";
+    User userConnected = null;
 
-    private void showOKForm(String t, String count, String etat) {
-        Form f = new Form("Ajoutée", BoxLayout.y());
+    TextField titre = new TextField();
+    TextArea description = new TextArea(4, 2);
+    Picker date = new Picker();
+    Picker time = new Picker();
+    MultiButton photo = new MultiButton("");
+    TombolaService ts = new TombolaService();
 
-        SpanLabel l = new SpanLabel("Tombola \"" + t + "\" est " + etat + " avec succés.");
-        l.setHeight(10);
-        l.setUIID("SpanLabel");
-        SpanLabel l2 = new SpanLabel("Reste : " + count + " avant la cloturation.");
-        l2.setUIID("SpanLabel2");
+    private void showOKForm(String msg) {
+        Form f = new Form("Tombola", BoxLayout.y());
+
+        TextArea l = new TextArea(4, 2);
+        l.setEditable(false);
+        l.setUIID("Titre");
+
+        l.setText(msg);
         f.add(l);
-        f.add(l2);
-        TombolaForm tf = new TombolaForm();
 
         f.addCommand(new Command("Tombolas") {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
+                TombolaForm tf = new TombolaForm();
                 tf.showBack();
             }
         });
@@ -77,7 +87,9 @@ public class TombolaAddOrEditForm extends Form {
     }
 
     public TombolaAddOrEditForm(Tombola t) {
+
         super("Ajout Tombola", new BorderLayout());
+        userConnected = Main.userConnected;
         this.res = Main.stheme;
 
         this.setScrollableY(true);
@@ -94,28 +106,27 @@ public class TombolaAddOrEditForm extends Form {
         Label l4 = new Label("Date Tirage :");
         l4.setUIID("RestItemInfo");
 
-        TextField titre = new TextField();
         titre.setUIID("Titre");
 
-        TextArea description = new TextArea(4, 2);
         description.setUIID("Titre");
 
         Container row = new Container(new GridLayout(1, 2));
-        Picker date = new Picker();
+
         date.setType(Display.PICKER_TYPE_DATE);
         date.setDate(new Date());
+        date.setFormatter(new SimpleDateFormat("yyyy-MM-dd"));
         date.setUIID("Date");
 
-        Picker time = new Picker();
         time.setType(Display.PICKER_TYPE_DATE_AND_TIME);
-        time.setUIID("Date");
+        time.setFormatter(new SimpleDateFormat("HH:mm:ss"));
+        time.setUIID("Time");
 
         date.addActionListener(e -> {
-            SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
             String d = s.format(date.getDate());
-            String sec = d.substring(d.lastIndexOf(":"));
-            date.setText(d.substring(0, d.indexOf(":") - 3));
+            date.setText(d);
             dateTirage = date.getText() + " " + time.getText();
+            System.out.println(dateTirage);
         });
 
         time.addActionListener(e -> {
@@ -124,6 +135,7 @@ public class TombolaAddOrEditForm extends Form {
             String sec = s.format(new Date());
             time.setText(d.substring(d.indexOf(":") - 2, d.lastIndexOf(":")) + sec.substring(sec.lastIndexOf(":")));
             dateTirage = date.getText() + " " + time.getText();
+            System.out.println(dateTirage);
         });
 
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -132,8 +144,8 @@ public class TombolaAddOrEditForm extends Form {
         time.setText(d.substring(d.indexOf(":") - 2));
         dateTirage = date.getText() + " " + time.getText();
 
-        ImageViewer iv = new ImageViewer(res.getImage("left-arrow.png"));
-        MultiButton photo = new MultiButton("");
+        ImageViewer iv = new ImageViewer(res.getImage("tombola.png"));
+
         photo.setUIID("PreviewPhoto");
         iv.setUIID("PreviewPhoto");
 
@@ -160,8 +172,6 @@ public class TombolaAddOrEditForm extends Form {
             }
 
         });
-
-//        this.setEditOnShow(titre);
         content.setScrollableY(true);
 
         FontImage.setMaterialIcon(submit, FontImage.MATERIAL_DONE);
@@ -186,26 +196,30 @@ public class TombolaAddOrEditForm extends Form {
                 chk = false;
             }
             if (chk) {
-                User artisan = new UserService().getUser("41");
-                Tombola tomb = new Tombola("", titre.getText().trim(), description.getText().trim(), "", dateTirage, "", artisan, null, path);
 
+                Tombola tomb = new Tombola("", titre.getText().trim(), description.getText().trim(), "", dateTirage, "", userConnected, null, path);
+
+                String action = "e";
                 if (t != null) {
                     tomb.setId(t.getId());
-                    tomb = new TombolaService().addOrEditTombola(tomb, "e");
+                    tomb = ts.addOrEditTombola(tomb, action);
                 } else {
-                    tomb = new TombolaService().addOrEditTombola(tomb, "a");
+                    action = "a";
+                    tomb = ts.addOrEditTombola(tomb, action);
                 }
-                String count = (tirage.getTime() - new Date().getTime()) / 1000 + " secondes";
+                long sec = (tirage.getTime() - new Date().getTime()) / 1000;
 
-                if (tomb.getId().length() > 0) {
+                String count = count(sec);
+
+                if (action.equals("e")) {
                     if (tomb.getTitre() != null) {
-                        showOKForm(tomb.getTitre(), count, "modifiée");
+                        showOKForm("Tombola " + tomb.getTitre() + " est modifiée avec sucées.\nIl reste " + count + " avant la fermeture.");
                     } else {
                         Dialog.show("Erreur", "La modification a échouée.", "  OK  ", null);
                     }
                 } else {
                     if (tomb.getTitre() != null) {
-                        showOKForm(tomb.getTitre(), count, "ajoutée");
+                        showOKForm("Tombola " + tomb.getTitre() + " est ajoutée avec sucées.\nIl reste " + count + " avant la fermeture.");
                     } else {
                         Dialog.show("Erreur", "L'ajout a échoué.", "  OK  ", null);
                     }
@@ -213,10 +227,8 @@ public class TombolaAddOrEditForm extends Form {
 
             }
         });
-        /**
-         * ******************************** MODIFICATION
-         * *****************************************************
-         */
+
+        //** ******************************** MODIFICATION******************************
         if (t != null) {
             this.setTitle("Modifier Tombola");
             titre.setText(t.getTitre());
@@ -244,51 +256,128 @@ public class TombolaAddOrEditForm extends Form {
         content.add(l3).add(description);
         content.add(l4).add(row);
         content.add(l1).add(photo);
+
+        //** ******************************** SHOW GAGNANT IF EXIST ******************************
+        if (t != null && t.getGagnant() != null) {
+            Label l = new Label("Gagnant :");
+            l.setUIID("RestItemInfo");
+
+            EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 3, 0xFFFFFFFF), true);
+            Image img = URLImage.createToStorage(placeholder, t.getGagnant().getPhoto(), "http://localhost/pidev/WEB/web/uploads/" + t.getGagnant().getPhoto(), URLImage.RESIZE_SCALE_TO_FILL);
+
+            ImageViewer ivv = new ImageViewer(img);
+
+            Container image = new Container();
+
+            ivv.setUIID("PreviewPhoto");
+            image.add(ivv);
+            String np = t.getGagnant().getNom() + " " + t.getGagnant().getPrenom();
+            MultiButton mb = new MultiButton(np);
+            mb.setUIID("PreviewPhoto");
+            this.revalidate();
+
+            Label title = new Label(np);
+            title.setUIID("Title2");
+
+            Container center = new Container(new BorderLayout());
+            center.add(BorderLayout.SOUTH, image);
+            center.add(BorderLayout.NORTH, title);
+            mb.addComponent(BorderLayout.CENTER, center);
+            mb.addActionListener(e -> {
+                System.out.println("redirect to user profile");
+            });
+            content.add(l).add(mb);
+        }
         this.add(CENTER, content);
 
+        //** ******************************** GESTION BUTTONS ******************************
         if (t != null) {
             Container south = new Container(new GridLayout(2));
 
             Button delete = new Button("Supprimer");
             delete.setUIID("Delete");
             FontImage.setMaterialIcon(delete, FontImage.MATERIAL_DELETE_FOREVER);
-            south.add(submit);
-            if (t.getEtat().contains("Clotur")) {
-                delete.setEnabled(false);
-            }
-            Dialog dlg = new Dialog("Suppression");
-            Style dlgStyle = dlg.getDialogStyle();
-            dlgStyle.setBorder(Border.createEmpty());
-            dlgStyle.setBgTransparency(255);
-            dlgStyle.setBgColor(0xffffff);
 
-            TextArea ta = new TextArea("Voulez vous vraiment supprimer cette tombola ?");
-            ta.setUIID("DBody");
-            ta.setEditable(false);
-            ta.setUIID("DialogBody");
-            ta.getAllStyles().setFgColor(0);
-            ta.getAllStyles().setMarginBottom(110);
+            //** ******************************** SHOW CONFIRMAATION DELETE DIALOG ******************************
 
-            Button close = new Button("Annuler");
-            Button conf = new Button("Confirmer");
+            delete.addActionListener(e -> {
+                Command show = Dialog.show("Suppression", "Voulez-vous vraiment supprimer cette tombola ?",
+                        new Command[]{new Command("Confirmer"), new Command("Annuler")},
+                        Dialog.TYPE_WARNING, null, 0);
 
-            close.addActionListener((ee) -> dlg.dispose());
-            conf.addActionListener(e -> {
-
+                if (show.getCommandName().equals("Confirmer")) {
+                    String msg = ts.deleteTombola(t.getId());
+                    showOKForm(msg);
+                }
             });
-            Container south2 = new Container(new GridLayout(2));
-            south2.add(conf).add(close);
 
-            Dimension pre = dlg.getContentPane().getPreferredSize();
-            delete.addActionListener(e -> dlg.show(500,500,90,90));
+            if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Artisan) {
+                //** ******************************** GESTION BUTTONS ******************************
+                if (t.getEtat().equals("Fermée")) {
+                    Button lancer = new Button("Lancer Tirage");
+                    FontImage.setMaterialIcon(lancer, FontImage.MATERIAL_LOUPE);
+                    lancer.addActionListener(e -> {
+                        User gagnant = ts.lancerTirageTombola(t.getId());
+                        String msg = "L'utilisateur " + gagnant.getNom() + " " + gagnant.getPrenom() + " est le gagnant du tombola " + t.getTitre()
+                                + ".\nUne fenetre s'ouvrira pour vous permetre de lui envoyer un mail.";
+                        showOKForm(msg);
+                        envoyerMail(gagnant.getEmail());
+                    });
+                    disable();
+                    if(t.getParticipants().size()<1){
+                        lancer.setEnabled(false);
+                    }
+                    south.add(lancer);
+                    south.add(delete);
+                    this.add(SOUTH, south);
 
-            Container cc = new Container(new BorderLayout());
-            cc.add(BorderLayout.NORTH, ta);
-            cc.add(BorderLayout.SOUTH, south2);
-            dlg.add(cc);
-            south.add(delete);
-            this.add(SOUTH, south);
-        } else {
+                } else if (t.getEtat().equals("Ouverte")) {
+                    south.add(submit);
+                    south.add(delete);
+                    this.add(SOUTH, south);
+                } else {// Cloturée 
+                    disable();
+                    this.add(SOUTH, delete);
+                }
+
+                // *********************************** show tombola for  user Connected ***********************************
+            } else if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Client) {
+                disable();
+                this.setTitle("Tombola");
+                if (!t.getEtat().equals("Cloturée")) {
+
+                    // *********************************** Check participation of user Connected ***********************************
+                    if (!verifPart(t) && t.getEtat().contains("Ouverte")) { // can participate
+                        Button participer = new Button("Participer");
+                        FontImage.setMaterialIcon(participer, FontImage.MATERIAL_PLUS_ONE);
+                        participer.addActionListener(e -> {
+                            String msg = ts.participerTombola(userConnected.getId(), t.getId());
+                            showOKForm(msg);
+                        });
+                        this.add(SOUTH, participer);
+                    } else if (verifPart(t)) {// annuler part
+                        Button delPart = new Button("Annuler Participation");
+                        delPart.setUIID("Delete");
+                        FontImage.setMaterialIcon(delPart, FontImage.MATERIAL_DELETE_SWEEP);
+                        delPart.addActionListener(e -> {
+                            String msg = ts.annulerParticipationTombola(userConnected.getId(), t.getId());
+                            showOKForm(msg);
+                        });
+                        this.add(SOUTH, delPart);
+                    }
+                }
+            } else {// *********************************** If user NOT  Connected ***********************************
+                disable();
+                this.setTitle("Tombola");
+                Button connect = new Button("Se connecter");
+                FontImage.setMaterialIcon(connect, FontImage.MATERIAL_HIGHLIGHT);
+                connect.addActionListener(e -> {
+                    System.out.println("redirect to connect " + userConnected.getNom());
+                });
+                this.add(SOUTH, connect);
+            }
+
+        } else {// ajouuuuuuuuuuuuuuuut
             this.add(SOUTH, submit);
         }
 
@@ -319,14 +408,25 @@ public class TombolaAddOrEditForm extends Form {
                 } else {
                     new TombolaAddOrEditForm(null).show();
                 }
-
             }
         };
         FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
 
         if (t != null) {
             this.addCommand(c1);
-            this.addCommand(c);
+            if (userConnected != null && userConnected.getType() != Enumerations.TypeUser.Artisan) {
+                Command part = new Command("Participants") {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+
+                    }
+                };
+                FontImage.setMaterialIcon(part, ' ', "TitleCommand", 5);
+                this.addCommand(part);
+            }
+            if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Artisan) {
+                this.addCommand(c);
+            }
 
         } else {
             this.addCommand(c1);
@@ -334,23 +434,81 @@ public class TombolaAddOrEditForm extends Form {
         }
 
     }
+
+    private boolean verifPart(Tombola t) {
+        for (User u : t.getParticipants()) {
+            if (u.getId().equals(userConnected.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void disable() {
+        titre.setEditable(false);
+        description.setEditable(false);
+        date.setEnabled(false);
+        time.setEnabled(false);
+        photo.setEnabled(false);
+    }
+
+    private String count(long sec) {
+
+        int j = (int) sec / 86400;
+        int h = (int) (sec % 86400) / 3600;
+        int mm = (int) ((sec % 86400) % 3600) / 60;
+        int se = (int) ((sec % 86400) % 3600) % 60;
+        String count = "";
+        if (j > 0) {
+            if (j == 1) {
+                count += j + " jour ";
+            } else {
+                count += j + " jours ";
+            }
+        }
+        if (h > 0) {
+            if (h == 1) {
+                count += h + " heure ";
+            } else {
+                count += h + " heures ";
+            }
+
+        }
+        if (mm > 0) {
+            if (mm == 1) {
+                count += mm + " minute ";
+            } else {
+                count += mm + " minutes ";
+            }
+        }
+        if (se > 0) {
+            if (se == 1) {
+                count += se + " seconde";
+            } else {
+                count += se + " secondes";
+            }
+        }
+        return count;
+    }
+
+    private void envoyerMail(String email) {
+        String htmlBody = "";
+        InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
+        if (in != null) {
+            try {
+                htmlBody = Util.readToString(in);
+                in.close();
+            } catch (IOException ex) {
+                System.out.println(ex);
+                htmlBody = "Read Error";
+            }
+        }
+        Message m = new Message(htmlBody);
+        m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
+                + "</body></html>");
+        m.setMimeType(Message.MIME_HTML);
+
+        Display.getInstance().sendMessage(new String[]{email}, "Souk lemdina : Gagnant Tombola", m);
+    }
+
 }
-//tn.addActionListener(e -> {
-//            String htmlBody = "";
-//            InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
-//            if (in != null) {
-//                try {
-//                    htmlBody = Util.readToString(in);
-//                    in.close();
-//                } catch (IOException ex) {
-//                    System.out.println(ex);
-//                    htmlBody = "Read Error";
-//                }
-//            }
-//            Message m = new Message(htmlBody);
-//            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
-//                    + "</body></html>");
-//            m.setMimeType(Message.MIME_HTML);
-//
-//            Display.getInstance().sendMessage(new String[]{"hamdi.megdiche@esprit.tn"}, "Souk lemdina : Gagnant Tombola", m);
-//        });

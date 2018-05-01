@@ -9,17 +9,26 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use TombolaBundle\Entity\Tombola;
+use TombolaBundle\Entity\TombolaParticipants;
 
 class TombolaController extends Controller
 {
     /**
-     * @Route("/api/tombola/all")
+     * @Route("/api/tombola/all/{id}")
      */
-    public function allAction()
+    public function allAction($id)
     {
-        $tombolas = $this->getDoctrine()->getManager()
-            ->getRepository('TombolaBundle:Tombola')
-            ->findAll();
+        if($id == "none"){
+            $tombolas = $this->getDoctrine()->getManager()
+                ->getRepository('TombolaBundle:Tombola')
+                ->findAll();
+        }
+        else {
+            $tombolas = $this->getDoctrine()->getManager()
+                ->getRepository('TombolaBundle:Tombola')
+                ->findBy(array('idArtisan'=>$id));
+        }
+
         foreach ($tombolas as $tombola) {
             $tombola->setDateTirage($tombola->getDateTirage()->format('Y-m-d H:i:s'));
             $tombola->setDateAjout($tombola->getDateAjout()->format('Y-m-d H:i:s'));
@@ -35,7 +44,50 @@ class TombolaController extends Controller
 
         return new JsonResponse($formatted);
     }
+    /**
+     * @Route("/api/tombola/participants/{id}")
+     */
+    public function participantsAction($id)
+    {
+        $participants =$this->getDoctrine()->getManager()
+            ->getRepository('TombolaBundle:TombolaParticipants')
+            ->findBy(array('idTombola'=>$id));
 
+        $users = array();
+
+        foreach ($participants as $part) {
+            $user = $part->getIdParticipant();
+            if($user->getDateNaissance() != null)
+                $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+            if($user->getLastLogin() != null)
+                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+
+            array_push($users,$user);
+        }
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($users);
+
+        return new JsonResponse($formatted);
+    }
+
+    public function getPart($id){
+        $participants =$this->getDoctrine()->getManager()
+            ->getRepository('TombolaBundle:TombolaParticipants')
+            ->findBy(array('idTombola'=>$id));
+
+        $users = array();
+
+        foreach ($participants as $part) {
+            $user = $part->getIdParticipant();
+            if($user->getDateNaissance() != null)
+                $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+            if($user->getLastLogin() != null)
+                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+
+            array_push($users,$user);
+        }
+        return $users;
+    }
     /**
      * @Route("/api/tombola/find/{id}")
      */
@@ -127,12 +179,10 @@ class TombolaController extends Controller
         $tombola = $em->getRepository('TombolaBundle:Tombola')->find($id);
 
         $tempFile = $tombola->getAbsolutePath();
-    
+
         if (file_exists($tempFile)) {
             unlink($tempFile);
         }
-
-
 
         $dir = $tombola->getUploadRootDir().'/';
 
@@ -152,6 +202,108 @@ class TombolaController extends Controller
 
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($tombola);
+
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/tombola/delete/{id}")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $tombola = $em->getRepository('TombolaBundle:Tombola')->find($id);
+
+        $tempFile = $tombola->getAbsolutePath();
+
+        if (file_exists($tempFile)) {
+            unlink($tempFile);
+        }
+
+        $em->remove($tombola);
+        $em->flush();
+
+        $s = "Tombola ".$tombola->getTitre()." est supprimée avec succées";
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize(array('msg'=>$s));
+
+        return new JsonResponse($formatted);
+    }
+    /**
+     * @Route("/api/tombola/participer/{idUser}/{idTombola}")
+     */
+    public function participerAction($idUser,$idTombola)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('UserBundle:User')->find($idUser);
+
+        $tombola = $em->getRepository('TombolaBundle:Tombola')->find($idTombola);
+
+        $part = new TombolaParticipants();
+
+        $part->setIdParticipant($user);
+        $part->setDateInscri(new \DateTime());
+        $part->setIdTombola($tombola);
+
+        $em->persist($part);
+        $em->flush();
+
+        $s = "L'utilisateur ".$user->getNom()." ".$user->getPrenom()." fera partie du tirage du tombola ".$tombola->getTitre();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize(array('msg'=>$s));
+
+        return new JsonResponse($formatted);
+    }
+    /**
+     * @Route("/api/tombola/annulerParticiper/{idUser}/{idTombola}")
+     */
+    public function annulerParticiperAction($idUser,$idTombola)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('UserBundle:User')->find($idUser);
+
+        $tombola = $em->getRepository('TombolaBundle:Tombola')->find($idTombola);
+
+        $part = $em->getRepository("TombolaBundle:TombolaParticipants")->findOneBy(
+            array("idParticipant" => $idUser,"idTombola" => $idTombola)
+        );
+        $em->remove($part);
+        $em->flush();
+
+        $s = "L'utilisateur ".$user->getNom()." ".$user->getPrenom()." ne fera plus partie du tirage du tombola "
+            .$tombola->getTitre();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize(array('msg'=>$s));
+
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/tombola/lancerTirage/{id}")
+     */
+    public function lancerTirageAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $tombola = $em->getRepository('TombolaBundle:Tombola')->findOneBy(array("id" => $id));
+        $gagnant = $em->getRepository('TombolaBundle:TombolaParticipants')->Random_tombolaAction($id);
+        $tombola->setIdGagnant($gagnant);
+
+        $em->flush();
+
+        if($gagnant->getDateNaissance() != null)
+            $gagnant->setDateNaissance($gagnant->getDateNaissance()->format('Y-m-d'));
+        if($gagnant->getLastLogin() != null)
+            $gagnant->setLastLogin($gagnant->getLastLogin()->format('Y-m-d H:i:s'));
+
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($gagnant);
 
         return new JsonResponse($formatted);
     }

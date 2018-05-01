@@ -145,13 +145,14 @@ public class TombolaService {
         }
     }
 
-    public List<Tombola> getTombolas() {
+    public List<Tombola> getTombolas(String idArtisan) {
 
         List<Tombola> tombolas = new ArrayList<Tombola>();
         try {
             ConnectionRequest r = new ConnectionRequest();
 
-            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/all");
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/all/" + idArtisan);
+
             r.setPost(false);
             r.setHttpMethod("GET");
             InfiniteProgress prog = new InfiniteProgress();
@@ -184,9 +185,7 @@ public class TombolaService {
 
                 tombolas.add(new Tombola(obj.get("id").toString(), obj.get("titre").toString(), obj.get("description").toString(),
                         obj.get("dateAjout").toString(), obj.get("dateTirage").toString(), obj.get("dateModif").toString(),
-                        artisan,
-                        gagnant,
-                        obj.get("path").toString()));
+                        artisan, gagnant, obj.get("path").toString(), getParticipants(obj.get("id").toString())));
             }
 
         } catch (IOException err) {
@@ -244,4 +243,163 @@ public class TombolaService {
         return t;
     }
 
+    public List<User> getParticipants(String id) {
+        List<User> participants = new ArrayList<User>();
+        ConnectionRequest r = new ConnectionRequest();
+        if (id.indexOf(".") > 0) {
+            id = id.substring(0, id.indexOf('.'));
+        }
+        r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/participants/" + id);
+        r.setPost(false);
+        r.setHttpMethod("GET");
+
+        InfiniteProgress prog = new InfiniteProgress();
+        Dialog dlg = prog.showInifiniteBlocking();
+        r.setDisposeOnCompletion(dlg);
+
+        NetworkManager.getInstance().addToQueueAndWait(r);
+        Map<String, Object> response = null;
+        try {
+            response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+
+            List<Map<String, Object>> content = (List<Map<String, Object>>) response.get("root");
+            for (Map<String, Object> obj : content) {
+                User u = new User(obj.get("id").toString(), obj.get("username").toString(), obj.get("password").toString(),
+                        Enumerations.EtatUser.valueOf(obj.get("etat").toString()), Enumerations.TypeUser.valueOf(obj.get("type").toString()),
+                        obj.get("nom").toString(), obj.get("prenom").toString(), obj.get("dateNaissance").toString(), obj.get("sexe").toString(),
+                        obj.get("email").toString(), obj.get("adresse").toString(), obj.get("tel").toString(), obj.get("pathPhotoProfil").toString());
+                participants.add(u);
+            }
+
+        } catch (IOException ex) {
+            Log.e(ex);
+            return participants;
+        }
+        return participants;
+    }
+
+    public String deleteTombola(String id) {
+
+        String msg = "";
+        ConnectionRequest r = new ConnectionRequest();
+        if (id.indexOf(".") > 0) {
+            id = id.substring(0, id.indexOf('.'));
+        }
+        r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/delete/" + id);
+        r.setPost(false);
+        r.setHttpMethod("GET");
+
+        InfiniteProgress prog = new InfiniteProgress();
+        Dialog dlg = prog.showInifiniteBlocking();
+        r.setDisposeOnCompletion(dlg);
+
+        NetworkManager.getInstance().addToQueueAndWait(r);
+        Map<String, Object> response = null;
+        try {
+            response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+
+            msg = response.get("msg").toString();
+        } catch (IOException ex) {
+            Log.e(ex);
+            return msg;
+        }
+        return msg;
+    }
+
+    public String participerTombola(String idUser, String idTombola) {
+
+        String msg = "";
+        ConnectionRequest r = new ConnectionRequest();
+        if (idUser.indexOf(".") > 0) {
+            idUser = idUser.substring(0, idUser.indexOf('.'));
+        }
+        if (idTombola.indexOf(".") > 0) {
+            idTombola = idTombola.substring(0, idTombola.indexOf('.'));
+        }
+        r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/participer/" + idUser + "/" + idTombola);
+        r.setPost(false);
+        r.setHttpMethod("GET");
+
+        InfiniteProgress prog = new InfiniteProgress();
+        Dialog dlg = prog.showInifiniteBlocking();
+        r.setDisposeOnCompletion(dlg);
+
+        NetworkManager.getInstance().addToQueueAndWait(r);
+        Map<String, Object> response = null;
+        try {
+            response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+
+            msg = response.get("msg").toString();
+        } catch (IOException ex) {
+            Log.e(ex);
+            return msg;
+        }
+        return msg;
+    }
+
+    public String annulerParticipationTombola(String idUser, String idTombola) {
+
+        String msg = "";
+        ConnectionRequest r = new ConnectionRequest();
+        if (idUser.indexOf(".") > 0) {
+            idUser = idUser.substring(0, idUser.indexOf('.'));
+        }
+        if (idTombola.indexOf(".") > 0) {
+            idTombola = idTombola.substring(0, idTombola.indexOf('.'));
+        }
+        r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/annulerParticiper/" + idUser + "/" + idTombola);
+        r.setPost(false);
+        r.setHttpMethod("GET");
+
+        InfiniteProgress prog = new InfiniteProgress();
+        Dialog dlg = prog.showInifiniteBlocking();
+        r.setDisposeOnCompletion(dlg);
+
+        NetworkManager.getInstance().addToQueueAndWait(r);
+        Map<String, Object> response = null;
+        try {
+            response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+
+            msg = response.get("msg").toString();
+        } catch (IOException ex) {
+            Log.e(ex);
+            return msg;
+        }
+        return msg;
+    }
+
+    public User lancerTirageTombola(String idTombola) {
+
+        User u = null;
+        ConnectionRequest r = new ConnectionRequest();
+        if (idTombola.indexOf(".") > 0) {
+            idTombola = idTombola.substring(0, idTombola.indexOf('.'));
+        }
+        r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/tombola/lancerTirage/" + idTombola);
+        r.setPost(false);
+        r.setHttpMethod("GET");
+
+        InfiniteProgress prog = new InfiniteProgress();
+        Dialog dlg = prog.showInifiniteBlocking();
+        r.setDisposeOnCompletion(dlg);
+
+        NetworkManager.getInstance().addToQueueAndWait(r);
+        Map<String, Object> response = null;
+        try {
+            response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+
+            u = new User(response.get("id").toString(), response.get("username").toString(), response.get("password").toString(),
+                    Enumerations.EtatUser.valueOf(response.get("etat").toString()), Enumerations.TypeUser.valueOf(response.get("type").toString()),
+                    response.get("nom").toString(), response.get("prenom").toString(), response.get("dateNaissance").toString(), response.get("sexe").toString(), response.get("email").toString(), response.get("adresse").toString(), response.get("tel").toString(), response.get("pathPhotoProfil").toString());
+        } catch (IOException ex) {
+            Log.e(ex);
+            return u;
+        }
+        return u;
+    }
 }

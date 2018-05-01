@@ -6,7 +6,6 @@ import com.codename1.components.MultiButton;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
-import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -18,14 +17,13 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
-import java.util.Date;
 
 import java.util.List;
 
 import tn.esprit.app.Main;
 import tn.esprit.Services.TombolaService;
+import tn.esprit.entities.Enumerations;
 
 /**
  *
@@ -44,7 +42,13 @@ public class TombolaForm extends Form {
         tombolas.setScrollableY(true);
 
         TombolaService ts = new TombolaService();
-        List<Tombola> tombos = ts.getTombolas();
+        List<Tombola> tombos = null;
+
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+            tombos = ts.getTombolas(Main.userConnected.getId());
+        } else {
+            tombos = ts.getTombolas("none");
+        }
 
         if (tombos != null) {
             for (Tombola t : tombos) {
@@ -124,20 +128,34 @@ public class TombolaForm extends Form {
         Command c1 = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new HomeForm().show();
+                Main.shome.show();
             }
         };
         FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
-        this.addCommand(c1);
+
         Command c = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new TombolaAddOrEditForm(null).show();
+                new TombolaAddOrEditForm(null).show();//ajout
             }
         };
         FontImage.setMaterialIcon(c, FontImage.MATERIAL_ADD, "TitleCommand", 5);
 
-        this.addCommand(c);
+        if (Main.userConnected != null && Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
+            Command cc = new Command("Retour ") {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    Main.shome.show();
+                }
+            };
+            FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
+
+            this.addCommand(cc);
+        } else {
+            this.addCommand(c1);
+            this.addCommand(c);// plus
+        }
+
     }
 
 }

@@ -1,5 +1,6 @@
 package tn.esprit.app;
 
+import com.codename1.components.FloatingActionButton;
 import com.codename1.io.Util;
 import tn.esprit.GUI.HomeForm;
 import com.codename1.messaging.Message;
@@ -11,30 +12,33 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
-import com.codename1.ui.PickerComponent;
-import com.codename1.ui.TextComponent;
-import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.layouts.TextModeLayout;
-import com.codename1.ui.validation.Constraint;
-import com.codename1.ui.validation.LengthConstraint;
-import com.codename1.ui.validation.NumericConstraint;
-import com.codename1.ui.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.PanierForm;
 import tn.esprit.GUI.ProduitForm;
 import tn.esprit.GUI.SignUpForm;
-import tn.esprit.GUI.TombolaAddOrEditForm;
+import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
+<<<<<<< HEAD
 import tn.esprit.entities.Panier;
+=======
+import tn.esprit.Services.EvaluationService;
+import tn.esprit.Services.TombolaService;
+import tn.esprit.Services.UserService;
+import tn.esprit.entities.Evaluation;
+import tn.esprit.entities.User;
+>>>>>>> c42e4965bf31c6eb46272ff054587fd314d459aa
 
 public class Main {
 
@@ -42,7 +46,11 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
+<<<<<<< HEAD
     public static Panier monpanier;
+=======
+    public static User userConnected = null;
+>>>>>>> c42e4965bf31c6eb46272ff054587fd314d459aa
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -52,6 +60,7 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
+        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
 
     }
 
@@ -65,10 +74,19 @@ public class Main {
         //Styling buttons ac java :D
         //Button.setCapsTextDefault(true);
         Button.setButtonRippleEffectDefault(true);
-        Button btn = new Button();       
+        Button btn = new Button();
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
- 
+
+//        EvaluationService es = new EvaluationService();
+//        List<Evaluation> le = es.getTopBoutiques();
+//        for (Evaluation e : le) {
+//            System.out.println(e.getBoutique());
+//            System.out.println(e.getNote());
+//        }
+        
+        
+        
         btn.addActionListener(e -> {
             String htmlBody = "";
             InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
@@ -121,6 +139,10 @@ public class Main {
             BoutiqueForm bf = new BoutiqueForm();
             bf.show();
         });
+        tb.addMaterialCommandToSideMenu("Statistiques", FontImage.MATERIAL_SETTINGS, e -> {
+            StatistiqueForm sf = new StatistiqueForm();
+            sf.show();
+        });
         tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
 
             HistoriqueForm hf = new HistoriqueForm();
@@ -149,7 +171,11 @@ public class Main {
 
 //        Iterable<Command> commands = tb.getSideMenuCommands();
 //        MenuBar mb = tb.getMenuBar();
-//        mb.setUIID("MenuBar");
+////        mb.setUIID("MenuBar");
+//        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
+//        fab.createSubFAB(FontImage.MATERIAL_PEOPLE, "");
+//        fab.createSubFAB(FontImage.MATERIAL_IMPORT_CONTACTS, "");
+//        fab.bindFabToContainer(current.getContentPane());
         current.show();
     }
 
