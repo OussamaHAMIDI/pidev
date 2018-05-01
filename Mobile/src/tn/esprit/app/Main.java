@@ -29,9 +29,12 @@ import java.io.InputStream;
 import java.util.Date;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
+import tn.esprit.GUI.PanierForm;
+import tn.esprit.GUI.ProduitForm;
 import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.TombolaAddOrEditForm;
 import tn.esprit.GUI.TombolaForm;
+import tn.esprit.entities.Panier;
 
 public class Main {
 
@@ -39,6 +42,7 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
+    public static Panier monpanier;
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -52,6 +56,7 @@ public class Main {
     }
 
     public void start() {
+          monpanier = new Panier(5,"1/5/2018");
         if (current != null) {
             current.show();
             return;
@@ -128,9 +133,13 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+              ProduitForm pf = new ProduitForm();
+            pf.show();
         });
 
         tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+          PanierForm pf = new PanierForm();
+            pf.show();
         });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
