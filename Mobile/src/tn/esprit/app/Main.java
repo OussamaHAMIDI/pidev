@@ -12,6 +12,8 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
@@ -22,6 +24,7 @@ import java.io.InputStream;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.SignUpForm;
+import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
 import tn.esprit.Services.TombolaService;
 import tn.esprit.Services.UserService;
@@ -112,6 +115,10 @@ public class Main {
             BoutiqueForm bf = new BoutiqueForm();
             bf.show();
         });
+        tb.addMaterialCommandToSideMenu("Statistiques", FontImage.MATERIAL_SETTINGS, e -> {
+            StatistiqueForm sf = new StatistiqueForm();
+            sf.show();
+        });
         tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
 
             HistoriqueForm hf = new HistoriqueForm();
@@ -136,11 +143,11 @@ public class Main {
 
 //        Iterable<Command> commands = tb.getSideMenuCommands();
 //        MenuBar mb = tb.getMenuBar();
-//        mb.setUIID("MenuBar");
-        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
-        fab.createSubFAB(FontImage.MATERIAL_PEOPLE, "");
-        fab.createSubFAB(FontImage.MATERIAL_IMPORT_CONTACTS, "");
-        fab.bindFabToContainer(current.getContentPane());
+////        mb.setUIID("MenuBar");
+//        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
+//        fab.createSubFAB(FontImage.MATERIAL_PEOPLE, "");
+//        fab.createSubFAB(FontImage.MATERIAL_IMPORT_CONTACTS, "");
+//        fab.bindFabToContainer(current.getContentPane());
         current.show();
     }
 

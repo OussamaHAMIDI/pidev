@@ -133,6 +133,8 @@ public class BoutiqueDetailsForm extends Form {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("nhellou el map");
+                MapForm mf = new MapForm();
+                mf.show();
             }
         });
         this.addComponent(BorderLayout.SOUTH, map);

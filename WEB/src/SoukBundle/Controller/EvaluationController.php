@@ -14,8 +14,8 @@ class EvaluationController extends Controller
 {
     
     /**
-     * @Route("/api/evaluation/all")
-     */
+ * @Route("/api/evaluation/all")
+ */
     public function allAction()
     {
         $evaluations = $this->getDoctrine()->getManager()
@@ -24,6 +24,44 @@ class EvaluationController extends Controller
         foreach ($evaluations as $evaluation) {
             $evaluation->setDateCreation($evaluation->getDateCreation()->format('Y-m-d H:i:s'));
         }
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($evaluations);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/evaluation/topBoutique")
+     */
+    public function topBoutiqueAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
+        $i = 0;
+        foreach ($boutiquesEvaluees as $b) {
+            $evaluation = new Evaluation();
+            $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
+                ->findBy(array('idBoutique' => $b));
+            $note = 0;
+            foreach ($evaluations as $e) {
+                $note = $note + $e->getNote();
+            }
+            $count = $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $b));
+            $noteMoyenne = $note / $count;
+            $noteMoyenne = round($noteMoyenne);
+            $evaluation->setNote($noteMoyenne);
+            $boutique = $em->getRepository('BoutiqueBundle:Boutique')->findOneBy(array('id' => $b));
+            $boutiques[$i]=$boutique;
+            $evaluation->setIdBoutique($boutique);
+            $topTen[$i] = $evaluation;
+            $i++;
+        }
+        $evaluations = $this->getDoctrine()->getManager()
+            ->getRepository('EvaluationBundle:Evaluation')
+            ->findAll();
+        foreach ($evaluations as $evaluation) {
+            $evaluation->setDateCreation($evaluation->getDateCreation()->format('Y-m-d H:i:s'));
+        }
+
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($evaluations);
         return new JsonResponse($formatted);

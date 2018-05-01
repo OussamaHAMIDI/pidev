@@ -33,6 +33,7 @@ import tn.esprit.Services.BoutiqueService;
 import tn.esprit.Services.EvaluationService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
+import tn.esprit.entities.Enumerations;
 import tn.esprit.entities.Evaluation;
 import tn.esprit.entities.User;
 
@@ -45,7 +46,7 @@ public class BoutiqueForm extends Form {
     static Resources res;
 
     public BoutiqueForm() {
-        super("Boutiques", new BorderLayout());
+        super("Boutiques",new BorderLayout());
         this.res = Main.stheme;
 
         BoutiqueService bs = new BoutiqueService();
@@ -89,15 +90,28 @@ public class BoutiqueForm extends Form {
             //TO DO
         }
 
-        this.addCommand(new Command("Retour") {
-
+        Command back = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                Main.shome.showBack();
+                Main.shome.show();
             }
-        });
+        };
+        FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
 
-        
+        Command add = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                Form baf = new BoutiqueAddForm();
+                baf.show();//ajout
+            }
+        };
+        FontImage.setMaterialIcon(add, FontImage.MATERIAL_ADD, "TitleCommand", 5);
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+            this.addCommand(back);
+        } else {
+            this.addCommand(back);
+            this.addCommand(add);
+        }
 
     }
 
