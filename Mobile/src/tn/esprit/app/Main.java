@@ -23,6 +23,7 @@ import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.TombolaForm;
+import tn.esprit.Services.TombolaService;
 import tn.esprit.Services.UserService;
 import tn.esprit.entities.User;
 
@@ -33,7 +34,7 @@ public class Main {
     private Form current;
     private Resources theme;
     public static User userConnected = null;
-    
+
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
@@ -55,11 +56,10 @@ public class Main {
         //Styling buttons ac java :D
         //Button.setCapsTextDefault(true);
         Button.setButtonRippleEffectDefault(true);
-        Button btn = new Button();       
+        Button btn = new Button();
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
 
- 
         btn.addActionListener(e -> {
             String htmlBody = "";
             InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
