@@ -67,12 +67,12 @@ public class Main {
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
 
-        EvaluationService es = new EvaluationService();
-        List<Evaluation> le = es.getTopBoutiques();
-        for (Evaluation e : le) {
-            System.out.println(e.getBoutique());
-            System.out.println(e.getNote());
-        }
+//        EvaluationService es = new EvaluationService();
+//        List<Evaluation> le = es.getTopBoutiques();
+//        for (Evaluation e : le) {
+//            System.out.println(e.getBoutique());
+//            System.out.println(e.getNote());
+//        }
         
         
         
