@@ -26,6 +26,7 @@ import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
+import tn.esprit.Services.TombolaService;
 import tn.esprit.Services.UserService;
 import tn.esprit.entities.User;
 
