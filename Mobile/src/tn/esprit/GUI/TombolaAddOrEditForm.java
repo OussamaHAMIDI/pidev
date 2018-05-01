@@ -71,14 +71,9 @@ public class TombolaAddOrEditForm extends Form {
         TextArea l = new TextArea(4, 2);
         l.setEditable(false);
         l.setUIID("Titre");
-//        SpanLabel l = new SpanLabel("Tombola \"" + t + "\" est " + etat + " avec succés.");
-//        l.setHeight(10);
-//        l.setUIID("SpanLabel");
-//        SpanLabel l2 = new SpanLabel("Reste : " + count + " avant la cloturation.");
-//        l2.setUIID("SpanLabel2");
+
         l.setText(msg);
         f.add(l);
-//        f.add(l2);
 
         f.addCommand(new Command("Tombolas") {
 

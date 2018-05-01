@@ -106,7 +106,7 @@ public class BoutiqueForm extends Form {
             }
         };
         FontImage.setMaterialIcon(add, FontImage.MATERIAL_ADD, "TitleCommand", 5);
-        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+        if (Main.userConnected != null && Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
             this.addCommand(back);
         } else {
             this.addCommand(back);
