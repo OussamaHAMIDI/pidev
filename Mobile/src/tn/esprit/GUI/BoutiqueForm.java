@@ -5,6 +5,7 @@
  */
 package tn.esprit.GUI;
 
+import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
@@ -33,6 +34,7 @@ import tn.esprit.Services.EvaluationService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
 import tn.esprit.entities.Evaluation;
+import tn.esprit.entities.User;
 
 /**
  *
@@ -48,16 +50,18 @@ public class BoutiqueForm extends Form {
 
         BoutiqueService bs = new BoutiqueService();
         EvaluationService es = new EvaluationService();
+        User user = new User();
+        user.setId("42");
         List<Boutique> lb = bs.getBoutiques();
+
 //        List<Evaluation> le = es.getEvaluations();
 //        System.out.println(le);
-
         Container boutiques = new Container(BoxLayout.y());
         boutiques.setUIID("List");
         boutiques.setScrollableY(true);
         if (lb != null) {
             for (Boutique b : lb) {
-                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth()/2, this.getHeight() / 5, 0xFFFFFFFF), true);
+                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 5, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
                 Container imgC = new Container();
@@ -67,7 +71,7 @@ public class BoutiqueForm extends Form {
                 mb.setTextLine2(b.getAdresse());
                 mb.setTextLine3(b.getDateCreation());
                 //mb.setIcon(img);
-                mb.add(LEFT,img);
+                mb.add(LEFT, img);
                 Slider note = createStarRankSlider();
                 mb.addActionListener(new ActionListener() {
                     @Override
@@ -92,6 +96,8 @@ public class BoutiqueForm extends Form {
                 Main.shome.showBack();
             }
         });
+
+        
 
     }
 

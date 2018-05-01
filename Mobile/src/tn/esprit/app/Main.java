@@ -1,5 +1,6 @@
 package tn.esprit.app;
 
+import com.codename1.components.FloatingActionButton;
 import com.codename1.io.Util;
 import tn.esprit.GUI.HomeForm;
 import com.codename1.messaging.Message;
@@ -63,6 +64,7 @@ public class Main {
         Button btn = new Button();       
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
+
  
         btn.addActionListener(e -> {
             String htmlBody = "";
@@ -141,6 +143,10 @@ public class Main {
 //        Iterable<Command> commands = tb.getSideMenuCommands();
 //        MenuBar mb = tb.getMenuBar();
 //        mb.setUIID("MenuBar");
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
+        fab.createSubFAB(FontImage.MATERIAL_PEOPLE, "");
+        fab.createSubFAB(FontImage.MATERIAL_IMPORT_CONTACTS, "");
+        fab.bindFabToContainer(current.getContentPane());
         current.show();
     }
 
