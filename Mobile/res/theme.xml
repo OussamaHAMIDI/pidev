@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="9" useXmlUI="false">
+    <image name="back-arrow.png" type="multi"  />
+    <image name="back-arrow.png 1" type="multi"  />
+    <image name="background.png" type="multi"  />
+    <image name="background.png 1" type="multi"  />
+    <image name="camera.png" type="multi"  />
+    <image name="camera.png 1" type="multi"  />
+    <image name="camera.png 2" type="multi"  />
+    <image name="hints.png" type="multi"  />
+    <image name="left-arrow.png" type="multi"  />
+    <image name="left-arrow.png 1" type="multi"  />
+    <image name="left-arrow.png 2" type="multi"  />
+    <image name="lock.png" type="multi"  />
+    <image name="lock2.png" type="multi"  />
+    <image name="mail.png" type="multi"  />
+    <image name="profile-mask-white.png" type="multi"  />
+    <image name="profile-mask-white.png 1" type="multi"  />
+    <image name="profile-photo-button.png" type="multi"  />
+    <image name="profile-photo-button.png 1" type="multi"  />
+    <image name="right-arrow.png" type="multi"  />
+    <image name="right-arrow.png 1" type="multi"  />
+    <image name="soukLogo.png" type="multi"  />
+    <theme name="Theme">
+        <val key="@OverlayThemes" value="theme.css" />
+        <val key="@backUsesTitleBool" value="true" />
+        <val key="@commandBehavior" value="Title" />
+        <val key="@fadeScrollBarBool " value="true" />
+        <val key="@formTransitionIn" value="fade" />
+        <val key="@includeNativeBool" value="false" />
+        <val key="@paintsTitleBarBool" value="true" />
+        <val key="@showBackCommandOnTitleBool" value="true" />
+        <val key="@sideMenuAnimSpeedInt" value="50" />
+        <val key="@sideMenuFoldedSwipeBool" value="true" />
+        <val key="BackCommandLandscape.transparency" value="0" />
+        <val key="Button.align" value="4" />
+        <font key="Button.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarDate.align" value="4" />
+        <val key="CalendarDate.fgColor" value="000000" />
+        <val key="CalendarDateLabel.align" value="4" />
+        <val key="CalendarDateLabel.fgColor" value="000000" />
+        <val key="CalendarDay.align" value="4" />
+        <border key="CalendarDay.border" type="line" millimeters="false" thickness="1.0" color="39321" />
+        <val key="CalendarDay.fgColor" value="009999" />
+        <font key="CalendarDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarDay.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="CalendarDay.sel#fgColor" value="000000" />
+        <val key="CalendarDay.transparency" value="0" />
+        <val key="CalendarDayArea.align" value="4" />
+        <val key="CalendarDayArea.fgColor" value="000000" />
+        <border key="CalendarMultipleDay.border" type="empty" />
+        <font key="CalendarMultipleDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarSelectedDay.align" value="4" />
+        <border key="CalendarSelectedDay.border" type="empty" />
+        <val key="CalendarSelectedDay.fgColor" value="000000" />
+        <font key="CalendarSelectedDay.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="CalendarSelectedDay.transparency" value="0" />
+        <val key="CalendarTitle.align" value="4" />
+        <border key="CalendarTitle.border" type="empty" />
+        <font key="CalendarTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="2.0" />
+        <val key="Command.transparency" value="0" />
+        <val key="Label.fgColor" value="000000" />
+        <val key="Label.transparency" value="0" />
+        <gradient key="Scroll.bgGradient" color1="15724527" color2="15724527" posX="0.5" posY="0.5" radius="0.3" />
+        <val key="Scroll.bgType" value="8" />
+        <gradient key="ScrollThumb.bgGradient" color1="16777215" color2="16777215" posX="0.5" posY="0.5" radius="0.3" />
+        <val key="ScrollThumb.bgType" value="7" />
+        <val key="SideCommand.derive" value="SideCommand.press" />
+        <val key="SideCommand.textDecoration" value="0" />
+        <val key="SideNavigationPanel.bgColor" value="ffffff" />
+        <val key="SideNavigationPanel.transparency" value="255" />
+        <val key="StatusBar.transparency" value="0" />
+        <val key="TextField.transparency" value="0" />
+        <val key="Title.transparency" value="0" />
+        <val key="TitleCommand.transparency" value="0" />
+        <border key="border" type="empty" />
+        <font key="font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+    </theme>
+    <image name="tombola.png" type="multi"  />
+    <image name="tombola.png 1" type="multi"  />
+    <image name="user.png" type="multi"  />
+    <image name="user2.png" type="multi"  />
+</resource>

@@ -13,13 +13,15 @@ import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
-import tn.esprit.GUI.*;
-
-import tn.esprit.Services.*;
+import tn.esprit.GUI.BoutiqueForm;
+import tn.esprit.GUI.ConnectForm;
+import tn.esprit.GUI.HistoriqueForm;
+import tn.esprit.GUI.SignUpForm;
+import tn.esprit.GUI.StatistiqueForm;
+import tn.esprit.GUI.TombolaForm;
+import tn.esprit.Services.UserService;
 import tn.esprit.entities.Panier;
 import tn.esprit.entities.User;
-
-
 
 public class Main {
 
@@ -27,9 +29,8 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
-    public static Panier monpanier;
     public static User userConnected = null;
-
+    public static Panier monpanier;
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -39,12 +40,12 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
+        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
 
     }
 
     public void start() {
-          monpanier = new Panier(5,"1/5/2018");
+        monpanier = new Panier(5, "1/5/2018");
         if (current != null) {
             current.show();
             return;
@@ -57,15 +58,7 @@ public class Main {
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
 
-//        EvaluationService es = new EvaluationService();
-//        List<Evaluation> le = es.getTopBoutiques();
-//        for (Evaluation e : le) {
-//            System.out.println(e.getBoutique());
-//            System.out.println(e.getNote());
-//        }
-        
-        
-
+        //Styling fi wost el theme hashtable
 //        Hashtable h = new Hashtable();
 //        h.put("fgColor", "ffffff");
 //        UIManager.getInstance().addThemeProps(h);
@@ -91,6 +84,7 @@ public class Main {
         tb.addComponentToSideMenu(topBar);
 
         tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+            new ConnectForm().show();
         });
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
@@ -112,13 +106,9 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
-              ProduitForm pf = new ProduitForm();
-            pf.show();
         });
 
         tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
-          PanierForm pf = new PanierForm();
-            pf.show();
         });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
