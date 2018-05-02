@@ -142,35 +142,40 @@ public class TombolaForm extends Form {
         this.add(CENTER, tombolas);
         TombolaAddEditShowForm.tbf = this;
 
-        Command c1 = new Command("") {
+        Command arrowBack = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 Main.shome.show();
             }
         };
-        FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        FontImage.setMaterialIcon(arrowBack, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
 
-        Command c = new Command("") {
+        Command ajout = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 new TombolaAddEditShowForm(null).show();//ajout
             }
         };
-        FontImage.setMaterialIcon(c, FontImage.MATERIAL_ADD, "TitleCommand", 5);
+        FontImage.setMaterialIcon(ajout, FontImage.MATERIAL_ADD, "TitleCommand", 5);
 
-        if (Main.userConnected != null && Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
-            Command cc = new Command("Retour ") {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    Main.shome.show();
-                }
-            };
-            FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
+        Command none = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+            }
+        };
+        FontImage.setMaterialIcon(none, ' ', "TitleCommand", 5);
 
-            this.addCommand(cc);
+        if (Main.userConnected != null) {
+            if (Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
+                this.addCommand(arrowBack);// <-
+                this.addCommand(none);
+            } else {
+                this.addCommand(arrowBack);// <-
+                this.addCommand(ajout);// plus
+            }
         } else {
-            this.addCommand(c1);
-            this.addCommand(c);// plus
+            this.addCommand(arrowBack);// <-
+            this.addCommand(none);
         }
     }
 
@@ -184,7 +189,7 @@ public class TombolaForm extends Form {
             Log.e(ex);
         }
 
-        long sec = (tirage.getTime()-new Date().getTime()) / 1000;
+        long sec = (tirage.getTime() - new Date().getTime()) / 1000;
         int j = (int) sec / 86400;
         int h = (int) (sec % 86400) / 3600;
         int mm = (int) ((sec % 86400) % 3600) / 60;

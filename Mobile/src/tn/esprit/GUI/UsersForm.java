@@ -116,23 +116,23 @@ public class UsersForm extends Form {
 
         this.add(CENTER, participants);
 
-        Command c1 = new Command("") {
+        Command arrowBack = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 taesf.showBack();
             }
         };
-        FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        FontImage.setMaterialIcon(arrowBack, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
 
-        Command c = new Command("Menu") {
+        Command none = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                Main.shome.show();
             }
         };
-        FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
-        this.addCommand(c1);
-        this.addCommand(c);// show singhle tombola back
+        FontImage.setMaterialIcon(none, ' ', "TitleCommand", 5);
+
+        this.addCommand(arrowBack);
+        this.addCommand(none);
 
     }
 

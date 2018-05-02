@@ -379,5 +379,16 @@
         font-family : "Source Sans Pro";
         border-width: 0;
     }
+    ButtonPart{
+        color:white;
+        background-color: rgb(247, 112, 50);
+        margin: 1mm 4mm 1mm 4mm;
+        font-family : "Source Sans Pro";
+        text-align: center;
+        border-radius: 1mm;
+    }
+     ButtonPart.pressed{
+        background-color: gray;
+    }
 
 }

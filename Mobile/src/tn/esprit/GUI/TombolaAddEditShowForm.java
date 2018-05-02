@@ -252,6 +252,17 @@ public class TombolaAddEditShowForm extends Form {
         content.add(l4).add(row);
         content.add(l1).add(photo);
 
+        if (t != null && userConnected != null) {
+            if (userConnected.getType() == Enumerations.TypeUser.Artisan) {
+                UsersForm.taesf = this;
+                Button participants = new Button("Voir les participants");
+                participants.setUIID("ButtonPart");
+                FontImage.setMaterialIcon(participants, FontImage.MATERIAL_GROUP);
+                participants.addActionListener(e -> new UsersForm(t.getParticipants()).show());
+                content.add(participants);
+            }
+        }
+
         //** ******************************** SHOW GAGNANT IF EXIST ******************************
         if (t != null && t.getGagnant() != null) {
             Label l = new Label("Gagnant :");
@@ -279,7 +290,7 @@ public class TombolaAddEditShowForm extends Form {
             center.add(BorderLayout.NORTH, title);
             mb.addComponent(BorderLayout.CENTER, center);
             mb.addActionListener(e -> {
-                System.out.println("redirect to user profile");
+                new ConnectForm().show();
             });
             content.add(l).add(mb);
         }
@@ -294,7 +305,6 @@ public class TombolaAddEditShowForm extends Form {
             FontImage.setMaterialIcon(delete, FontImage.MATERIAL_DELETE_FOREVER);
 
             //** ******************************** SHOW CONFIRMAATION DELETE DIALOG ******************************
-
             delete.addActionListener(e -> {
                 Command show = Dialog.show("Suppression", "Voulez-vous vraiment supprimer cette tombola ?",
                         new Command[]{new Command("Confirmer"), new Command("Annuler")},
@@ -319,7 +329,7 @@ public class TombolaAddEditShowForm extends Form {
                         envoyerMail(gagnant.getEmail());
                     });
                     disable();
-                    if(t.getParticipants().size()<1){
+                    if (t.getParticipants().size() < 1) {
                         lancer.setEnabled(false);
                     }
                     south.add(lancer);
@@ -367,7 +377,7 @@ public class TombolaAddEditShowForm extends Form {
                 Button connect = new Button("Se connecter");
                 FontImage.setMaterialIcon(connect, FontImage.MATERIAL_HIGHLIGHT);
                 connect.addActionListener(e -> {
-                    System.out.println("redirect to connect " + userConnected.getNom());
+                    new ConnectForm().show();
                 });
                 this.add(SOUTH, connect);
             }
@@ -387,15 +397,15 @@ public class TombolaAddEditShowForm extends Form {
 
         val.addSubmitButtons(submit);
 
-        Command c1 = new Command("") {
+        Command arrowBack = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 tbf.showBack();
             }
         };
-        FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        FontImage.setMaterialIcon(arrowBack, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
 
-        Command c = new Command("Annuler") {
+        Command annuler = new Command("Annuler") {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (t != null) {
@@ -405,28 +415,50 @@ public class TombolaAddEditShowForm extends Form {
                 }
             }
         };
-        FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
+        FontImage.setMaterialIcon(annuler, ' ', "TitleCommand", 5);
+
+        Command none = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+            }
+        };
+        FontImage.setMaterialIcon(none, ' ', "TitleCommand", 5);
 
         if (t != null) {
-            this.addCommand(c1);
-            if (userConnected != null && userConnected.getType() != Enumerations.TypeUser.Artisan) {
-                UsersForm.taesf = this;
-                Command part = new Command("Participants") {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        new UsersForm(t.getParticipants()).show();
+            if (userConnected != null) {
+                if (userConnected.getType() != Enumerations.TypeUser.Artisan) {
+                    UsersForm.taesf = this;
+                    Command part = new Command("Participants") {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                            new UsersForm(t.getParticipants()).show();
+                        }
+                    };
+                    FontImage.setMaterialIcon(part, ' ', "TitleCommand", 5);
+
+                    this.addCommand(arrowBack);// <-
+                    this.addCommand(part);
+                } else {
+                    this.addCommand(arrowBack);// <-
+                    if (t.getEtat().equals("Cloturée")) {
+                        this.addCommand(none);
+                    } else {
+                        this.addCommand(annuler);
                     }
-                };
-                FontImage.setMaterialIcon(part, ' ', "TitleCommand", 5);
-                this.addCommand(part);
-            }
-            if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Artisan) {
-                this.addCommand(c);
+                }
+            } else {
+                this.addCommand(arrowBack);
+                this.addCommand(none);
             }
 
+//            this.addCommand(c1);
+//
+//            if (userConnected != null && userConnected.getType() == Enumerations.TypeUser.Artisan) {
+//                this.addCommand(c);
+//            }
         } else {
-            this.addCommand(c1);
-            this.addCommand(c);
+            this.addCommand(arrowBack);// <-
+            this.addCommand(annuler);// Annuler
         }
 
     }
