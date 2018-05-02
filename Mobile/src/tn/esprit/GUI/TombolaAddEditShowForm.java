@@ -326,7 +326,7 @@ public class TombolaAddEditShowForm extends Form {
                         String msg = "L'utilisateur " + gagnant.getNom() + " " + gagnant.getPrenom() + " est le gagnant du tombola " + t.getTitre()
                                 + ".\nUne fenetre s'ouvrira pour vous permetre de lui envoyer un mail.";
                         showOKForm(msg);
-                        envoyerMail(gagnant.getEmail());
+                        envoyerMail(gagnant, t);
                     });
                     disable();
                     if (t.getParticipants().size() < 1) {
@@ -519,7 +519,7 @@ public class TombolaAddEditShowForm extends Form {
         return count;
     }
 
-    private void envoyerMail(String email) {
+    private void envoyerMail(User u, Tombola t) {
         String htmlBody = "";
         InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
         if (in != null) {
@@ -532,11 +532,12 @@ public class TombolaAddEditShowForm extends Form {
             }
         }
         Message m = new Message(htmlBody);
-        m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
-                + "</body></html>");
+        m = new Message("<html><body>Félicitations <b>" + u.getPrenom() + "</b>,<br><br>"
+                + "<p>Vous etes gagnant au tirage du tombola <b>" + t.getTitre() + "</b> lancé le <b>" + t.getDateTirage() + "</b>.</p><br>"
+                + "<p> </p> </body></html>");
         m.setMimeType(Message.MIME_HTML);
 
-        Display.getInstance().sendMessage(new String[]{email}, "Souk lemdina : Gagnant Tombola", m);
+        Display.getInstance().sendMessage(new String[]{u.getEmail()}, "Souk lemdina : Gagnant Tombola", m);
     }
 
 }

@@ -13,6 +13,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
+import java.util.Date;
 import tn.esprit.GUI.*;
 
 import tn.esprit.Services.UserService;
@@ -42,6 +43,7 @@ public class Main {
 
     public void start() {
         monpanier = new Panier(5, "1/5/2018");
+        monpanier = new Panier(Integer.valueOf(userConnected.getId()),new Date().toString());
         if (current != null) {
             current.show();
             return;

@@ -10,9 +10,11 @@
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/Services/UserService.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/SignUpForm.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/app/Main.java</file>
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/entities/User.java</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/css/theme.css</file>
             <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/TombolaForm.java</file>
-            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/ConnectForm.java</file>
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/TombolaAddEditShowForm.java</file>
+            <file>file:/C:/xampp/htdocs/pidev/Mobile/src/tn/esprit/GUI/UsersForm.java</file>
         </group>
     </open-files>
 </project-private>
