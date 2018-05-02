@@ -16,6 +16,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.InputStream;
 import tn.esprit.GUI.BoutiqueForm;
@@ -26,11 +27,20 @@ import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
 
+=======
+import tn.esprit.GUI.*;
+
+import tn.esprit.Services.*;
+>>>>>>> parent of 76f24b20... :panda_face: New Mobile Project la trab7ek ya jappa :angry:
 import tn.esprit.entities.Panier;
 import tn.esprit.Services.UserService;
 import tn.esprit.entities.User;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 76f24b20... :panda_face: New Mobile Project la trab7ek ya jappa :angry:
 public class Main {
 
     public static Form shome;
@@ -75,6 +85,7 @@ public class Main {
 //        }
         
         
+<<<<<<< HEAD
         
         btn.addActionListener(e -> {
             String htmlBody = "";
@@ -98,6 +109,9 @@ public class Main {
         });
 
         //Styling fi wost el theme hashtable
+=======
+
+>>>>>>> parent of 76f24b20... :panda_face: New Mobile Project la trab7ek ya jappa :angry:
 //        Hashtable h = new Hashtable();
 //        h.put("fgColor", "ffffff");
 //        UIManager.getInstance().addThemeProps(h);
