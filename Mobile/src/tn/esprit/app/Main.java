@@ -13,12 +13,8 @@ import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
-import tn.esprit.GUI.BoutiqueForm;
-import tn.esprit.GUI.ConnectForm;
-import tn.esprit.GUI.HistoriqueForm;
-import tn.esprit.GUI.SignUpForm;
-import tn.esprit.GUI.StatistiqueForm;
-import tn.esprit.GUI.TombolaForm;
+import tn.esprit.GUI.*;
+
 import tn.esprit.Services.UserService;
 import tn.esprit.entities.Panier;
 import tn.esprit.entities.User;
@@ -109,6 +105,7 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+            new PanierForm().show();
         });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
