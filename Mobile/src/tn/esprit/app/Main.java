@@ -1,8 +1,6 @@
 package tn.esprit.app;
 
-import com.codename1.io.Util;
 import tn.esprit.GUI.HomeForm;
-import com.codename1.messaging.Message;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
@@ -12,20 +10,16 @@ import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
-import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
-import java.io.IOException;
-import java.io.InputStream;
-import tn.esprit.GUI.BoutiqueForm;
-import tn.esprit.GUI.ConnectForm;
-import tn.esprit.GUI.HistoriqueForm;
-import tn.esprit.GUI.SignUpForm;
-import tn.esprit.GUI.StatistiqueForm;
-import tn.esprit.GUI.TombolaForm;
-import tn.esprit.Services.UserService;
+import tn.esprit.GUI.*;
+
+import tn.esprit.Services.*;
+import tn.esprit.entities.Panier;
 import tn.esprit.entities.User;
+
+
 
 public class Main {
 
@@ -33,7 +27,9 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
+    public static Panier monpanier;
     public static User userConnected = null;
+
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -48,6 +44,7 @@ public class Main {
     }
 
     public void start() {
+          monpanier = new Panier(5,"1/5/2018");
         if (current != null) {
             current.show();
             return;
@@ -60,7 +57,15 @@ public class Main {
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
 
-        //Styling fi wost el theme hashtable
+//        EvaluationService es = new EvaluationService();
+//        List<Evaluation> le = es.getTopBoutiques();
+//        for (Evaluation e : le) {
+//            System.out.println(e.getBoutique());
+//            System.out.println(e.getNote());
+//        }
+        
+        
+        
 //        Hashtable h = new Hashtable();
 //        h.put("fgColor", "ffffff");
 //        UIManager.getInstance().addThemeProps(h);
@@ -108,9 +113,13 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+              ProduitForm pf = new ProduitForm();
+            pf.show();
         });
 
         tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+          PanierForm pf = new PanierForm();
+            pf.show();
         });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
