@@ -15,6 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TombolaRepository extends EntityRepository
 {
+
+    public function nextId()
+    {
+        $query=$this->getEntityManager()
+            ->createQuery('SELECT p.id as id  FROM PanierBundle:Panier p ORDER BY p.id DESC')->setMaxResults(1)
+        ;
+        $res = $query->getResult();
+
+        return  $res[0];
+
+    }
+
     public function rechercheAction($word)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();

@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
-
-import java.io.InputStream;
-import java.time.LocalDateTime;
+package tn.esprit.entities;
 
 
 /**
  *
- * @author oussamahamidi
+ * @author monta
  */
 public class ProduitPanier extends Produit
 {
@@ -55,8 +52,8 @@ public class ProduitPanier extends Produit
         this.livree = livree;
     }
 
-    public ProduitPanier(boolean livree ,float quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
-        super(id, reference, libelle, description, prix, taille, couleur, texture, poids, boutique, dateAjout, photo);
+    public ProduitPanier(boolean livree ,float quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, int prix, String taille, String couleur, String texture, int poids, int boutique, String date_creation, String path,int quantite) {
+        super( id,  boutique,  reference,  libelle,  description,  prix,  taille,  couleur,  texture,  poids,  date_creation,  quantite,  path);
         this.quantiteVendue = quantiteVendue;
         this.poidsVendu = poidsVendu;
         this.prixVente = prixVente;
@@ -67,10 +64,9 @@ public class ProduitPanier extends Produit
     {
        this.id=p.id;
        this.boutique=p.boutique;
-       this.idBoutique=p.idBoutique;
        this.couleur = p.couleur;
        this.description = p.description;
-       this.dateAjout = p.dateAjout;
+       this.date_creation = p.date_creation;
        this.libelle = p.libelle;
        this.reference = p.reference;
        this.prix = p.prix;
@@ -79,6 +75,7 @@ public class ProduitPanier extends Produit
        this.prixVente=p.prix;
        this.quantiteVendue =1;
        this.poidsVendu=0;
+       this.path = p.path;
     }
     
 

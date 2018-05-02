@@ -15,8 +15,9 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use PanierBundle\Entity\Panier;
 use PanierBundle\Entity\ProduitPanier;
+use UserBundle\Entity\User;
 
-class PanierController
+class PanierController extends Controller
 {
     /**
      * @Route("/api/panier/all")
@@ -72,15 +73,18 @@ class PanierController
         $em = $this->getDoctrine()->getManager();
 
         $panier = new Panier();
+//        $user = new User();
+//      $user->setId($request->get('iduser'));
+//        $panier->setIdUser($user);
         $panier->setTotalTTC($request->get('totalttc'));
         $panier->setDateCreation(new \DateTime());
         $panier->setFraisLivraison($request->get('fraislivraison'));
-        $panier->setStatus($request->get('status'));
+        $panier->setStatut($request->get('status'));
         $panier->setModePaiement($request->get('modepaiement'));
         $panier->setModeLivraison($request->get('modelivraison'));
-        $panier->setEstLivree($request->get('estlivre'));
+        $panier->setEstLivre($request->get('estlivre'));
         $panier->setEstPaye($request->get('estpaye'));
-        $user = $em->getRepository('UserBundle:User')->find($request->get('idUser'));
+        $user = $em->getRepository('UserBundle:User')->findOneBy(["id"=>$request->get('iduser')]);
         $panier->setIdUser($user);
 
         $em->persist($panier);
@@ -101,14 +105,27 @@ class PanierController
     {
         $em = $this->getDoctrine()->getManager();
 
+        $nextId = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:Tombola')->nextId();
         $produit = new ProduitPanier();
+        var_dump($nextId);
+        $produit->setIdPanier($nextId["id"]);
+
+
         $produit->setReference($request->get('reference'));
-        $produit->setIdPanier($request->get('idPanier'));
+        $produit->setIdPanier($nextId["id"]);
         $produit->setIdProduit($request->get('idProduit'));
         $produit->setDescription($request->get('description'));
         $produit->setLivree($request->get('livree'));
         $produit->setPrixVente($request->get('prixvente'));
         $produit->setQuantiteVendu($request->get('quantitevendu'));
+        $produit->setReference($request->get('reference'));
+
+        $produit->setTexture($request->get('texture'));
+
+        $produit->setCouleur($request->get('couleur'));
+        $produit->setLibelle($request->get('libelle'));
+        $produit->setPrix($request->get('prix'));
+
         $produit->setDateAjout(new \DateTime());
 
 

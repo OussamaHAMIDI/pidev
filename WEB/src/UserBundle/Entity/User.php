@@ -496,6 +496,14 @@ class User extends BaseUser
     }
 
     /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @ORM\PreRemove()
      */
     public function preRemoveUpload()
