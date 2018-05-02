@@ -95,12 +95,12 @@
         background-color : #e2e2e2;
     }
     Title2{
-        background-color : transparent;
+         background-color : transparent;
         color : #009999;
         font-size : 3.5mm;
-        margin: 0.5mm 4mm 4mm 0.5mm ;
+         margin: 0.5mm 4mm 4mm 0.5mm ;
         font-family : "Source Sans Pro";
-
+        
     }
     PreviewPhoto{
         background-color : transparent;
@@ -180,70 +180,12 @@
         border-color : transparent;
         border : none;
     }
-    /* ----------------------for CONNECT form -------------------------*/
-    ConnectNorth{
-        background-color: transparent;
-        padding: 14mm 0 9mm 0;
-        margin: 0;
-    }
-    ConnectCenter{
-        background-color: transparent;
-        padding: 0;
-        margin: 0;
-    }
-    ConnectField{
-        background-color: rgb(255, 255, 255);
-        opacity: 0.502;
-        padding: 0.5mm;
-        height: 3mm;
-        color:rgb(0, 0, 0);
-        font-size: 3.5mm;
-        font-family: "Roboto";
-        margin-left: 0.3mm;
-        margin-top: 0.4mm;
-    }
-
-    ConnectFieldHint {
-        padding: 0.5mm;
-        margin-left: 0.3mm;
-        margin-top: 0.4mm;
-        font-size: 3.5mm;
-        font-family: "Roboto";
-        color: rgba(231, 14, 14, 0.76);
-        text-align: left;
-    }
-
-    RowConnect{
-        margin : 2mm 6mm 0mm 6mm;
-        border-radius: 1.5mm;
-    }
-    ConnectIconField{
-        background-color: transparent;
-        padding: 0.5mm 1.3mm 0.5mm 0.5mm;
-        /*padding-right: 1.3mm;*/
-    }
-    ConnectButton{
-        /*background-color: rgb(255, 95, 172);*/
-
-        background-color: rgb(247, 112, 50);
-        color:white;
-        font-size: 40px;
-        font-family: "Roboto";
-        text-align: center;
-        font-weight: bold;
-        border-radius: 3mm;
-        margin: 3mm 10mm 2mm 10mm;
-    }
-    ConnectButton.pressed {
-        background-color: gray;
-    }
-
-
     /* ----------------------for sign up form -------------------------*/
     SignUpForm {
         padding: 0;
         cn1-derive: Form;
-        background-image: url(../assets/background5.png);
+        background-image: url(../assets/background.png);
+
     }
 
     /* White background for center panel on which all text fields are placed */
@@ -260,6 +202,8 @@
         color: rgb( 77, 96, 111 );
         font-family: "Roboto";
         margin: 0;
+
+
     }
 
     SignUpLabel {
@@ -291,6 +235,7 @@
 
     SignUpButton.pressed {
         background-color: gray;
+
     }
     /* ---------------------- LABEL FOR ITEMS IN LIST  -------------------------*/
     TitleItem {
@@ -378,6 +323,23 @@
         font-weight: bold;
         font-family : "Source Sans Pro";
         border-width: 0;
+    }
+    SpanLabel{
+        margin:3mm 0.5mm 0mm 0.5mm; 
+        background-color : transparent;
+        font-size : 4mm;
+        font-weight: bold;
+        font-family : "Source Sans Pro";
+        color: rgba(22, 17, 15, 0.418);
+    }
+    SpanLabel2{
+        margin:0.5mm 0.5mm 0mm 0.5mm; 
+        background-color : transparent;
+        font-size : 4mm;
+        font-weight: bold;
+        font-style: italic;
+        font-family : "Source Sans Pro";
+        color: rgba(209, 28, 28, 0.842);
     }
 
 }
