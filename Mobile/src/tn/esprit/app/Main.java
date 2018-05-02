@@ -1,5 +1,8 @@
 package tn.esprit.app;
 
+import com.codename1.io.Log;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
 import tn.esprit.GUI.HomeForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Form;
@@ -17,6 +20,8 @@ import java.util.Date;
 import tn.esprit.GUI.*;
 
 import tn.esprit.Services.UserService;
+import tn.esprit.entities.Enumerations;
+import tn.esprit.entities.Enumerations.TypeUser;
 import tn.esprit.entities.Panier;
 import tn.esprit.entities.User;
 
@@ -37,13 +42,14 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
+        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
 
     }
 
     public void start() {
-        monpanier = new Panier(5, "1/5/2018");
-        monpanier = new Panier(Integer.valueOf(userConnected.getId()),new Date().toString());
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowString=formater.format(new Date());
+        monpanier = new Panier(Integer.valueOf(userConnected.getId()),nowString);
         if (current != null) {
             current.show();
             return;
@@ -104,11 +110,15 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+             new ProduitForm().show();
         });
-
-        tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+        if(userConnected.getType()==TypeUser.Client)
+        {
+            tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
             new PanierForm().show();
         });
+        }
+        
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
