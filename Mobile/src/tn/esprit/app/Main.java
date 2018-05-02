@@ -1,9 +1,6 @@
 package tn.esprit.app;
 
-import com.codename1.components.FloatingActionButton;
-import com.codename1.io.Util;
 import tn.esprit.GUI.HomeForm;
-import com.codename1.messaging.Message;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
@@ -12,31 +9,15 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.Button;
-import static com.codename1.ui.Component.BOTTOM;
-import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
-import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import tn.esprit.GUI.BoutiqueForm;
-import tn.esprit.GUI.HistoriqueForm;
-import tn.esprit.GUI.PanierForm;
-import tn.esprit.GUI.ProduitForm;
-import tn.esprit.GUI.SignUpForm;
-import tn.esprit.GUI.StatistiqueForm;
-import tn.esprit.GUI.TombolaForm;
-import tn.esprit.entities.Panier;
-import tn.esprit.Services.EvaluationService;
-import tn.esprit.Services.TombolaService;
-import tn.esprit.Services.UserService;
-import tn.esprit.entities.Evaluation;
-import tn.esprit.entities.User;
+import tn.esprit.GUI.*;
 
+import tn.esprit.Services.UserService;
+import tn.esprit.entities.Panier;
+import tn.esprit.entities.User;
 
 public class Main {
 
@@ -44,9 +25,8 @@ public class Main {
     public static Resources stheme;
     private Form current;
     private Resources theme;
-    public static Panier monpanier;
     public static User userConnected = null;
-
+    public static Panier monpanier;
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -56,12 +36,12 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
+        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
 
     }
 
     public void start() {
-          monpanier = new Panier(5,"1/5/2018");
+        monpanier = new Panier(5, "1/5/2018");
         if (current != null) {
             current.show();
             return;
@@ -73,36 +53,6 @@ public class Main {
         Button btn = new Button();
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
-
-//        EvaluationService es = new EvaluationService();
-//        List<Evaluation> le = es.getTopBoutiques();
-//        for (Evaluation e : le) {
-//            System.out.println(e.getBoutique());
-//            System.out.println(e.getNote());
-//        }
-        
-        
-        
-        btn.addActionListener(e -> {
-            String htmlBody = "";
-            InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
-            if (in != null) {
-                try {
-                    htmlBody = Util.readToString(in);
-                    in.close();
-                } catch (IOException ex) {
-                    System.out.println(ex);
-                    htmlBody = "Read Error";
-                }
-            }
-            Message m = new Message(htmlBody);
-//            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
-//                    + "</body></html>");
-//            
-            m.setMimeType(Message.MIME_HTML);
-
-            Display.getInstance().sendMessage(new String[]{"hamdi.megdiche@esprit.tn"}, "Souk lemdina : Gagnant Tombola", m);
-        });
 
         //Styling fi wost el theme hashtable
 //        Hashtable h = new Hashtable();
@@ -130,6 +80,7 @@ public class Main {
         tb.addComponentToSideMenu(topBar);
 
         tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+            new ConnectForm().show();
         });
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
@@ -151,13 +102,10 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
-              ProduitForm pf = new ProduitForm();
-            pf.show();
         });
 
         tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
-          PanierForm pf = new PanierForm();
-            pf.show();
+            new PanierForm().show();
         });
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
