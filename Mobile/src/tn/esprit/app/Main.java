@@ -1,6 +1,5 @@
 package tn.esprit.app;
 
-import com.codename1.components.FloatingActionButton;
 import com.codename1.io.Util;
 import tn.esprit.GUI.HomeForm;
 import com.codename1.messaging.Message;
@@ -12,8 +11,6 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.Button;
-import static com.codename1.ui.Component.BOTTOM;
-import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
@@ -21,8 +18,6 @@ import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import tn.esprit.GUI.BoutiqueForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.PanierForm;
@@ -30,11 +25,9 @@ import tn.esprit.GUI.ProduitForm;
 import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
+
 import tn.esprit.entities.Panier;
-import tn.esprit.Services.EvaluationService;
-import tn.esprit.Services.TombolaService;
 import tn.esprit.Services.UserService;
-import tn.esprit.entities.Evaluation;
 import tn.esprit.entities.User;
 
 
