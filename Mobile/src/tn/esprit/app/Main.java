@@ -39,7 +39,7 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
+        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
 
     }
 
@@ -65,7 +65,7 @@ public class Main {
 //        }
         
         
-        
+
 //        Hashtable h = new Hashtable();
 //        h.put("fgColor", "ffffff");
 //        UIManager.getInstance().addThemeProps(h);
@@ -91,7 +91,6 @@ public class Main {
         tb.addComponentToSideMenu(topBar);
 
         tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
-            new ConnectForm().show();
         });
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();

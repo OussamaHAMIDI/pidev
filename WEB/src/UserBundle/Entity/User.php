@@ -113,38 +113,6 @@ class User extends BaseUser
      */
     private $pathPhotoPermis;
 
-    /**
-     * @return string
-     */
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param string $username
-     */
-    public function setUsername($username): void
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
-    }
-
 
 
 
@@ -469,6 +437,7 @@ class User extends BaseUser
         if (null !== $this->filePe) {
             $this->pathPhotoPermis = sha1(uniqid(mt_rand(), true)).'.'.$this->filePe->guessExtension();
         }
+        var_dump($this->pathPhotoProfil);
     }
 
     /**
