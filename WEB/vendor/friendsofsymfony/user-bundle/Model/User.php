@@ -104,6 +104,8 @@ abstract class User implements UserInterface, GroupableInterface
      */
     protected $roles;
 
+
+
     /**
      * User constructor.
      */

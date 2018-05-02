@@ -1,6 +1,5 @@
 package tn.esprit.app;
 
-import com.codename1.components.FloatingActionButton;
 import com.codename1.io.Util;
 import tn.esprit.GUI.HomeForm;
 import com.codename1.messaging.Message;
@@ -12,8 +11,6 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.Button;
-import static com.codename1.ui.Component.BOTTOM;
-import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
@@ -22,11 +19,11 @@ import com.codename1.ui.layouts.BorderLayout;
 import java.io.IOException;
 import java.io.InputStream;
 import tn.esprit.GUI.BoutiqueForm;
+import tn.esprit.GUI.ConnectForm;
 import tn.esprit.GUI.HistoriqueForm;
 import tn.esprit.GUI.SignUpForm;
 import tn.esprit.GUI.StatistiqueForm;
 import tn.esprit.GUI.TombolaForm;
-import tn.esprit.Services.TombolaService;
 import tn.esprit.Services.UserService;
 import tn.esprit.entities.User;
 
@@ -46,7 +43,7 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
+        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
 
     }
 
@@ -62,27 +59,6 @@ public class Main {
         Button btn = new Button();
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
-
-        btn.addActionListener(e -> {
-            String htmlBody = "";
-            InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
-            if (in != null) {
-                try {
-                    htmlBody = Util.readToString(in);
-                    in.close();
-                } catch (IOException ex) {
-                    System.out.println(ex);
-                    htmlBody = "Read Error";
-                }
-            }
-            Message m = new Message(htmlBody);
-//            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
-//                    + "</body></html>");
-//            
-            m.setMimeType(Message.MIME_HTML);
-
-            Display.getInstance().sendMessage(new String[]{"hamdi.megdiche@esprit.tn"}, "Souk lemdina : Gagnant Tombola", m);
-        });
 
         //Styling fi wost el theme hashtable
 //        Hashtable h = new Hashtable();
@@ -110,6 +86,7 @@ public class Main {
         tb.addComponentToSideMenu(topBar);
 
         tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+            new ConnectForm().show();
         });
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();

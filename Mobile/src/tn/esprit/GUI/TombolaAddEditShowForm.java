@@ -23,12 +23,9 @@ import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.plaf.Border;
-import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.validation.GroupConstraint;
@@ -38,9 +35,7 @@ import com.codename1.ui.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import javafx.scene.paint.Material;
 import tn.esprit.Services.TombolaService;
-
 import tn.esprit.app.Main;
 import tn.esprit.entities.Enumerations;
 import tn.esprit.entities.Tombola;
@@ -50,7 +45,7 @@ import tn.esprit.entities.User;
  *
  * @author Hamdi Megdiche
  */
-public class TombolaAddOrEditForm extends Form {
+public class TombolaAddEditShowForm extends Form {
 
     static Resources res;
     public static TombolaForm tbf;
@@ -86,7 +81,7 @@ public class TombolaAddOrEditForm extends Form {
         f.show();
     }
 
-    public TombolaAddOrEditForm(Tombola t) {
+    public TombolaAddEditShowForm(Tombola t) {
 
         super("Ajout Tombola", new BorderLayout());
         userConnected = Main.userConnected;
@@ -404,9 +399,9 @@ public class TombolaAddOrEditForm extends Form {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (t != null) {
-                    new TombolaAddOrEditForm(t).show();
+                    new TombolaAddEditShowForm(t).show();
                 } else {
-                    new TombolaAddOrEditForm(null).show();
+                    new TombolaAddEditShowForm(null).show();
                 }
             }
         };
