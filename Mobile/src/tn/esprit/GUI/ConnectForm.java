@@ -12,6 +12,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.validation.GroupConstraint;
 import com.codename1.ui.validation.LengthConstraint;
@@ -36,6 +37,7 @@ public class ConnectForm extends Form {
 
         this.setLayout(new BorderLayout());
         this.setUIID("SignUpForm");
+        this.getAllStyles().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
         this.setScrollableY(true);
 
         Container north = new Container(new FlowLayout(Component.CENTER));

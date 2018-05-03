@@ -249,6 +249,9 @@
     ConnectButton.pressed {
         background-color: gray;
     }
+    ConnectButton.disabled {
+        background-color: gray;
+    }
 
 
     /* ----------------------for sign up form -------------------------*/
