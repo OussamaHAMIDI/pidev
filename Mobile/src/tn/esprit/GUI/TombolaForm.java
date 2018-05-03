@@ -1,8 +1,11 @@
 package tn.esprit.GUI;
 
 import com.codename1.components.ImageViewer;
-import tn.esprit.entities.Tombola;
+
 import com.codename1.components.MultiButton;
+import com.codename1.io.Log;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
@@ -18,9 +21,10 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.util.Resources;
-
+import java.util.Date;
 import java.util.List;
 
+import tn.esprit.entities.Tombola;
 import tn.esprit.app.Main;
 import tn.esprit.Services.TombolaService;
 import tn.esprit.entities.Enumerations;
@@ -96,13 +100,26 @@ public class TombolaForm extends Form {
                 l2.setUIID("RestItem");
                 row.add(l2);
 
-                Label l7 = new Label("Date Modification :");
-                l7.setUIID("RestItemInfo");
-                row.add(l7);
+                Label l7, l3;
 
-                Label l3 = new Label(t.getDateModif());
-                l3.setUIID("RestItem");
-                row.add(l3);
+                if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+                    l7 = new Label("Date Modification :");
+                    l3 = new Label(count(t.getDateTirage()));
+                    l7.setUIID("RestItemInfo");
+                    l3.setUIID("RestItem");
+                    row.add(l7);
+                    row.add(l3);
+                } else {
+                    if (count(t.getDateTirage()) != null) {
+                        l7 = new Label("Reste :");
+                        l3 = new Label(count(t.getDateTirage()));
+                        l7.setUIID("RestItemInfo");
+                        l3.setUIID("RestItem");
+                        row.add(l7);
+                        row.add(l3);
+                    }
+                }
+
                 center.add(BorderLayout.CENTER, row);
 
                 mb.addComponent(BorderLayout.CENTER, center);
@@ -114,7 +131,7 @@ public class TombolaForm extends Form {
 
                 mb.addComponent(BorderLayout.SOUTH, south);
                 mb.addActionListener(e -> {
-                    new TombolaAddOrEditForm(t).show();
+                    new TombolaAddEditShowForm(t).show();
                 });
 
                 tombolas.add(mb);
@@ -123,39 +140,94 @@ public class TombolaForm extends Form {
         }
 
         this.add(CENTER, tombolas);
-        TombolaAddOrEditForm.tbf = this;
+        TombolaAddEditShowForm.tbf = this;
 
-        Command c1 = new Command("") {
+        Command arrowBack = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 Main.shome.show();
             }
         };
-        FontImage.setMaterialIcon(c1, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        FontImage.setMaterialIcon(arrowBack, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
 
-        Command c = new Command("") {
+        Command ajout = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new TombolaAddOrEditForm(null).show();//ajout
+                new TombolaAddEditShowForm(null).show();//ajout
             }
         };
-        FontImage.setMaterialIcon(c, FontImage.MATERIAL_ADD, "TitleCommand", 5);
+        FontImage.setMaterialIcon(ajout, FontImage.MATERIAL_ADD, "TitleCommand", 5);
 
-        if (Main.userConnected != null && Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
-            Command cc = new Command("Retour ") {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    Main.shome.show();
-                }
-            };
-            FontImage.setMaterialIcon(c, ' ', "TitleCommand", 5);
+        Command none = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+            }
+        };
+        FontImage.setMaterialIcon(none, ' ', "TitleCommand", 5);
 
-            this.addCommand(cc);
+        if (Main.userConnected != null) {
+            if (Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
+                this.addCommand(arrowBack);// <-
+                this.addCommand(none);
+            } else {
+                this.addCommand(arrowBack);// <-
+                this.addCommand(ajout);// plus
+            }
         } else {
-            this.addCommand(c1);
-            this.addCommand(c);// plus
+            this.addCommand(arrowBack);// <-
+            this.addCommand(none);
         }
-
     }
 
+    private String count(String dateTirage) {
+
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date tirage = new Date();
+        try {
+            tirage = s.parse(dateTirage);
+        } catch (ParseException ex) {
+            Log.e(ex);
+        }
+
+        long sec = (tirage.getTime() - new Date().getTime()) / 1000;
+        int j = (int) sec / 86400;
+        int h = (int) (sec % 86400) / 3600;
+        int mm = (int) ((sec % 86400) % 3600) / 60;
+        int se = (int) ((sec % 86400) % 3600) % 60;
+        String count = "";
+        if (j > 0) {
+            if (j == 1) {
+                count += j + " jour ";
+            } else {
+                count += j + " jours ";
+            }
+        }
+        if (h > 0) {
+            if (h == 1) {
+                count += h + " heure ";
+            } else {
+                count += h + " heures ";
+            }
+
+        }
+        if (mm > 0) {
+            if (mm == 1) {
+                count += mm + " minute ";
+            } else {
+                count += mm + " minutes ";
+            }
+        }
+        if (se > 0) {
+            if (se == 1) {
+                count += se + " seconde";
+            } else {
+                count += se + " secondes";
+            }
+        }
+        if (tirage.getTime() > new Date().getTime()) {
+            return count;
+        } else {
+            return null;
+        }
+    }
 }

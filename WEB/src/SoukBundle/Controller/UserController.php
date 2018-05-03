@@ -71,6 +71,37 @@ class UserController extends Controller
         return new JsonResponse($formatted);
     }
 
+ /**
+     * @Route("/api/user/connect")
+     */
+    public function connectAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('UserBundle:User')->findOneBy(array('username'=>$request->get('username')));
+        if($user != null){
+            $mdp = $request->get('password');
+            $encoder = $this->container->get('security.password_encoder');
+            $match = $encoder->isPasswordValid($user, $mdp);
 
+            if($match){
+                $user->setLastLogin(new \DateTime());
+                $user->setEtat("Connected");
+
+
+                $em->persist($user);
+
+                $em->flush();
+
+                $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+
+            }else{
+                $user = null;
+            }
+        }
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($user);
+        return new JsonResponse($formatted);
+    }
 
 }

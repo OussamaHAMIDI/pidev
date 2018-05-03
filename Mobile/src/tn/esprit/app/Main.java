@@ -5,8 +5,11 @@ import com.codename1.components.ImageViewer;
 import com.codename1.io.Util;
 import com.codename1.media.Media;
 import com.codename1.media.MediaManager;
-import tn.esprit.GUI.HomeForm;
+import com.codename1.io.Log;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.messaging.Message;
+import tn.esprit.GUI.HomeForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
@@ -21,6 +24,7 @@ import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.TextArea;
@@ -41,8 +45,14 @@ import tn.esprit.GUI.StatistiquePieForm;
 import tn.esprit.GUI.TombolaForm;
 import tn.esprit.Services.EvaluationService;
 import tn.esprit.Services.TombolaService;
+import java.util.Date;
+import tn.esprit.GUI.*;
+
 import tn.esprit.Services.UserService;
+import tn.esprit.entities.Enumerations;
+import tn.esprit.entities.Enumerations.TypeUser;
 import tn.esprit.entities.Evaluation;
+import tn.esprit.entities.Panier;
 import tn.esprit.entities.User;
 
 public class Main {
@@ -53,6 +63,7 @@ public class Main {
     private Resources theme;
     public static User userConnected = null;
     public static Media m ;
+    public static Panier monpanier;
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -62,11 +73,14 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
+        this.userConnected = new UserService().getUser("40");// 40 client 41 artisan
 
     }
 
     public void start() {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowString=formater.format(new Date());
+        monpanier = new Panier(Integer.valueOf(userConnected.getId()),nowString);
         if (current != null) {
             current.show();
             return;
@@ -151,6 +165,7 @@ public class Main {
         tb.addComponentToSideMenu(topBar);
 
         tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+            new ConnectForm().show();
         });
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
@@ -172,10 +187,15 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+             new ProduitForm().show();
         });
-
-        tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+        if(userConnected.getType()==TypeUser.Client)
+        {
+            tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+            new PanierForm().show();
         });
+        }
+        
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {

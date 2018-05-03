@@ -8,16 +8,20 @@
     <image name="camera.png" type="multi"  />
     <image name="camera.png 1" type="multi"  />
     <image name="camera.png 2" type="multi"  />
+    <image name="hints.png" type="multi"  />
     <image name="left-arrow.png" type="multi"  />
     <image name="left-arrow.png 1" type="multi"  />
     <image name="left-arrow.png 2" type="multi"  />
+    <image name="lock.png" type="multi"  />
+    <image name="lock2.png" type="multi"  />
+    <image name="mail.png" type="multi"  />
     <image name="profile-mask-white.png" type="multi"  />
     <image name="profile-mask-white.png 1" type="multi"  />
-    <image name="profile-mask-white.png 2" type="multi"  />
     <image name="profile-photo-button.png" type="multi"  />
     <image name="profile-photo-button.png 1" type="multi"  />
     <image name="right-arrow.png" type="multi"  />
     <image name="right-arrow.png 1" type="multi"  />
+    <image name="soukLogo.png" type="multi"  />
     <theme name="Theme">
         <val key="@OverlayThemes" value="theme.css" />
         <val key="@backUsesTitleBool" value="true" />
@@ -75,4 +79,6 @@
     </theme>
     <image name="tombola.png" type="multi"  />
     <image name="tombola.png 1" type="multi"  />
+    <image name="user.png" type="multi"  />
+    <image name="user2.png" type="multi"  />
 </resource>

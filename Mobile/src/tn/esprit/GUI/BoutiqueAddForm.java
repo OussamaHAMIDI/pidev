@@ -27,8 +27,8 @@ import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.util.Date;
-import static tn.esprit.GUI.TombolaAddOrEditForm.res;
 import tn.esprit.Services.BoutiqueService;
+import static tn.esprit.GUI.TombolaAddEditShowForm.res;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
 
