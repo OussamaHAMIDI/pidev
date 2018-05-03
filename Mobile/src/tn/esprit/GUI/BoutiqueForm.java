@@ -62,13 +62,10 @@ public class BoutiqueForm extends Form {
         boutiques.setScrollableY(true);
         if (lb != null) {
             for (Boutique b : lb) {
-<<<<<<< HEAD
-                EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth()/2, this.getHeight() / 5, 0xFFFFFFFF), true);
-                Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost:88/pidev/WEB/web/uploads/images/" + b.getPhoto(),
-=======
+
+               
                 EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 5, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPhoto(),
->>>>>>> 6a203f377cb6d8a9f44e03c2a36214d927a33825
                         URLImage.RESIZE_SCALE_TO_FILL);
                 Container imgC = new Container();
                 imgC.add(img);
