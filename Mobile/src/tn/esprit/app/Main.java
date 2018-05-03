@@ -62,7 +62,7 @@ public class Main {
     private Form current;
     private Resources theme;
     public static User userConnected = null;
-    public static Media m ;
+    public static Media m;
     public static Panier monpanier;
 
     public void init(Object context) {
@@ -79,8 +79,8 @@ public class Main {
 
     public void start() {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowString=formater.format(new Date());
-        monpanier = new Panier(Integer.valueOf(userConnected.getId()),nowString);
+        String nowString = formater.format(new Date());
+        monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
         if (current != null) {
             current.show();
             return;
@@ -102,10 +102,7 @@ public class Main {
             System.out.println(e.getBoutique().getNom());
             System.out.println(e.getBoutique().getAdresse());
         }
-        
-        
 
-        
         btn.addActionListener(e -> {
             String htmlBody = "";
             InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
@@ -140,63 +137,68 @@ public class Main {
 
         current.setToolbar(toolBar);
 
-        current.add(btn);
-
+        //current.add(btn);
         this.shome = current;
-        
-        m =null;
+
+        m = null;
         try {
-            m=MediaManager.createMedia("C:\\xampp\\htdocs\\pidev\\Mobile\\song.mp3", false);
+            m = MediaManager.createMedia("C:\\xampp\\htdocs\\pidev\\Mobile\\song.mp3", false);
             m.play();
         } catch (IOException ex) {
-          
+
         }
-        
 
         Toolbar tb = current.getToolbar();
 
         Image icon = theme.getImage("profile-mask-white.png");
         Container topBar = BorderLayout.center(new Label(icon));
-        
+
         topBar.add(BorderLayout.SOUTH,
                 new Label("Souk Lemdina", "SidemenuTagline"));
         topBar.setUIID(
                 "SideCommand");
         tb.addComponentToSideMenu(topBar);
 
-        tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
-            new ConnectForm().show();
-        });
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+            tb.addMaterialCommandToSideMenu("Mes Boutiques", FontImage.MATERIAL_STORE, e -> {
+                MesBoutiqueForm bf = new MesBoutiqueForm();
+                bf.show();
+            });
+            tb.addMaterialCommandToSideMenu("Statistiques", FontImage.MATERIAL_SETTINGS, e -> {
+                StatistiquePieForm sf = new StatistiquePieForm();
+                sf.show();
+            });
+        } else if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
+            tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+                new ConnectForm().show();
+            });
+
+            tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
+                HistoriqueForm hf = new HistoriqueForm();
+                hf.show();
+            });
+            tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+                new PanierForm().show();
+            });
+        }
+
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
             bf.show();
         });
-        tb.addMaterialCommandToSideMenu("Statistiques", FontImage.MATERIAL_SETTINGS, e -> {
-            StatistiquePieForm sf = new StatistiquePieForm();
-            sf.show();
-        });
-        tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
 
-            HistoriqueForm hf = new HistoriqueForm();
-            hf.show();
-
-        });
         tb.addMaterialCommandToSideMenu("Tombolas", FontImage.MATERIAL_STARS, e -> {
             TombolaForm tf = new TombolaForm();
             tf.show();
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
-             new ProduitForm().show();
+            new ProduitForm().show();
         });
-        if(userConnected.getType()==TypeUser.Client)
-        {
-            tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
-            new PanierForm().show();
-        });
-        }
-        
-        tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
+
+        tb.addMaterialCommandToSideMenu("Réglages", FontImage.MATERIAL_SETTINGS, e -> {
+            SettingsForm sf = new SettingsForm();
+            sf.show();
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
             new SignUpForm().show();
@@ -222,36 +224,41 @@ public class Main {
 
     public void destroy() {
     }
-    
+
     private void showBoutiquesContainer(List<Evaluation> le, Form current) {
         Container dishes = createBoutiquesContainer(le, current);
         current.getContentPane().replace(current.getContentPane().getComponentAt(0), dishes, CommonTransitions.createSlide(CommonTransitions.SLIDE_HORIZONTAL, false, 300));
     }
-    
+
     private Container createBoutiquesContainer(List<Evaluation> le, Form current) {
         Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         cnt.setScrollableY(true);
-        
+
         // allows elements to slide into view
-        for(Evaluation e : le) {
+        for (Evaluation e : le) {
             Component dish = createBoutiqueComponent(e, current);
-            cnt.addComponent(dish);            
-        }        
+            cnt.addComponent(dish);
+        }
         return cnt;
     }
-    
+
     private Container createBoutiqueComponent(Evaluation e, Form current) {
         EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(current.getWidth(), current.getHeight(), 0xFFFFFFFF), true);
-        Image img = URLImage.createToStorage(placeholder, e.getBoutique().getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + e.getBoutique().getPhoto(),
-                URLImage.RESIZE_SCALE_TO_FILL);
+        URLImage img = URLImage.createToStorage(placeholder, e.getBoutique().getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + e.getBoutique().getPhoto());
+//        ImageViewer iv = new ImageViewer();
+//        iv.setImage(img);
+//        Image img = URLImage.createToStorage(placeholder, e.getBoutique().getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/", URLImage.RESIZE_SCALE); 
+        //Image img = theme.getImage(e.getBoutique().getPhoto());
+        img.fetch();
         Container mb = new Container(new BorderLayout());
         mb.getUnselectedStyle().setBgImage(img);
         mb.getSelectedStyle().setBgImage(img);
         mb.getPressedStyle().setBgImage(img);
-        mb.getUnselectedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-        mb.getSelectedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-        mb.getPressedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-        
+//        mb.getAllStyles().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+//        mb.getUnselectedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+//        mb.getSelectedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+//        mb.getPressedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+
         Container box = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         Button nom = new Button(e.getBoutique().getNom());
         nom.setUIID("TopTitle");
@@ -263,16 +270,16 @@ public class Main {
         note.setUIID("TopNote");
         box.addComponent(nom);
         box.addComponent(adresse);
-        
+
         Container boxAndPrice = new Container(new BorderLayout());
         boxAndPrice.addComponent(BorderLayout.CENTER, box);
         boxAndPrice.addComponent(BorderLayout.EAST, note);
         mb.addComponent(BorderLayout.SOUTH, boxAndPrice);
-        
+
         mb.setLeadComponent(nom);
-        
+
         nom.addActionListener((e1) -> {
-            if(adresse.getParent() != null) {
+            if (adresse.getParent() != null) {
                 box.removeComponent(adresse);
                 box.addComponent(date);
             } else {

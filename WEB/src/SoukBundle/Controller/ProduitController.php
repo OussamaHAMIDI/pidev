@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Serializer;
 use ProduitBundle\Entity\Produit;
 
 
-class ProduitController
+class ProduitController extends Controller
 {
     /**
      * @Route("/api/produit/all")
