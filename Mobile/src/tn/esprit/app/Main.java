@@ -181,6 +181,11 @@ public class Main {
                 new PanierForm().show();
             });
         }
+        //if (userConnected == null) {
+        tb.addMaterialCommandToSideMenu("Connexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+            new ConnectForm().show();
+        });
+        //}
 
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
@@ -200,6 +205,8 @@ public class Main {
             SettingsForm sf = new SettingsForm();
             sf.show();
         });
+        
+
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
             new SignUpForm().show();
         });

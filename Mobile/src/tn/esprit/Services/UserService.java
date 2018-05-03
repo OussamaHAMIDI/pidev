@@ -95,7 +95,7 @@ public class UserService {
 
     public List<User> getUsers() {
 
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         try {
             ConnectionRequest r = new ConnectionRequest();
 
@@ -113,8 +113,6 @@ public class UserService {
             List<Map<String, Object>> content = (List<Map<String, Object>>) response.get("root");
 
             for (Map<String, Object> obj : content) {
-                User artisan = new User();
-                User gagnant = new User();
                 users.add(new User(obj.get("id").toString(), obj.get("username").toString(), obj.get("password").toString(),
                     EtatUser.valueOf(obj.get("etat").toString()), TypeUser.valueOf(obj.get("type").toString()),
                     obj.get("nom").toString(), obj.get("prenom").toString(), obj.get("dateNaissance").toString(),
