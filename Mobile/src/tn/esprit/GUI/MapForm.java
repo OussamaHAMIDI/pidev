@@ -14,12 +14,14 @@ import tn.esprit.app.Main;
 import com.codename1.googlemaps.MapContainer;
 import com.codename1.maps.Coord;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.geom.Rectangle;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -110,6 +112,17 @@ public class MapForm extends Form{
         );
 
         this.add(BorderLayout.CENTER, root);
+        Command back = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                Form bd = new BoutiqueDetailsForm();
+                bd.show();
+            }
+        };
+        FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        this.addCommand(back);
+
+      
 }
     
 }
