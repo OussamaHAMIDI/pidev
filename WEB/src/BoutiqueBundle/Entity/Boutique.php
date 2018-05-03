@@ -18,6 +18,10 @@ use UserBundle\Entity\User;
 class Boutique
 {
 
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
+    }
     /**
      * @var integer
      *

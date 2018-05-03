@@ -23,6 +23,14 @@ public class Boutique {
     public Boutique(){ 
     }
 
+    public Boutique(String adresse, String photo, String nom, User user) {
+        this.adresse = adresse;
+        this.photo = photo;
+        this.nom = nom;
+        this.user = user;
+    }
+    
+
     public Boutique(String id, String adresse, float longitude, float altitude, String photo, String nom,String dateCreation, User user) {
         if (id.contains(".")) {
             this.id = id.substring(0, id.indexOf('.'));

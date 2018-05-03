@@ -40,9 +40,10 @@ public class MapForm extends Form{
     
         final MapContainer cnt = new MapContainer();
 
+        cnt.setCameraPosition(new Coord(35, 8));
         Button btnMoveCamera = new Button("Move Camera");
         btnMoveCamera.addActionListener(e->{
-            cnt.setCameraPosition(new Coord(47.606189, -122.335842));
+            cnt.setCameraPosition(new Coord(35, 8));
         });
         Style s = new Style();
         s.setFgColor(0xff0000);
@@ -52,7 +53,7 @@ public class MapForm extends Form{
         Button btnAddMarker = new Button("Add Marker");
         btnAddMarker.addActionListener(e->{
 
-            cnt.setCameraPosition(new Coord(47.606189, -122.335842));
+            cnt.setCameraPosition(new Coord(35, 8));
             cnt.addMarker(
                     EncodedImage.createFromImage(markerImg, false),
                     cnt.getCameraPosition(),
@@ -69,10 +70,8 @@ public class MapForm extends Form{
 
             cnt.addPath(
                     cnt.getCameraPosition(),
-                    new Coord(-33.866, 151.195), // Sydney
-                    new Coord(-18.142, 178.431),  // Fiji
-                    new Coord(21.291, -157.821),  // Hawaii
-                    new Coord(37.423, -122.091)  // Mountain View
+                    new Coord(36.899490, 10.189668), // Esprit
+                    new Coord(36.837110, 10.192970)  // Cité olympique
             );
         });
 

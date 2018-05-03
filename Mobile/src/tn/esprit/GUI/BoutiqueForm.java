@@ -52,7 +52,7 @@ public class BoutiqueForm extends Form {
         BoutiqueService bs = new BoutiqueService();
         EvaluationService es = new EvaluationService();
         User user = new User();
-        user.setId("42");
+        //user.setId("42");
         List<Boutique> lb = bs.getBoutiques();
 
 //        List<Evaluation> le = es.getEvaluations();
@@ -62,6 +62,8 @@ public class BoutiqueForm extends Form {
         boutiques.setScrollableY(true);
         if (lb != null) {
             for (Boutique b : lb) {
+
+               
                 EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 5, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
@@ -73,7 +75,7 @@ public class BoutiqueForm extends Form {
                 mb.setTextLine3(b.getDateCreation());
                 //mb.setIcon(img);
                 mb.add(LEFT, img);
-                Slider note = createStarRankSlider();
+                //Slider note = createStarRankSlider();
                 mb.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
@@ -115,35 +117,35 @@ public class BoutiqueForm extends Form {
 
     }
 
-    public Slider createStarRankSlider() {
-
-        Slider starRank = new Slider();
-        starRank.setEditable(true);
-        starRank.animate();
-        starRank.setGap(5);
-        starRank.setScrollVisible(false);
-        starRank.setSmoothScrolling(true);
-        starRank.setMaxValue(5);
-        Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
-                derive(Display.getInstance().convertToPixels(2, true), Font.STYLE_PLAIN);
-        Style s = new Style(0xffff33, 0, fnt, (byte) 0);
-        Image fullStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
-        s.setOpacity(100);
-        s.setFgColor(0);
-        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
-        initStarRankStyle(starRank.getSliderEmptySelectedStyle(), emptyStar);
-        initStarRankStyle(starRank.getSliderEmptyUnselectedStyle(), emptyStar);
-        initStarRankStyle(starRank.getSliderFullSelectedStyle(), fullStar);
-        initStarRankStyle(starRank.getSliderFullUnselectedStyle(), fullStar);
-        starRank.setPreferredSize(new Dimension(fullStar.getWidth() * 5, fullStar.getHeight()));
-        return starRank;
-    }
-
-    private void initStarRankStyle(Style s, Image star) {
-        s.setBackgroundType(Style.BACKGROUND_IMAGE_TILE_BOTH);
-        s.setBorder(Border.createEmpty());
-        s.setBgImage(star);
-        s.setBgTransparency(0);
-    }
+//    public Slider createStarRankSlider() {
+//
+//        Slider starRank = new Slider();
+//        starRank.setEditable(true);
+//        starRank.animate();
+//        starRank.setGap(5);
+//        starRank.setScrollVisible(false);
+//        starRank.setSmoothScrolling(true);
+//        starRank.setMaxValue(5);
+//        Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
+//                derive(Display.getInstance().convertToPixels(2, true), Font.STYLE_PLAIN);
+//        Style s = new Style(0xffff33, 0, fnt, (byte) 0);
+//        Image fullStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
+//        s.setOpacity(100);
+//        s.setFgColor(0);
+//        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
+//        initStarRankStyle(starRank.getSliderEmptySelectedStyle(), emptyStar);
+//        initStarRankStyle(starRank.getSliderEmptyUnselectedStyle(), emptyStar);
+//        initStarRankStyle(starRank.getSliderFullSelectedStyle(), fullStar);
+//        initStarRankStyle(starRank.getSliderFullUnselectedStyle(), fullStar);
+//        starRank.setPreferredSize(new Dimension(fullStar.getWidth() * 5, fullStar.getHeight()));
+//        return starRank;
+//    }
+//
+//    private void initStarRankStyle(Style s, Image star) {
+//        s.setBackgroundType(Style.BACKGROUND_IMAGE_TILE_BOTH);
+//        s.setBorder(Border.createEmpty());
+//        s.setBgImage(star);
+//        s.setBgTransparency(0);
+//    }
 
 }
