@@ -62,6 +62,8 @@
         <val key="Command.transparency" value="0" />
         <val key="Label.fgColor" value="000000" />
         <val key="Label.transparency" value="0" />
+        <val key="OnOffSwitch.align" value="4" />
+        <val key="OnOffSwitch.transparency" value="0" />
         <gradient key="Scroll.bgGradient" color1="15724527" color2="15724527" posX="0.5" posY="0.5" radius="0.3" />
         <val key="Scroll.bgType" value="8" />
         <gradient key="ScrollThumb.bgGradient" color1="16777215" color2="16777215" posX="0.5" posY="0.5" radius="0.3" />
