@@ -402,7 +402,8 @@ public class TombolaAddEditShowForm extends Form {
         Command arrowBack = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                tbf.showBack();
+                //tbf.showBack();
+                new TombolaForm().showBack();
             }
         };
         FontImage.setMaterialIcon(arrowBack, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
@@ -535,8 +536,8 @@ public class TombolaAddEditShowForm extends Form {
         }
         Message m = new Message(htmlBody);
         m = new Message("Félicitations " + u.getPrenom() + " "+u.getNom()+".\n"
-                + "Vous avez gagner au tirage du tombola " + t.getTitre() + "lancé le " + t.getDateTirage() + ".\n"
-                + "<p> </p> </body></html>");
+                + "Vous avez gagner au tirage du tombola " + t.getTitre() + " lancé le " + t.getDateTirage() + ".\n"
+                + "");
         m.setMimeType(Message.MIME_HTML);
 
         Display.getInstance().sendMessage(new String[]{u.getEmail()}, "Souk lemdina : Gagnant Tombola", m);
