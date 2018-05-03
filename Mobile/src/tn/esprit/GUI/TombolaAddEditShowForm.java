@@ -134,7 +134,9 @@ public class TombolaAddEditShowForm extends Form {
         });
 
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String d = s.format(new Date());
+        Date now = new Date();
+        now.setTime(now.getTime()+1000*90);// + 90s
+        String d = s.format(now);
         date.setText(d.substring(0, d.indexOf(":") - 3));
         time.setText(d.substring(d.indexOf(":") - 2));
         dateTirage = date.getText() + " " + time.getText();
