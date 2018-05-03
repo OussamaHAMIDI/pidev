@@ -104,7 +104,7 @@ public class TombolaForm extends Form {
 
                 if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
                     l7 = new Label("Date Modification :");
-                    l3 = new Label(count(t.getDateTirage()));
+                    l3 = new Label(t.getDateModif());
                     l7.setUIID("RestItemInfo");
                     l3.setUIID("RestItem");
                     row.add(l7);
