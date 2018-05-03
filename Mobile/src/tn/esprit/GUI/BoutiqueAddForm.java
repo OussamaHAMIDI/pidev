@@ -28,6 +28,7 @@ import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.util.Date;
 import static tn.esprit.GUI.TombolaAddOrEditForm.res;
+import tn.esprit.Services.BoutiqueService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
 
@@ -94,10 +95,13 @@ public class BoutiqueAddForm extends Form {
             if (path == null) {
                 Dialog.show("Erreur", "Veuillez bien choisir une photo !", "  OK  ", null);
             } else {
-                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-                String d = s.format(new Date());
-                Boutique b = new Boutique("", adresse.getText(), 0.0f, 0.0f, path, nom.getText(),d, Main.userConnected);
-                System.out.println(b);
+//                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+//                String d = s.format(new Date());
+                Boutique b = new Boutique(adresse.getText(), path, nom.getText(), Main.userConnected);
+                BoutiqueService bs = new BoutiqueService();
+                Boutique boutiqueAjoutee = bs.add(b);
+                //System.out.println(boutiqueAjoutee);
+                //bs.ajouterBoutiquePhoto(boutiqueAjoutee.getId(), path);
             }
         });
 

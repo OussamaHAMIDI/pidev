@@ -37,7 +37,6 @@ class EvaluationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
         $i = 0;
-        var_dump($boutiquesEvaluees);
         foreach ($boutiquesEvaluees as $b) {
             $evaluation = new Evaluation();
             $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
@@ -64,6 +63,43 @@ class EvaluationController extends Controller
         $formatted = $serializer->normalize($topTen);
         return new JsonResponse($formatted);
     }
+
+    /**
+     * @Route("/api/evaluation/vente/{id}")
+     */
+    public function venteAction($id)
+    {
+
+        $vente = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->venteArtisanMobile($id);
+        $total = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->totalArtisanMobile($id);
+        $resp = array();
+        $resp[0]=$vente;
+        $resp[1]=$total;
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($resp);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/evaluation/peut/{id}")
+     */
+    public function peutAction($id)
+    {
+
+        $peut = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->pe($id);
+        $total = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->totalArtisanMobile($id);
+        $resp = array();
+        $resp[0]=$vente;
+        $resp[1]=$total;
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($resp);
+        return new JsonResponse($formatted);
+    }
+
 
     /**
      * @Route("/api/evaluation/find/{id}")

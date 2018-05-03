@@ -37,9 +37,7 @@ public class BoutiqueService {
         r.setPost(true);
         r.setHttpMethod("GET");
         r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/boutique/add");
-        r.addArgument("dateCreation", boutique.getDateCreation());// "2018-11-10 23:24:50"
-        r.addArgument("longitude", String.valueOf(boutique.getLongitude()));
-        r.addArgument("altitude", String.valueOf(boutique.getAltitude()));
+        r.addArgument("name", boutique.getNom());
         r.addArgument("adresse", boutique.getAdresse());
         r.addArgument("idUser", boutique.getUser().getId());
 
@@ -65,7 +63,7 @@ public class BoutiqueService {
             Boutique b = new Boutique(response.get("id").toString(), response.get("adresse").toString(), longitude,
                     latitude, response.get("pathPhoto").toString(), response.get("nom").toString(), response.get("dateCreation").toString(),
                     user);
-            b = ajouterBoutiquePhoto(b.getId(), boutique.getPhoto());
+            ajouterBoutiquePhoto(b.getId(), boutique.getPhoto());
             return b;
         } catch (IOException ex) {
             Log.e(ex);
@@ -114,7 +112,7 @@ public class BoutiqueService {
             return null;
         }
 
-        System.out.println(boutiques);
+        //System.out.println(boutiques);
         return boutiques;
     }
 
@@ -170,6 +168,7 @@ public class BoutiqueService {
             r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/boutique/delete/" + id.substring(0, id.indexOf('.')));
             r.setPost(false);
             r.setHttpMethod("GET");
+            
 
             InfiniteProgress prog = new InfiniteProgress();
             Dialog dlg = prog.showInifiniteBlocking();
@@ -220,21 +219,28 @@ public class BoutiqueService {
             Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(
                     new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
 
-            Map<String, Object> a = (Map<String, Object>) response.get("idUser");
-
-            User user = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
-                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
-                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
-                    a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
-
-            Double lo = (Double) a.get("longitude");
-            Double la = (Double) a.get("altitude");
-            float longitude = lo.floatValue();
-            float latitude = la.floatValue();
-            b = new Boutique(a.get("id").toString(), a.get("adresse").toString(), longitude,
-                    latitude, a.get("pathPhoto").toString(), a.get("nom").toString(), a.get("dateCreation").toString(),
-                    user);
-            return b;
+//            Map<String, Object> a = (Map<String, Object>) response.get("idUser");
+//
+//            User user = new User(a.get("id").toString(), a.get("username").toString(), a.get("password").toString(),
+//                    Enumerations.EtatUser.valueOf(a.get("etat").toString()), Enumerations.TypeUser.valueOf(a.get("type").toString()),
+//                    a.get("nom").toString(), a.get("prenom").toString(), a.get("dateNaissance").toString(), a.get("sexe").toString(),
+//                    a.get("email").toString(), a.get("adresse").toString(), a.get("tel").toString(), a.get("pathPhotoProfil").toString());
+//
+//            System.out.println(a.get("longitude"));
+//            System.out.println(a.get("latitude"));
+//            System.out.println(a.get("pathPhoto"));
+//            
+//            
+//            Double lo = (Double) a.get("longitude");
+//            Double la = (Double) a.get("altitude");
+//            float longitude = lo.floatValue();
+//            float latitude = la.floatValue();
+//            b = new Boutique(a.get("id").toString(), a.get("adresse").toString(), longitude,
+//                    latitude, a.get("pathPhoto").toString(), a.get("nom").toString(), a.get("dateCreation").toString(),
+//                    user);
+//            return b;
+b = new Boutique();
+return b ;
 
         } catch (IOException err) {
             Log.e(err);

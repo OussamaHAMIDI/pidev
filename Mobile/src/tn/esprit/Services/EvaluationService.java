@@ -126,7 +126,7 @@ public class EvaluationService {
         System.out.println(evaluations);
         return evaluations;
     }
-    
+
     public List<Evaluation> getTopBoutiques() {
 
         List<Evaluation> evaluations = new ArrayList<Evaluation>();
@@ -228,6 +228,65 @@ public class EvaluationService {
         }
 
         return e;
+    }
+
+    public List<Double> getVente() {
+        List<Double> li = new ArrayList<Double>();
+        try {
+            ConnectionRequest r = new ConnectionRequest();
+
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/evaluation/vente");
+            r.setPost(false);
+            r.setHttpMethod("GET");
+
+            InfiniteProgress prog = new InfiniteProgress();
+            Dialog dlg = prog.showInifiniteBlocking();
+            r.setDisposeOnCompletion(dlg);
+            NetworkManager.getInstance().addToQueueAndWait(r);
+
+            Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+            List<Double> content = (List<Double>) response.get("root");
+            System.out.println("content ====> " + content);
+            for (Double obj : content) {
+                double nbr = obj.intValue();
+                li.add(obj);
+            }
+            System.out.println("li ====> " + li);
+        } catch (IOException err) {
+            Log.e(err);
+            return null;
+        }
+        return li;
+    }
+    
+    public List<Integer> getVenteArtisan(String id) {
+        List<Integer> li = new ArrayList<Integer>();
+        try {
+            ConnectionRequest r = new ConnectionRequest();
+
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/evaluation/vente/" + id);
+            r.setPost(false);
+            r.setHttpMethod("GET");
+
+            InfiniteProgress prog = new InfiniteProgress();
+            Dialog dlg = prog.showInifiniteBlocking();
+            r.setDisposeOnCompletion(dlg);
+            NetworkManager.getInstance().addToQueueAndWait(r);
+
+            Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+            List<String> content = (List<String>) response.get("root");
+            System.out.println("content ====> " + content);
+            for (String obj : content) {
+                li.add(Integer.parseInt(obj));
+            }
+            System.out.println("li ====> " + li);
+        } catch (IOException err) {
+            Log.e(err);
+            return null;
+        }
+        return li;
     }
 
 }

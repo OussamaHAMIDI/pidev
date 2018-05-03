@@ -86,9 +86,9 @@ class BoutiqueController extends Controller
 
         $boutique= new Boutique();
         $boutique->setNom($request->get('name'));
-        $boutique->setDateCreation(new \DateTime($request->get('dateCreation')));
-        $boutique->setLongitude($request->get('longitude'));
-        $boutique->setAltitude($request->get('altitude'));
+//        $boutique->setDateCreation(new \DateTime($request->get('dateCreation')));
+        $boutique->setLongitude(0);
+        $boutique->setAltitude(0);
         $boutique->setAdresse($request->get('adresse'));
         $user = $em->getRepository('UserBundle:User')->find($request->get('idUser'));
         $boutique->setIdUser($user);
@@ -97,6 +97,7 @@ class BoutiqueController extends Controller
         $em->flush();
 
         $boutique->setDateCreation($boutique->getDateCreation()->format('Y-m-d H:i:s'));
+        $boutique->setPathPhoto("db5f440f48744944556c98d90ca4cd14.jpeg");
 
 
         $serializer = new Serializer([new ObjectNormalizer()]);

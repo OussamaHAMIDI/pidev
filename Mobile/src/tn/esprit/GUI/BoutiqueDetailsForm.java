@@ -88,14 +88,14 @@ public class BoutiqueDetailsForm extends Form {
         Label date = new Label(boutique.getDateCreation());
         date.setUIID("BoutiqueInfo");
         center.addComponent(date);
-
-        center.addComponent(new Label("Feedback"));
-        TextField reclamation = new TextField("Donnez votre reclamation");
-        center.addComponent(reclamation);
- 
-        //TO DO Yetbadel statique ki yahdher el user
+        
+         //TO DO Yetbadel statique ki yahdher el user
         User user = new User();
         user.setId("40");
+        
+        Label feedback = new Label("Feedback");
+        feedback.setUIID("Label");
+        center.addComponent(feedback);
         
         Slider rating = createStarRankSlider();
         center.add(FlowLayout.encloseCenter(rating));
@@ -108,9 +108,11 @@ public class BoutiqueDetailsForm extends Form {
                 System.out.println("rate =====> " + rating.getProgress());
             }
         });
+
         
-        
-        
+        TextField reclamation = new TextField("Donnez votre reclamation");
+        reclamation.setUIID("SignUpField");
+        center.addComponent(reclamation);
         Button btnReclamation = new Button("Reclamer");
         center.addComponent(btnReclamation);
         btnReclamation.addActionListener(new ActionListener() {
@@ -120,6 +122,7 @@ public class BoutiqueDetailsForm extends Form {
                     ReclamationService rs = new ReclamationService();
                     Reclamation rec = new Reclamation(user, boutique, reclamation.getText());
                     rs.addReclamation(rec);
+                    reclamation.setText("");
                 }
             }
         });
