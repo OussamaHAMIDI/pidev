@@ -83,7 +83,6 @@ public class TombolaService {
                     tt = ajouterTombolaPhoto(tt.getId(), t.getPhoto(), "e");
                     System.out.println("update photo");
                 } else {
-                    // don't upload photo again ! 
                     System.out.println("don't upload photo again ");
                 }
             }
@@ -182,10 +181,20 @@ public class TombolaService {
                             g.get("nom").toString(), g.get("prenom").toString(), g.get("dateNaissance").toString(), g.get("sexe").toString(),
                             g.get("email").toString(), g.get("adresse").toString(), g.get("tel").toString(), g.get("pathPhotoProfil").toString());
                 }
+                
+                List<User> participants = new ArrayList<User>();
+                 List<Map<String, Object>> users = (List<Map<String, Object>>) obj.get("participants");
+                for (Map<String, Object> u : users) {
+                participants.add(new User(u.get("id").toString(), u.get("username").toString(), u.get("password").toString(),
+                    Enumerations.EtatUser.valueOf(u.get("etat").toString()), Enumerations.TypeUser.valueOf(u.get("type").toString()),
+                    u.get("nom").toString(), u.get("prenom").toString(), "",
+                    u.get("sexe").toString(), u.get("email").toString(), u.get("adresse").toString(),
+                    u.get("tel").toString(), u.get("pathPhotoProfil").toString()));
+            }
 
                 tombolas.add(new Tombola(obj.get("id").toString(), obj.get("titre").toString(), obj.get("description").toString(),
                         obj.get("dateAjout").toString(), obj.get("dateTirage").toString(), obj.get("dateModif").toString(),
-                        artisan, gagnant, obj.get("path").toString(), getParticipants(obj.get("id").toString())));
+                        artisan, gagnant, obj.get("path").toString(), participants));
             }
 
         } catch (IOException err) {

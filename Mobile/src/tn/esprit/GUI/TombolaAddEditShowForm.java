@@ -290,7 +290,7 @@ public class TombolaAddEditShowForm extends Form {
             center.add(BorderLayout.NORTH, title);
             mb.addComponent(BorderLayout.CENTER, center);
             mb.addActionListener(e -> {
-                new ConnectForm().show();
+                //new ConnectForm().show();
             });
             content.add(l).add(mb);
         }

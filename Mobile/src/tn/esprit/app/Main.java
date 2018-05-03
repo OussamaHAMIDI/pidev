@@ -48,8 +48,8 @@ public class Main {
 
     public void start() {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowString=formater.format(new Date());
-        monpanier = new Panier(Integer.valueOf(userConnected.getId()),nowString);
+        String nowString = formater.format(new Date());
+        monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
         if (current != null) {
             current.show();
             return;
@@ -87,9 +87,12 @@ public class Main {
                 "SideCommand");
         tb.addComponentToSideMenu(topBar);
 
-        tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+        //if (userConnected == null) {
+        tb.addMaterialCommandToSideMenu("Connexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
             new ConnectForm().show();
         });
+        //}
+
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
             bf.show();
@@ -110,15 +113,14 @@ public class Main {
         });
 
         tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
-             new ProduitForm().show();
+            new ProduitForm().show();
         });
-        if(userConnected.getType()==TypeUser.Client)
-        {
+        if (userConnected.getType() == TypeUser.Client) {
             tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
-            new PanierForm().show();
-        });
+                new PanierForm().show();
+            });
         }
-        
+
         tb.addMaterialCommandToSideMenu("Settings", FontImage.MATERIAL_SETTINGS, e -> {
         });
         tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {

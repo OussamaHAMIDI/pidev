@@ -109,6 +109,7 @@ class Tombola
     private $dateModif;
 
 
+    public $participants;
 
 
     public function setId($id)
