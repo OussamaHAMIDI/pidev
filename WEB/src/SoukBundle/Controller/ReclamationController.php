@@ -29,21 +29,38 @@ class ReclamationController extends Controller
         return new JsonResponse($formatted);
     }
 
+
+
     /**
-     * @Route("/api/reclamation/allUser")
+     * @Route("/api/reclamation/allUser/{id}")
      */
-    public function allUserAction(Request $request)
+    public function allUserAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('UserBundle:User')->find($request->get('idUser'));
-        $reclamations = $this->getDoctrine()->getManager()
-            ->getRepository('ReclamationBundle:Reclamation')
-            ->find();
-        foreach ($reclamations as $reclamation) {
-            $reclamation->setDateCreation($reclamation->getDateCreation()->format('Y-m-d H:i:s'));
+        $reclamation = $this->getDoctrine()->getManager()
+            ->getRepository('ReclamationBundle:Reclamation')->findBy(array(
+                'idUser'=>$id
+            ));
+        foreach ($reclamation as $rec) {
+            $rec->setDateCreation($rec->getDateCreation()->format('Y-m-d H:i:s'));
         }
         $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($reclamations);
+        $formatted = $serializer->normalize($reclamation);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/reclamation/delete/{id}")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $reclamation = $this->getDoctrine()->getManager()
+            ->getRepository('ReclamationBundle:Reclamation')->find($id);
+        $reclamation->setDateCreation($reclamation->getDateCreation()->format('Y-m-d H:i:s'));
+        $em->remove($reclamation);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($reclamation);
         return new JsonResponse($formatted);
     }
 
