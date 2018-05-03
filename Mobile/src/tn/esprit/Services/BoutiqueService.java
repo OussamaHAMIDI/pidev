@@ -50,7 +50,7 @@ public class BoutiqueService {
         List<Boutique> boutiques = new ArrayList<Boutique>();
         try {
             ConnectionRequest r = new ConnectionRequest();
-            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/boutique/all");
+            r.setUrl("http://localhost:88/pidev/WEB/web/app_dev.php/api/boutique/all");
             r.setPost(false);
             r.setHttpMethod("GET");
             InfiniteProgress prog = new InfiniteProgress();

@@ -58,7 +58,7 @@ public class BoutiqueForm extends Form {
         if (lb != null) {
             for (Boutique b : lb) {
                 EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth()/2, this.getHeight() / 5, 0xFFFFFFFF), true);
-                Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPhoto(),
+                Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost:88/pidev/WEB/web/uploads/images/" + b.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
                 Container imgC = new Container();
                 imgC.add(img);
