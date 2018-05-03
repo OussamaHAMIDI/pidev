@@ -121,6 +121,8 @@ public class BoutiqueAddForm extends Form {
         };
         FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
         this.addCommand(back);
+        
+        
         Validator val = new Validator();
         val.setShowErrorMessageForFocusedComponent(true);
         val.addConstraint(nom,
