@@ -91,6 +91,9 @@ public class ConnectForm extends Form {
                         Dialog.TYPE_WARNING, null, 0);
 
                 if (show.getCommandName().equals("Ok")) {
+                    Main main = new Main();
+                    main.init(this);
+                    main.start();
                     Main.shome.show();
                 }
             } else {

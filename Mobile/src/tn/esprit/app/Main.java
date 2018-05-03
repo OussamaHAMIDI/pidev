@@ -64,6 +64,7 @@ public class Main {
     public static User userConnected = null;
     public static Media m;
     public static Panier monpanier;
+    private User pUserConnected;
 
     public void init(Object context) {
         // use two network threads instead of one
@@ -73,14 +74,15 @@ public class Main {
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
-        this.userConnected = new UserService().getUser("41");// 40 client 41 artisan
+        this.pUserConnected = userConnected;
+                //= new UserService().getUser("41");// 40 client 41 artisan
 
     }
 
     public void start() {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String nowString = formater.format(new Date());
-        monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
+        
         if (current != null) {
             current.show();
             return;
@@ -169,10 +171,7 @@ public class Main {
                 sf.show();
             });
         } else if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
-            tb.addMaterialCommandToSideMenu("Mon profil", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
-                new ConnectForm().show();
-            });
-
+           monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
             tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
                 HistoriqueForm hf = new HistoriqueForm();
                 hf.show();
@@ -181,11 +180,11 @@ public class Main {
                 new PanierForm().show();
             });
         }
-        //if (userConnected == null) {
+        if (pUserConnected == null) {
         tb.addMaterialCommandToSideMenu("Connexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
             new ConnectForm().show();
         });
-        //}
+        }
 
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
             BoutiqueForm bf = new BoutiqueForm();
@@ -207,7 +206,7 @@ public class Main {
         });
         
 
-        tb.addMaterialCommandToSideMenu("About", FontImage.MATERIAL_INFO, e -> {
+        tb.addMaterialCommandToSideMenu("A propos", FontImage.MATERIAL_INFO, e -> {
             new SignUpForm().show();
         });
 

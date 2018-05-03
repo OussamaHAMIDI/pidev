@@ -25,6 +25,10 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.GroupConstraint;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.RegexConstraint;
+import com.codename1.ui.validation.Validator;
 import java.io.IOException;
 import java.util.Date;
 import tn.esprit.Services.BoutiqueService;
@@ -117,6 +121,12 @@ public class BoutiqueAddForm extends Form {
         };
         FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
         this.addCommand(back);
+        Validator val = new Validator();
+        val.setShowErrorMessageForFocusedComponent(true);
+        val.addConstraint(nom,
+                new GroupConstraint(
+                        new LengthConstraint(5, "Minimum 5 caracteres"),
+                        new RegexConstraint("^([a-zA-Z ÉéèÈêÊôÔ']*)$", "Veuillez saisir que des caracteres")));
 
     }
 }
