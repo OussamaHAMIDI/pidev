@@ -145,7 +145,10 @@ public class Main {
         this.m = null;
         try {
             m = MediaManager.createMedia("C:\\xampp\\htdocs\\pidev\\Mobile\\song.mp3", false);
-            m.play();
+            if(m!=null){
+                  m.play();
+            }
+          
         } catch (IOException ex) {
 
         }
