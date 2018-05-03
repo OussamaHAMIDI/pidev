@@ -38,11 +38,14 @@ public class SettingsForm extends Form {
         pause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if (pause.isValue() == true){
-                    Main.m.play();
-                }else{
-                    Main.m.pause();
+                if(Main.m != null){
+                    if (pause.isValue() == true) {
+                        Main.m.play();
+                    } else {
+                        Main.m.pause();
+                    } 
                 }
+               
             }
         });
         this.add(BOTTOM,pause);
