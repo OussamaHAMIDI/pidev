@@ -1,6 +1,7 @@
 package tn.esprit.GUI;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.CN1Constants;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
@@ -25,20 +26,14 @@ public class SignUpForm extends Form {
 
     static Resources res;
 
-//    public static void init() {
-//        if (res == null) {
-//            //res = Resources.openLayered("/SignUpForm.css");
-//            res = Main.stheme;
-//            //UIManager.getInstance().
-//            UIManager.getInstance().addThemeProps(res.getTheme("Theme"));
-//        }
-//    }
+
+
     public SignUpForm() {
-        super("Sign Up");
+        super("Inscription");
         this.setUIID("SignUpForm");
 
         res = Main.stheme;
-
+        
         this.setLayout(new BorderLayout());
         Container north = new Container(new FlowLayout(Component.CENTER));
         north.setUIID("SignUpNorth");
@@ -74,13 +69,12 @@ public class SignUpForm extends Form {
         email.getHintLabel().setUIID("SignupFieldHint");
 
         Picker dob = new Picker();
+        dob.setUIID("Container");
         dob.setType(Display.PICKER_TYPE_DATE);
         dob.setDate(new Date());
 
-        dob.setUIID("Dialog");
         center.addComponent(dob);
-//        dob.setHint("Date naissance");
-//        dob.getHintLabel().setUIID("SignupFieldHint");
+
 
         TextField password = new TextField();
         password.setUIID("SignUpField");
@@ -109,13 +103,14 @@ public class SignUpForm extends Form {
         getStarted.setGap(getStarted.getStyle().getFont().getHeight());
         getStarted.setUIID("SignUpButton");
         getStarted.setTextPosition(Component.LEFT);
+//        getStarted.addActionListener();
 
         this.addComponent(BorderLayout.SOUTH, getStarted);
         this.addCommand(new Command("Retour") {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+                Main.shome.showBack();
             }
 
         });

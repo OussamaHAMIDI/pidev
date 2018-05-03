@@ -9,9 +9,11 @@
 @media cn1{
     TitleArea {
         background-color: transparent;
+        font-size : 2.5mm;
     }
     Form{
         background-color : #efefef;
+
     }
     HomeForm {
         cn1-derive: Form;
@@ -21,8 +23,69 @@
         background-color: #009999;
         border-radius: 2mm;
         color : white;
+        text-align: center;
         font-size : 3mm;
         font-family : native:MainRegular;
+    }
+    Button.pressed{
+        background-color: #009999;
+        border-radius: 2mm;
+        color : white;
+        text-align: center;
+        font-size : 3mm;
+        font-weight: bold;
+        font-family : native:MainRegular;
+    }
+    Button.disabled{
+        background-color: rgba(66, 82, 79, 0.219);
+        border-radius: 2mm;
+        color : white;
+        font-size : 3mm;
+        text-align: center;
+        font-family : native:MainRegular;
+    }
+	TopTitle{
+		color : white;
+		background : transparent;
+	}
+	TopBody{
+		color : white;
+		background : transparent;
+	}
+	TopNote{
+		color : white;
+		background : transparent;
+	}
+    Delete{
+        color : rgb(226, 9, 9);
+        border-radius: 2mm;
+        text-align: center;
+        font-size : 3mm;
+        font-weight: bold;
+        background-color: rgb(185, 185, 185);
+        font-family : native:MainRegular;
+
+    }
+    Delete.pressed{
+        color : rgba(250, 42, 42, 0.342);
+        border-radius: 2mm;
+        text-align: center;
+        font-size : 3mm;
+        font-weight: bold;
+        background-color : rgba(219, 75, 75, 0.61);
+        font-family : native:MainRegular;
+
+    }
+    Delete.disabled{
+        background-color: rgba(66, 82, 79, 0.219);
+        border-radius: 2mm;
+        color : white;
+        font-size : 3mm;
+        text-align: center;
+        font-family : native:MainRegular;
+    }
+    DBody{
+        margin-bottom: 10mm;
     }
     BoutiqueInfo{
         text-align: center;
@@ -40,6 +103,22 @@
         border-radius: 2mm;
         margin: 0.5mm 0.5mm 0.5mm 0.5mm ;
     }
+    ListItem.selected{
+        background-color : #e2e2e2;
+    }
+    Title2{
+        background-color : transparent;
+        color : #009999;
+        font-size : 3.5mm;
+        margin: 0.5mm 4mm 4mm 0.5mm ;
+        font-family : "Source Sans Pro";
+
+    }
+    PreviewPhoto{
+        background-color : transparent;
+        border-radius: 2mm;
+        margin: 0.5mm 0.5mm 0.5mm 2mm ;
+    }
     Title{
         background-color : transparent;
         color : #545454;
@@ -48,12 +127,18 @@
     }
     TitleCommand{
         color : #009999;
+        margin: 0.1mm 0.3mm 0mm 0.3mm;
         font-size : 2.5mm;
         font-family : native:MainRegular;
-    }
-    TitleCommand.pressed{
         background-color : transparent;
     }
+    TitleCommand.pressed{
+        color : rgba(0, 181, 212, 0.904);
+        margin: 0.1mm 0.3mm 0mm 0.3mm;
+        background-color : rgba(25, 106, 121, 0.212);
+    }
+
+
     MultiLine1{
         background-color : transparent;
         color : #545454;
@@ -86,9 +171,7 @@
         font-size : 4mm;
         margin-bottom : 5mm;
     }
-    ListItem.selected{
-        background-color : #e2e2e2;
-    }
+
     SideCommand{
         background-color : #009999;
         color : white;
@@ -109,12 +192,70 @@
         border-color : transparent;
         border : none;
     }
+    /* ----------------------for CONNECT form -------------------------*/
+    ConnectNorth{
+        background-color: transparent;
+        padding: 14mm 0 9mm 0;
+        margin: 0;
+    }
+    ConnectCenter{
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+    }
+    ConnectField{
+        background-color: rgb(255, 255, 255);
+        opacity: 0.502;
+        padding: 0.5mm;
+        height: 3mm;
+        color:rgb(0, 0, 0);
+        font-size: 3.5mm;
+        font-family: "Roboto";
+        margin-left: 0.3mm;
+        margin-top: 0.4mm;
+    }
+
+    ConnectFieldHint {
+        padding: 0.5mm;
+        margin-left: 0.3mm;
+        margin-top: 0.4mm;
+        font-size: 3.5mm;
+        font-family: "Roboto";
+        color: rgba(231, 14, 14, 0.76);
+        text-align: left;
+    }
+
+    RowConnect{
+        margin : 2mm 6mm 0mm 6mm;
+        border-radius: 1.5mm;
+    }
+    ConnectIconField{
+        background-color: transparent;
+        padding: 0.5mm 1.3mm 0.5mm 0.5mm;
+        /*padding-right: 1.3mm;*/
+    }
+    ConnectButton{
+        /*background-color: rgb(255, 95, 172);*/
+
+        background-color: rgb(247, 112, 50);
+        color:white;
+        font-size: 40px;
+        font-family: "Roboto";
+        text-align: center;
+        font-weight: bold;
+        border-radius: 3mm;
+        margin: 3mm 10mm 2mm 10mm;
+    }
+    ConnectButton.pressed {
+        background-color: gray;
+    }
+
+
     /* ----------------------for sign up form -------------------------*/
     SignUpForm {
         padding: 0;
         cn1-derive: Form;
-        /*background-image: url(../assets/signup-form-bg.png);*/
-
+        background-image: url(../assets/background5.png);
     }
 
     /* White background for center panel on which all text fields are placed */
@@ -131,10 +272,12 @@
         color: rgb( 77, 96, 111 );
         font-family: "Roboto";
         margin: 0;
-
-
     }
 
+	FeedBackLabel{
+		background : transparent;
+		color : rgb( 77, 96, 111 );
+	}
     SignUpLabel {
         padding-left: 4mm;
         padding-right: 4mm;
@@ -146,13 +289,9 @@
         font-size: small;
         padding: 4mm;
     }
-    date{
-        cn1-derive: Dialog;
-/*        cn1-derive: DialogBody;
-        cn1-derive: Calendar;*/
-        /*cn1-derive: Dialog;*/
-    }
+
     PhotoButton {
+        /* background-color: rgb(247, 112, 50); */
         margin: 3mm;
     }
 
@@ -168,7 +307,6 @@
 
     SignUpButton.pressed {
         background-color: gray;
-
     }
     /* ---------------------- LABEL FOR ITEMS IN LIST  -------------------------*/
     TitleItem {
@@ -211,7 +349,7 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 0mm 2mm 2mm 0mm ;
+        border-radius: 0 2mm 2mm 0;;
     }
     EtatTombolaOuverte{
         background-color: green;
@@ -221,8 +359,8 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 0mm 2mm 2mm 0mm ;
-        margin: 0;
+        border-radius: 0 2mm 2mm 0;;
+
     }
     EtatTombolaCloturée{
         background-color: red;
@@ -232,7 +370,41 @@
         font-size: 3mm;
         text-align: center;
         font-weight: bold;
-        border-radius: 0mm 2mm 2mm 0mm ;
+        border-radius: 0 2mm 2mm 0;;
+
+    }
+    /************************* ADD TOMBOLA STYLES ****************************************/
+    Titre{
+        cn1-derive: Container;
+        padding: 0.5mm 0.5mm 0.5mm 0.5mm ;
+        font-weight: bold;
+        font-family : "Source Sans Pro";
+        /* border-width: 0; */
+    }
+    Date{
+        cn1-derive: Container;
+        margin: 0.5mm 0.5mm 0.5mm 5mm ;
+        font-weight: bold;
+        font-family : "Source Sans Pro";
+        border-width: 0;
+    }
+    Time{
+        cn1-derive: Container;
+        margin: 0.5mm 0.5mm 0.5mm 0.5mm ;
+        font-weight: bold;
+        font-family : "Source Sans Pro";
+        border-width: 0;
+    }
+    ButtonPart{
+        color:white;
+        background-color: rgb(247, 112, 50);
+        margin: 1mm 4mm 1mm 4mm;
+        font-family : "Source Sans Pro";
+        text-align: center;
+        border-radius: 1mm;
+    }
+     ButtonPart.pressed{
+        background-color: gray;
     }
 
 }

@@ -26,11 +26,11 @@ class ReclamationRepository extends EntityRepository
         return  $result;
     }
 
-    public function venteArtisan($mois,$id_artisan){
+    public function venteArtisan($mois,$id){
         $result = $this->getEntityManager()->createQuery(
             'SELECT p FROM PanierBundle:ProduitPanier p , ProduitBundle:Produit pr , BoutiqueBundle:Boutique b  WHERE 
-        p.idProduit = : pr.id and b.idUser = :id_artisan and MONTH(p.dateAjout) = :m ')
-            ->setParameter('m',$mois) ->setParameter('id_artisan',$id_artisan)
+        p.idProduit = :pr.id and b.idUser = :id and MONTH(p.dateAjout) = :m ')
+            ->setParameter('m',$mois) ->setParameter('id',$id)
             ->getResult();
         return  $result;
     }
@@ -45,6 +45,38 @@ class ReclamationRepository extends EntityRepository
             ->setParameter('id',$idProduit)
             ->getResult();
         return  $result;
+    }
+
+    public function peut($idBoutique,$id){
+        return $this->getEntityManager()->createQuery(
+            "SELECT COUNT(p) as peut From PanierBundle:Panier pa
+                JOIN BoutiqueBundle:Boutique b WITH p.boutique=b.id
+                JOIN PanierBundle:ProduitPanier pa WITH pa.idProduit= p.id 
+                AND pa.idUser = :id_user 
+                AND b.id = :id_boutique "
+        )->setParameter('id_user',$id)
+            ->setParameter('id_boutique',$idBoutique)
+            ->getSingleScalarResult();
+    }
+
+    function venteArtisanMobile($id)
+    {
+        return $this->getEntityManager()->createQuery(
+            "SELECT COUNT(p) as vente From ProduitBundle:Produit p
+                JOIN BoutiqueBundle:Boutique b WITH p.boutique=b.id
+                JOIN PanierBundle:ProduitPanier pa WITH pa.idProduit= p.id 
+                AND b.idUser = :id_user "
+        )->setParameter('id_user',$id)
+            ->getSingleScalarResult();
+    }
+    function totalArtisanMobile($id)
+    {
+        return $this->getEntityManager()->createQuery(
+            "SELECT COUNT(p) as tot From ProduitBundle:Produit p
+                JOIN BoutiqueBundle:Boutique b WITH p.boutique=b.id
+                AND b.idUser = :id_user "
+        )->setParameter('id_user',$id)
+            ->getSingleScalarResult();
     }
 
 

@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="9" useXmlUI="false">
+    <image name="back-arrow.png" type="multi"  />
+    <image name="back-arrow.png 1" type="multi"  />
+    <image name="background.png" type="multi"  />
+    <image name="background.png 1" type="multi"  />
     <image name="camera.png" type="multi"  />
+    <image name="camera.png 1" type="multi"  />
+    <image name="camera.png 2" type="multi"  />
+    <image name="hints.png" type="multi"  />
     <image name="left-arrow.png" type="multi"  />
+    <image name="left-arrow.png 1" type="multi"  />
+    <image name="left-arrow.png 2" type="multi"  />
+    <image name="lock.png" type="multi"  />
+    <image name="lock2.png" type="multi"  />
+    <image name="mail.png" type="multi"  />
     <image name="profile-mask-white.png" type="multi"  />
+    <image name="profile-mask-white.png 1" type="multi"  />
+    <image name="profile-photo-button.png" type="multi"  />
+    <image name="profile-photo-button.png 1" type="multi"  />
+    <image name="right-arrow.png" type="multi"  />
+    <image name="right-arrow.png 1" type="multi"  />
+    <image name="soukLogo.png" type="multi"  />
     <theme name="Theme">
         <val key="@OverlayThemes" value="theme.css" />
         <val key="@backUsesTitleBool" value="true" />
@@ -15,6 +33,7 @@
         <val key="@showBackCommandOnTitleBool" value="true" />
         <val key="@sideMenuAnimSpeedInt" value="50" />
         <val key="@sideMenuFoldedSwipeBool" value="true" />
+        <val key="BackCommandLandscape.transparency" value="0" />
         <val key="Button.align" value="4" />
         <font key="Button.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
         <val key="CalendarDate.align" value="4" />
@@ -40,6 +59,7 @@
         <val key="CalendarTitle.align" value="4" />
         <border key="CalendarTitle.border" type="empty" />
         <font key="CalendarTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="2.0" />
+        <val key="Command.transparency" value="0" />
         <val key="Label.fgColor" value="000000" />
         <val key="Label.transparency" value="0" />
         <gradient key="Scroll.bgGradient" color1="15724527" color2="15724527" posX="0.5" posY="0.5" radius="0.3" />
@@ -57,4 +77,8 @@
         <border key="border" type="empty" />
         <font key="font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
     </theme>
+    <image name="tombola.png" type="multi"  />
+    <image name="tombola.png 1" type="multi"  />
+    <image name="user.png" type="multi"  />
+    <image name="user2.png" type="multi"  />
 </resource>

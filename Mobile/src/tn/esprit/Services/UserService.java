@@ -64,8 +64,11 @@ public class UserService {
     User ajouterUserPhoto(String id, String filePath) {
         User u = new User();
         try {
+            if(id.indexOf(".")>0){
+                id = id.substring(0, id.indexOf('.'));
+            }
             MultipartRequest r = new MultipartRequest();
-            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/addImage/" + id.substring(0, id.indexOf('.')));
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/addImage/" + id);
             r.setPost(true);
             r.addData("path", filePath, "image/jpeg");
 
@@ -131,8 +134,10 @@ public class UserService {
         User u;
         try {
             ConnectionRequest r = new ConnectionRequest();
-
-            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/find/" + id.substring(0, id.indexOf('.')));
+            if(id.indexOf(".")>0){
+                id = id.substring(0, id.indexOf('.'));
+            }
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/find/" + id);
             r.setPost(false);
             r.setHttpMethod("GET");
 
@@ -151,6 +156,40 @@ public class UserService {
                     response.get("tel").toString(), response.get("pathPhotoProfil").toString());
         } catch (IOException err) {
             Log.e(err);
+            return null;
+        }
+
+        return u;
+    }
+    
+    public User connect(String username,String password) {
+        User u;
+        try {
+            ConnectionRequest r = new ConnectionRequest();
+            
+            r.setPost(false);
+            r.setHttpMethod("GET");
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/user/connect");
+
+            r.addArgument("username", username);
+            r.addArgument("password", password);
+
+            InfiniteProgress prog = new InfiniteProgress();
+            Dialog dlg = prog.showInifiniteBlocking();
+            r.setDisposeOnCompletion(dlg);
+            
+            NetworkManager.getInstance().addToQueueAndWait(r);
+
+            Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+            
+            u = new User(response.get("id").toString(), response.get("username").toString(), response.get("password").toString(),
+                    EtatUser.valueOf(response.get("etat").toString()), TypeUser.valueOf(response.get("type").toString()),
+                    response.get("nom").toString(), response.get("prenom").toString(), response.get("dateNaissance").toString(),
+                    response.get("sexe").toString(), response.get("email").toString(), response.get("adresse").toString(),
+                    response.get("tel").toString(), response.get("pathPhotoProfil").toString());
+        } catch (Exception err) {
+            //Log.e(err);
             return null;
         }
 

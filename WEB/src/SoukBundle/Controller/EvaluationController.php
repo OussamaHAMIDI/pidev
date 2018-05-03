@@ -14,8 +14,8 @@ class EvaluationController extends Controller
 {
     
     /**
-     * @Route("/api/evaluation/all")
-     */
+ * @Route("/api/evaluation/all")
+ */
     public function allAction()
     {
         $evaluations = $this->getDoctrine()->getManager()
@@ -28,6 +28,78 @@ class EvaluationController extends Controller
         $formatted = $serializer->normalize($evaluations);
         return new JsonResponse($formatted);
     }
+
+    /**
+     * @Route("/api/evaluation/topBoutique")
+     */
+    public function topBoutiqueAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $boutiquesEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getBoutiquesEvaluees();
+        $i = 0;
+        foreach ($boutiquesEvaluees as $b) {
+            $evaluation = new Evaluation();
+            $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
+                ->findBy(array('idBoutique' => $b));
+            $note = 0;
+            foreach ($evaluations as $e) {
+                $note = $note + $e->getNote();
+            }
+            $count = $em->getRepository("EvaluationBundle:Evaluation")->count(array('idBoutique' => $b));
+            $noteMoyenne = $note / $count;
+            $noteMoyenne = round($noteMoyenne);
+            $evaluation->setNote($noteMoyenne);
+            $boutique = $em->getRepository('BoutiqueBundle:Boutique')->findOneBy(array('id' => $b));
+            $boutiques[$i]=$boutique;
+            $evaluation->setIdBoutique($boutique);
+            $topTen[$i] = $evaluation;
+            $i++;
+        }
+        foreach ($topTen as $evaluation) {
+            $evaluation->setDateCreation($evaluation->getDateCreation()->format('Y-m-d H:i:s'));
+        }
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($topTen);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/evaluation/vente/{id}")
+     */
+    public function venteAction($id)
+    {
+
+        $vente = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->venteArtisanMobile($id);
+        $total = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->totalArtisanMobile($id);
+        $resp = array();
+        $resp[0]=$vente;
+        $resp[1]=$total;
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($resp);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/evaluation/peut/{id}")
+     */
+    public function peutAction($id)
+    {
+
+        $peut = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->pe($id);
+        $total = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
+            ->totalArtisanMobile($id);
+        $resp = array();
+        $resp[0]=$vente;
+        $resp[1]=$total;
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($resp);
+        return new JsonResponse($formatted);
+    }
+
 
     /**
      * @Route("/api/evaluation/find/{id}")

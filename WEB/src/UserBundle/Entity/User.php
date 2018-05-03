@@ -437,7 +437,6 @@ class User extends BaseUser
         if (null !== $this->filePe) {
             $this->pathPhotoPermis = sha1(uniqid(mt_rand(), true)).'.'.$this->filePe->guessExtension();
         }
-        var_dump($this->pathPhotoProfil);
     }
 
     /**
@@ -462,6 +461,14 @@ class User extends BaseUser
                 unlink($this->tempFilePe);
             }
         }
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     /**

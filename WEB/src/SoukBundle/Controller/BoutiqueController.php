@@ -30,6 +30,23 @@ class BoutiqueController extends Controller
     }
 
     /**
+     * @Route("/api/boutique/allUser/{id}")
+     */
+    public function allUserAction($id)
+    {
+        $boutiques = $this->getDoctrine()->getManager()
+            ->getRepository('BoutiqueBundle:Boutique')->findBy(array(
+                'idUser'=>$id
+            ));
+        foreach ($boutiques as $boutique) {
+            $boutique->setDateCreation($boutique->getDateCreation()->format('Y-m-d H:i:s'));
+        }
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($boutiques);
+        return new JsonResponse($formatted);
+    }
+
+    /**
      * @Route("/api/boutique/find/{id}")
      */
     public function findAction($id)
@@ -37,6 +54,23 @@ class BoutiqueController extends Controller
         $boutique = $this->getDoctrine()->getManager()
             ->getRepository('BoutiqueBundle:Boutique')
             ->find($id);
+        $boutique->setDateCreation($boutique->getDateCreation()->format('Y-m-d H:i:s'));
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($boutique);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/api/boutique/delete/{id}")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $boutique = $this->getDoctrine()->getManager()
+            ->getRepository('BoutiqueBundle:Boutique')
+            ->find($id);
+        $em->remove($boutique);
+        $em->flush();
         $boutique->setDateCreation($boutique->getDateCreation()->format('Y-m-d H:i:s'));
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($boutique);
@@ -52,9 +86,9 @@ class BoutiqueController extends Controller
 
         $boutique= new Boutique();
         $boutique->setNom($request->get('name'));
-        $boutique->setDateCreation(new \DateTime($request->get('dateCreation')));
-        $boutique->setLongitude($request->get('longitude'));
-        $boutique->setAltitude($request->get('altitude'));
+//        $boutique->setDateCreation(new \DateTime($request->get('dateCreation')));
+        $boutique->setLongitude(0);
+        $boutique->setAltitude(0);
         $boutique->setAdresse($request->get('adresse'));
         $user = $em->getRepository('UserBundle:User')->find($request->get('idUser'));
         $boutique->setIdUser($user);
@@ -63,6 +97,7 @@ class BoutiqueController extends Controller
         $em->flush();
 
         $boutique->setDateCreation($boutique->getDateCreation()->format('Y-m-d H:i:s'));
+        $boutique->setPathPhoto("db5f440f48744944556c98d90ca4cd14.jpeg");
 
 
         $serializer = new Serializer([new ObjectNormalizer()]);
@@ -82,6 +117,12 @@ class BoutiqueController extends Controller
 
         $dir = $boutique->getUploadRootDir().'/';
 
+        $tempFile = $boutique->getAbsolutePath();
+
+        if (file_exists($tempFile)) {
+            unlink($tempFile);
+        }
+
         foreach ($request->files as $uploadedFile) {
             $name = sha1(uniqid(mt_rand(), true)).'.'.$uploadedFile->guessExtension();
             $uploadedFile->move($dir, $name);
@@ -98,5 +139,4 @@ class BoutiqueController extends Controller
 
         return new JsonResponse($formatted);
     }
-
 }

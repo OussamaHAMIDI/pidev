@@ -3,7 +3,9 @@ package tn.esprit.entities;
 import com.codename1.io.Log;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -22,6 +24,8 @@ public class Tombola {
     private String etat;
     private String photo; // juste the name of the file.ext
 
+    private List<User> participants = new ArrayList<User>();
+
     public Tombola() {
     }
 
@@ -39,6 +43,43 @@ public class Tombola {
         this.gagnant = gagnant;
         this.dateModif = dateModif;
         this.photo = photo;
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date tirage = s.parse(dateTirage);
+
+            if (tirage.getTime() > new Date().getTime()) {
+                if (gagnant != null) {
+                    this.etat = "Cloturée";
+                } else {
+                    this.etat = "Ouverte";
+                }
+            } else {
+                if (gagnant != null) {
+                    this.etat = "Cloturée";
+                } else {
+                    this.etat = "Fermée";
+                }
+            }
+        } catch (ParseException ex) {
+            Log.e(ex);
+        }
+    }
+
+    public Tombola(String id, String titre, String description, String dateAjout, String dateTirage, String dateModif, User artisan, User gagnant, String photo, List<User> participants) {
+        if (id.contains(".")) {
+            this.id = id.substring(0, id.indexOf('.'));
+        } else {
+            this.id = id;
+        }
+        this.titre = titre;
+        this.description = description;
+        this.dateAjout = dateAjout;
+        this.dateTirage = dateTirage;
+        this.artisan = artisan;
+        this.gagnant = gagnant;
+        this.dateModif = dateModif;
+        this.photo = photo;
+        this.participants = participants;
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date tirage = s.parse(dateTirage);
@@ -137,7 +178,6 @@ public class Tombola {
         this.etat = etat;
     }
 
-    
     public String getPhoto() {
         return photo;
     }
@@ -145,5 +185,14 @@ public class Tombola {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+    
 
 }
