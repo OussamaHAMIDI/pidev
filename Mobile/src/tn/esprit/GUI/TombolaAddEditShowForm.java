@@ -442,7 +442,7 @@ public class TombolaAddEditShowForm extends Form {
                     this.addCommand(part);
                 } else {
                     this.addCommand(arrowBack);// <-
-                    if (t.getEtat().equals("Cloturée")) {
+                    if (!t.getEtat().equals("Ouverte")) {
                         this.addCommand(none);
                     } else {
                         this.addCommand(annuler);
@@ -534,8 +534,8 @@ public class TombolaAddEditShowForm extends Form {
             }
         }
         Message m = new Message(htmlBody);
-        m = new Message("<html><body>Félicitations <b>" + u.getPrenom() + "</b>,<br><br>"
-                + "<p>Vous etes gagnant au tirage du tombola <b>" + t.getTitre() + "</b> lancé le <b>" + t.getDateTirage() + "</b>.</p><br>"
+        m = new Message("Félicitations " + u.getPrenom() + " "+u.getNom()+".\n"
+                + "Vous avez gagner au tirage du tombola " + t.getTitre() + "lancé le " + t.getDateTirage() + ".\n"
                 + "<p> </p> </body></html>");
         m.setMimeType(Message.MIME_HTML);
 
