@@ -9,6 +9,7 @@ import com.codename1.components.OnOffSwitch;
 import com.codename1.ui.Command;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -25,10 +26,11 @@ public class SettingsForm extends Form {
     static Resources res;
 
     public SettingsForm() {
-        super("Boutiques",new BorderLayout());
+        super("Réglages",new BorderLayout());
         this.res = Main.stheme;
 
-        
+        Label hint = new Label("Arrêter ou démarrer la musique");
+        hint.setUIID("SingUpLabel");
         OnOffSwitch pause = new OnOffSwitch();
         pause.setOff("Arrêter");
         pause.setOn("Démarrer");
@@ -44,6 +46,7 @@ public class SettingsForm extends Form {
             }
         });
         this.add(BOTTOM,pause);
+        this.add(CENTER,hint);
         
         Command back = new Command("") {
             @Override

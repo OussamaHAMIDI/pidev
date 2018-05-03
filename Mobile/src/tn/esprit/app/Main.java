@@ -142,7 +142,7 @@ public class Main {
         //current.add(btn);
         this.shome = current;
 
-        m = null;
+        this.m = null;
         try {
             m = MediaManager.createMedia("C:\\xampp\\htdocs\\pidev\\Mobile\\song.mp3", false);
             m.play();

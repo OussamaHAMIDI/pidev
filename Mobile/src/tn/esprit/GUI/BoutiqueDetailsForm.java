@@ -33,10 +33,15 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.GroupConstraint;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.RegexConstraint;
+import com.codename1.ui.validation.Validator;
 import tn.esprit.Services.EvaluationService;
 import tn.esprit.Services.ReclamationService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
+import tn.esprit.entities.Enumerations;
 import tn.esprit.entities.Evaluation;
 import tn.esprit.entities.Reclamation;
 import tn.esprit.entities.User;
@@ -53,7 +58,6 @@ public class BoutiqueDetailsForm extends Form {
         this.boutique = boutiqueS;
         System.out.println(boutique);
 
-        
         Container north = new Container(new FlowLayout(Component.CENTER));
         north.setUIID("BoutiqueNorth");
 
@@ -71,7 +75,6 @@ public class BoutiqueDetailsForm extends Form {
 //
 //        Button photoButton = new Button(res.getImage("profile-mask-white.png"));
 //        photoButton.setUIID("PhotoButton");
-
         this.addComponent(BorderLayout.NORTH, north);
 
         Container center = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -88,45 +91,55 @@ public class BoutiqueDetailsForm extends Form {
         Label date = new Label(boutique.getDateCreation());
         date.setUIID("BoutiqueInfo");
         center.addComponent(date);
-        
-         //TO DO Yetbadel statique ki yahdher el user
-        User user = new User();
-        user.setId("40");
-        
-        Label feedback = new Label("Feedback");
-        feedback.setUIID("Label");
-        center.addComponent(feedback);
-        
-        Slider rating = createStarRankSlider();
-        center.add(FlowLayout.encloseCenter(rating));
-        rating.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                EvaluationService es = new EvaluationService();
-                Evaluation ev = new Evaluation(user,boutique,rating.getProgress());
-                es.addEvaluationBoutique(ev);
-                System.out.println("rate =====> " + rating.getProgress());
-            }
-        });
 
-        
-        TextField reclamation = new TextField("Donnez votre reclamation");
-        reclamation.setUIID("SignUpField");
-        center.addComponent(reclamation);
-        Button btnReclamation = new Button("Reclamer");
-        center.addComponent(btnReclamation);
-        btnReclamation.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                if(!reclamation.getText().equals("")){
-                    ReclamationService rs = new ReclamationService();
-                    Reclamation rec = new Reclamation(user, boutique, reclamation.getText());
-                    rs.addReclamation(rec);
-                    reclamation.setText("");
+        //TO DO Yetbadel statique ki yahdher el user
+        User user = Main.userConnected;
+
+        if (user != null && user.getType() == Enumerations.TypeUser.Client) {
+            Label feedback = new Label("Feedback");
+            feedback.setUIID("Label");
+
+            Slider rating = createStarRankSlider();
+
+            rating.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    EvaluationService es = new EvaluationService();
+                    Evaluation ev = new Evaluation(user, boutique, rating.getProgress());
+                    es.addEvaluationBoutique(ev);
+                    System.out.println("rate =====> " + rating.getProgress());
                 }
-            }
-        });
-        
+            });
+
+            TextField reclamation = new TextField("Donnez votre reclamation");
+            reclamation.setUIID("SignUpField");
+
+            Validator val = new Validator();
+            val.setShowErrorMessageForFocusedComponent(true);
+            val.addConstraint(reclamation,
+                    new GroupConstraint(
+                            new LengthConstraint(1, "Doit être non vide"),
+                            new RegexConstraint("^([a-zA-Z ÉéèÈêÊôÔ']*)$", "Veuillez saisir que des caracteres")));
+
+            Button btnReclamation = new Button("Reclamer");
+
+            btnReclamation.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    if (!reclamation.getText().equals("")) {
+                        ReclamationService rs = new ReclamationService();
+                        Reclamation rec = new Reclamation(user, boutique, reclamation.getText());
+                        rs.addReclamation(rec);
+                        reclamation.setText("");
+                    }
+                }
+            });
+
+            center.addComponent(feedback);
+            center.add(FlowLayout.encloseCenter(rating));
+            center.addComponent(reclamation);
+            center.addComponent(btnReclamation);
+        }
         this.addComponent(BorderLayout.CENTER, center);
 
         Button map = new Button("Voir sur Google Maps", res.getImage("right-arrow.png"));
@@ -141,6 +154,15 @@ public class BoutiqueDetailsForm extends Form {
             }
         });
         this.addComponent(BorderLayout.SOUTH, map);
+        Command back = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                Form bf = new BoutiqueForm();
+                bf.show();
+            }
+        };
+        FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
+        this.addCommand(back);
     }
 
     public Slider createStarRankSlider() {
