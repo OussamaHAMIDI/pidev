@@ -75,14 +75,14 @@ public class Main {
         Toolbar.setGlobalToolbar(false);
         this.stheme = theme;
         this.pUserConnected = userConnected;
-                //= new UserService().getUser("41");// 40 client 41 artisan
+        //= new UserService().getUser("41");// 40 client 41 artisan
 
     }
 
     public void start() {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String nowString = formater.format(new Date());
-        
+
         if (current != null) {
             current.show();
             return;
@@ -105,27 +105,6 @@ public class Main {
             System.out.println(e.getBoutique().getAdresse());
         }
 
-        btn.addActionListener(e -> {
-            String htmlBody = "";
-            InputStream in = Display.getInstance().getResourceAsStream(Form.class, "/gagnant.html");
-            if (in != null) {
-                try {
-                    htmlBody = Util.readToString(in);
-                    in.close();
-                } catch (IOException ex) {
-                    System.out.println(ex);
-                    htmlBody = "Read Error";
-                }
-            }
-            Message m = new Message(htmlBody);
-//            m = new Message("<html><body>Check out <a href=\"https://www.codenameone.com/\">Codename One</a>"
-//                    + "</body></html>");
-//            
-            m.setMimeType(Message.MIME_HTML);
-
-            Display.getInstance().sendMessage(new String[]{"hamdi.megdiche@esprit.tn"}, "Souk lemdina : Gagnant Tombola", m);
-        });
-
         //Styling fi wost el theme hashtable
 //        Hashtable h = new Hashtable();
 //        h.put("fgColor", "ffffff");
@@ -145,23 +124,25 @@ public class Main {
         this.m = null;
         try {
             m = MediaManager.createMedia("C:\\xampp\\htdocs\\pidev\\Mobile\\song.mp3", false);
-            if(m!=null){
-                  m.play();
+            if (m != null) {
+                m.play();
             }
-          
+
         } catch (IOException ex) {
 
         }
 
         Toolbar tb = current.getToolbar();
 
-        Image icon = theme.getImage("profile-mask-white.png");
+        Image icon = theme.getImage("soukLogo.png");
         Container topBar = BorderLayout.center(new Label(icon));
 
-        topBar.add(BorderLayout.SOUTH,
-                new Label("Souk Lemdina", "SidemenuTagline"));
-        topBar.setUIID(
-                "SideCommand");
+        Label title = new Label("Compte : Visiteur", "SidemenuTagline");
+        if (userConnected != null) {
+            title.setText(userConnected.getUserName() + " : " + userConnected.getType().toString());
+        }
+        topBar.add(BorderLayout.SOUTH, title);
+        topBar.setUIID("SideCommand");
         tb.addComponentToSideMenu(topBar);
 
         if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
@@ -174,7 +155,7 @@ public class Main {
                 sf.show();
             });
         } else if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
-           monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
+            monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
             tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
                 HistoriqueForm hf = new HistoriqueForm();
                 hf.show();
@@ -184,9 +165,9 @@ public class Main {
             });
         }
         if (pUserConnected == null) {
-        tb.addMaterialCommandToSideMenu("Connexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
-            new ConnectForm().show();
-        });
+            tb.addMaterialCommandToSideMenu("Connexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+                new ConnectForm().show();
+            });
         }
 
         tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
@@ -207,11 +188,23 @@ public class Main {
             SettingsForm sf = new SettingsForm();
             sf.show();
         });
-        
 
         tb.addMaterialCommandToSideMenu("A propos", FontImage.MATERIAL_INFO, e -> {
             new SignUpForm().show();
         });
+
+        if (pUserConnected != null) {
+            tb.addMaterialCommandToSideMenu("Déconnexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
+                userConnected = null;
+                Main main = new Main();
+                main.init(this);
+                if (Main.m != null) {
+                    Main.m.pause();
+                }
+                main.start();
+                Main.shome.show();
+            });
+        }
 
 //        Iterable<Command> commands = tb.getSideMenuCommands();
 //        MenuBar mb = tb.getMenuBar();
