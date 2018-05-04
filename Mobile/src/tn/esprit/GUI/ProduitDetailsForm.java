@@ -37,6 +37,7 @@ import tn.esprit.Services.EvaluationService;
 import tn.esprit.Services.ReclamationService;
 import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
+import tn.esprit.entities.Enumerations;
 import tn.esprit.entities.Evaluation;
 import tn.esprit.entities.Produit;
 import tn.esprit.entities.ProduitPanier;
@@ -94,8 +95,8 @@ public class ProduitDetailsForm extends Form {
          Label prix = new Label("Prix: "+String.valueOf(produit.getPrix()));
         prix.setUIID("ProduitInfo");
         center.addComponent(prix);
-
-        Button btnModifier = new Button("Ajouter au panier");
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
+            Button btnModifier = new Button("Ajouter au panier");
         center.addComponent(btnModifier);
         btnModifier.addActionListener(new ActionListener() {
             @Override
@@ -104,6 +105,8 @@ public class ProduitDetailsForm extends Form {
                 Main.monpanier.ajouter(p);
             }
         });
+        
+        }
         
         this.addComponent(BorderLayout.CENTER, center);
           this.addCommand(new Command("Retour") {

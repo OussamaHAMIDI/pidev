@@ -14,6 +14,7 @@ import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.LEFT;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -41,7 +42,11 @@ import tn.esprit.Services.BoutiqueService;
 import tn.esprit.Services.EvaluationService;
 import tn.esprit.Services.ProduitService;
 import tn.esprit.app.Main;
+import static tn.esprit.app.Main.monpanier;
+import static tn.esprit.app.Main.userConnected;
 import tn.esprit.entities.Boutique;
+import tn.esprit.entities.Enumerations;
+import tn.esprit.entities.Panier;
 import tn.esprit.entities.Produit;
 
 /**
@@ -100,14 +105,16 @@ public class ProduitForm extends Form {
         }
 
         
-        
-        this.addCommand(new Command("Ajouter") {
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+            this.addCommand(new Command("Ajouter") {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
                 new ProduitAddForm("3").show();
             }
         });
+        }
+      
         
         this.addCommand(new Command("Retour") {
 

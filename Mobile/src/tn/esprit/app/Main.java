@@ -173,11 +173,14 @@ public class Main {
             TombolaForm tf = new TombolaForm();
             tf.show();
         });
-
-        tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
+ if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
+            tb.addMaterialCommandToSideMenu("Produits", FontImage.MATERIAL_ALBUM, e -> {
             new ProduitForm().show();
         });
 
+        }
+   
+       
         if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
             monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
             tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {

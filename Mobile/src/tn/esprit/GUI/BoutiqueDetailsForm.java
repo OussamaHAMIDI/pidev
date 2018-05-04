@@ -43,6 +43,7 @@ import tn.esprit.app.Main;
 import tn.esprit.entities.Boutique;
 import tn.esprit.entities.Enumerations;
 import tn.esprit.entities.Evaluation;
+import tn.esprit.entities.ProduitPanier;
 import tn.esprit.entities.Reclamation;
 import tn.esprit.entities.User;
 
@@ -153,6 +154,16 @@ public class BoutiqueDetailsForm extends Form {
                 mf.show();
             }
         });
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+            Button btnModifier = new Button("Produits");
+        center.addComponent(btnModifier);
+        btnModifier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+              new ProduitParBoutiqueForm(Integer.valueOf(boutique.getId())).show();
+            }
+        });
+    }
         this.addComponent(BorderLayout.SOUTH, map);
         Command back = new Command("") {
             @Override
@@ -163,8 +174,8 @@ public class BoutiqueDetailsForm extends Form {
         };
         FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
         this.addCommand(back);
-    }
-
+        
+  }
     public Slider createStarRankSlider() {
 
         Slider starRank = new Slider();
