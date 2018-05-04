@@ -189,7 +189,7 @@ public class TombolaAddEditShowForm extends Form {
 
             }
             if (new Date().getTime() - tirage.getTime() > 0) {
-                Dialog.show("Erreur", "Date de tirage doit être superieure à celle d'aujourd'hui", "  OK  ", null);
+                Dialog.show("Erreur", "Date et heure de tirage doivent être superieures à cet instant !", "  OK  ", null);
                 chk = false;
             }
             if (chk) {

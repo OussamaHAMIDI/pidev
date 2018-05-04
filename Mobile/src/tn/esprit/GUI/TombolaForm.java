@@ -183,7 +183,7 @@ public class TombolaForm extends Form {
             }
         } else {
             this.addCommand(arrowBack);// <-
-            this.addCommand(none);
+            this.addCommand(refresh);
         }
     }
 

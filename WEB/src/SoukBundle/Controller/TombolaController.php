@@ -95,9 +95,9 @@ class TombolaController extends Controller
 
         foreach ($participants as $part) {
             $user = $part->getIdParticipant();
-            if($user->getDateNaissance() != null)
-                //$user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
-            if($user->getLastLogin() != null)
+//            if($user->getDateNaissance() != null)
+//                //$user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+//            if($user->getLastLogin() != null)
 //                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
 
             array_push($users,$user);

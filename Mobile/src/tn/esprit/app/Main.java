@@ -145,35 +145,29 @@ public class Main {
         topBar.setUIID("SideCommand");
         tb.addComponentToSideMenu(topBar);
 
-        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
-            tb.addMaterialCommandToSideMenu("Mes Boutiques", FontImage.MATERIAL_STORE, e -> {
-                MesBoutiqueForm bf = new MesBoutiqueForm();
-                bf.show();
-            });
-            tb.addMaterialCommandToSideMenu("Statistiques", FontImage.MATERIAL_SETTINGS, e -> {
-                StatistiquePieForm sf = new StatistiquePieForm();
-                sf.show();
-            });
-        } else if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
-            monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
-            tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
-                HistoriqueForm hf = new HistoriqueForm();
-                hf.show();
-            });
-            tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
-                new PanierForm().show();
-            });
-        }
         if (pUserConnected == null) {
             tb.addMaterialCommandToSideMenu("Connexion", FontImage.MATERIAL_ACCOUNT_CIRCLE, e -> {
                 new ConnectForm().show();
             });
         }
 
-        tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
-            BoutiqueForm bf = new BoutiqueForm();
-            bf.show();
-        });
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
+            monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
+            tb.addMaterialCommandToSideMenu("Panier", FontImage.MATERIAL_ACCOUNT_BALANCE_WALLET, e -> {
+                new PanierForm().show();
+            });
+        }
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+            tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
+                MesBoutiqueForm bf = new MesBoutiqueForm();
+                bf.show();
+            });
+        } else {
+            tb.addMaterialCommandToSideMenu("Boutiques", FontImage.MATERIAL_STORE, e -> {
+                BoutiqueForm bf = new BoutiqueForm();
+                bf.show();
+            });
+        }
 
         tb.addMaterialCommandToSideMenu("Tombolas", FontImage.MATERIAL_STARS, e -> {
             TombolaForm tf = new TombolaForm();
@@ -184,6 +178,20 @@ public class Main {
             new ProduitForm().show();
         });
 
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Client) {
+            monpanier = new Panier(Integer.valueOf(userConnected.getId()), nowString);
+            tb.addMaterialCommandToSideMenu("Historiques", FontImage.MATERIAL_HISTORY, e -> {
+                HistoriqueForm hf = new HistoriqueForm();
+                hf.show();
+            });
+        }
+        if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
+
+            tb.addMaterialCommandToSideMenu("Statistiques", FontImage.MATERIAL_SETTINGS, e -> {
+                StatistiquePieForm sf = new StatistiquePieForm();
+                sf.show();
+            });
+        }
         tb.addMaterialCommandToSideMenu("Réglages", FontImage.MATERIAL_SETTINGS, e -> {
             SettingsForm sf = new SettingsForm();
             sf.show();

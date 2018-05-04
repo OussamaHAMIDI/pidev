@@ -25,37 +25,29 @@
         color : white;
         text-align: center;
         font-size : 3mm;
+        padding-left: 0.2mm;
+        padding-right: 0.2mm;
         font-family : native:MainRegular;
     }
     Button.pressed{
-        background-color: #009999;
-        border-radius: 2mm;
-        color : white;
-        text-align: center;
-        font-size : 3mm;
-        font-weight: bold;
-        font-family : native:MainRegular;
+        background-color: #999999;
+
     }
     Button.disabled{
         background-color: rgba(66, 82, 79, 0.219);
-        border-radius: 2mm;
-        color : white;
-        font-size : 3mm;
-        text-align: center;
-        font-family : native:MainRegular;
     }
-	TopTitle{
-		color : white;
-		background : transparent;
-	}
-	TopBody{
-		color : white;
-		background : transparent;
-	}
-	TopNote{
-		color : white;
-		background : transparent;
-	}
+    TopTitle{
+        color : white;
+        background : transparent;
+    }
+    TopBody{
+        color : white;
+        background : transparent;
+    }
+    TopNote{
+        color : white;
+        background : transparent;
+    }
     Delete{
         color : rgb(226, 9, 9);
         border-radius: 2mm;
@@ -277,10 +269,10 @@
         margin: 0;
     }
 
-	FeedBackLabel{
-		background : transparent;
-		color : rgb( 77, 96, 111 );
-	}
+    FeedBackLabel{
+        background : transparent;
+        color : rgb( 77, 96, 111 );
+    }
     SignUpLabel {
         padding-left: 4mm;
         padding-right: 4mm;
@@ -406,7 +398,7 @@
         text-align: center;
         border-radius: 1mm;
     }
-     ButtonPart.pressed{
+    ButtonPart.pressed{
         background-color: gray;
     }
 
