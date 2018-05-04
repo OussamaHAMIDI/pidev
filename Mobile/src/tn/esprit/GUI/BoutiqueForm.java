@@ -83,6 +83,7 @@ public class BoutiqueForm extends Form {
                         BoutiqueDetailsForm.boutiqueS = b;
                         Form bdf = new BoutiqueDetailsForm();
                         bdf.show();
+                        //new ProduitAddForm(b.getId()).show();
                     }
                 });
                 boutiques.add(FlowLayout.encloseCenter(mb));

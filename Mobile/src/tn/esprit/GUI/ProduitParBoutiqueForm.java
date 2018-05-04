@@ -6,7 +6,6 @@
 package tn.esprit.GUI;
 
 import com.codename1.components.MultiButton;
-import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -48,15 +47,15 @@ import tn.esprit.entities.Produit;
  *
  * @author Firas
  */
-public class ProduitForm extends Form {
+public class ProduitParBoutiqueForm extends Form {
     static Resources res;
 
-    public ProduitForm() {
+    public ProduitParBoutiqueForm(int idb) {
         super("Produits", new BorderLayout());
         this.res = Main.stheme;
 
      
-        List<Produit> lb = ProduitService.getList();
+        List<Produit> lb = ProduitService.getListbyBoutique(idb);
 //        List<Evaluation> le = es.getEvaluations();
 //        System.out.println(le);
 
@@ -65,10 +64,6 @@ public class ProduitForm extends Form {
         produits.setScrollableY(true);
         if (lb != null) {
             for (Produit b : lb) {
-                 ShareButton s = new ShareButton();
-                  s.setText("Share");
-                    s.setTextToShare("");
-                   
                 EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth()/2, this.getHeight() / 5, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, b.getPath(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPath(),
                         URLImage.RESIZE_SCALE_TO_FILL);
@@ -81,7 +76,6 @@ public class ProduitForm extends Form {
                 mb.setTextLine4("Prix :" + String.valueOf(b.getPrix()));
                 //mb.setIcon(img);
                 mb.add(LEFT,img);
-          //     mb.add(s);
                 mb.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
@@ -92,7 +86,6 @@ public class ProduitForm extends Form {
                     }
                 });
                 produits.add(FlowLayout.encloseCenter(mb));
-                produits.add(s);
             }
             this.add(CENTER, produits);
         } else {
@@ -101,13 +94,6 @@ public class ProduitForm extends Form {
 
         
         
-        this.addCommand(new Command("Ajouter") {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                new ProduitAddForm("3").show();
-            }
-        });
         
         this.addCommand(new Command("Retour") {
 

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -166,4 +166,55 @@ public class ProduitService {
     }
 
 
+    
+    public static ArrayList<Produit> getListbyBoutique(int idb) {
+        ArrayList<Produit> listProduits = new ArrayList<>();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost/souk/service/produit.php?service=getallbyboutique&id="+idb);
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                //listProduits = getListProduit(new String(con.getResponseData()));
+                JSONParser jsonp = new JSONParser();
+                
+                try {
+                    Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
+                    System.out.println(tasks);
+                    //System.out.println(tasks);
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("data");
+                    for (Map<String, Object> obj : list) {
+                        //Produit p = new Produit();      
+  
+                        float id = Float.parseFloat(obj.get("id").toString());
+                        float boutique = Float.parseFloat(obj.get("boutique").toString());
+                        float prix = Float.parseFloat(obj.get("prix").toString());
+                        float poids = Float.parseFloat(obj.get("poids").toString());
+                        float quantite = Float.parseFloat(obj.get("id").toString());
+                        
+                        Produit p = new Produit((int)id, 
+                                          (int)boutique, 
+                                          obj.get("reference").toString(), obj.get("libelle").toString(), 
+                                          obj.get("description").toString(), 
+                                          (int)prix, 
+                                          obj.get("taille").toString(), 
+                                          obj.get("couleur").toString(), obj.get("texture").toString(),
+                                          (int)poids,
+                                          obj.get("date_creation").toString(), (int)quantite, 
+                                          obj.get("path").toString());
+
+                        listProduits.add(p);
+
+                    }
+                } catch (IOException ex) {
+                }
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return listProduits;
+    }
+
+
+    
+    
 }
