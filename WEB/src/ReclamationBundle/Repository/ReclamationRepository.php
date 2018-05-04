@@ -49,11 +49,11 @@ class ReclamationRepository extends EntityRepository
 
     public function peut($idBoutique,$id){
         return $this->getEntityManager()->createQuery(
-            "SELECT COUNT(p) as peut From PanierBundle:Panier pa
-                JOIN BoutiqueBundle:Boutique b WITH p.boutique=b.id
-                JOIN PanierBundle:ProduitPanier pa WITH pa.idProduit= p.id 
+            "SELECT COUNT(pp) as peut From PanierBundle:ProduitPanier pp
+                JOIN ProduitBundle:Produit p WITH pp.idProduit = p.id
+                JOIN PanierBundle:Panier pa WITH pa.id= pp.idPanier
                 AND pa.idUser = :id_user 
-                AND b.id = :id_boutique "
+                AND p.boutique = :id_boutique "
         )->setParameter('id_user',$id)
             ->setParameter('id_boutique',$idBoutique)
             ->getSingleScalarResult();

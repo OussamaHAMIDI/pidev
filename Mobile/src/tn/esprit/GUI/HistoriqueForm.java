@@ -6,6 +6,7 @@
 package tn.esprit.GUI;
 
 import com.codename1.components.MultiButton;
+import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import static com.codename1.ui.Component.CENTER;
@@ -49,7 +50,7 @@ public class HistoriqueForm extends Form {
         this.res = Main.stheme;
 
         ReclamationService rs = new ReclamationService();
-        List<Reclamation> lr = rs.getReclamations();
+        List<Reclamation> lr = rs.getReclamationsUser("40");
 
         Container reclamations = new Container(BoxLayout.y());
         reclamations.setUIID("List");
@@ -58,12 +59,24 @@ public class HistoriqueForm extends Form {
             for (Reclamation r : lr) {
                 
                 MultiButton mb = new MultiButton(r.getDateCreation());
+                Button delete = new Button("supprimer");
+                delete.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        System.out.println(r.getId());
+                        rs.deleteReclamation(r.getId());
+                        System.out.println(r.getId() + "supprimééééééééééé");
+                        HistoriqueForm hf = new HistoriqueForm();
+                        hf.show();
+                    }
+                });
+                
                 mb.setUIID("ListItem");
                 mb.setTextLine3(r.getDescription());
                 if(r.getBoutique()!=null){
                     mb.setTextLine2(r.getBoutique().getNom());
                 }
-                reclamations.add(FlowLayout.encloseCenter(mb));
+                reclamations.add(FlowLayout.encloseCenter(mb, delete));
             }
             this.add(CENTER, reclamations);
         } else {

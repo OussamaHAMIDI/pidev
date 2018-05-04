@@ -162,6 +162,7 @@ public class ProduitService {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
+        System.out.println(listProduits);
         return listProduits;
     }
 

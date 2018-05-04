@@ -83,20 +83,15 @@ class EvaluationController extends Controller
     }
 
     /**
-     * @Route("/api/evaluation/peut/{id}")
+     * @Route("/api/evaluation/peut/{id}/{idBoutique}")
      */
-    public function peutAction($id)
+    public function peutAction($id, $idBoutique)
     {
 
         $peut = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
-            ->pe($id);
-        $total = $this->getDoctrine()->getManager()->getRepository('ReclamationBundle:Reclamation')
-            ->totalArtisanMobile($id);
-        $resp = array();
-        $resp[0]=$vente;
-        $resp[1]=$total;
+            ->peut($idBoutique, $id);
         $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($resp);
+        $formatted = $serializer->normalize($peut);
         return new JsonResponse($formatted);
     }
 

@@ -104,7 +104,7 @@ public class TombolaForm extends Form {
 
                 if (Main.userConnected != null && Main.userConnected.getType() == Enumerations.TypeUser.Artisan) {
                     l7 = new Label("Date Modification :");
-                    l3 = new Label(count(t.getDateTirage()));
+                    l3 = new Label(t.getDateModif());
                     l7.setUIID("RestItemInfo");
                     l3.setUIID("RestItem");
                     row.add(l7);
@@ -164,18 +164,26 @@ public class TombolaForm extends Form {
             }
         };
         FontImage.setMaterialIcon(none, ' ', "TitleCommand", 5);
+        
+        Command refresh = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                new TombolaForm().show();
+            }
+        };
+        FontImage.setMaterialIcon(refresh, FontImage.MATERIAL_REFRESH, "TitleCommand", 5);
 
         if (Main.userConnected != null) {
             if (Main.userConnected.getType() != Enumerations.TypeUser.Artisan) {
                 this.addCommand(arrowBack);// <-
-                this.addCommand(none);
+                this.addCommand(refresh);
             } else {
                 this.addCommand(arrowBack);// <-
                 this.addCommand(ajout);// plus
             }
         } else {
             this.addCommand(arrowBack);// <-
-            this.addCommand(none);
+            this.addCommand(refresh);
         }
     }
 

@@ -134,7 +134,9 @@ public class TombolaAddEditShowForm extends Form {
         });
 
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String d = s.format(new Date());
+        Date now = new Date();
+        now.setTime(now.getTime()+1000*120);// + 120s
+        String d = s.format(now);
         date.setText(d.substring(0, d.indexOf(":") - 3));
         time.setText(d.substring(d.indexOf(":") - 2));
         dateTirage = date.getText() + " " + time.getText();
@@ -187,7 +189,7 @@ public class TombolaAddEditShowForm extends Form {
 
             }
             if (new Date().getTime() - tirage.getTime() > 0) {
-                Dialog.show("Erreur", "Date de tirage doit être superieure à celle d'aujourd'hui", "  OK  ", null);
+                Dialog.show("Erreur", "Date et heure de tirage doivent être superieures à cet instant !", "  OK  ", null);
                 chk = false;
             }
             if (chk) {
@@ -290,7 +292,7 @@ public class TombolaAddEditShowForm extends Form {
             center.add(BorderLayout.NORTH, title);
             mb.addComponent(BorderLayout.CENTER, center);
             mb.addActionListener(e -> {
-                new ConnectForm().show();
+                //new ConnectForm().show();
             });
             content.add(l).add(mb);
         }
@@ -400,7 +402,8 @@ public class TombolaAddEditShowForm extends Form {
         Command arrowBack = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                tbf.showBack();
+                //tbf.showBack();
+                new TombolaForm().showBack();
             }
         };
         FontImage.setMaterialIcon(arrowBack, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
@@ -440,7 +443,7 @@ public class TombolaAddEditShowForm extends Form {
                     this.addCommand(part);
                 } else {
                     this.addCommand(arrowBack);// <-
-                    if (t.getEtat().equals("Cloturée")) {
+                    if (!t.getEtat().equals("Ouverte")) {
                         this.addCommand(none);
                     } else {
                         this.addCommand(annuler);
@@ -532,9 +535,9 @@ public class TombolaAddEditShowForm extends Form {
             }
         }
         Message m = new Message(htmlBody);
-        m = new Message("<html><body>Félicitations <b>" + u.getPrenom() + "</b>,<br><br>"
-                + "<p>Vous etes gagnant au tirage du tombola <b>" + t.getTitre() + "</b> lancé le <b>" + t.getDateTirage() + "</b>.</p><br>"
-                + "<p> </p> </body></html>");
+        m = new Message("Félicitations " + u.getPrenom() + " "+u.getNom()+".\n"
+                + "Vous avez gagner au tirage du tombola " + t.getTitre() + " lancé le " + t.getDateTirage() + ".\n"
+                + "");
         m.setMimeType(Message.MIME_HTML);
 
         Display.getInstance().sendMessage(new String[]{u.getEmail()}, "Souk lemdina : Gagnant Tombola", m);

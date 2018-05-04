@@ -288,5 +288,29 @@ public class EvaluationService {
         }
         return li;
     }
+    
+    public int getPeutEvaluer(String id , String idboutique ) {
+        int v;
+        try {
+            ConnectionRequest r = new ConnectionRequest();
+
+            r.setUrl("http://localhost/pidev/WEB/web/app_dev.php/api/evaluation/peut/" + id + "/"+ idboutique);
+            r.setPost(false);
+            r.setHttpMethod("GET");
+
+            NetworkManager.getInstance().addToQueueAndWait(r);
+
+            Map<String, Object> response = (Map<String, Object>) new JSONParser().parseJSON(
+                    new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+
+            System.out.println(response);
+            v = 1;
+        } catch (IOException err) {
+            Log.e(err);
+            return 0;
+        }
+
+        return v;
+    }
 
 }

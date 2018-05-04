@@ -29,6 +29,8 @@ class TombolaController extends Controller
                 ->findBy(array('idArtisan'=>$id));
         }
 
+        //$tomb = array();
+
         foreach ($tombolas as $tombola) {
             $tombola->setDateTirage($tombola->getDateTirage()->format('Y-m-d H:i:s'));
             $tombola->setDateAjout($tombola->getDateAjout()->format('Y-m-d H:i:s'));
@@ -37,7 +39,21 @@ class TombolaController extends Controller
             } else {
                 $tombola->setDateModif("Jamais");
             }
+//            if($tombola->getIdArtisan()->getDateNaissance() != null)
+//                $tombola->getIdArtisan()->setDateNaissance($tombola->getIdArtisan()->getDateNaissance()->format('Y-m-d'));
+//            if($tombola->getIdArtisan()->getLastLogin() != null)
+//                $tombola->getIdArtisan()->setLastLogin($tombola->getIdArtisan()->getLastLogin()->format('Y-m-d H:i:s'));
+//
+//            if($tombola->getIdGagnant() != null)
+//                $tombola->getIdGagnant()->setDateNaissance($tombola->getIdGagnant()->getDateNaissance()->format('Y-m-d'));
+//            if($tombola->getIdGagnant() != null && $tombola->getIdGagnant()->getLastLogin()!= null)
+//                $tombola->getIdGagnant()->setLastLogin($tombola->getIdGagnant()->getLastLogin()->format('Y-m-d H:i:s'));
 
+            $tombola->participants = $this->getPart($tombola->getId());
+//            $t = array();
+//            array_push($t,$tombola,$this->getPart($tombola->getId()));
+//            //array_push($t,array('participants'=>$this->getPart($tombola->getId())));
+//            array_push($tomb,$t);
         }
         $serializer = new Serializer([new ObjectNormalizer()]);
         $formatted = $serializer->normalize($tombolas);
@@ -79,10 +95,10 @@ class TombolaController extends Controller
 
         foreach ($participants as $part) {
             $user = $part->getIdParticipant();
-            if($user->getDateNaissance() != null)
-                $user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
-            if($user->getLastLogin() != null)
-                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
+//            if($user->getDateNaissance() != null)
+//                //$user->setDateNaissance($user->getDateNaissance()->format('Y-m-d'));
+//            if($user->getLastLogin() != null)
+//                $user->setLastLogin($user->getLastLogin()->format('Y-m-d H:i:s'));
 
             array_push($users,$user);
         }

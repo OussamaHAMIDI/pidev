@@ -12,6 +12,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.validation.GroupConstraint;
 import com.codename1.ui.validation.LengthConstraint;
@@ -36,6 +37,7 @@ public class ConnectForm extends Form {
 
         this.setLayout(new BorderLayout());
         this.setUIID("SignUpForm");
+        this.getAllStyles().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
         this.setScrollableY(true);
 
         Container north = new Container(new FlowLayout(Component.CENTER));
@@ -84,18 +86,24 @@ public class ConnectForm extends Form {
             if (u != null) {
                 Main.userConnected = u;
                 Command show = Dialog.show("Connexion", "La connexion est établie.\n"
-                        + "Vous êtes desormais connecté en tant que : "+u.getType(),
+                        + "Vous êtes desormais connecté en tant que : " + u.getType(),
                         new Command[]{new Command("Ok")},
                         Dialog.TYPE_WARNING, null, 0);
 
                 if (show.getCommandName().equals("Ok")) {
+                    Main main = new Main();
+                    main.init(this);
+                    if (Main.m != null) {
+                        Main.m.pause();
+                    }
+                    main.start();
                     Main.shome.show();
                 }
             } else {
                 Command show = Dialog.show("Echec", "Username/Mot de passe invalide(s) !",
-                        new Command[]{new Command("Réessayer"),new Command("Annuler")},
+                        new Command[]{new Command("Réessayer"), new Command("Annuler")},
                         Dialog.TYPE_WARNING, null, 0);
-                 if (show.getCommandName().equals("Annuler")) {
+                if (show.getCommandName().equals("Annuler")) {
                     Main.shome.show();
                 }
             }
