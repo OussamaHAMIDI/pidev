@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="690.0" maxWidth="1340.0" prefHeight="690.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.AccueilController">
+   <children>
+      <AnchorPane fx:id="menuBar" layoutX="200.0" prefHeight="90.0" prefWidth="1140.0" style="-fx-background-color: white;" stylesheets="@style.css" AnchorPane.leftAnchor="200.0">
+         <children>
+            <Label fx:id="username" layoutX="14.0" layoutY="19.0" prefHeight="55.0" prefWidth="772.0" style="-fx-text-fill: #545454;" styleClass="body" stylesheets="@style.css" text="Bienvenue ">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="38.0" />
+               </font>
+            </Label>
+            
+            <JFXButton fx:id="btn_logout" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="980.0" layoutY="25.0" onAction="#logout" prefHeight="34.0" prefWidth="135.0" ripplerFill="#ff3333c5" styleClass="nav-button" stylesheets="@style.css" text="Déconnexion" textFill="#3c3838">
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/logout_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            
+            <JFXButton fx:id="btn_login" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="980.0" layoutY="25.0" onMouseClicked="#loginClicked" prefHeight="34.0" prefWidth="135.0" ripplerFill="#39c726c0" styleClass="nav-button" stylesheets="@style.css" text="Se connecter" textFill="#3c3838">
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="24.0" onMouseClicked="#loginClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/login_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            
+            <MenuButton fx:id="btn_user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" layoutX="882.0" layoutY="8.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="86.0" style="-fx-background-color: white;" stylesheets="@style.css" textFill="#ccbcbc8f">
+              <items>
+                <MenuItem fx:id="infos" mnemonicParsing="false" text="Mes informations" />
+                <MenuItem fx:id="changerMdp" mnemonicParsing="false" text="Changer mot de passe" />
+                  <MenuItem fx:id="supprimerCompte" mnemonicParsing="false" text="Supprimer mon compte" />
+              </items>
+               <graphic>
+                  <Circle fx:id="photoUser" fill="#ffffff00" radius="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <JFXButton fx:id="panier" layoutX="799.0" layoutY="13.0" onMouseClicked="#afficherPanier" prefHeight="60.0" prefWidth="69.0" ripplerFill="#ebebebc8" styleClass="nav-button" text=" ">
+               <graphic>
+                  <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons8_Shopping_Basket_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="holderPane" layoutX="200.0" layoutY="90.0" prefHeight="600.0" prefWidth="1140.0" style="-fx-background-color: white;" styleClass="body" stylesheets="@style.css" />
+      <VBox fx:id="sideBarArtisan" prefHeight="690.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css" visible="false">
+         <children>
+            <ImageView fitHeight="120.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/souk.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <Pane prefHeight="12.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+            <JFXButton onAction="#switchAccueilArtisan" prefHeight="60.0" prefWidth="180.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Accueil" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/home_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchProduitsArtisan" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/produit_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchBoutiqueArtisan" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/boutique_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchCommandesArtisan" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Commandes" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/boutique_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
+      <VBox fx:id="sideBarClient" prefHeight="690.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css">
+         <children>
+            <ImageView fitHeight="120.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/souk.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <Pane prefHeight="28.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+            <JFXButton onAction="#switchAccueilClient" prefHeight="60.0" prefWidth="180.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Accueil" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/home_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchProduitsClient" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/produit_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchBoutiquesClient" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/boutique_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchHistoriqueClient" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Historiques" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/history_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
+      <VBox fx:id="sideBarAdmin" prefHeight="690.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css">
+         <children>
+            <ImageView fitHeight="120.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/souk.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <Pane prefHeight="28.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+            <JFXButton onAction="#switchAccueilAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Accueil" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/home_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="10.0" layoutY="193.0" onAction="#switchUsersAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Utilisateurs" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/user_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchProduitsAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/produit_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchBoutiquesAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/boutique_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchReclamationsAdmin" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Reclamations" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="10.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/reclamation_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </VBox>
+      <VBox fx:id="sideBarVisiteur" prefHeight="690.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" styleClass="nav-bar" stylesheets="@style.css">
+         <children>
+            <ImageView fitHeight="120.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/souk.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <Pane prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+            <JFXButton onAction="#switchAccueilVisiteur" prefHeight="60.0" prefWidth="180.0" ripplerFill="#ffffff87" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Accueil" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/home_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchProduitsVisiteur" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Produits" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/produit_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton onAction="#switchBoutiquesVisiteur" prefHeight="60.0" prefWidth="180.0" ripplerFill="#aba6a087" style="-fx-alignment: left;" styleClass="nav-button" stylesheets="@style.css" text="Boutiques" textFill="#545454">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="12.0" top="25.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/boutique_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

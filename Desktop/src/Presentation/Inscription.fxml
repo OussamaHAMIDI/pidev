@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="567.0" prefWidth="882.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 5 5 5 5;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.InscriptionController">
+   <children>
+      <JFXButton layoutX="727.0" layoutY="507.0" onAction="#inscrireClicked" prefHeight="30.0" prefWidth="132.0" ripplerFill="#177fffaa" style="-fx-background-color: #4183d7;" text="S'inscrire" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label fx:id="titre" layoutX="358.0" layoutY="14.0" prefHeight="74.0" prefWidth="219.0" text="Inscription" textFill="#26b99a" wrapText="true">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="username" labelFloat="true" layoutX="468.0" layoutY="107.0" prefHeight="44.0" prefWidth="188.0" promptText="Nom d'utilisateur">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="password" labelFloat="true" layoutX="669.0" layoutY="106.0" maxWidth="201.0" minWidth="188.0" prefHeight="44.0" prefWidth="188.0" promptText="Mot de passe">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXTextField fx:id="email" labelFloat="true" layoutX="473.0" layoutY="186.0" maxWidth="407.0" minWidth="324.0" prefHeight="44.0" prefWidth="385.0" promptText="Email">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="nom" labelFloat="true" layoutX="22.0" layoutY="107.0" maxWidth="237.0" minWidth="185.0" prefHeight="44.0" prefWidth="203.0" promptText="Nom">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="prenom" labelFloat="true" layoutX="245.0" layoutY="107.0" maxWidth="231.0" minWidth="185.0" prefHeight="44.0" prefWidth="185.0" promptText="Prénom">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="adresse" labelFloat="true" layoutX="24.0" layoutY="184.0" maxWidth="422.0" minWidth="407.0" prefHeight="44.0" prefWidth="408.0" promptText="Adresse">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="tel" labelFloat="true" layoutX="22.0" layoutY="256.0" maxWidth="200.0" minWidth="178.0" prefHeight="44.0" prefWidth="178.0" promptText="Télephone">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </JFXTextField>
+      <JFXDatePicker fx:id="date" layoutX="213.0" layoutY="258.0" prefHeight="40.0" prefWidth="219.0" promptText="Date de naissance" />
+      
+
+
+
+      <JFXComboBox fx:id="type" layoutX="256.0" layoutY="319.0" prefHeight="40.0" prefWidth="133.0" promptText="Type" />
+     
+
+
+      <JFXRadioButton layoutX="93.0" layoutY="403.0" selected="true" text="Male">
+         <font>
+            <Font name="Calibri Bold" size="17.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="sexe" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton layoutX="239.0" layoutY="403.0" text="Femelle" toggleGroup="$sexe">
+         <font>
+            <Font name="Calibri Bold" size="17.0" />
+         </font>
+      </JFXRadioButton>
+      <Button fx:id="Bt_importer" layoutX="664.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importer" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #4d4d4d;" text="Importer une photo" textFill="WHITE">
+         <font>
+            <Font name="Maiandra GD" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fx:id="photo" fitHeight="133.0" fitWidth="150.0" layoutX="682.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/user.png" />
+         </image>
+      </ImageView>
+      <Separator layoutX="451.0" layoutY="108.0" orientation="VERTICAL" prefHeight="303.0" prefWidth="6.0" />
+      <Label layoutX="38.0" layoutY="339.0" prefHeight="27.0" prefWidth="185.0" text="S'incrire en tant que :" textFill="#4d4d4d">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="Bt_importerPermis" layoutX="477.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSetAction_importerPermis" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: #4d4d4d;" text="Importer une photo de permis de vente" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Maiandra GD" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fx:id="photoPermis" fitHeight="133.0" fitWidth="150.0" layoutX="495.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/icons8_Licence_100px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="close" fitHeight="30.0" fitWidth="27.0" layoutX="845.0" layoutY="9.0" onMouseClicked="#closeClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@../Images/exit_icon.png" />
+         </image>
+      </ImageView>
+   </children>
+   <effect>
+      <DropShadow />
+   </effect>
+</AnchorPane>

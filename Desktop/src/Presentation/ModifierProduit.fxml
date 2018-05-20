@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-padding: 4; -fx-border-width: 3; -fx-border-radius: 3; -fx-border-color: #26B99A; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.ModifierProduitController">
+   <children>
+      <ImageView fx:id="photo" fitHeight="118.0" fitWidth="128.0" layoutX="438.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXTextField fx:id="reference" labelFloat="true" layoutX="43.0" layoutY="52.0" prefHeight="30.0" prefWidth="240.0" promptText="Reference" />
+      <JFXTextField fx:id="libelle" labelFloat="true" layoutX="318.0" layoutY="52.0" prefHeight="30.0" prefWidth="240.0" promptText="Libellé" />
+      <JFXTextArea fx:id="description" labelFloat="true" layoutX="42.0" layoutY="102.0" prefHeight="57.0" prefWidth="517.0" promptText="Description" />
+      <JFXTextField fx:id="taille" labelFloat="true" layoutX="318.0" layoutY="182.0" prefHeight="30.0" prefWidth="240.0" promptText="Taille" />
+      <JFXTextField fx:id="prix" labelFloat="true" layoutX="43.0" layoutY="182.0" prefHeight="30.0" prefWidth="240.0" promptText="Prix" />
+      <JFXTextField fx:id="couleur" labelFloat="true" layoutX="43.0" layoutY="230.0" prefHeight="30.0" prefWidth="240.0" promptText="Couleur" />
+      <JFXTextField fx:id="texture" labelFloat="true" layoutX="318.0" layoutY="230.0" prefHeight="30.0" prefWidth="240.0" promptText="Texture" />
+      <JFXTextField fx:id="poids" labelFloat="true" layoutX="43.0" layoutY="292.0" prefHeight="30.0" prefWidth="240.0" promptText="Poids" />
+      <JFXButton fx:id="ajouterPhoto" layoutX="361.0" layoutY="353.0" onAction="#uploadPhoto" prefHeight="31.0" prefWidth="110.0" style="-fx-background-color: gray;" text="Changer photo">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="modifier" layoutX="42.0" layoutY="353.0" onAction="#modifierProduit" prefHeight="31.0" prefWidth="110.0" ripplerFill="#dbceced0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Modifier">
+         <graphic>
+            <FontAwesomeIconView fill="#fcf8f8" glyphName="PENCIL" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="retour" layoutX="200.0" layoutY="353.0" onAction="#annuler" onMouseClicked="#payerPanier" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #3C8DBC;" text="Annuler" textFill="WHITE">
+         <font>
+            <Font name="Roboto Medium" size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

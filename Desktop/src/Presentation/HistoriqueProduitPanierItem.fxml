@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HistoriqueProduitPanierItemController">
+   <children>
+      <Circle fill="DODGERBLUE" layoutX="143.0" layoutY="71.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fx:id="imageProduit" fitHeight="114.0" fitWidth="114.0" layoutX="86.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="quantite" contentDisplay="CENTER" layoutX="12.0" layoutY="256.0" prefHeight="30.0" prefWidth="134.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Quantité" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="reference" layoutX="12.0" layoutY="148.0" prefHeight="30.0" prefWidth="277.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="ReferenceProduit" />
+      <Label fx:id="description" alignment="TOP_LEFT" layoutX="12.0" layoutY="178.0" prefHeight="78.0" prefWidth="277.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="DescriptionProduit" wrapText="true" />
+      <Label fx:id="prix" layoutX="152.0" layoutY="256.0" prefHeight="30.0" prefWidth="134.0" style="-fx-text-fill: #73879C; -fx-font-weight: bold; -fx-font-size: 15;" text="Prix">
+         
+      </Label>
+   </children>
+</AnchorPane>
