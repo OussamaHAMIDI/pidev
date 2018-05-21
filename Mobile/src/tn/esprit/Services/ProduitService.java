@@ -39,7 +39,7 @@ public class ProduitService {
     
        public static  void ajoutProduit(Produit ta) {
         ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/souk/service/produit.php?service=create" +
+        String Url = "http://localhost/pidev/WEB/web/produit.php?service=create" +
                 "&boutique=" + ta.getBoutique() + 
                 "&reference=" + ta.getReference() + 
                 "&libelle=" + ta.getLibelle() + 
@@ -69,7 +69,7 @@ public class ProduitService {
        
        public static  void editeProduit(Produit ta) {
         ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/souk/service/produit.php?service=update" +
+        String Url = "http://localhost/pidev/WEB/web/produit.php?service=update" +
                 "&id=" + ta.getId() + 
                 "&boutique=" + ta.getBoutique() + 
                 "&reference=" + ta.getReference() + 
@@ -100,7 +100,7 @@ public class ProduitService {
        
        public static  void deleteProduit(Produit ta) {
         ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/souk/service/produit.php?service=delete" +
+        String Url = "http://localhost/pidev/WEB/web/produit.php?service=delete" +
                 "&id=" + ta.getId() ;
 
            System.out.println("url : "+Url);
@@ -121,7 +121,7 @@ public class ProduitService {
     public static ArrayList<Produit> getList() {
         ArrayList<Produit> listProduits = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/souk/service/produit.php?service=getall");
+        con.setUrl("http://localhost/pidev/WEB/web/produit.php?service=getall");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
@@ -171,7 +171,7 @@ public class ProduitService {
     public static ArrayList<Produit> getListbyBoutique(int idb) {
         ArrayList<Produit> listProduits = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/souk/service/produit.php?service=getallbyboutique&id="+idb);
+        con.setUrl("http://localhost/pidev/WEB/web/produit.php?service=getallbyboutique&id="+idb);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
