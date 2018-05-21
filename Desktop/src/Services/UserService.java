@@ -312,8 +312,8 @@ public class UserService implements IUser {
     public User modifierUser(User u) {
         try {
             String req = "UPDATE `user` SET `username`=?,`username_canonical`=?,`email`=?,`email_canonical`=?,`password`=?"
-                    + ",`last_login`= ? ,`roles`=?,`type`=?,`etat`= ?,`adresse`=?,`tel`=?,`nom`= ?,`prenom`=?"
-                    + ",`date_naissance`= ? ,`sexe`=?,`path_photo_profil`=? WHERE id = '" + u.getId() + "'";
+                    + ",`last_login`=? ,`roles`=?,`type`=?,`etat`= ?,`adresse`=?,`tel`=?,`nom`= ?,`prenom`=?"
+                    + ",`date_naissance`=? ,`sexe`=?,`path_photo_profil`=? WHERE id = '" + u.getId() + "'";
             ps = connexion.prepareStatement(req);
             ps.setString(1, u.getUserName());
             ps.setString(2, u.getUserName());
@@ -324,7 +324,7 @@ public class UserService implements IUser {
             try {
                 String date = u.getLastLogin().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 ps.setString(6, date);
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 ps.setString(6, null);
             }
 
@@ -337,7 +337,6 @@ public class UserService implements IUser {
             String role = "a:1:{i:0;s:" + tt.length() + ":\"" + tt + "\";}";
 
             ps.setString(7, role);
-
             ps.setString(8, u.getType().toString());
             ps.setString(9, u.getEtat().toString());
             ps.setString(10, u.getAdresse());
