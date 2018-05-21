@@ -88,18 +88,20 @@ public class ProduitLController implements Initializable {
         circle.setStroke(Color.SEAGREEN);
         circle.setFill(Color.SNOW);
         circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
-        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
-        Image img = ps.getPhoto(prod.getId());
-        if (img != null) {
-            try
-            {
-                circle.setFill(new ImagePattern(img));
-            }
-            catch(Exception e)
-            {
-                System.out.println(e.getMessage());
-            }
-        }
+//        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
+//        Image img = ps.getPhoto(prod.getId());
+System.out.println(prod.getPhoto());
+        circle.setFill(new ImagePattern(new Image(Utils.dir + prod.getPhoto())));
+//        if (img != null) {
+//            try
+//            {
+//                circle.setFill(new ImagePattern(img));
+//            }
+//            catch(Exception e)
+//            {
+//                System.out.println(e.getMessage());
+//            }
+//        }
      }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

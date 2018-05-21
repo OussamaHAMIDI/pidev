@@ -11,6 +11,7 @@ import IServices.IProduit;
 import Entities.Produit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
+import rest.file.uploader.tn.FileUploader;
 
 /**
  *
@@ -31,6 +33,7 @@ public class ProduitService implements IProduit {
 
     Connection connexion;
     PreparedStatement ps;
+    FileUploader fu = new FileUploader("localhost/pidev/WEB/web");
     
     public ProduitService() {
         connexion = MyDB.getinstance().getConnexion();
@@ -51,14 +54,24 @@ public class ProduitService implements IProduit {
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
             ps.setString(9,LocalDateTime.now().toString());
-            ps.setBinaryStream(10, p.getPhoto());
-            if (p.getPhoto()== null){
-                ps.setBinaryStream(10,new FileInputStream("src/Images/produit_icon.png"));
+//            ps.setString(10, p.getPhoto());
+//            if (p.getPhoto()== null){
+//                ps.setBinaryStream(10,new FileInputStream("src/Images/produit_icon.png"));
+//            }
+            //
+             String fileNameInServer;
+            if (p.getPhoto() != null) {
+                fileNameInServer = fu.upload(p.getPhoto());
+            } else {
+                fileNameInServer = fu.upload("src/Images/produit_icon.png");
             }
+            p.setPhoto(fileNameInServer);
+            ps.setString(10, p.getPhoto());
+            //
             ps.executeUpdate();
             System.out.println("Ajout effectué");
             return true;
-        } catch (SQLException|FileNotFoundException ex) {
+        } catch (SQLException|IOException ex) {
             Logger.getLogger(ProduitService.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Echec d'ajout");
             return false;
@@ -78,7 +91,7 @@ public class ProduitService implements IProduit {
             ps.setString(6, p.getCouleur());
             ps.setString(7, p.getTexture());
             ps.setFloat(8, p.getPoids());
-            ps.setBinaryStream(9, p.getPhoto());
+            ps.setString(9, p.getPhoto());
             ps.setInt(10, p.getId());
             ps.executeUpdate();
             System.out.println("Modification effectuée");
@@ -112,7 +125,7 @@ public class ProduitService implements IProduit {
                     .executeQuery("SELECT * FROM produit WHERE id = " + id);
             if (result.first()) {
 
-                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("id_boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getBinaryStream("photo"));
+                produit = new Produit(result.getInt("id"), result.getString("reference"), result.getString("libelle"), result.getString("description"),result.getFloat("prix"), result.getString("taille"), result.getString("couleur"), result.getString("texture"), result.getFloat("poids"), bs.chercherBoutiqueParID(result.getInt("boutique")),Utils.Utils.getLocalDateTime(result.getString("date_creation")),result.getString("path"));
                 return produit;
             }
         } catch (SQLException ex) {
@@ -142,7 +155,7 @@ public class ProduitService implements IProduit {
                         result.getFloat("poids"),
                         boutique,
                         Utils.Utils.getLocalDateTime(result.getString("date_creation")),
-                        result.getBinaryStream("photo"));
+                        result.getString("path"));
                 return produit;
 
             }
@@ -157,7 +170,7 @@ public class ProduitService implements IProduit {
     public List<Produit> listerProduitsBoutique(int idB) {
         List produits = new ArrayList();
         try {
-            String req = "SELECT * FROM produit WHERE id_boutique = " + idB + "";
+            String req = "SELECT * FROM produit WHERE boutique = " + idB + "";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
              BoutiqueService bs= new BoutiqueService();
@@ -172,8 +185,8 @@ public class ProduitService implements IProduit {
                 p.setCouleur(rs.getString("couleur"));
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
-                p.setPhoto(rs.getBinaryStream("photo"));
-                p.setBoutique(bs.chercherBoutiqueParID(rs.getInt("id_boutique")));
+                p.setPhoto(rs.getString("path"));
+                p.setBoutique(bs.chercherBoutiqueParID(rs.getInt("boutique")));
                 produits.add(p);
             }
         } catch (SQLException ex) {
@@ -220,8 +233,8 @@ public class ProduitService implements IProduit {
                 p.setCouleur(rs.getString("couleur"));
                 p.setTexture(rs.getString("texture"));
                 p.setPoids(rs.getFloat("poids"));
-                p.setPhoto(rs.getBinaryStream("photo"));
-                 p.setBoutique(bs.chercherBoutiqueParID(rs.getInt("id_boutique")));
+                p.setPhoto(rs.getString("path"));
+                 p.setBoutique(bs.chercherBoutiqueParID(rs.getInt("boutique")));
                 produits.add(p);
             }
         } catch (SQLException ex) {
@@ -236,11 +249,11 @@ public class ProduitService implements IProduit {
         InputStream photo = null;
         try {
             photo = new FileInputStream("src/Images/produit_icon.png");
-            String req = "SELECT photo FROM `produit` WHERE id = '" + idB + "'";
+            String req = "SELECT path FROM `produit` WHERE id = '" + idB + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
-                photo = rs.getBinaryStream("photo");
+                photo = rs.getBinaryStream("path");
             }
             return new Image(photo);
 
@@ -256,7 +269,7 @@ public class ProduitService implements IProduit {
     public InputStream getPhotoProduit(int idP){
         InputStream photo = null;
         try {
-            String req = "SELECT photo FROM `produit` WHERE id = '" + idP + "'";
+            String req = "SELECT path FROM `produit` WHERE id = '" + idP + "'";
             ps = connexion.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {

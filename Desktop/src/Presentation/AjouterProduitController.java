@@ -62,7 +62,8 @@ public class AjouterProduitController implements Initializable {
     private Button ajouterPhoto;
     @FXML
     private ImageView photo;
-    private FileInputStream photoProduit = null;
+    private String photoProduit = null;
+    
     private JFXButton modifier;
     @FXML
     private JFXButton ajouter;
@@ -168,13 +169,10 @@ public class AjouterProduitController implements Initializable {
         File selected_photo = file.showOpenDialog((Stage) ajouter.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
-                String path = selected_photo.getAbsolutePath();
+                photoProduit = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
                 photo.setImage(image);
-
-                File img = new File(path);
-                photoProduit = new FileInputStream(img);
             } else {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 2 Mo");
             }
@@ -213,18 +211,18 @@ public class AjouterProduitController implements Initializable {
                 return false;
             }
 
-            if (!Pattern.matches("(\\d+\\.\\d+)|(d+)", prix.getText())) {
-                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
-                prix.requestFocus();
-                prix.selectEnd();
-                return false;
-            }
-             if (!Pattern.matches("(\\d+\\.\\d+)|(d+)", poids.getText())) {
-                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
-                poids.requestFocus();
-                poids.selectEnd();
-                return false;
-            }
+//            if (!Pattern.matches("(\\d+\\.\\d+)|(d+)", prix.getText())) {
+//                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
+//                prix.requestFocus();
+//                prix.selectEnd();
+//                return false;
+//            }
+//             if (!Pattern.matches("(\\d+\\.\\d+)|(d+)", poids.getText())) {
+//                Utils.showAlert(Alert.AlertType.ERROR, "Données erronés", "Verifier les données", "Vérifiez le prix du produit !");
+//                poids.requestFocus();
+//                poids.selectEnd();
+//                return false;
+//            }
         }
         return true;
     }

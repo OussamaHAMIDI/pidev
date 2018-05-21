@@ -27,13 +27,13 @@ public class Produit {
     protected String couleur;
     protected String texture;
     protected float poids;
-
+    
     protected int idBoutique;
     protected LocalDateTime dateAjout;
 
     protected Boutique boutique;
     
-    private InputStream photo;
+    private String photo;
 
     public Produit(int id) {
         this.id = id;
@@ -46,7 +46,7 @@ public class Produit {
     public Produit() {
     }
 
-    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+    public Produit(int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, String photo) {
         this.id = id;
         this.reference = reference;
         this.libelle = libelle;
@@ -61,7 +61,7 @@ public class Produit {
         this.photo = photo;
     }
 
-    public Produit(String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+    public Produit(String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, String photo) {
         this.reference = reference;
         this.libelle = libelle;
         this.description = description;
@@ -162,11 +162,11 @@ public class Produit {
     public void setDateAjout(LocalDateTime dateAjout) {
         this.dateAjout = dateAjout;
     }
-    public InputStream getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(InputStream photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
     

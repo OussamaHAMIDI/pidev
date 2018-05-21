@@ -64,7 +64,7 @@ public class ModifierProduitController implements Initializable {
     @FXML
     private ImageView photo;
 
-    private FileInputStream photoProduit = null;
+    private String photoProduit = null;
     ProduitService ps = new ProduitService();
     public static ProduitController bc;
     private Produit p;
@@ -127,8 +127,8 @@ public class ModifierProduitController implements Initializable {
                     Float.parseFloat(prix.getText()), taille.getText(), couleur.getText(), texture.getText(),
                     Float.parseFloat(poids.getText()), p.getBoutique(), LocalDateTime.MAX, p.getPhoto());
 
-            pro.setPhoto(ps.getPhotoProduit(pro.getId()));
-            pro.setPhoto(pro.getPhoto());
+//            pro.setPhoto(ps.getPhotoProduit(pro.getId()));
+//            pro.setPhoto(pro.getPhoto());
 
             if (photoProduit != null) {
                 // System.out.println("g choisis une nouvelle photo ");
@@ -154,13 +154,10 @@ public class ModifierProduitController implements Initializable {
         File selected_photo = file.showOpenDialog((Stage) prix.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
-                String path = selected_photo.getAbsolutePath();
+               photoProduit = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
                 photo.setImage(image);
-
-                File img = new File(path);
-                photoProduit = new FileInputStream(img);
             } else {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de produit avec une taille < 2 Mo");
             }

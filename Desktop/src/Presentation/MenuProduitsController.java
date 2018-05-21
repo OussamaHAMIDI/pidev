@@ -20,7 +20,6 @@ import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -65,7 +65,7 @@ public class MenuProduitsController implements Initializable {
     public static Produit produitSelected;
     public static Boutique boutique;
 
-    private FileInputStream photoProfil = null;
+    private String photoProfil = null;
 
     ProduitService ps = new ProduitService();
     @FXML
@@ -171,7 +171,9 @@ public class MenuProduitsController implements Initializable {
             }
             
 
-            photo.setImage(ps.getPhoto(produitSelected.getId()));
+            System.out.println("BATMAN"+produitSelected.getPhoto());
+            photo.setImage(new Image(Utils.dir + produitSelected.getPhoto()));
+                 System.out.println("Superman"+produitSelected.getPhoto());
         }
     }
 

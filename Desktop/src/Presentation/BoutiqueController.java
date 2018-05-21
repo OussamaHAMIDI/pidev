@@ -88,7 +88,7 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
     private Button ajouterPhoto;
     @FXML
     private ImageView photo;
-    private FileInputStream photoBoutique = null;
+    private String photoBoutique = null;
     @FXML
     private JFXButton modifierB;
     @FXML
@@ -232,13 +232,10 @@ public class BoutiqueController implements Initializable, MapComponentInitialize
         File selected_photo = file.showOpenDialog((Stage) close.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 2.0) {
-                String path = selected_photo.getAbsolutePath();
+                photoBoutique = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
                 photo.setImage(image);
-
-                File img = new File(path);
-                photoBoutique = new FileInputStream(img);
             } else {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 2 Mo");
             }

@@ -30,17 +30,17 @@ public class Boutique {
     private String adresse;
     private List<Produit> listProduit;
     private LocalDateTime dateCreation;
-     private InputStream photo;
+     private String photo;
 
     
         public int getIDUser(){return user.getId();
 }
 
-    public InputStream getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(InputStream photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

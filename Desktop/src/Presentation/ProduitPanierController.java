@@ -7,6 +7,7 @@ package Presentation;
 
 import Entities.ProduitPanier;
 import Services.ProduitService;
+import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -92,15 +93,27 @@ public class ProduitPanierController implements Initializable {
        circle.setStroke(Color.SEAGREEN);
         circle.setFill(Color.SNOW);
         circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
-        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
-        Image img = ps.getPhoto(produit.getId());
-        if (img != null) {
-            try {
-                circle.setFill(new ImagePattern(img));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+         try{
+         
+             Image img = new Image((Utils.dir + new ProduitService().chercherProduitParID(produit.getId()).getPhoto()).trim());
+             ImagePattern imgp = new ImagePattern(img);
+             circle.setFill(imgp);
+              System.out.println("");
+             //circle.setFill(new ImagePattern(new Image(Utils.dir + p.getPhoto())));
+       }
+       catch(Exception e )
+       {
+           System.out.println(e.getMessage());
+       }
+//        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
+//        Image img = ps.getPhoto(produit.getId());
+//        if (img != null) {
+//            try {
+//                circle.setFill(new ImagePattern(img));
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
         
     }
 
