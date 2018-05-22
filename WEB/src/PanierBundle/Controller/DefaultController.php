@@ -76,6 +76,10 @@ class DefaultController extends Controller
             $prodpanier = new ProduitPanier();
             $prodpanier->newProduitPanier($produit->getId(),$produit->getReference(),$produit->getLibelle(),$produit->getDescription(),1,$produit->getPrix(),false);
 var_dump($prodpanier);
+
+            if($produits == null){
+                $produits = array();
+            }
             foreach ($produits as $key => $object) {
 
                 if ($object->idProduit == $id) {
@@ -116,6 +120,9 @@ var_dump($prodpanier);
             echo $id;
             echo json_decode($id);
             $produits = $this->get('session')->get('produits') ;
+            if($produits == null){
+                $produits = array();
+            }
             foreach ($produits as $key => $object) {
 
                 if ($object->idProduit == $id) {
@@ -199,147 +206,147 @@ if($post_data['mode']=='ParPoste')
         return new Response('This is not ajax!', 400);
     }
 
-//    /**
-//     * @Route("{/passercommande")
-//     * @Method({"GET", "POST"})
-//     */
-//    public function passercommande(Request $request)
-//    {
-//
-//
-//
-//        if ($request->isXMLHttpRequest()) {
-//
-//
-//            $monpanier =$this->get('session')->get('monpanier');
-//
-//            $produits = $this->get('session')->get('produits');
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->merge($monpanier);
-//            $em->flush();
-//
-//            $nextId = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:Tombola')->nextId();
-//
-//            foreach ($produits as $proda)
-//        {
-//            $em = $this->getDoctrine()->getManager();
-//            $proda->setIdPanier($nextId["id"]);
-//            $proda->setDateAjout(new \DateTime());
-//            $em->persist($proda);
-//            $em->flush();
-//        }
-//        //GET PRODUITS
-//            $prods = array();
-//            foreach ($produits as $proda)
-//            {
-//                $em = $this->getDoctrine()->getManager()->getRepository('ProduitBundle:Produit')->findOneBy(array('id'=>$proda->idProduit));
-//               array_push($prods,$em);
-//            }
-////GET PRODUITS
-//            // REGROUPER LES PRODUITS PAR BOUTIQUE
-//            $arr = array();
-//            foreach($prods as $pro)
-//            {
-//                $arr[$pro->getBoutique()->getId()][] = $pro;
-//            }
-//
-//
-//            ksort($arr, SORT_NUMERIC);
-//
-//            // REGROUPER LES PRODUITS PAR BOUTIQUE
-//            //
-//            foreach($arr as $group)
-//            {
-//                $prodpanier = array();
-//
-//                foreach ($group as $test)
-//                {
-//                    $user = $this->getDoctrine()
-//                        ->getManager()
-//                        ->getRepository('UserBundle:User')
-//                        ->findOneBy(array('id'=>$test->getBoutique()->getIdUser()));
-//                    foreach($produits as $obj) {
-//
-//                        if ($test->getId() == $obj->getIdProduit()) {
-//                            array_push($prodpanier,$obj);
-//                            break;
-//                        }
-//
-//                    }
-//                    $contenu_mail= \Swift_Message::newInstance()
-//                        ->setSubject('Commande')
-//                        ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
-//                        ->setTo($user->getEmail())
-//                        ->setCharset('utf-8')
-//                        ->setContentType('text/html')
-//                        ->setBody($this->renderView('@Panier/Default/commande.html.twig',array('produits'=>$prodpanier,'client'=>$this->getUser()->getEmail())));
-////                    $this->get('mailer')->send($contenu_mail);
-//                }
-//            }
-//
-//
-//            $panier = new Panier();
-//            $panier = $panier->newPanier(new \DateTime(),new \DateTime(),'0.0','0.0','temporelle','Espece','SurPlace',false,false,$this->getUser());
-//
-//            if($monpanier->getModePaiement()=="Internet")
-//             {
-//            $contenu_mail= \Swift_Message::newInstance()
-//                ->setSubject('Facture')
-//                ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
-//                ->setTo($this->getUser()->getEmail())
-//                ->setCharset('utf-8')
-//                ->setContentType('text/html')
-//                ->setBody($this->renderView('@Panier/Default/facture.html.twig',array('produits'=>$produits)));
-////            $this->get('mailer')->send($contenu_mail);
-//                 //GENERATE PDF
-//
-//                try {
-//                    $mpdf = new \Mpdf\Mpdf();
-//                    $mpdf->WriteHTML($this->renderView('@Panier/Default/pdf.html.twig',array('produits'=>$produits)));
-//
-//                    $mpdf->Output('filename.pdf', \Mpdf\Output\Destination::FILE);
-//                } catch (\Mpdf\MpdfException $e) {
-//
-//                    return new Response("EXCEPTIONPDF:::".$e->getMessage().$e);
-//
-//                }
-//                 //GENERATE PDF
-//            $this->get('session')->set('produits',[]);
-//            $this->get('session')->set('monpanier',$panier);
-//
-//            return new Response(json_encode("http://127.0.0.1:88/paypal/first.php?idpanier=".$nextId["id"]));
-//
-//        }
-//
-//            $contenu_mail= \Swift_Message::newInstance()
-//                ->setSubject('Facture')
-//                ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
-//                ->setTo($this->getUser()->getEmail())
-//                ->setCharset('utf-8')
-//                ->setContentType('text/html')
-//                ->setBody($this->renderView('@Panier/Default/facture.html.twig',array('produits'=>$produits)));
-////            $this->get('mailer')->send($contenu_mail);
-//            //GENERATE PDF
-//
-//            try {
-//                $mpdf = new \Mpdf\Mpdf();
-//                $mpdf->WriteHTML($this->renderView('@Panier/Default/pdf.html.twig',array('produits'=>$produits)));
-//
-//                $mpdf->Output('filename.pdf', \Mpdf\Output\Destination::FILE);
-//            } catch (\Mpdf\MpdfException $e) {
-//
-//                return new Response("EXCEPTIONPDF:::".$e->getMessage().$e);
-//
-//            }
-//            //GENERATE PDF
-//            $this->get('session')->set('produits',[]);
-//            $this->get('session')->set('monpanier',$panier);
-//
-//            return new Response(json_encode("ok"));
-//        }
-//        return new Response('This is not ajax!', 400);
-//    }
+    /**
+     * @Route("{/passercommande")
+     * @Method({"GET", "POST"})
+     */
+    public function passercommande(Request $request)
+    {
+
+
+
+        if ($request->isXMLHttpRequest()) {
+
+
+            $monpanier =$this->get('session')->get('monpanier');
+
+            $produits = $this->get('session')->get('produits');
+
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($monpanier);
+            $em->flush();
+
+            $nextId = $this->getDoctrine()->getManager()->getRepository('TombolaBundle:Tombola')->nextId();
+
+            foreach ($produits as $proda)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $proda->setIdPanier($nextId["id"]);
+            $proda->setDateAjout(new \DateTime());
+            $em->persist($proda);
+            $em->flush();
+        }
+        //GET PRODUITS
+            $prods = array();
+            foreach ($produits as $proda)
+            {
+                $em = $this->getDoctrine()->getManager()->getRepository('ProduitBundle:Produit')->findOneBy(array('id'=>$proda->idProduit));
+               array_push($prods,$em);
+            }
+//GET PRODUITS
+            // REGROUPER LES PRODUITS PAR BOUTIQUE
+            $arr = array();
+            foreach($prods as $pro)
+            {
+                $arr[$pro->getBoutique()->getId()][] = $pro;
+            }
+
+
+            ksort($arr, SORT_NUMERIC);
+
+            // REGROUPER LES PRODUITS PAR BOUTIQUE
+            //
+            foreach($arr as $group)
+            {
+                $prodpanier = array();
+
+                foreach ($group as $test)
+                {
+                    $user = $this->getDoctrine()
+                        ->getManager()
+                        ->getRepository('UserBundle:User')
+                        ->findOneBy(array('id'=>$test->getBoutique()->getIdUser()));
+                    foreach($produits as $obj) {
+
+                        if ($test->getId() == $obj->getIdProduit()) {
+                            array_push($prodpanier,$obj);
+                            break;
+                        }
+
+                    }
+                    $contenu_mail= \Swift_Message::newInstance()
+                        ->setSubject('Commande')
+                        ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
+                        ->setTo($user->getEmail())
+                        ->setCharset('utf-8')
+                        ->setContentType('text/html')
+                        ->setBody($this->renderView('@Panier/Default/commande.html.twig',array('produits'=>$prodpanier,'client'=>$this->getUser()->getEmail())));
+//                    $this->get('mailer')->send($contenu_mail);
+                }
+            }
+
+
+            $panier = new Panier();
+            $panier = $panier->newPanier(new \DateTime(),new \DateTime(),'0.0','0.0','temporelle','Espece','SurPlace',false,false,$this->getUser());
+
+            if($monpanier->getModePaiement()=="Internet")
+             {
+            $contenu_mail= \Swift_Message::newInstance()
+                ->setSubject('Facture')
+                ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
+                ->setTo($this->getUser()->getEmail())
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('@Panier/Default/facture.html.twig',array('produits'=>$produits)));
+//            $this->get('mailer')->send($contenu_mail);
+                 //GENERATE PDF
+
+                try {
+                    $mpdf = new \Mpdf\Mpdf();
+                    $mpdf->WriteHTML($this->renderView('@Panier/Default/pdf.html.twig',array('produits'=>$produits)));
+
+                    $mpdf->Output('filename.pdf', \Mpdf\Output\Destination::FILE);
+                } catch (\Mpdf\MpdfException $e) {
+
+                    return new Response("EXCEPTIONPDF:::".$e->getMessage().$e);
+
+                }
+                 //GENERATE PDF
+            $this->get('session')->set('produits',[]);
+            $this->get('session')->set('monpanier',$panier);
+
+            return new Response(json_encode("http://127.0.0.1/paypal/first.php?idpanier=".$nextId["id"]));
+
+        }
+
+            $contenu_mail= \Swift_Message::newInstance()
+                ->setSubject('Facture')
+                ->setFrom(array('souklemdina@gmail.com'=>'Souk lemdina Team'))
+                ->setTo($this->getUser()->getEmail())
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('@Panier/Default/facture.html.twig',array('produits'=>$produits)));
+//            $this->get('mailer')->send($contenu_mail);
+            //GENERATE PDF
+
+            try {
+                $mpdf = new \Mpdf\Mpdf();
+                $mpdf->WriteHTML($this->renderView('@Panier/Default/pdf.html.twig',array('produits'=>$produits)));
+
+                $mpdf->Output('filename.pdf', \Mpdf\Output\Destination::FILE);
+            } catch (\Mpdf\MpdfException $e) {
+
+                return new Response("EXCEPTIONPDF:::".$e->getMessage().$e);
+
+            }
+            //GENERATE PDF
+            $this->get('session')->set('produits',[]);
+            $this->get('session')->set('monpanier',$panier);
+
+            return new Response(json_encode("ok"));
+        }
+        return new Response('This is not ajax!', 400);
+    }
 
     /**
      * @Route("/test")
