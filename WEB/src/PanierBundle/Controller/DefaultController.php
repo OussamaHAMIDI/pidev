@@ -35,7 +35,7 @@ class DefaultController extends Controller
             $post_data = $request->request->all();
 
                     $data = json_decode($request->getContent());
-            var_dump(json_decode($id));
+
             echo $id;
             echo json_decode($id);
              $produits = $this->get('session')->get('produits') ;
@@ -75,8 +75,6 @@ class DefaultController extends Controller
             $produit = $this->getDoctrine()->getManager()->getRepository('ProduitBundle:Produit')->findOneBy(array('id'=>$id));
             $prodpanier = new ProduitPanier();
             $prodpanier->newProduitPanier($produit->getId(),$produit->getReference(),$produit->getLibelle(),$produit->getDescription(),1,$produit->getPrix(),false);
-var_dump($prodpanier);
-
             if($produits == null){
                 $produits = array();
             }
@@ -116,7 +114,7 @@ var_dump($prodpanier);
             $post_data = $request->request->all();
 
             $data = json_decode($request->getContent());
-            var_dump($post_data['qte']);
+
             echo $id;
             echo json_decode($id);
             $produits = $this->get('session')->get('produits') ;
