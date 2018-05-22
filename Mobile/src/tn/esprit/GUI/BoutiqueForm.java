@@ -44,9 +44,10 @@ import tn.esprit.entities.User;
 public class BoutiqueForm extends Form {
 
     static Resources res;
+    public static BoutiqueForm boutiqueForm;
 
     public BoutiqueForm() {
-        super("Boutiques",new BorderLayout());
+        super("Boutiques", new BorderLayout());
         this.res = Main.stheme;
 
         BoutiqueService bs = new BoutiqueService();
@@ -63,7 +64,6 @@ public class BoutiqueForm extends Form {
         if (lb != null) {
             for (Boutique b : lb) {
 
-               
                 EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 5, 0xFFFFFFFF), true);
                 Image img = URLImage.createToStorage(placeholder, b.getPhoto(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPhoto(),
                         URLImage.RESIZE_SCALE_TO_FILL);
@@ -76,15 +76,15 @@ public class BoutiqueForm extends Form {
                 //mb.setIcon(img);
                 mb.add(LEFT, img);
                 //Slider note = createStarRankSlider();
-                mb.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        System.out.println("clikina aal mb");
-                        BoutiqueDetailsForm.boutiqueS = b;
-                        Form bdf = new BoutiqueDetailsForm();
-                        bdf.show();
-                    }
-                });
+                mb.addActionListener(e -> {
+                    System.out.println("clikina aal mb");
+                    BoutiqueDetailsForm.boutiqueS = b;
+                    Form bdf = new BoutiqueDetailsForm();
+
+                    boutiqueForm = this;
+                    bdf.show();
+                }
+                );
                 boutiques.add(FlowLayout.encloseCenter(mb));
             }
             this.add(CENTER, boutiques);
@@ -147,5 +147,4 @@ public class BoutiqueForm extends Form {
 //        s.setBgImage(star);
 //        s.setBgTransparency(0);
 //    }
-
 }

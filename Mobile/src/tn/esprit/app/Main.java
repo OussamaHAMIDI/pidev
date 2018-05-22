@@ -94,26 +94,26 @@ public class Main {
         Button btn = new Button();
         btn.setText("Envoyer mail");
         btn.setUIID("RaisedButton");
+        //current.add(btn);
 
-        EvaluationService es = new EvaluationService();
-        List<Evaluation> le = es.getTopBoutiques();
-        for (Evaluation e : le) {
-            System.out.println(e.getBoutique());
-            System.out.println(e.getNote());
-            System.out.println(e.getBoutique().getPhoto());
-            System.out.println(e.getBoutique().getNom());
-            System.out.println(e.getBoutique().getAdresse());
-        }
-
+        //EvaluationService es = new EvaluationService();
+        //List<Evaluation> le = es.getTopBoutiques();
+        //for (Evaluation e : le) {
+//            System.out.println(e.getBoutique());
+//            System.out.println(e.getNote());
+//            System.out.println(e.getBoutique().getPhoto());
+//            System.out.println(e.getBoutique().getNom());
+//            System.out.println(e.getBoutique().getAdresse());
+        //}
         //Styling fi wost el theme hashtable
 //        Hashtable h = new Hashtable();
 //        h.put("fgColor", "ffffff");
 //        UIManager.getInstance().addThemeProps(h);
 //        Display.getInstance().getCurrent().refreshTheme();
         current = new HomeForm();
-        Container boutiques = createBoutiquesContainer(le, current);
-        current.addComponent(boutiques);
-        current.revalidate();
+        //Container boutiques = createBoutiquesContainer(le, current);
+        //current.addComponent(boutiques);
+        //current.revalidate();
         Toolbar toolBar = new Toolbar();
 
         current.setToolbar(toolBar);
@@ -238,6 +238,7 @@ public class Main {
     private void showBoutiquesContainer(List<Evaluation> le, Form current) {
         Container dishes = createBoutiquesContainer(le, current);
         current.getContentPane().replace(current.getContentPane().getComponentAt(0), dishes, CommonTransitions.createSlide(CommonTransitions.SLIDE_HORIZONTAL, false, 300));
+
     }
 
     private Container createBoutiquesContainer(List<Evaluation> le, Form current) {

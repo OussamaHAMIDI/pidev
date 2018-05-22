@@ -187,7 +187,7 @@
     /* ----------------------for CONNECT form -------------------------*/
     ConnectNorth{
         background-color: transparent;
-        padding: 14mm 0 9mm 0;
+        padding: 6mm 0 6mm 0;
         margin: 0;
     }
     ConnectCenter{
@@ -199,9 +199,9 @@
         background-color: rgb(255, 255, 255);
         opacity: 0.502;
         padding: 0.5mm;
-        height: 3mm;
+        height: 2mm;
         color:rgb(0, 0, 0);
-        font-size: 3.5mm;
+        font-size: 2.5mm;
         font-family: "Roboto";
         margin-left: 0.3mm;
         margin-top: 0.4mm;
@@ -211,7 +211,7 @@
         padding: 0.5mm;
         margin-left: 0.3mm;
         margin-top: 0.4mm;
-        font-size: 3.5mm;
+        font-size: 2.5mm;
         font-family: "Roboto";
         color: rgba(231, 14, 14, 0.76);
         text-align: left;
@@ -231,12 +231,12 @@
 
         background-color: rgb(247, 112, 50);
         color:white;
-        font-size: 40px;
+        font-size: 20px;
         font-family: "Roboto";
         text-align: center;
         font-weight: bold;
         border-radius: 3mm;
-        margin: 3mm 10mm 2mm 10mm;
+        margin: 3mm 6mm 2mm 6mm;
     }
     ConnectButton.pressed {
         background-color: gray;

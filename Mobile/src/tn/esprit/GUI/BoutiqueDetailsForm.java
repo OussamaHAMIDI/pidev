@@ -53,7 +53,7 @@ public class BoutiqueDetailsForm extends Form {
     private Boutique boutique;
 
     public BoutiqueDetailsForm() {
-        super("", new BorderLayout());
+        super("Details Boutique", new BorderLayout());
         this.res = Main.stheme;
         this.boutique = boutiqueS;
         System.out.println(boutique);
@@ -154,15 +154,24 @@ public class BoutiqueDetailsForm extends Form {
             }
         });
         this.addComponent(BorderLayout.SOUTH, map);
+        
+         Command none = new Command("") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+            }
+        };
+        FontImage.setMaterialIcon(none, ' ', "TitleCommand", 5);
+
+        
         Command back = new Command("") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                Form bf = new BoutiqueForm();
-                bf.show();
+               BoutiqueForm.boutiqueForm.showBack();
             }
         };
         FontImage.setMaterialIcon(back, FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 5);
         this.addCommand(back);
+        this.addCommand(none);
     }
 
     public Slider createStarRankSlider() {
