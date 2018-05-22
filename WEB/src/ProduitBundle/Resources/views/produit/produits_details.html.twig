@@ -18,6 +18,8 @@
                             </div>
                             <div class="col-md-7 single-top-in">
                                 <div class="span_2_of_a1 simpleCart_shelfItem">
+
+                                    <!--Titre--> <h3>Libelle: {{ p.libelle }}</h3>
                                     <div class="product-rating">
                                         {% block rating %}
                                             {{ render(controller(
@@ -26,7 +28,6 @@
                                             )) }}
                                         {% endblock rating %}
                                     </div>
-                                    <!--Titre--> <h3>Libelle: {{ p.libelle }}</h3>
                                     <h4 class="quick">Prix: {{  p.prix }}</h4>
                                     <h4 class="quick">Description</h4>
                                     <!--Description--> <p class="quick_desc"> {{  p.description }}</p>
@@ -62,7 +63,7 @@
                             </div>
                             <div class="clearfix"> </div>
                             <!---->
-                            {#{% if is_granted('ROLE_CLIENT') %}#}
+                            {% if is_granted('ROLE_CLIENT') %}
                                 <div class="product-rating">
                                     {% block rate %}
                                         {{ render(controller(
@@ -71,7 +72,7 @@
                                         )) }}
                                     {% endblock rate %}
                                 </div>
-                            {#{% endif %}#}
+                            {% endif %}
 
                         </div>
                         <div class="clearfix"></div>

@@ -9,11 +9,11 @@
         )) }}
     {% endblock topTenBoutiques %}
 
-    {#{% block topTenProduits %}#}
-        {#{{ render(controller(#}
-            {#'EvaluationBundle\\Controller\\EvaluationController::afficherTopTenProduitsAction'#}
-        {#)) }}#}
-    {#{% endblock topTenProduits %}#}
+    {% block topTenProduits %}
+        {{ render(controller(
+            'EvaluationBundle\\Controller\\EvaluationController::afficherTopTenProduitsAction'
+        )) }}
+    {% endblock topTenProduits %}
 
 
     <!-- section -->

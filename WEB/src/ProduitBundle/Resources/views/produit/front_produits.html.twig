@@ -64,6 +64,14 @@
                                  alt="image" width="350px" height="330px">
                         </div>
                         <div class="product-body">
+                            <div class="product-rating">
+                                {% block rating %}
+                                    {{ render(controller(
+                                        'EvaluationBundle\\Controller\\EvaluationController::evaluationProduitAction',
+                                        { 'idProduit': p.id }
+                                    )) }}
+                                {% endblock rating %}
+                            </div>
                             <h3 class="product-price"> {{ p.prix }}
                             </h3>
 

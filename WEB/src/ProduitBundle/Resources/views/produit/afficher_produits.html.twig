@@ -40,6 +40,14 @@
             <tbody id="tbody">
             {% for p in produits %}
                 <tr><td>{{  p.id }}</td>
+                    <div class="product-rating">
+                        {% block rating %}
+                            {{ render(controller(
+                                'EvaluationBundle\\Controller\\EvaluationController::evaluationProduitAction',
+                                { 'idProduit': p.id }
+                            )) }}
+                        {% endblock rating %}
+                    </div>
                     <td>{{  p.libelle }}</td>
                     <td>{{  p.description }}</td>
                     <td>{{  p.prix }}</td>

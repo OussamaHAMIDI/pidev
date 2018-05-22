@@ -35,44 +35,47 @@
 
                         {% for e in evaluations %}
 
+                            {% if e.idProduit != null %}
+                                <!-- Product Single -->
+                                <div class="product product-single">
+                                    <div class="product-thumb">
+                                        <div class="product-label"><span>Top</span></div>
+                                        {% set prod = produits[i] %}
 
-                            <!-- Product Single -->
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label"><span>Top</span></div>
-                                    {% set prod = produits[i] %}
-                                    <img src="{{ asset('uploads/images/' ~ prod.path) }}" alt="image du produit">
-                                    {% set i= i+1 %}
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">{{ prod.prix }} TND</h3>
-                                    {% spaceless %}
-                                        <div class="product" style="margin-top: 2%">
-                                            <div class="product-rating" style="background-color: white; padding: 2%">
-                                                {% if (e.note)!=0 %}
-                                                    {% for i in 1..e.note %}
-                                                        <i class="fa fa-star"></i>
-                                                    {% endfor %}
-                                                {% endif %}
-                                                {% if (5 - e.note != 0 ) %}
-                                                    {% for j in 1..(5 - e.note) %}
-                                                        <i class="fa fa-star empty"></i>
-                                                    {% endfor %}
-                                                {% endif %}
+                                        <img src="{{ asset('uploads/images/' ~ prod.path) }}" alt="image du produit">
+                                        {% set i= i+1 %}
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-price">{{ prod.prix }} TND</h3>
+                                        {% spaceless %}
+                                            <div class="product" style="margin-top: 2%">
+                                                <div class="product-rating"
+                                                     style="background-color: white; padding: 2%">
+                                                    {% if (e.note)!=0 %}
+                                                        {% for i in 1..e.note %}
+                                                            <i class="fa fa-star"></i>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    {% if (5 - e.note != 0 ) %}
+                                                        {% for j in 1..(5 - e.note) %}
+                                                            <i class="fa fa-star empty"></i>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
                                             </div>
+                                        {% endspaceless %}
+                                        <h2 class="product-name"><a
+                                                    href="{{ path('afficher_produit_details',{'id': prod.id}) }}">{{ prod.libelle }}</a>
+                                        </h2>
+                                        <div class="product-btns">
+                                            <button class="primary-btn"><a
+                                                        href="{{ path('afficher_produit_details',{'id': prod.id}) }}">
+                                                    Voir Produit </a></button>
                                         </div>
-                                    {% endspaceless %}
-                                    <h2 class="product-name"><a
-                                                href="{{ path('afficher_produit_details',{'id': prod.id}) }}">{{ prod.libelle }}</a>
-                                    </h2>
-                                    <div class="product-btns">
-                                        <button class="primary-btn"><a
-                                                    href="{{ path('afficher_produit_details',{'id': prod.id}) }}">
-                                                Voir Produit </a></button>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /Product Single -->
+                                <!-- /Product Single -->
+                            {% endif %}
                         {% endfor %}
                     </div>
 

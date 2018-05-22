@@ -74,6 +74,7 @@ class EvaluationController extends Controller
         $i = 0;
         //var_dump($boutiquesEvaluees);
         foreach ($boutiquesEvaluees as $b) {
+            if($b != null){
             $evaluation = new Evaluation();
             $evaluations = $em->getRepository("EvaluationBundle:Evaluation")
                 ->findBy(array('idBoutique' => $b));
@@ -91,6 +92,7 @@ class EvaluationController extends Controller
             $evaluation->setIdBoutique($boutique);
             $topTen[$i] = $evaluation;
             $i++;
+            }
         }
         return $this->render('@Evaluation/Evaluation/topTenBoutiques.html.twig', array(
             "evaluations" => $topTen, "boutiques" => $boutiques
@@ -101,6 +103,7 @@ class EvaluationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $produitsEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getProduitsEvaluees();
+        var_dump($produitsEvaluees);
         $i = 0;
         foreach ($produitsEvaluees as $p) {
             $evaluation = new Evaluation();

@@ -9,6 +9,7 @@
                 <!-- home slick -->
                 <div id="home-slick">
                     {% for e in evaluations %}
+                        {% if e.idBoutique != null %}
                         <!-- banner -->
                         <div class="banner banner-1">
                             {% set bout = boutiques[i] %}
@@ -38,6 +39,7 @@
                             </div>
 
                         </div>
+                            {% endif %}
                         <!-- /banner -->
 
                     {% endfor %}
