@@ -29,6 +29,26 @@ class ReclamationController extends Controller
         return $this->redirectToRoute('afficher_reclamation');
     }
 
+    public function ajouterReclamationProduitAction(Request $request, $idProduit)
+    {
+        $reclamation = new Reclamation();
+        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $reclamation->setIdUser($this->container->get('security.token_storage')->getToken()->getUser());
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $reclamation->setIdProduit($em->getRepository("ProduitBundle:Produit")
+                ->findOneBy(array('id' => $idProduit)));
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($reclamation);
+            $em->flush();
+        }
+        //Merge
+        return $this->render('@Reclamation/Reclamation/ajouter_reclamationProduit.html.twig', array(
+            "form" => $form->createView()
+        ));
+    }
 
     public function ajouterReclamationAction(Request $request, $idBoutique)
     {
