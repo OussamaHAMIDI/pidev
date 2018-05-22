@@ -90,7 +90,6 @@ public class UneBoutiqueArtisanController implements Initializable {
              Image img = new Image((Utils.dir +"images/"+ b.getPhoto()).trim());
              ImagePattern imgp = new ImagePattern(img);
              circle.setFill(imgp);
-              System.out.println("");
              //circle.setFill(new ImagePattern(new Image(Utils.dir + p.getPhoto())));
        }
        catch(Exception e )

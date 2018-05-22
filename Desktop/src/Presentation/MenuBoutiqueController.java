@@ -36,10 +36,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.control.Rating;
@@ -84,7 +86,7 @@ public class MenuBoutiqueController implements Initializable {
     private JFXButton addBoutique;
     @FXML
     private Separator separateur;
-    
+
     public static GridPane gridPane = new GridPane();
     public static List<Boutique> list;
     public static UneBoutiqueArtisanController bc;
@@ -97,7 +99,6 @@ public class MenuBoutiqueController implements Initializable {
     UserService us = new UserService();
     @FXML
     private JFXButton stock;
-
 
     public void addToGrid(List<Boutique> list) {
         int totalItems = list.size();
@@ -148,7 +149,7 @@ public class MenuBoutiqueController implements Initializable {
             } else {
                 evaluation.setDisable(true);
             }
-            if (rs.peutReclamer(AccueilController.userConnected, boutiqueSelectede)){
+            if (rs.peutReclamer(AccueilController.userConnected, boutiqueSelectede)) {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);
                 validation.setVisible(true);
@@ -159,7 +160,15 @@ public class MenuBoutiqueController implements Initializable {
                 validation.setVisible(false);
                 warning.setVisible(false);
             }
-            photo.setImage(bs.getPhoto(boutiqueSelectede.getId()));
+
+            try {
+                //System.out.println((Utils.dir + "images/" + boutiqueSelectede.getPhoto()).trim());
+                Image img = new Image((Utils.dir + "images/" + boutiqueSelectede.getPhoto()).trim());
+                photo.setImage(img);
+                //circle.setFill(new ImagePattern(new Image(Utils.dir + p.getPhoto())));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -190,7 +199,7 @@ public class MenuBoutiqueController implements Initializable {
                 addBoutique.setVisible(false);
                 reclamation.setVisible(false);//text area
                 stock.setVisible(false);
-                  list = bs.lireBoutiques();
+                list = bs.lireBoutiques();
             } else if (AccueilController.userConnected.getType() == TypeUser.Artisan) {
                 separateur.setVisible(false);
                 idB.setVisible(false);
@@ -200,8 +209,8 @@ public class MenuBoutiqueController implements Initializable {
                 reclamationB.setVisible(false);
                 reclamation.setVisible(false);//text area
                 addBoutique.setVisible(true);
-                 stock.setVisible(true);
-                   list = bs.lireBoutique(AccueilController.userConnected);
+                stock.setVisible(true);
+                list = bs.lireBoutique(AccueilController.userConnected);
             } else if (AccueilController.userConnected.getType() == TypeUser.Client) {
                 separateur.setVisible(false);
                 idB.setVisible(false);
@@ -211,8 +220,8 @@ public class MenuBoutiqueController implements Initializable {
                 reclamationB.setVisible(true);
                 reclamation.setVisible(true);//text area
                 addBoutique.setVisible(false);
-                 stock.setVisible(false);
-                   list = bs.lireBoutiques();
+                stock.setVisible(false);
+                list = bs.lireBoutiques();
             }
         } else {//visiteur
             separateur.setVisible(false);
@@ -223,15 +232,15 @@ public class MenuBoutiqueController implements Initializable {
             reclamationB.setVisible(false);
             reclamation.setVisible(false);//text area
             addBoutique.setVisible(false);
-              list = bs.lireBoutiques();
-                      
+            list = bs.lireBoutiques();
+
         }
 
         evaluation.setRating(0);
         filter.textProperty().addListener((observable, oldValue, newValue) -> updateItems(newValue));
         UneBoutiqueArtisanController.contenu = list;
         UneBoutiqueArtisanController.mc = this;
-        
+
         gridPane.getChildren().clear();
         addToGrid(list);
         gridPane.setHgap(25);
@@ -261,14 +270,14 @@ public class MenuBoutiqueController implements Initializable {
 
     @FXML
     private void afficherProduit(ActionEvent event) throws IOException {
-        if(boutiqueSelected!=null)
-        {
-            MenuProduitsController.boutique=boutiqueSelected;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuProduits.fxml"));
-            Utils.getAnotherStage(loader, "Menu produits ").show();
-
+        if (boutiqueSelected != null) {
+            if (boutiqueSelected.getListProduit()!= null && boutiqueSelected.getListProduit().size() > 0) {
+                MenuProduitsController.boutique = boutiqueSelected;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuProduits.fxml"));
+                Utils.getAnotherStage(loader, "Menu produits ").show();
+            }
         }
-        
+
     }
 
     @FXML
@@ -323,9 +332,8 @@ public class MenuBoutiqueController implements Initializable {
 
     @FXML
     private void gererStock(MouseEvent event) {
-          if(boutiqueSelected!=null)
-        {
-            MenuProduitsController.boutique=boutiqueSelected;
+        if (boutiqueSelected != null) {
+            MenuProduitsController.boutique = boutiqueSelected;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStock.fxml"));
             Utils.getAnotherStage(loader, "Menu produits ").show();
 
