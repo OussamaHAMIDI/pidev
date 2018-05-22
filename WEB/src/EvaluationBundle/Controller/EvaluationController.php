@@ -103,7 +103,7 @@ class EvaluationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $produitsEvaluees = $em->getRepository('EvaluationBundle:Evaluation')->getProduitsEvaluees();
-        var_dump($produitsEvaluees);
+        //var_dump($produitsEvaluees);
         $i = 0;
         foreach ($produitsEvaluees as $p) {
             $evaluation = new Evaluation();
