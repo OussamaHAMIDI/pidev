@@ -312,11 +312,13 @@ function passerCommande()
         url:"{{ path('panier_default_passercommande') }}",
         success: function(response) {
 
-            if(response.indexOf("127")>=0)
-            {
-                $(location).attr('href', response.replace('\"','').replace('\"',''));
-            }
-            $(location).attr('href', 'http://127.0.0.1:8000');
+            $(location).attr('href', response.replace('\"','').replace('\"',''));
+            // alert(response);
+            // if(response.indexOf("paypal")>=0)
+            // {
+            //     $(location).attr('href', response.replace('\"','').replace('\"',''));
+            // }
+            // $(location).attr('href', 'http://127.0.0.1:8000');
             },
         error:function(request, status, error)
         {
