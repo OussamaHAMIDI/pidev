@@ -9,6 +9,7 @@ import Entities.Produit;
 import Entities.ProduitPanier;
 import static Presentation.MenuProduitsController.produitSelected;
 import Services.ProduitService;
+import Services.UserService;
 import Utils.Enumerations.*;
 import Utils.Utils;
 import com.jfoenix.controls.JFXButton;
@@ -86,15 +87,30 @@ public class ProduitController implements Initializable {
         circle.setStroke(Color.SEAGREEN);
         circle.setFill(Color.SNOW);
         circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
-        circle.setFill(new ImagePattern(new Image("Images/camera.png")));
-        Image img = ps.getPhoto(p.getId());
-        if (img != null) {
-            try {
-                circle.setFill(new ImagePattern(img));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+       try{
+             System.out.println((Utils.dir + p.getPhoto()).trim());
+             Image img = new Image((Utils.dir + p.getPhoto()).trim());
+             ImagePattern imgp = new ImagePattern(img);
+             circle.setFill(imgp);
+              System.out.println("");
+             //circle.setFill(new ImagePattern(new Image(Utils.dir + p.getPhoto())));
+       }
+       catch(Exception e )
+       {
+           System.out.println(e.getMessage());
+       }
+      
+       
+       
+       // circle.setFill(new ImagePattern(new Image("Images/camera.png")));
+//        Image img = ps.getPhoto(p.getId());
+//        if (img != null) {
+//            try {
+//                circle.setFill(new ImagePattern(img));
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
     }
 
     @Override

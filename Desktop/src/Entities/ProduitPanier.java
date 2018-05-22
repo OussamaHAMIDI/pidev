@@ -55,7 +55,7 @@ public class ProduitPanier extends Produit
         this.livree = livree;
     }
 
-    public ProduitPanier(boolean livree ,float quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, InputStream photo) {
+    public ProduitPanier(boolean livree ,float quantiteVendue, float poidsVendu, float prixVente, int id, String reference, String libelle, String description, float prix, String taille, String couleur, String texture, float poids, Boutique boutique, LocalDateTime dateAjout, String photo) {
         super(id, reference, libelle, description, prix, taille, couleur, texture, poids, boutique, dateAjout, photo);
         this.quantiteVendue = quantiteVendue;
         this.poidsVendu = poidsVendu;

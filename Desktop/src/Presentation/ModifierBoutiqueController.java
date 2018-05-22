@@ -51,7 +51,7 @@ public class ModifierBoutiqueController implements Initializable {
 
     private BoutiqueService bs = new BoutiqueService();
     private Boutique b;
-    private FileInputStream photoBoutique= null;
+    private String photoBoutique= null;
     public static Boutique boutiqueSelected=null;
     public static UneBoutiqueArtisanController bc;
     
@@ -73,12 +73,12 @@ public class ModifierBoutiqueController implements Initializable {
     private void modifierBoutique(ActionEvent event) {
         boutiqueSelected.setNom(nomBoutique.getText());
         boutiqueSelected.setAdresse(adresseBoutique.getText());
-        boutiqueSelected.setPhoto(bs.getPhotoBoutique(boutiqueSelected.getId()));
+//        boutiqueSelected.setPhoto(bs.getPhotoBoutique(boutiqueSelected.getId()));
         boutiqueSelected.setPhoto(b.getPhoto());
-        if(photoBoutique!=null){
-           boutiqueSelected.setPhoto(photoBoutique);
-           photoBoutique=null;
-        }
+//        if(photoBoutique!=null){
+//           boutiqueSelected.setPhoto(photoBoutique);
+//           photoBoutique=null;
+//        }
        
         bs.modifierBoutique(boutiqueSelected);
          bc.setValues(b);
@@ -102,13 +102,10 @@ public class ModifierBoutiqueController implements Initializable {
         File selected_photo = file.showOpenDialog((Stage) retour.getScene().getWindow());
         if (selected_photo != null) {
             if ((selected_photo.length() / 1024) / 1024 < 4.0) {
-                String path = selected_photo.getAbsolutePath();
+                 photoBoutique = selected_photo.getAbsolutePath();
                 BufferedImage bufferedImage = ImageIO.read(selected_photo);
                 WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
                 photoB.setImage(image);
-
-                File img = new File(path);
-                photoBoutique = new FileInputStream(img);
             } else {
                 Utils.showAlert(Alert.AlertType.ERROR, "Erreur", "Taile trop grande !", "Veuillez choisir une photo de profil avec une taille < 4 Mo");
             }

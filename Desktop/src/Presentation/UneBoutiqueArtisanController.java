@@ -85,11 +85,24 @@ public class UneBoutiqueArtisanController implements Initializable {
         circle.setStroke(Color.SEAGREEN);
         circle.setFill(Color.SNOW);
         circle.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
-        circle.setFill(new ImagePattern(new Image("Images/produit_icon.png")));
-        Image img = bs.getPhoto(b.getId());
-        if (img != null) {
-            circle.setFill(new ImagePattern(img));
-        }
+        try{
+             System.out.println((Utils.dir +"images/"+ b.getPhoto()).trim());
+             Image img = new Image((Utils.dir +"images/"+ b.getPhoto()).trim());
+             ImagePattern imgp = new ImagePattern(img);
+             circle.setFill(imgp);
+              System.out.println("");
+             //circle.setFill(new ImagePattern(new Image(Utils.dir + p.getPhoto())));
+       }
+       catch(Exception e )
+       {
+           System.out.println(e.getMessage());
+       }
+      
+//        circle.setFill(new ImagePattern(new Image("Images/produit_icon.png")));
+//        Image img = bs.getPhoto(b.getId());
+//        if (img != null) {
+//            circle.setFill(new ImagePattern(img));
+//        }
     }
 
     @Override

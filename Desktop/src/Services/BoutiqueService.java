@@ -13,6 +13,7 @@ import IServices.IBoutique;
 import com.restfb.types.Photo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
+import rest.file.uploader.tn.FileUploader;
 
 // manque adreesse fel base !!!!
 /**
@@ -36,6 +38,7 @@ public class BoutiqueService implements IBoutique {
 
     Connection connexion;
     PreparedStatement ps;
+    FileUploader fu = new FileUploader("localhost/pidev/WEB/web");
 
     public BoutiqueService() {
         connexion = MyDB.getinstance().getConnexion();
@@ -44,7 +47,7 @@ public class BoutiqueService implements IBoutique {
     @Override
     public void ajouterBoutique(Boutique boutique,int idUser) {
         try {
-            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse,longitude,altitude,photo)"
+            String req = "INSERT INTO boutique (id_user,nom,date_creation , adresse,longitude,altitude,path_photo)"
                     + " values ( ? , ? , ? , ? ,?,?,?)"; 
             ps = connexion.prepareStatement(req);
             ps.setInt(1,idUser);
@@ -53,15 +56,22 @@ public class BoutiqueService implements IBoutique {
             ps.setString(4, boutique.getAdresse());
             ps.setString(5, String.valueOf(boutique.getLat()));
             ps.setString(6, String.valueOf(boutique.getLong()));
-            ps.setBinaryStream(7, boutique.getPhoto());
-            if (boutique.getPhoto()== null){
-                ps.setBinaryStream(7,new FileInputStream("src/Images/camera.png"));
+//            ps.setBinaryStream(7, boutique.getPhoto());
+//            if (boutique.getPhoto()== null){
+//                ps.setBinaryStream(7,new FileInputStream("src/Images/camera.png"));
+//            }
+  String fileNameInServer;
+            if (boutique.getPhoto() != null) {
+                fileNameInServer = fu.upload(boutique.getPhoto());
+            } else {
+                fileNameInServer = fu.upload("src/Images/produit_icon.png");
             }
-
+            boutique.setPhoto(fileNameInServer);
+            ps.setString(7, boutique.getPhoto());
             ps.executeUpdate();
            
             System.out.println("L'ajout de la boutique est effectué");
-        } catch (SQLException | FileNotFoundException ex) {
+        } catch (SQLException | IOException ex) {
             System.out.println("L'ajout de la boutique a échoué " + ex.getMessage());
         }
     }
@@ -214,7 +224,7 @@ public class BoutiqueService implements IBoutique {
                 b.setLong(rs.getDouble("longitude"));
                 b.setLat(rs.getDouble("altitude"));
                 b.setDateCreation(rs.getObject("date_creation", LocalDateTime.class));
-                b.setPhoto(rs.getBinaryStream("photo"));
+                b.setPhoto(rs.getString("path_photo"));
                 b.setUser(us.getUserById(rs.getInt("id_user")));
                 b = remplirProduitsParBoutique(b);
                 boutiques.add(b);
@@ -249,7 +259,7 @@ public class BoutiqueService implements IBoutique {
     public List<Produit> lireProduitsParBoutique(String nomBoutique) {
         List produits = new ArrayList();
         try {
-            String sql = "SELECT p.id from produit p, boutique b WHERE p.id_boutique = b.id and b.nom = '" + nomBoutique + "'";
+            String sql = "SELECT p.id from produit p, boutique b WHERE p.boutique = b.id and b.nom = '" + nomBoutique + "'";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             ProduitService pService = new ProduitService();
@@ -268,7 +278,7 @@ public class BoutiqueService implements IBoutique {
 
         List produits = new ArrayList();
         try {
-            String sql = "SELECT id FROM produit WHERE id_boutique = '" + boutique.getId() + "'";
+            String sql = "SELECT id FROM produit WHERE boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -287,7 +297,7 @@ public class BoutiqueService implements IBoutique {
 
         List<Produit> produits = new ArrayList<Produit>();
         try {
-            String sql = "SELECT id FROM produit WHERE id_boutique = '" + boutique.getId() + "'";
+            String sql = "SELECT id FROM produit WHERE boutique = '" + boutique.getId() + "'";
             ps = connexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -344,12 +354,12 @@ public class BoutiqueService implements IBoutique {
 
     @Override
     public void modifierBoutique(Boutique boutique) {
-        String req = "UPDATE boutique SET nom = ? , adresse = ? , photo = ? WHERE id = ?";
+        String req = "UPDATE boutique SET nom = ? , adresse = ? , path_photo = ? WHERE id = ?";
         try {
             ps = connexion.prepareStatement(req);
             ps.setString(1, boutique.getNom());
             ps.setString(2, boutique.getAdresse());
-             ps.setBlob(3, boutique.getPhoto());
+             ps.setString(3, boutique.getPhoto());
             ps.setInt(4, boutique.getId());
             ps.executeUpdate();
             System.out.println("La mise a jour de la boutique est effectuée");

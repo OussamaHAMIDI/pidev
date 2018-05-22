@@ -126,7 +126,6 @@ public class AffichageProdController implements Initializable {
         gridPaneBoutique=new GridPane();
         gridPaneProduit=new GridPane();
         ProduitController.contenu = p;
-//        ProduitController.mc = this;
         addToGridProduit(p);
         gridPaneProduit.setHgap(25);
         gridPaneProduit.setVgap(25);
@@ -134,12 +133,11 @@ public class AffichageProdController implements Initializable {
         scrollProd.setContent(gridPaneProduit);
         
         UneBoutiqueArtisanController.contenu = b;
-//        ProduitController.mc = this;
         addToGridBoutique(b);
         gridPaneBoutique.setHgap(25);
         gridPaneBoutique.setVgap(25);
         scrollBout.setPannable(true);
-        scrollBout.setContent(gridPaneBoutique);
+       scrollBout.setContent(gridPaneBoutique);
     }    
     
 }
