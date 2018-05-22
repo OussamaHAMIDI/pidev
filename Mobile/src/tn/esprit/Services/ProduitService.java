@@ -129,6 +129,7 @@ public class ProduitService {
                 JSONParser jsonp = new JSONParser();
                 
                 try {
+                    System.out.println(new String(con.getResponseData()));
                     Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
                     System.out.println(tasks);
                     //System.out.println(tasks);

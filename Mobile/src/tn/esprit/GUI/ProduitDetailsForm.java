@@ -60,7 +60,7 @@ public class ProduitDetailsForm extends Form {
         north.setUIID("BoutiqueNorth");
 
         EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth() / 2, this.getHeight() / 5, 0xFFFFFFFF), true);
-        Image img = URLImage.createToStorage(placeholder, produit.getPath(), "http://localhost/pidev/WEB/web/uploads/images/" + produit.getPath(),
+        Image img = URLImage.createToStorage(placeholder, produit.getPath(), "http://localhost/pidev/WEB/web/uploads/" + produit.getPath(),
                 URLImage.RESIZE_SCALE_TO_FILL);
         north.add(img);
 

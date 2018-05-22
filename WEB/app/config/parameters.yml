@@ -4,7 +4,7 @@ parameters:
     database_port: null
     database_name: souk
     database_user: root
-    database_password: 
+    database_password:
     mailer_transport: smtp
     mailer_host: smtp.gmail.com
     mailer_user: souklemdina@gmail.com

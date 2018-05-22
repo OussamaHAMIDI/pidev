@@ -65,7 +65,7 @@ public class ProduitForm extends Form {
         if (lb != null) {
             for (Produit b : lb) {
                 EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(this.getWidth()/2, this.getHeight() / 5, 0xFFFFFFFF), true);
-                Image img = URLImage.createToStorage(placeholder, b.getPath(), "http://localhost/pidev/WEB/web/uploads/images/" + b.getPath(),
+                Image img = URLImage.createToStorage(placeholder, b.getPath(), "http://localhost/pidev/WEB/web/uploads/" + b.getPath(),
                         URLImage.RESIZE_SCALE_TO_FILL);
                 Container imgC = new Container();
                 imgC.add(img);

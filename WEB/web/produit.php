@@ -1,7 +1,7 @@
 <?php
 
  //getting the dboperation class
- require_once '../ProduitOperation.php';
+ require_once 'ProduitOperation.php';
 
  //function validating all the paramters are available
  //we will pass the required parameters to this function
