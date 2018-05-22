@@ -111,8 +111,14 @@ public class ConnectForm extends Form {
 
         center.add(connect);
 
-        this.add(BorderLayout.NORTH, north);
-        this.add(BorderLayout.CENTER, center);
+        Container cnx = new Container(new BorderLayout());
+        
+        cnx.add(BorderLayout.NORTH, north);
+        cnx.add(BorderLayout.CENTER, center);
+        cnx.setScrollableY(true);
+
+        this.add(BorderLayout.NORTH,cnx);
+       // this.add(BorderLayout.CENTER, center);
 
         Validator val = new Validator();
         val.setShowErrorMessageForFocusedComponent(true);
